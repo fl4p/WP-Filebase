@@ -1,0 +1,870 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2011-11-20 21:20+0100\n"
+"Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Kategorilenmemiş Dosyalar"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Herhangi bir dosya yüklemediniz. <a href=\"%s\" target=\"_parent\">Yüklemek için buraya tıklayın.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Bağlantı metnini girin:"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Tekil dosya"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "Dosya URL'si"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Dosya Listesi"
+
+msgid "Category list"
+msgstr "Kategori listesi"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Tüm Kategoriler"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Eklentiler"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Bir kategori açmadınız. <a href=\"%s\" target=\"_parent\">Açmak için buraya tıklayın.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Şablonu Seçin"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Öntanımlı Şablon"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Şablon Ekle"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Her satıra bir giriş. Başlık ve kısa açıklamayı (8 karakter) '|' ile ayırın.<br />'*' ile başlayan satırlar ön tanımlı olarak seçilir."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "Her satıra bir giriş."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "İndirmeler için azami transfer hızı. 0=limitsiz"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Azami veri trafiği. 0=limitsiz"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Yükleme Yolu"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Eklenmiş dosyaları göster"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Etkinleştirildiğinde, ilintili dosyalar başlığın altında listelenir"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Öntanımlı sıralama"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Dosya özellik listelerinin sıralanması:"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Sıralama yönü"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "Dosya listelerinin sıralanma yönü"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Misafirler için hız limiti"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Kayıtlı kullanıcılar için hız limiti"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Günlük trafik limiti"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Aylık trafik limiti"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Trafik limiti aşıldı! Daha sonra tekrar deneyin."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Trafik aşıldı mesajı"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Günlük kullanıcı indirme limitleri"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Etkinleştirildiğinde kayıtsız kullanıcılar herhangi bir doya indiremez. Aşağıda her kullanıcı rolü için farklı limitler belirleyebilirsiniz."
+
+msgid "downloads per day"
+msgstr "günlük indirme sayısı"
+
+msgid "Daily limit for %s"
+msgstr "%s için günlük limit"
+
+msgid "You can only download %d files per day."
+msgstr "Günde sadece %d adet dosya indirebilirsiniz."
+
+msgid "Daily limit exceeded message"
+msgstr "Günlük limit aşıldı mesajı"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Dosya halen çevrimdışı."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Dosya çevrimdışı mesajı"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Kalıcı indirme bağlantılarını iptal et"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Kalıcı bağlantılarla sorununuz varsa bunu aktifleyin."
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "İndirme URL bazı"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "İndirme bağlantıları için ön ek. Örnek: <code>%s</code> (Kalıcı bağlantılar aktiflendiğinde kullanılabilir.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "Dosya tarayıcısının gönderi ID'si"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Dosya tarayıcını yerleştirileceği sayfa veya girdinin ID'sini tanımlayın.  Bu alanı boş bırakarak özelliği iptal edebilirsiniz."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Çoktan seçmeli kategori listesi"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Dosya tarayıcısında çoktan seçmeli liste kullan."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Her zaman indirmeyi zorla"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Etkinleştirildiğinde, tarayıcıda görüntülenebilen dosyalar (imajlar, PDF dökümanlar, videolar vb.) sadece indirilebilir."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Yöneticiler tarafından yapılan indirmeleri göz ardı et"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Erişilemeyen dosya ve kategorileri gizle"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Etkinleştirildiğinde  <i>Sadece üyelere</i> şeklinde işaretlenmiş dosyalar misafirlere ve yetkisiz kullanıcılara gösterilmez."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "Bu dosyaya erişim izniniz yok!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Erişilemeyen dosya mesajı"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Kullanıcılar yetkileri olmaya bir dosya indirmeye çalıştıklarında bu mesaj görüntülenir."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Girişe yönlendir"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Bu seçenek etkinleştirildiğinde yetkisiz kullanıcılar giriş sayfasına yönlendirilir."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "RSS beslemelerindeki şablon etiketlerini çöz"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Etkinleştirildiğinde WP-Filebase içerik etiketleri RSS beslemelerinde çözümlenir."
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Programcık yüklemeye izin ver"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Bunu etkinleştirirseniz, PHP ve CGI gibi programcıklar yüklenebilir. <b>DİKKAT:</b> Programcık yüklemelerine izin vermek <b>güvenlik riski</b> doğruabilir!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Boş refererları kabul et"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Etkinleştirildiğinde, doğrudan bağlantı korumasına alınmış dosyalar referans boş olsa bile indirilebilir (örn; tarayıcıda dosya adresinin girilmesi durumunda referans bilgisi dönmez)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "İzin verilen göndericiler"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Benzeşen URL'lere sahip siteler dosyalara doğrudan bağlantı verebilir."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Ondalık dosya uzunluğu ekleri"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Binary uzunluklar (örn; 1 MİB = 1024 KİB = 1048576 B) yerine ondalık ekler (1 MB = 1000 KB = 100000 B) kullanmak için işaretleyin"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Platformlar"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Lisanslar"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Gereksinimler"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "İhtiyaç duyulan yazılım veya dosyaya bağlantı vermek için  |<i>URL</i> ekleyebilirsiniz."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Ön Tanımlı Dosya Şablonu"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "Eklenti şablonu"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Kategori Şablonu"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "Kategori listeleri şablonu (dosya tarayıcısında kullanılır)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "JavaScript İndir"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Kullanıcı indirme bağlantısına tıkladığında çalışacak JavaScript kodunu buradan girebilirsiniz. Şu değişkenler kullanılabilir:  <i>file_id</i>: dosya numarası, <i>file_url</i>: tıklanan indirme URL'si"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "Kategori URL'si"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Kategori yolu (örn; kategori1/kategori2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Yolun değil, sadece kategori dizininin ismi"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Üst kategorlern isimleri (hiç yoksa boş)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Bu kategorideki dosyaların sayısı"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Bu kategoriyi görüntüleyebilmek için gerekli asgari kullanıcı seviyesi (-1 = misafir, 0 = abone ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "Kategori ID'si"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Bir şablon içerisindeki elemanları tanımlayacak tekil ID numarası"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Dosya ismi"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Formatlanmış dosya uzunluğu"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Formatlanmış dosya tarihi"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Küçük resim dosyasının ismi"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Dosya sürümü"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Desteklenen diller"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Desteklenen platformlar (işletim sistemleri)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Bu dosyayı kullanmak için gereksinimler"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Lisans"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Dosyayı indirmek için gerekli asgari kullanıcı düzeyi (-1 = misafir, 0 = abone ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "Dosya çevrimdışı ise 1, diğer türlü 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "Doğrudan bağlantıya izin verilmişse 1, diğer türlü 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "Kategori ismi"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "Bu dosyanın ait olduğu sayfa veya girdinin ID'si"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "Yükleyicinin kullanıcı ID'si"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Bu dosyanın kaç kez indirildiği."
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "Son indiricinin IP adresi"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Son indirme zamanı"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "İndirme URL'si"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "Bu dosyanın ait olduğu girdi veya sayfanın URL'si"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "Küçük resim veya ikonun URL'si"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Kategori yolu ve dosya ismi (örn; kategori1/kategori2/dosya.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "Dosya ID'si"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Kısa açıklama"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Çevrimdışı > Çevrimiçi"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Doğrudan bağlantı > girdiye bağlantı"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Şablon değişkeni ekle:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Bir kategori veya dizin ismi girmelisiniz."
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "Kategri dizin ismi geçersiz karakterler içeriyor."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "%s dizini mevcut!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Kategori ikonu taşınamıyor!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "<b>%s</b> dosyasının uzantısı geçersiz!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "%s dosyası mevcut. Önce onu silmelisiniz!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "%s dosyası taşınamıyor! Yükleme dizini yazılabilir durumda mı?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Hiç dosya yüklenmedi."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Kullanıcı kimliği alınamıyor!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "<b>%s</b> dosyası yazılabilir değil!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Kategorileri Yönet (<a href=\"%s\">yeni ekle</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Dosyalar"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Not:</strong><br />Bir kategoriyi silmek bu kategorideki dosyaları silmes. Bunun yerine tüm dosyalar bir üst kategoriye atanır."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Dosya güncellendi."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Dosya eklendi."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Dosyaları Yönet (<a href=\"%s\">yeni ekle</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Dosyaları Ara"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Dosya İsmi"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Uzunluk"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Tıklamalar"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Son indirme"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Hiçbirşey değiştirilmedi!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "%d girdi değiştirildi."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "%d dosya eklendi."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Dosya veritabanı başarıyla senkronize edildi."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Dosya senkronizasyonunu tamamla"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Dosyaları değişikliklere karşı kontrol eder. Daha güvenilir ancak yavaştır. Eğer dosya yükleme ve değiştirmeyi FTP ile yapıyorsanız işe yarar"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s yazılabilir değil!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Dosyayı Güncelle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Öntanımlıları Geri Getir"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Şablonları Düzenle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Şablon Değişikliklerini Kaydet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Şablon Etiketi (şablonu tanımlayacak tek bir kelime):"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Şablon Kodu:"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Yükleme dizini <code>%s</code> mevcut değil. <code>%s</code> dizini yazılabilir olmadığı için otomatik olarak yaratılamadı. Lütfen <code>%s</code> yaratın ve web sunucu tarafından yazılabilir yapın (şu FTP komutunu kullanın:  <code>%s</code>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Yükleme dizini <code>%s</code> yazılabilir değil. Lütfen PHP için yazılabilir yapın (şu FTP komutunu kullanın: <code>%s</code>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Dosyaları Yönet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Yüklenen dosyalar göster ve düzenle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Kategorileri Yönet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Var olan kategorileri yönet ve yenilerini ekle."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Dosya Veritabanını Senkronize Et"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Veritabanını dosya sistemi ile senkronize et. FTP ile yüklenen dosyaları eklemek için bunu kullanın."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Stil Sayfasını Güncelle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Dosya şablonunu CSS dosyasını güncelle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Şablonları Yönet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Özel dosya listesi şablonlarını düzenle"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Yeni istekler"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Çalışmayı destekleyin."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Trafik"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Bugün"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Bu Ay"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Ayarlar sıfırlandı"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "WP Super Cache tarafından reddedilen URL'lerin listesne /%s/  eklendi."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "DİKKAT: Programcık yükleme aktif!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Dosya şablonu başarıyla çözümlendi."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Şablon çözümlenemiyor: hata (%s) satır %s da."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Kategori şablonu başarıylaçözümlendi."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Ayarlar güncellendi."
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Dosya okunamıyor!"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Kategori Dizini"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Kategori İkonu"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Sadece üyelere özel"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Asgari kullanıcı düzeyi: (%s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "İzinleri tüm alt dosyalara uygula"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Dosyayı Düzenle"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Dosya Yükle"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Basit Form"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Dosya Seç"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Azami dosya limiti: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Buradan küçük resim yükleyebilirsiniz. Eğer dosya geçerli bir resim ise küçük resim otomatik olarak yaratılır."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Takip eden alanlar isteğe bağlıdır."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "İndirme Sayacı"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Doğrudan bağlantı"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Doğrudan bağlantıya izin ver"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Girdiye yönlendir"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Çevrimdışı"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Limit:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Şablon:"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Dosya kategorileri, küçük resimler, trafik limiti desteleyen güçlü bir indirme yöneticisi."
+
+#. Template
+msgid "Version"
+msgstr "Sürüm"
+
+msgid "Languages"
+msgstr "Diller"
+
+msgid "Author"
+msgstr "Yazar"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Category:"
+msgstr "Kategori:"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Details"
+msgstr "Ayrıntılar"
+
+#. Option Categories
+msgid "Common"
+msgstr "Genel"
+
+msgid "Display"
+msgstr "Görüntüle"
+
+msgid "Download"
+msgstr "İndir"
+
+msgid "Form Presets"
+msgstr "Form Öntanımları"
+
+msgid "Limits"
+msgstr "Limitler"
+
+msgid "Security"
+msgstr "Güvenlik"
+
+msgid "Templates and Scripts"
+msgstr "Şablonlar ve Programcıklar"
+
+msgid "Lists the latest or most popular files"
+msgstr "En son veya en popüler dosyaları listeler"
+
+msgid "Simple listing of file categories"
+msgstr "Dosya kategorilerinin basit listesi"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Bu widget'i kullanmadan önce lütfen WP-Filebase ayarlarından dosya tarayıcısı için bir girdi ID'si belirleyin."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "WP-Filebase'i destekleyin!"
+

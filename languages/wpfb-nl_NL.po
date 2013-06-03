@@ -1,0 +1,1144 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2012-01-20 17:24+0100\n"
+"Last-Translator: Mark <itsmemom@mailinator.com>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Bestanden zonder categorie"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Je hebt geen bestand geupload. <a href=\"%s\" target=\"_parent\">Klik hier om er een te uploaden.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Voer link in:"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Enkel bestand"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "Bestands URL"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Bestandenlijst"
+
+msgid "Category list"
+msgstr "Categorielijst"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Alle Categorieen"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Je hebt geen categorie aangemaakt. <a href=\"%s\" target=\"_parent\">Klik hier om er een te maken.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Selecteer Template"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Standaard Template"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Voeg Template toe"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Een item per regel. Scheid de titel en een korte tag (niet langer dan 8 karakters) met '|'.<br />Alle regels die beginnen met '*' worden standaard geselecteerd."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "Een item per regel."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Beperkt de maximum overdrachtssnelheid voor downloads. 0=onbeperkt"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Beperkt het maximum aan dataverkeer. 0 = onbeperkt"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Upload Pad"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Toon bijlagen"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Indien ingeschakeld worden alle bijbehorende bestanden onder een bericht getoond"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Standaard sortering"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "De bestandseigenschappen-lijsten worden gesorteerd volgens"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Sorteerrichting"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "De sorteerrichting van bestandslijsten"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Bit rate limiet voor gasten"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Bit rate limiet voor geregistreerde users"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Dagelijkse verkeerslimiet"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Maandelijkse verkeerslimiet"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Verkeerslimiet overschreden! Probeer later nog eens."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Verkeerslimiet overschreden melding"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Dagelijkse gebruikersdownload limieten"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Indien ingeschakeld kunnen niet-geregistreerde gebruikers geen bestanden downloaden. Je kunt hieronder voor elke gebruikersrol verschillende limieten instellen."
+
+msgid "downloads per day"
+msgstr "downloads per dag"
+
+msgid "Daily limit for %s"
+msgstr "Dagelijkse limiet voor %s"
+
+msgid "You can only download %d files per day."
+msgstr "Je kunt slechts %d bestanden per dag downloaden."
+
+msgid "Daily limit exceeded message"
+msgstr "Dagelijkse limiet overschreden melding"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Dit bestand is momenteel niet beschikbaar."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Bestand niet beschikbaar melding"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Schakel download permalinks uit"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Schakel dit in als je problemen hebt met permalinks."
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "Download URL basis"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "De URL prefix voor bestands-downloadlinks. Voorbeeld: <code>%s</code> (Alleen gebruikt als Permalinks ingeschakeld zijn.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "Post ID voor de bestandenbrowser"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Geef het ID op van de post of pagina waar de browser getoond moet worden. Laat het veld leeg om deze feature uit te schakelen."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Categorie dropdown lijst"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Gebruik de categorie dropdown lijst in de bestandsbrowser in plaats van een bestands-achtige lijst."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Forceer altijd download"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Indien ingeschakeld kunnen bestanden die in de browser kunnen worden getoond (zoals figuren, PDF-documenten of video's) alleen maar worden gedownload (geen streaming)."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Negeer downloads door admins"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Verberg niet-toegankelijke bestanden en categorieen"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Indien ingeschakeld zullen bestanden die getagd zijn als <i>Alleen voor leden</i> niet getoond worden aan gasten of gebruikers met onvoldoende rechten."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "Je hebt geen machtigingen op dit bestand!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Ontoegankelijke bestanden melding"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Deze melding wordt getoond als gebruikers een bestand proberen te downloaden waar ze geen rechten op hebben"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Leid om naar login"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Gasten die proberen ontoegankelijke bestanden te downloaden worden omgeleid naar de login pagina als deze optie ingeschakeld is."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "Parse template tags in RSS feeds"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Indien ingeschakeld worden WP-Filebase content tags geparsed in RSS feeds."
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Sta script upload toe"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Indien ingeschakeld kunnen scripts als PHP of CGI worden geupload. <b>WAARSCHUWING:</b> Script uploads toestaan is een <b>beveiligingsrisico</b>!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Sta lege referers toe"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Indien ingeschakeld kunnen direct-link-beschermde bestanden gedownload worden als de referer leeg is (bv. gebruiker voert bestandsURL in de adresregel in, of browser zendt geen referers mee)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Toegestane referers"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Sites met overeenkomende URLs kunnen direct naar bestanden linken"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Decimale bestandsgrootte prefixen"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Schakel dit in als je decimale prefixen wilt  (1 MB = 1000 KB = 1 000 000 B) in plaats van binaire (1 MiB = 1024 KiB = 1 048 576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Platforms"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Licenties"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Eisen"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Je kunt eventueel |<i>URL</i> aan iedere regel toevoegen om te linken naar de benodigde software/bestanden."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Standaard Bestands-template"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "De template voor bijlagen"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Categorie Template"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "De template voor categorielijsten (gebruikt in de bestandsbrowser)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Download JavaScript"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Hier kun je JavaScriptcode invoeren die uitgevoerd wordt als een gebruiker op de bestands-downloadlink klikt. De volgende variabelen kunnen worden gebruikt: <i>file_id</i>: de ID van het bestand, <i>file_url</i>: de aangeklikte download-url"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "De categorie-URL"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Categoriepad (bv. cat1/cat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Alleen de categorie folder naam, niet het pad"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Naam van de bovenliggende categorieen (leeg indien geen)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Aantal bestanden in de categorie"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Het minimum gebruikersniveau om deze categorie te mogen zien (-1=gast, 0=Subscriber/Abonnee ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "De categorie ID"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Een uniek ID-nummer om de elementen in een template te identificeren"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Naam van het bestand"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Bestandsgrootte in format"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Bestandsdatum in format"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Naam van het thumbnail-bestand"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Bestandsversie"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Ondersteunde talen"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Ondersteunde platform (operating systemen)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Eisen voor gebruik van dit bestand"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Licentie"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Het minimum gebruikersniveau om dit bestand te downloaden (-1=gast, 0=Subscriber/Abonnee ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 als bestand offline is, anders 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 als directe links zijn toegestaan, anders 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "De categorienaam"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "ID van de post/pagina waar dit bestand aan toe behoort"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "GebruikersID van de eigenaar"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Hoe vaak dit bestand is gedownload"
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "IP Adres van de laatste downloader"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Tijdstip van laatste download"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "Download URL"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "URL van de post/pagina waar dit bestand aan toe behoort"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "URL van de thumbnail of icoon"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Categorie-pad en bestandsnaam (bv. cat1/cat2/bestand.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "Het bestandsID"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Korte beschrijving"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Offline > Online"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Direct linken > verwijs naar post"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Voeg template variabele toe:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Je dient een categorienaam of een foldernaam in te voeren"
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "De categorie foldernaam bevat ongeldige karakters."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "De map %s bestaat al!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Categorie-icoon verplaatsen niet mogelijk!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "De extensie van het bestand <b>%s</b> is niet toegestaan!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Het bestand %s bestaat al! Je moet het eerst verwijderen!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Bestand %s verplaatsen niet mogelijk! Is schrijven in de uploadmap toegestaan?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Er is geen bestand geupload."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Kon geen gebruikersID vinden!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "Bestand <b>%s</b> kan niet weggeschreven worden!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Beheer Categorieen (<a href=\"%s\">Voeg nieuwe toe</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Bestanden"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Let op:</strong><br />Een categorie verwijderen verwijdert niet de bestanden in die categorie. Bestanden die aan deze categorie toegekend waren worden in plaats daarvan aan de bovenliggende categorie toegekend."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Bestand bijgewerkt."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Bestand toegevoegd."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Beheer Bestanden (<a href=\"%s\">Voeg nieuwe toe</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Zoek Bestanden"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Grootte"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Hits"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Laatste download"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Niets gewijzigd!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "%d items gewijzigd."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "%d bestanden toegevoegd."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Filebase met succes gesynchroniseerd."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "File sync gereed."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Controleert bestanden op wijzigingen, dus meer betrouwbaar maar duurt veel langer. Doe dit als je bestanden met FTP hebt geupload/gewijzigd."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "Geen schrijfbevoegdheid voor %s!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Update Bestand"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Standaardinstellingen terugzetten"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Wijzig Templates"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Schrijf Template-wijzigingen weg"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Template Tag (een enkel woord dat het template beschrijft):"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Template code"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "De uploadfolder <code>%s</code> bestaat niet. De folder kon niet automatisch gemaakt worden omdat er geen schrijfrechten zijn voor de map <code>%s</code>. Maak <code>%s</code> zelf aan en geef de webserver schrijfrechten door het volgende FTP-commando uit te voeren: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Geen schrijfrechten op de uploadfolder <code>%s</code>. Geef PHP schrijfrechten door het volgende FTP-commando uit te voeren: <code>%s</code> "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Beheer Bestanden"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Bekijk en bewerk geuploade bestanden"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Beheer Categorieen"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Beheer bestaande categorieen en voeg nieuwe toe."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Synchroniseer Filebase"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Synchroniseert de database met het bestandssysteem. Gebruik dit om FTP-geuploade bestanden toe te voegen."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Bewerk Stylesheet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Bewerk de CSS voor het bestands-template"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Beheer Templates"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Bewerk maatwerk bestandslijst-templates"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Doneer &amp; Functionaliteit aanvragen"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Als je deze plugin waardeert en mijn werk wilt ondersteunen, doneer dan aub. Je kunt ook je ideeen posten om de plugin beter te maken."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Verkeer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Vandaag"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Deze Maand"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Standaardinstellingen hersteld."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ toegevoegd aan lijst van afgewezen URIs van WP Super Cache"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "WAARSCHUWING: Script upload toegestaan!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Bestandstemplate met succes geparsed."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Kon het template niet parsen: error (%s) op regel %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Categorie-template met succes geparsed."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Instellingen bijgewerkt."
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Kon het bestand niet lezen!"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Categoriefolder"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Categorie-icoon"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Alleen voor leden"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Minimum gebruikersniveau (zie %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "Voer permissies door in allen onderliggende bestanden"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Bewerk Bestand"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Upload Bestand"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Eenvoudig Formulier"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "Uitgebreid Formulier"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Selecteer Bestand"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Maximum bestandsgrootte: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Je kunt hier eventueel een thumbnail uploaden. Als het een grafisch bestand is wordt automatisch een thumbnail gegenereerd."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "De volgende velden zijn niet verplicht."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Download teller"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Direct linken"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Sta direct linken toe"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Leid om naar post"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Offline"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Limiet:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Template:"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Een krachtige downloadmanager die bestandscategorieen, thumbnails, verkeers/bitrate limieten en meer ondersteunt."
+
+#. Template
+msgid "Version"
+msgstr "Versie"
+
+msgid "Languages"
+msgstr "Talen"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Category"
+msgstr "Categorie"
+
+msgid "Category:"
+msgstr "Categorie:"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Details"
+msgstr "Details"
+
+#. Option Categories
+msgid "Common"
+msgstr "Algemeen"
+
+msgid "Display"
+msgstr "Toon"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Form Presets"
+msgstr "Standaard formulierinstellingen"
+
+msgid "Limits"
+msgstr "Limieten"
+
+msgid "Security"
+msgstr "Beveiliging"
+
+msgid "Templates and Scripts"
+msgstr "Templates en Scripts"
+
+msgid "Lists the latest or most popular files"
+msgstr "Toont de nieuwste of meest populaire bestanden"
+
+msgid "Simple listing of file categories"
+msgstr "Eenvoudige lijst van bestandscategorieen"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Stel een Post ID voor de bestandsbrowser in WP-Filebase instellingen in voordat je deze widget gebruikt."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Als je WP-Filebase nuttig vindt zou ik een kleine bijdrage waarderen ter ondersteuning van mijn werk. Je kunt daarnaast een idee toevoegen om WP-Filebase nog beter te maken. Klik op de knop hieronder. Dank je!"
+
+msgid "Custom field '%s' removed!"
+msgstr "Maatwerk-veld '%s' verwijderd!"
+
+msgid "Custom field '%s' added."
+msgstr "Maatwerk-veld '%s' toegevoegd."
+
+msgid "Search Integration"
+msgstr "Zoek-integratie"
+
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Zoekt in aangehechte bestanden en toont de bijbehorende posts en pagina's tijdens het doorzoeken van de site."
+
+msgid "Restore Default Settings"
+msgstr "Herstel standaardinstellingen"
+
+msgid "Attachment Position"
+msgstr "Plek van de bijlage"
+
+msgid "After the Content"
+msgstr "Na de inhoud"
+
+msgid "Before the Content"
+msgstr "Voor de inhoud"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Category Name"
+msgstr "Categorienaam"
+
+msgid "Category ID"
+msgstr "Categorie ID"
+
+msgid "Number of files per page"
+msgstr "Aantal bestanden per pagina"
+
+msgid "Relative path of the file"
+msgstr "Relatief pad naar het bestand"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "Lengte van de bestandenlijst per pagina. Stel 0 in om de limiet uit te schakelen"
+
+msgid "File browser category sorting"
+msgstr "Bestandsbrowser categorie-sortering"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "De categorie eigenschappen categorieen in de bestandsbrowser worden gesorteerd op"
+
+msgid "Name of the Category folder"
+msgstr "Naam van de categorie-folder"
+
+msgid "Relative path of the category folder"
+msgstr "Relatief pad naar de categoriefolder"
+
+msgid "File browser file sorting"
+msgstr "Bestandsbrowser bestandssortering"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "De bestandseigenschappen bestanden in de bestandsbrowser woren gesorteerd op"
+
+msgid "Send HTTP-Range header"
+msgstr "Stuur HTTP-Range header"
+
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Staat gebruikers toe om downloads te pauzeren en later te hervatten. Daarnaast kunnen downloadmanagers meerdere connecties tegelijkertijd gebruiken."
+
+msgid "Disable HTTP Caching"
+msgstr "Schakel HTTP Caching uit"
+
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Schakel dit in als je problemen hebt met downloads en Wordpress een cache plugin gebruikt."
+
+msgid "With custom fields you can add even more file properties."
+msgstr "Met maatwerk-velden kun je nog meer bestandseigenschappen toevoegen."
+
+msgid "Redirect to referring page after login"
+msgstr "Leid terug naar eerdere pagina na login"
+
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Gebruikers worden na inloggen teruggeleid naar de pagina waar ze op de downloadlink hebben geklikt."
+
+msgid "Protect upload path"
+msgstr "Bescherm upload-pad"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "Dit voorkomt directe toegang tot bestanden in de uploadfolder."
+
+msgid "Hide download links"
+msgstr "Verberg downloadlinks"
+
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Bestands-downloadlinks worden niet getoond in de statusbalk van de browser. Het inschakelen van '%s' maakt het vinden van de URL nog moeilijker."
+
+msgid "Auto-detect thumbnails"
+msgstr "Detecteer thumbnails automatisch"
+
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "Figuren worden beschouwd als thumbnails bij bestanden met dezelfde naam bij synchroniseren (bv. `file.jpg` &lt;=&gt; `file.zip`)"
+
+msgid "Automatic Sync"
+msgstr "Automatische synchronisatie"
+
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Plant een cronjob in om elk uur het bestandssysteem en de database te synchroniseren."
+
+msgid "Extension Blacklist"
+msgstr "Extensie blacklist"
+
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Bestanden met een extensie uit deze lijst worden overgeslagen bij synchronisatie. (komma is scheidingsteken)"
+
+msgid "Disable ID3 tag detection"
+msgstr "Schakel ID3 tag detectie uit"
+
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Dit schakelt het lezen van meta-bestandsinformatie volledig uit. Gebruik deze optie als je problemen hebt met het toevoegen van grote bestanden."
+
+msgid "Search ID3 Tags"
+msgstr "Zoek in ID3 Tags"
+
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Zoek in bestands-metadata, zoals ID3 voor mp3-bestanden, EXIF voor jpeg... (deze optie verhoogt de serverload vrijwel niet omdat alle data in een MySQL-tabel is gecached)"
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "Voeg WP-Filebase toe aan de admin menubalk"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "Toon een snelmenu voor bestandsbeheer in de admin menubalk."
+
+msgid "Statistics"
+msgstr "Statistieken"
+
+msgid "Number of Files"
+msgstr "Aantal Bestanden"
+
+msgid "Number of Categories"
+msgstr "Aantal categorieen"
+
+msgid "Total Downloads"
+msgstr "Aantal Downloads"
+
+msgid "Total File Size"
+msgstr "Totale bestandsgrootte"
+
+msgid "Convert old Tags"
+msgstr "Converteer oude Tags"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "Converteer tags uit versies eerder dan 0.2.0"
+
+msgid "Add File"
+msgstr "Voeg Bestand toe"
+
+msgid "Redirect download to URL"
+msgstr "Leid download om naar URL"
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "Kopieer bestand naar Filebase (binnenweggetje)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "Beperk bestandstoegang door een of meer gebruikersrollen te selecteren."
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "Selecteer meerdere rollen door de CTRL/COMMAND toets vast te houden."
+
+msgid "Access Permission"
+msgstr "Toegangsrechten"
+
+msgid "Everyone"
+msgstr "Iedereen"
+
+msgid "Add Category"
+msgstr "Voeg Categorie toe"
+
+msgid "Exclude from file browser"
+msgstr "Verberg in bestandsbrowser"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "Templates gebruikt voor losse ingesloten bestanden of bestandslijsten."
+
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Voor sommige bestanden zijn meerdere tags beschikbaar. Tijdens het bewerken van een bestand vind je onder het formulier een lijst met alle tags."
+
+msgid "Reset all Templates to default"
+msgstr "Herstel alle Templates naar de standaardwaarde"
+
+msgid "These templates can be used for categories."
+msgstr "Deze templates kunnen gebruikt worden voor categorieen."
+
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "Een lijst-template omvat een header, footer en bestands-template. Optioneel heeft het een categorie-template voor het tonen van sub-categorieen."
+
+msgid "Header"
+msgstr "Header"
+
+msgid "Footer"
+msgstr "Footer"
+
+msgid "File Template"
+msgstr "Bestands-template"
+
+msgid "Parent Category ID"
+msgstr "Bovenliggende categorie-ID"
+
+msgid "Number of files directly in the category"
+msgstr "Aantal bestanden in precies deze categorie"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "Aantal bestanden in deze categorie en alle sub-categorieen"
+
+msgid "Attach existing file"
+msgstr "Voeg bestaand bestand toe"
+
+msgid "Select File"
+msgstr "Selecteer Bestand"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "Selecteer de categorieen van de bestanden die je wilt zien."
+
+msgid "Include all Categories"
+msgstr "Gebruik alle Categorieen"
+
+msgid "Files per page:"
+msgstr "Bestanden per pagina:"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "Stel 0 in om de standaardlimiet (%d) te gebruiken, -1 schakelt paginering uit."
+
+msgid "File Tree View"
+msgstr "Bestand - Boomstructuur"
+
+msgid "List selected Categories"
+msgstr "Toon gekozen Categorieen"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "Selecteer de hoofdcategorie van de bestandsbrowser-boomstructuur"
+
+msgid "The File has been uploaded successfully."
+msgstr "Het bestand is met succes geupload. "
+
+msgid "New Category created."
+msgstr "Nieuwe Categorie aangemaakt"
+
+msgid "Selectable by Uploader"
+msgstr "Te kiezen door Uploader"
+
+msgid "Upload to Root"
+msgstr "Uploaden naar Hoofdmap"
+
+msgid "You can enter a URL to redirect users."
+msgstr "Je kunt een URL invoeren om gebruikers om te leiden."
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "Vraag je webhoster om deze limiet op te hogen, deze is ingesteld in %s."
+
+msgid "Inherit Permissions"
+msgstr "Overerf Machtigingen"
+
+msgid "Explicitly set permissions"
+msgstr "Stel machtigingen expliciet in"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "Beperk categorie-toegang door een of meerdere gebruikersrollen te selecteren."
+
+msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Dit update recursief de machtigingen van alle bestaande onderliggende categorieen en bestanden. Let op: machtigingen op nieuwe bestanden in deze categorie worden automatisch overerfd, zonder dat dit aankruisvakje aangevinkt hoeft te zijn."
+
+msgid "Owner"
+msgstr "Eigenaar"
+

@@ -1,0 +1,870 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2011-11-20 21:20+0100\n"
+"Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Icke kategoriserade filer"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Du laddade inte upp någon fil. <a href=\"%s\" target=\"_parent\">Klicka här för att lägga till en.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Skriv in text för länken"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Enstaka fil"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "Fil URL"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Fil lista"
+
+msgid "Category list"
+msgstr "Kategori lista"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Alla kategorier"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Bifogade filer"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Du skapade inte någon kategori. <a href=\"%s\" target=\"_parent\">Klicka här för att skapa en.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Välj mall"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Standard mall"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Lägg till mall"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "En inmatning per rad. Separera titeln och en förkortning (inte längre än 8 tecken) med '|'.<br />Alla rader som borjar med '*' är valda som standard."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "En inmatning per rad."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Begränsa totala öveförningshastigheten för nedladdning. 0 = obegränsat"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Begränsa totala överföriningsmängden data. 0 = obegränsad"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Sökväg för uppladdning"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Visa bifogade bilder"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Vid aktivering är alla associerade filer listade under en artikel"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Standard sortering"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Listan på fil egenskaper är sorterad på "
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Sorterings ordning"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "Sorterings ordning för fillista"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Bit hastighetsgräns för gäst"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Bit hastighetsgräns för registrerad användare"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Gräns för daglig trafik"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Gräns för trafik per månad"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Gräns för överföring har överskridits, försök senare."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Meddelande om överskridande av trafik mängd"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Överskridande av daglig trafikmängd"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Vid aktivering kan oregistrerade användare inte ladda ner filer. Du kan ha olika gränser per användare."
+
+msgid "downloads per day"
+msgstr "nedladdningar per dag"
+
+msgid "Daily limit for %s"
+msgstr "Daglig gräns på %s"
+
+msgid "You can only download %d files per day."
+msgstr "Du kan endast ladda ner %d filer per dag"
+
+msgid "Daily limit exceeded message"
+msgstr "Meddelande för överskridande av daglig gräns "
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Den fil är inte tillgänglig just nu."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Meddelande när filer inte är tillgängliga"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Stäng av nedladdning av permalinkar"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Aktivera denna om du har proble att ladda ner permalinkar"
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "Nerladdnings URL bas"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "URL prefix för länkar av nedladningsbara filer. Exempel: <code>%s</code> (Endast när Permalinkar är aktiverade.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "Post ID för filhanterare"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Specifiera post ID eller sida där filhanteraren ska vara placerad. Lämna tomt om du inte vill använda funktionen."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Rullista för kategorier."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Använd rullistan i filhanteraren  för kategorier istället för att lista som filer. "
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Tvinga alltid nedladdning"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Vid aktivering så visas filer som kan visas i filhanteraren, bilder, PDF dokument eller video kan endast laddas ned (ingen streaming)"
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Ignorera nedladdningar från administratörer"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Visa inte filer eller kategorier som är otillgängliga"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Vid aktivering märks filer <i>Endast for registrerade användare</i> visas inte för gäster eller avändare utan behörighet"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "Du har inte behörighet för filen!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Meddelande att fil inte är tillgänglig"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Detta meddelande visas om en användare försöker ladda ned en fil man ej har behörighet för"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Omdirigerar till inloggning"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Gäster som försöker ladde ned filer dom inte har behörighet för omdirigeras till inloggning om denna är aktiverad."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "För in mall etikett i RSS feed"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Vid aktivering så sammanfogas WP-Filebase innehålls märkning in i RSS feed"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Tillåt uppladdning av skript"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Om den här är aktiverad så kan man ladda upp PHP eller CGI skript. <b>VARNING:</b> Aktivering av skript <b>är en säkerhetsrisk</b>!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Acceptera tomma referenser"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Vid aktivering kan man ladda ned skyddade direkt länkade filer (ex. en användare anger en fil url i adressfältet eller webbläsern skickar inte referenser)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Tillåtna referenser"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Källa med överstämmande URL kan länkas till filer direkt."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Decimal filstorleks prefix"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Aktivera för decimal prefix (1 MB = 1000 KB = 1 000 000 B) istället för binärt (1 MiB = 1024 KiB = 1 048 576 B) "
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Platform"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "License"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Krav"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Du kan lägga till |<i>URL</i> for varje rad för att länka till nödvändig mjukvara/fil. "
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Standard mall för fil"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "Mall för bifogade filer"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Mall för Kategori"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "Mallen för kategorilista (andvänd i filhanteraren)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Ladda ned JavaSkript"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Här kan du skriva in koden för JavaSkript som exekveras när en användare klickar på filnedladdnings länken. Följande variabler kan användas: <i>file_id</i>: filens ID, <i>file_url</i>: vald nedladdnings url"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "Kategori URL"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Kategorisökväg (ex. cat1/cat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Endast mappnamn för kategori, inte sökväg."
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Namn på överliggande kategori (tom om ingen)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Antal filer i kategorin"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Lägsta användarnivå för att visa den här kategorin (-1 = gäst, 0 = prenumerant ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "Kategori ID"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Unikt ID för att identifiera sektioner i en mall"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Filnamn"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Formaterad filstorlek"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Formaterat fildatum"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Namn på tumnagel filen"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Filversion"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Språk som stöds"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Plattformer som stöds (Operativsystem)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Krav för att använda filen"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Licens"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Lägsta behörighet för att ladda ned filen (-1 = gäst, 0 = prenumerant ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 filen är inte tillgänglig, annars 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 direkt länkning tillåten, annars 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "Kategorinamn"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "ID för den post/sida som filen hör till"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "Användar ID för den som laddar upp"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Antal gånger filen har laddats ned."
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "IP adressen för senaste nedladdning"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Tid för senaste nedladdning"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "Nedladdnings URL"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "URL för post/sida som filen hör till"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "URL för tumnagel eller ikon"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Sökväg och filnamn för kategori (ex. cat1/cat2/file.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "Fil ID"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Kort beskrivning"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Offline > Online"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Direktlänk > omdirigera till post"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Lägg till mallvariabel:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Du måste ange en mapp eller ett katalognamn."
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "Din kategori mapp innehåller otillåtna tecken."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "Mappen %s finns redan!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Kan inte flytta kategori ikonen!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "Filändelsen för filen <b>%s</b> är inte tillåten! "
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Fil %s finns redan. Du måste först radera den!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Det går inte att flytta filen %s! Är destinationen skrivskyddad?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Filen laddades inte upp."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Kunnde inte hitta användar id!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "Filen <b>%s</b> är skrivskyddad!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Hantera kategorier (<a href=\"%s\">lägg till ny</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Filer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>OBS:</strong><br />Att radera en kategori raderar inte filerna i den. Det som händer är att filerna kommer att tillhöra den överordnade kategorin till den som togs bort."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Filen har uppdaterats."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Fil har lagts till."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Hantera filer (<a href=\"%s\">lägg till ny</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Sök filer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Filnamn"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Storlek"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Träffar"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Senaste nedladdning"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Inget har ändrats!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "Ändrade %d"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "Lag till filen %d"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Filbasen blev synkroniserad."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Filsynkronisering komplett"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Kontrollera om filer har ändrats, det tar längre tid men är tillförlitligare. Gör detta om du har laddat upp eller ändrat filer via FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "Det går inte att skriva %s!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Uppdatera fil"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Återställ till standard"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Ändra mall"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Godkänn ändrad mall"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Märk mallen (ett ord för att beskriva mallen)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Mall kod:"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Mappen för att ladda upp <code>%s</code> existerar inte. Den kunnde inte skapas automatiskt eftersom mappen <code>%s</code> inte går att skriva till. Skapa <code>%s</code> och gör den skrivbar på  webbservern genom att köra följande FTP kommando: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Mappen för uppladdning <code>%s</code>är inte skrivbar. Gör den skrivbar för PHP genom att köra följande FTP kommando: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Hantera filer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Visa och ändra uppladdade filer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Hantera kategorier"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Hantera befintliga kategorier och lägg till nya."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Synkronisera Filebase"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Synkronisera databasen med filsystemet. Använd den här för att lägga till filer med FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Ändra stilmall (CSS)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Ändra CSS för filmallen"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Hantera mallar"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Ändra mallar för egna fillistor"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Bidrag; Kommande ändringsförslag"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Om du gillar WP-Filebase skulle jag uppskatta ett litet bidrag för att hjälpa mig i mitt arbete. Du kan också bidraga med ideer för att göra WP-Filebase bättre."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Trafik"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Idag"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Denna månad"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Inställningar återställdes."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ lags till  avvisad URIs lista på WP Super Cache."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "VARNING: Skript uppladdning aktiverat!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Filmall har sammanfogats."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Kunnde inte foga samman mall: fel (%s) på rad %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Mall för kategori har sammanfogats."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Inställningar har uppdaterats"
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Kunnde inte läsa fil!"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Mapp för kategori"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Ikon för kategori"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Endast medlemmar"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Minsta användar behörighet: (see %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "Lägg till behörighet på en underordnad fil"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Ändra fil"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Ladda upp fil"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Enkel mall"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Välj fil"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Största filstorlek %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Du kan även ladda upp tumnaglar här. Om det är en godkänd bildtyp kommer tumnagel automatiskt att genereras."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Följande fält är valbara"
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Mätare för nedladdning"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Direkt länkning"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Tillåt direkt länkning"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Vidarebefodra som post"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Ej tillgänglig"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Gräns:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Mall:"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Ett kraftfullt nedladdningsverktyg som stöder filkategorier, tumnaglar, trafik/bit hastighets begränsningar m.m."
+
+#. Template
+msgid "Version"
+msgstr "Version"
+
+msgid "Languages"
+msgstr "Språk"
+
+msgid "Author"
+msgstr "Författare"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Category:"
+msgstr "Kategori:"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Details"
+msgstr "Detaljer"
+
+#. Option Categories
+msgid "Common"
+msgstr "Gemensamt"
+
+msgid "Display"
+msgstr "Visa"
+
+msgid "Download"
+msgstr "Ladda ned"
+
+msgid "Form Presets"
+msgstr "Förinställda mallar"
+
+msgid "Limits"
+msgstr "Gränser"
+
+msgid "Security"
+msgstr "Säkerhet"
+
+msgid "Templates and Scripts"
+msgstr "Mallar och skript"
+
+msgid "Lists the latest or most popular files"
+msgstr "En lista över senaste och populäraste filerna"
+
+msgid "Simple listing of file categories"
+msgstr "Enkel lista för filkategorier"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Innan du kan använda den här som en widget så måste du ge den en ID post för filhanteraren i WP-Filebase inställningar."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Om du gillar WP-Filebase skulle jag uppskatta ett litet bidrag för att hjälpa mig i mitt arbete. Du kan också bidraga med ideer för att göra WP-Filebase bättre genom att klicka på knappen nedan. Tack så mycket!"
+

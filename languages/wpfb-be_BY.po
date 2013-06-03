@@ -1,0 +1,870 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2011-11-03 19:08+0200\n"
+"Last-Translator: \n"
+"Language-Team: Web Geeks\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Файлы без катэгорыі"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Вы не загрузілі файл.<a href=\"%s\" target=\"_parent\">Дадаць файл.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Увядзіце тэкст спасылкі:"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Файл"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "URL файла"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Спіс файлаў"
+
+msgid "Category list"
+msgstr "Спіс катэгорый"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Усе катэгорыі"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Далучаныя файлы"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Вы не стварылі катэгорыю. <a href=\"%s\" target=\"_parent\">стварыць катэгорыю.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Абярыце шаблон"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Стандартны шаблон"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Дадаць шаблон"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Па значэнні ў радку. Падзяляйце загаловак і кароткі Tag (не больш за 8 знакаў) рысай '|'.<br />Усе радкі якія пачынаюцца з  '*' абраны па змаўчанні."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "адно значэнне ў радку."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Абмежаванне максімальнай хуткасці загрузкі.0= неабмежавана."
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Абмежаванне запампаванага трафіку .0=неабмежавана."
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Шлях загрузкі файлаў"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Адлюстроўваць загруженые файлы"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Калі актыўна, усе файлы злучаныя з запісамі будуць адлюстроўвацца."
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Абярыце сартаванне:"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Па якім прынцыпе адлюстроўваць файлы?"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Кірунак сартавання"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "Кірунак сартавання спісаў файлаў"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Абмежаванне хуткасці для госцяў"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Абмежаванне хуткасці для зарэгістраваных карыстачоў"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Ліміт дзённага трафіку"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Ліміт месячнага трафіку"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Ліміт трафіку вычарпаны! Паспрабуйце ў іншы раз."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Паведамленне пра перавыдатак трафіку."
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Сутачны ліміт спампоўкі"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Незарэгістраваныя карыстачы не змогуць спампоўваць файлы. Вы можаце ўсталяваць розныя ліміты для розных груп карыстачоў."
+
+msgid "downloads per day"
+msgstr "Запамповак у дзень"
+
+msgid "Daily limit for %s"
+msgstr "Дзённы ліміт для %s"
+
+msgid "You can only download %d files per day."
+msgstr "Вы можаце запампаваць %d у суткі"
+
+msgid "Daily limit exceeded message"
+msgstr "Паведамленне дасягнення дзённага ліміту"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Гэты файл недаступны"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Паведамленне недаступнага файла"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Выключыць сталыя спасылкі"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Уключыце, пры праблемах са спасылкамі"
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "Запампаваць спіс URL"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "Прэфікс спасылак для файла спісу URL. Прыклад:<code>%s</code>(толькі пры ўключаных сталых спасылках)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "ID запісы"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Нумар запісу, у якой файл будзе змесцаваны. калі не жадаеце выкарыстоўваць, пакіньце пустое поле."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Выпадальны спіс катэгорый."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Выкарыстоўвайце выпадальны спіс катэгорый замест спісу падобных файлаў."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Замацаваць спампоўку"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Пры актывацыі, карыстачы смогуть толькі спампоўваць файлы( немагчыма будзе прагледзець такія як PDF Відэа і г.д.)."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Ігнараваць загрузкі адмінам"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Схаваць файлы"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Файлы адзначаныя \"толькі для зарэгістраваных\" не будуць адлюстроўвацца для астатніх груп."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "У вас няма правоў для доступу да файла!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Паведамленне недаступнасці файла."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Гэта паведамленне будзе адлюстравана, пры немагчымасці спампоўкі файла"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Перанакіраванне "
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Уключыце для перанакіравання карыстачоў на старонку ўваходу."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "Парсить запісы ў RSS"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Калі вкл. Таги будуць парситься ў RSS"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Дазволіць скрыпт загрузкі"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Пры ўключэнні, такія скрыпты як PHP і CGI могуць быць загружаны.!!! РЫЗЫКА БЯСПЕКІ!!!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Дазволіць пустыя радкі реферов"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Allowed referers"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Sites with matching URLs can link to files directly."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Дзесятковы памер файла"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Пры ўключэнні (1 MB = 1000 KB = 1 000 000 B) замест (1 MiB = 1024 KiB = 1 048 576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Платформы"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Ліцэнзіі"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Патрабаванні"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Шаблон файла па змаўчанні"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "Шаблон для прыкладанняў"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Шаблон катэгорый"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "Шаблон для спісу катэгорый"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Скрыпт запампоўкі"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "У гэта поле вы можаце ўвесці JavaScript код, які будзе выкананы пры зграі па спасылцы на спампоўку. можна выкарыстоўваць :<i>file_id</i> -ID файла,  <i>file_url</i>:сам URL спампоўкі."
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "URL катэгорыі"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Шлях да тэчкі катэгорыі (заўв.cat1/cat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Назва тэчкі катэгорыі( не шлях)"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Назва бацькоўскай катэгорыі"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Колькасць файлаў у катэгорыі"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Мінімальны ўзровень наведвальніка для прагляду гэтай катэгорыі (-1=госць, 0=Падпісант ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "ID катэгорыі"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "A unique ID number to identify elements within a template"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Імя файла"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Разммер файла"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Дата"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Імя мініяцюры"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Версія файла"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Падтрымоўваныя мовы"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Падтрымоўваныя платформы( АС )"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Мінімальныя патрабаванні"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Ліцэнзія"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Мінімальны ўзровень наведвальніка для спампоўкі файла  (-1=госць, 0=Падпісант ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 калі фала няма, у адваротным 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 калі прамая спасылка дазволена,у адваротным 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "Імя катэгорыі"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "ID старонкі/запісы да якой ставіцца файл"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the uploader"
+msgstr "ID карыстача ў запампоўцы"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Колькі разоў файл быў запампаваны"
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "IP апошняй спампоўкі"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Час апошняга скачиваня"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "Спасылка для спампоўкі"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "URL старонкі/запісы да якой ставіцца файл"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "URL мініяцюры ці абразкі"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Шлях да тэчкі катэгорыі і назва файла  (заўв. cat1/cat2/file.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "ID файла "
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Кароткае апісанне"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Offline > Online"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Прамая спасылка>рэдырэкт на запіс"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Варыяцыі шаблону:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Увядзіце імя катэгорыі ці тэчкі"
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "Імя катэгорыі ўтрымоўвае няслушныя знакі"
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "Тэчка %s ужо існуе!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Немагчыма змяніць абразок катэгорыі!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "Пашырэнне  <b>%s</b>забаронена!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Файл %s існуе. Выдаліце існы спачатку!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Немагчыма выдаліць файл %s!Праверце правы запісы тэчкі!"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Няма файла для загрузкі!"
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Не счытваецца ID карыстача!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "Файл <b>%s</b>  абаронены ад запісу!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Мэнэджар катэгорый (<a href=\"%s\">дадаць</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Файлы"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Важна:</strong><br />Выдаленне катэгорыі не выдаліць файлаў у катэгорыі. Файлы з выдаленай катэгорыі , буду ассоциированны і бацькоўскай."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Файл абноўлены"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Файл дададзены"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Мэнэджар файлаў (<a href=\"%s\">дадаць</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Пошук файлаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Назва файла"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Памер"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Хіты"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Апошняя спампоўка"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Нічога не зменена!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "Зменена %d  пунктаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "Дададзена %d  файлаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "WP Filebase удала сінхранізаваны"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Сінхранізацыя фалаў выканана"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s абаронены ад запісу!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Абнавіць файл"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Аднавіць па змаўчанні"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Рэдагаваць Шаблоны"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Захаваць змены"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Тэгі Шаблону(адно слова для апісання шаблону)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Код Шаблону"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Тэчка для загрузкі <code>%s</code> не існуе. Яе не магчыма стварыць аўтаматычна бо  тэчка <code>%s</code> абаронена ад запісу. Стварыце <code>%s</code> і ўсталюеце правы на записть пры дапамозе FTP каманды: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Тэчка загрузкі  <code>%s</code> абаронена ад запісу. Зменіце правы доступу праз ФТП <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Мэнэджар файлаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Прагляд і рэдагаванне фалаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Кіраванне катэгорыямі"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Кіраванне і даданне катэгорый"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Сінхранізацыя "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Сінхранізацыя БД і файлавай сістэмы. Выкарыстоўваецца пры загрузцы праз FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Рэдагаванне стыляў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Рэдагаванне CSS шаблону "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Кіраванне шаблонамі"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Рэдагаванне свайго шаблону для спісу файлаў"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Ахвяраванні"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Калі вам падабацца ўбудова, ахвяруйце."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Трафік"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Сеодня"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "За месяц"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Налады скінуты"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ дададзена ў выключэнні WP Super Cache."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "УВАГА : скрыпт запампоўкі актыўны!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Шаблон файла спарсен!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Немагчыма спарсить шаблон файла. Памылка ў (%s)  радку  %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Шаблон катэгорыі спарсен."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Налады захаваны"
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Немагчыма прачытаць файл"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Тэчка катэгорыі"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Абразок катэгорыі"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Толькі для падпісантаў!"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Мінімальны ўзровень карыстача ( %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "ужыць изменениея для даччыных файлаў"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Рэдагаваць файл"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Запампаваць файл на сервер"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Простая форма"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Абярыце файл"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Дапушчальны памер файла: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Вы можаце запампаваць мініяцюру. Калі гэты малюнак, мініяцюра сгенерируеться сама."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Абавязкова запоўніце наступныя палі."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Лічыльнік спамповак"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Прамыя спасылкі"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Дазволіць прамыя спасылкі"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Перанакіраванне запісу"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Недаступны"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Ліміт"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Шаблон"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Мэнэджар закаче падтрымлівае катэгорыі, мініяцюры, трафік/хуткасць спампоўкі, ліміты і іншае."
+
+#. Template
+msgid "Version"
+msgstr "Версія"
+
+msgid "Languages"
+msgstr "Мовы"
+
+msgid "Author"
+msgstr "Аўтар"
+
+msgid "Category"
+msgstr "Катэгорыя"
+
+msgid "Category:"
+msgstr "Катэгорыя:"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Details"
+msgstr "Дэталі"
+
+#. Option Categories
+msgid "Common"
+msgstr "Агульныя"
+
+msgid "Display"
+msgstr "Адлюстраванне"
+
+msgid "Download"
+msgstr "Запампоўка"
+
+msgid "Form Presets"
+msgstr "Гатовыя налады"
+
+msgid "Limits"
+msgstr "Абмежаванні"
+
+msgid "Security"
+msgstr "Бяспека"
+
+msgid "Templates and Scripts"
+msgstr "Шаблоны і скрыпты"
+
+msgid "Lists the latest or most popular files"
+msgstr "Спіс нядаўна дададзеных і папулярных файлаў"
+
+msgid "Simple listing of file categories"
+msgstr "Простыя спісы катэгорый"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Перад выкарыстаннем виджета, зменіце ID запісы ў  WP-Filebase наладах"
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+

@@ -1,0 +1,1144 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2012-07-14 02:08+0100\n"
+"Last-Translator: Peter Suransky <peter.suransky@gmail.com>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Súbory nezaradené do kategorií"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Nenahrali Ste žiaden súbor. <a href=\"%s\" target=\"_parent\">Pre pridanie súboru kliknite sem."
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Zadajte text odkazu"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Jediný súbor"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "URL súboru"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Zoznam súborov"
+
+msgid "Category list"
+msgstr "Zoznam kategórií"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Všetky kategórie"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Prílohy"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to add one."
+msgstr "Nevytvorili ste žiadnu kategóriu. <a href=\"%s\" target=\"_parent\">Pre vytvorenie kategórie kliknite sem."
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Vyberte šablónu"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Prednastavená šablóna"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Pridať šablónu"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Jeden záznam v riadku. Oddeľte názov a krátky štítok (kratší ako 8 znakov) s '|'.<br /> Všetky riadky začínajúce '*' sú označené automaticky."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "Jeden záznam v riadku."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Limitovať maximálnú rýchlosť prenosu dát pri sťahovaní. 0 = neobmedzený"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Limitovať maximálny prenos dát. 0 = neobmedzený"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Cesta pre nahrávanie"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Zobraz priložené súbory"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Ak je povolené, všetky priradené súbory zaradené pod článkom"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Prednastavené triedenie"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Zoznam vlastností súborov sú zoradené podľa"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Smer radenia"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "Smer zoradenia zoznamov súborov"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Prenosová rýchlosť pre návštevníka"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Prenosová rýchlosť pre registrovaného užívateľa"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Denný limit prenosov"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Mesačný limit prenosov"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Prekročený limit prenosov! Prosím skúste neskôr"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Správa o prekročení limitu prenosu"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Denný limit sťahovania užívateľa"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Ak je povolené, neregistrovaní úžívatelia nemôžu sťahovať žiadne súbory. Môžete nastaviť limity pre každú užívateľskú rolu."
+
+msgid "downloads per day"
+msgstr "stiahnutia za deň"
+
+msgid "Daily limit for %s"
+msgstr "Denný limit pre %s"
+
+msgid "You can only download %d files per day."
+msgstr "Môžete stiahnuť %d súborov za deň."
+
+msgid "Daily limit exceeded message"
+msgstr "Správa o prekročení denného limitu"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Tento súbor je momentálne nedostupný"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Správa o nedostupnosti súboru"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Nepovoliť sťahovanie trvalých odkazov"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Povoliť ak máte problém so sťahovaním cez trvalé odkazy"
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "URL cesta pre sťahovanie"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "URL prefix pre odkazy na stiahnutie. Príklad: <code>%s</code> (Používa sa len ak sú povolené trvalé odkazy.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "ID článku pre prehliadač súborov"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Zadajte ID článku alebo stránky, kde má byť vložený prehliadač súborov. Ak nechcete povoliť túto možnosť nechajte prázdne."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Rozbaľovací zoznam kategórií"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Použite rozbaľovací zoznam kategórií v prehliadači."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Výnútiť stiahnutie vždy"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Ak je povolené, súbory, ktoré sa dajú zobraziť v prehliadači (ako obrázky, PDF dokumenty alebo videá) môžu byť len na stiahnutie (žiaden streaming)."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Ignorovať stiahnutia administrátormi"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Skryť neprístupné súbory a kategórie"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Ak je povolené, súbory označené <i>Len pre registrovaných</i> nebudú zobrazené pre návštevníkov s nedostatočnými právami."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "Nie ste oprávnený pre prístup k tomuto súboru!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Správa o neprístupnosti súboru"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Táto správa sa zobrazí ak sa užívateľ pokúša stiahnuť súbor pre neho neprístupný"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Presmerovanie na prihlásenie"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Ak je povolené, návštevníci pokúšajúci sa stiahnuť neprístupné súbory sú presmerovaní na prihlasovaciu stránku."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "Analyzovať šablóny značiek v RSS."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Ak je povolené WP-Filebase obsahové značky sú analyzované v RSS"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Povoliť náhravanie skriptov"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Ak povolíte nahrávanie skriptov, PHP, CGI a podobné skripty bude možné nahrávať. <b>POZOR:</b> Povolenie nahrávania skriptov je <b>bezpečnostné riziko</b>!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Akceptovať prázdne HTTP odkazy"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Ak je povolené, proti priamym odkazom zabezpečené súbory sa dajú stiahnuť, ak je HTTP odkaz prázdny (napr. ak užívateľ priamo zadá url v prehliadači)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Povolené HTTP odkazy"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Stránky z súhlasnými URL môžu odkazovať na súbory priamo."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Decimálne prefixy veľkosti súboru"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Povoľte ak chcete decimálne prefixy (1 MB = 1000 KB = 1 000 000 B) namiesto of binárnych (1 MiB = 1024 KiB = 1 048 576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Platformy"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Licencie"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Požiadavky"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Môžete dodatočne pridať |<i>URL</i> do každého riadku na prelinkovanie so softvérom/súborom."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Prednastavená súborová šablóna"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "Šablóna pre prílohy"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Šablóna kategórie"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "Šablóna pre zoznam kategórií (používane v prehliadači súborov)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Stiahnuť JavaScript"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Tu môžete vložiť JavaScript kód, ktorý sa vykoná pri kliknutí používateľa na odkaz na stiahnutie súboru. Je možné použiť premenné: <i>file_id</i>: ID súboru, <i>file_url</i>: kliknuté url súboru"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "URL kategórie"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Cesta kategórie (napr. cat1/cat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Len názov priečinku kategórie, nie celá cesta"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Názov hlavnej (rodičovskej) kategórie (prázdne ak néma rodiča)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Počet súborov v kategórii"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Minimálna rola užívateľa na prezeranie tejto kategórie (-1 = hosť, 0 = Registrovaný ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "ID kategórie"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Unikátne číslo na identifikáciu elementov v šablóne"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Názov súboru"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Formátovaná veľkosť súboru"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Formátovaný dátum súboru"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Názov náhľadového súboru"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Verzia súboru"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Podporované jazyky"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Podporované platformy (operačné systémy)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Požiadavky na používanie tohoto súboru"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Licencia"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Minimálna rola užívateľa na prezeranie tejto kategórie (-1 = hosť, 0 = Registrovaný ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 ak je súbor nedostupný, inak 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 ak je priame linkovanie povolené, inak 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "Názov kategórie"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "ID článku/stránky kam patrí tento súbor"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "ID užívateľa vlastníka"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Koľko krát bol súbor stiahnutý"
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "IP adresa posledného sťahujúceho"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Čas posledného sťahovania"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "URL na stiahnutie"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "URL článku/stránky kam patrí tento súbor"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "URL náhľadu alebo ikony"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Cesta kategórie názov súboru (napr. cat1/cat2/file.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "ID súboru"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Srátený popis"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Nedostupný > Dostupný"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Priame linkovanie > presmeruj na článok"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Pridaj premennú šablóny"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Musíte zadať názov kategórie alebo názov priečinka"
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "Názov priečinka kategórie obsahuje nepovolené znaky"
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "Priečinok %s už existuje"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Nemožno presunúť ikonu kategórie"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "Súborová prípona súboru <b>%s</b> nie je dovolená"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Súbor %s už existuje. Najprv ho musíte zmazať"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Nemožno presunúť súbor %s! Má priečinok na nahrávanie povolený zápis?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Žiaden súbor nebol nahratý."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Nebolo možné zistiť ID užívateľa!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "Do súboru <b>%s</b> sa nedá zapisovať!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Spravovať kategórie (<a href=\"%s\">pridať novú</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Súbory"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Poznámka:</strong><br />Zmazanie kategórie nevymaže súbory do nej zaradené. Namiesto toho sú súbory zaradené do rodičovskej kategórie ."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Súbor aktualizovaný"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Súbor pridaný"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Spravovať súbory (<a href=\"%s\">pridať nový</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Hľadať súbory"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Názov súboru"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Veľkosť"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Zobrazenia"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Posledné stiahnutie"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Nič sa nezmenilo!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "Zmenených %d položiek"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "Pridaných %d súborov"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Filebase úspešne zosynchronizovaná"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Ukončená synchronizácia súborov"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Skontrolovať zmeny v súboroch, užitočnejšie ale trvá podstatne dlhšie. Vykonajte ak boli nahraté/zmenené súbory cez FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s nie je zapisovateľný"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Aktualizuj súbor"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Obnoviť pôvodné"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Upraviť šablóny"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Potvrdiť zmeny šablóny"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Značka šablóny (jedno slovo popisujúce šablonu)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Kód šablóny"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Priečinok na nahrávanie <code>%s</code> neexistuje. Nemohol byť automaticky vytvorený lebo priečinok <code>%s</code> nie je zapisovateľný. Vytvorte <code>%s</code> a povoľte zápis webservru nasledujúcim FTP príkazom: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Priečinok na nahrávanie <code>%s</code> nie je zapisovateľný. Povoľte zápis PHP nasledujúcim FTP príkazom: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Spravovať súbory"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Zobraziť nahraté súbory a upraviť ich"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Spravovať kategórie"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Spravovať existujúce kategórie a pridať nové"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Synchronizovať Filebase"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Synchronizuje databázu so súborovým systémom. Použite na pridanie súborov cez FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Upraviť štýly"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Upraviť CSS pre šablónu súboru"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Spravovať šablóny"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Upraviť vlastné šablony zoznamov súborov"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Prispieť &amp; požiadať o doplnenie a úpravu modulu"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Ak sa Vám páči tento modul a chcete podporiť moju prácu, prosím prispejte. Môžete taktiež zverejniť Vaše nápady na vylepšenia."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Prenos"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Dnes"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Tento mesiac"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Nastavenia vynulované"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/  pridaný do zoznamu blokovaných URI WP Super Cache"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "POZOR: Nahrávanie skriptov povolené"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Analýza šablóny súboru úspešná"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Analýza šablóny neúspešná: chyba (%s) je v riadku %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Analýza šablóny kategórie úspešná"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Nastavenia aktualizované"
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Súbor nemožno prečítať!"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Priečinok kategórie"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Ikona kategórie"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Len pre registrovaných užívateľov"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Minimálna rola užívateľa: (pozri %s) "
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "Použiť prístupové práva na podradené súbory"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Upraviť súbor"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Nahrať súbor"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Jednoduchý formulár"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "Rozšírený formulár"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Vybrať súbor"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Maximálna veľkosť súboru: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Tu je možné nahrať náhľad. Ak je súbor platným obrázkom, náhľad sa vygeneruje automaticky."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Nasledujúce polia nie sú povinné"
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Počítadlo stiahnutí"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Priame linkovanie"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Povoliť priame linkovanie"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Presmerovať na článok"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Nedostupné"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Limit"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Šablóna"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Výkonný manažer sťahovania podporujúci kategórie súborov, náhľady, prenosové limity a viac."
+
+#. Template
+msgid "Version"
+msgstr "Verzia"
+
+msgid "Languages"
+msgstr "Jazyky"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Category"
+msgstr "Kategória"
+
+msgid "Category:"
+msgstr "Kategória"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Details"
+msgstr "Detaily"
+
+#. Option Categories
+msgid "Common"
+msgstr "Všeobecné"
+
+msgid "Display"
+msgstr "Zobraziť"
+
+msgid "Download"
+msgstr "Stiahnutie"
+
+msgid "Form Presets"
+msgstr "Nastavenia formulárov"
+
+msgid "Limits"
+msgstr "Limity"
+
+msgid "Security"
+msgstr "Bezpečnosť"
+
+msgid "Templates and Scripts"
+msgstr "Šablóny a skritpty"
+
+msgid "Lists the latest or most popular files"
+msgstr "Zobrazí najnovšie a najpopulárnejšie súbory"
+
+msgid "Simple listing of file categories"
+msgstr "Jednoduché zobrazenie kategórií súborov"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Pred použitím widgetu nastavte ID článku pre prehliadač súborov vo WP-Filebase nastaveniach"
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Ak sa Vám páči WP-Filebase navrhujem Vám malú dotáciu na podporu mojej práce. Samozrejme můžete aj pridař nápad ako vylepšiř alebo doplniř WP-Filebase. Stačí kliknúř na tlačidlo nižšie. Ďakujem"
+
+msgid "Custom field '%s' removed!"
+msgstr "'%s'vlastných polí vymazaných "
+
+msgid "Custom field '%s' added."
+msgstr "'%s'vlastných polí pridaných"
+
+msgid "Search Integration"
+msgstr "Integrácia hľadania"
+
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Hľadá v priložených súboroch a zobrazí priradené články a stránky pri hľadaní na blogu."
+
+msgid "Restore Default Settings"
+msgstr "Obnovenie pôvodných nastavení"
+
+msgid "Attachment Position"
+msgstr "Pozícia prílohy"
+
+msgid "After the Content"
+msgstr "Za obsahom"
+
+msgid "Before the Content"
+msgstr "Pred obsahom"
+
+msgid "Title"
+msgstr "Názov"
+
+msgid "Category Name"
+msgstr "Názov kategórie"
+
+msgid "Category ID"
+msgstr "ID kategórie"
+
+msgid "Number of files per page"
+msgstr "Počet súborov na stránke"
+
+msgid "Relative path of the file"
+msgstr "Relatívna cesta k súboru"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "Dĺžka zoznamu súborov na stránke. Nastavte 0 na zrušenie limitu. "
+
+msgid "File browser category sorting"
+msgstr "Triedenie kategórií prehliadača súborov"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "Nastavenie kategórie, pre triedenie v prehliadači súborov"
+
+msgid "Name of the Category folder"
+msgstr "Názov priečinka kategórie"
+
+msgid "Relative path of the category folder"
+msgstr "relatívna cesta k priečinku kategórie"
+
+msgid "File browser file sorting"
+msgstr "Triedenie súborov v prehliadači súborov"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "Nastavenie súborov, pre triedenie v prehliadači súborov"
+
+msgid "Send HTTP-Range header"
+msgstr "Poslať HTTP-rozsah hlavičky"
+
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Povoli používateľom prerušiť sťahovanie a pokračovať neskôr. Okrem toho manažery sťahovania zvládajú viacnásobne spojenia naraz."
+
+msgid "Disable HTTP Caching"
+msgstr "Zakázať HTTP vyrovnávaciu pamäť"
+
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Povoľte ak máte problémy so sťahovaním pri použití Wordpress cache modulov"
+
+msgid "With custom fields you can add even more file properties."
+msgstr "S vlastnými poliami môžete definovať ešte viac parametrov pre súbory."
+
+msgid "Redirect to referring page after login"
+msgstr "Presmerovanie na odkazujúcu stránku po prihlásení"
+
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Uživatelia sú presmerovaný na stránku kde klilki na odkaz po prihlásení"
+
+msgid "Protect upload path"
+msgstr "Zabezpečí cestu pre nahrávanie"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "Pomáha predísť priamemu prístupu k súborom v priečinku na nahrávanie"
+
+msgid "Hide download links"
+msgstr "Skryť odkazy na sťahovanie"
+
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Odkazy na sťahovanie nebudú zobrazované v stavovom riadku prehliadača. Malo by sa zapnúť '%s' na ťažšie zistenie URL."
+
+msgid "Auto-detect thumbnails"
+msgstr "Automaticky detekovať náhľady"
+
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "Obrázky sa použijú ako náhľady ak majú rovnaký názov pri synchronizácii. (napr. `file.jpg` &lt;=&gt; `file.zip`)"
+
+msgid "Automatic Sync"
+msgstr "Automatická synchronizácia"
+
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Naplánuje cronjob na hodinovú synchronizáciu súborového systému a databázy"
+
+msgid "Extension Blacklist"
+msgstr "Zakázané prípony"
+
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Súbory s danou príponou nie su synchronizované. (čiarkou oddelené)"
+
+msgid "Disable ID3 tag detection"
+msgstr "Zakázať ID3 tag detekciu"
+
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Zakáže čítanie všetkých metadát súboru. Použite ak máte problémy s pridávaním väčších súborov."
+
+msgid "Search ID3 Tags"
+msgstr "Hľadať v ID3 tagoch"
+
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Hľadať v metadátach súboru ako ID3 pre MP3, EXIF pre JPEG... (nemá prakticky žiaden vplyv na zaťaženie súboru)"
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "Pridať WP-Filebase do administratorskej lišty"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "Zobraziť rýchle akcie pre správu súborov v administrátorskej lište."
+
+msgid "Statistics"
+msgstr "Štatistiky"
+
+msgid "Number of Files"
+msgstr "Počet súborov "
+
+msgid "Number of Categories"
+msgstr "Počet kategórii"
+
+msgid "Total Downloads"
+msgstr "Celkové stiahnutia"
+
+msgid "Total File Size"
+msgstr "Celková veľkosť súborov"
+
+msgid "Convert old Tags"
+msgstr "Previesť staré značky"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "Previesť značky z verzií skorších ako 0.2.0"
+
+msgid "Add File"
+msgstr "Pridať súbor"
+
+msgid "Redirect download to URL"
+msgstr "Presmerovať sťahovanie na URL"
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "Skopírovať súbor na Filebase (sideload)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "Limitovať prístup súborom označením jednej alebo viacerých užívateľských rolí"
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "Označenie viacerých rolí držanim CTRL/COMMAND tlačidla."
+
+msgid "Access Permission"
+msgstr "Prístupové práva"
+
+msgid "Everyone"
+msgstr "Všetci"
+
+msgid "Add Category"
+msgstr "Pridať kategóriu"
+
+msgid "Exclude from file browser"
+msgstr "Okrem prehliadača súborov"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "Šablóna používaná pre vloženie samostatného súboru alebo zoznamu súborov."
+
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Pre niektoré súbory sú k dispozícii viaceré značky. Pod formulárom pri úprave súboru nájdete zoznam všetkých značiek"
+
+msgid "Reset all Templates to default"
+msgstr "Vynulovanie všetkých šablón do predvoleného stavu"
+
+msgid "These templates can be used for categories."
+msgstr "Tieto šablóny sa dajú použiť pre kategórie"
+
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "Zoznam šablón obsahuje hlavičku, pätu a šablónu súboru. Voliteľne može obsahovať aj šablónu kategórie a zoznam podradených kategórií"
+
+msgid "Header"
+msgstr "Hlavička"
+
+msgid "Footer"
+msgstr "Päta"
+
+msgid "File Template"
+msgstr "Šablóna súboru"
+
+msgid "Parent Category ID"
+msgstr "ID rodiča kategórie"
+
+msgid "Number of files directly in the category"
+msgstr "Počet súborov priamo priradených do kategórie"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "Počet súborov priradených do kategórie vrátane všetkých podradených kategórií"
+
+msgid "Attach existing file"
+msgstr "Priložiť existujúci súbor"
+
+msgid "Select File"
+msgstr "Vybrať súbor"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "Vybrať kategórie obsahujúce súbory, ktoré chcete zobraziť v zozname"
+
+msgid "Include all Categories"
+msgstr "Vrátane všetkých kategórií"
+
+msgid "Files per page:"
+msgstr "Počet súborov na stránke"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "Nastavne 0 ak chcete použiť prednastavený limit (%d), -1 zakáže stránkovanie."
+
+msgid "File Tree View"
+msgstr "Zobrazenie stromovej štruktúry"
+
+msgid "List selected Categories"
+msgstr "Zobraziť vybrané kategórie v zozname"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "Vybrať hlavnú kategóriu stromu pre zobrazenie v prehliadači"
+
+msgid "The File has been uploaded successfully."
+msgstr "Súbor úspešne nahratý."
+
+msgid "New Category created."
+msgstr "Nová kategória pridaná."
+
+msgid "Selectable by Uploader"
+msgstr "Možnosť vybrať užívateľom"
+
+msgid "Upload to Root"
+msgstr "Nahrať do hlavného priečinku"
+
+msgid "You can enter a URL to redirect users."
+msgstr "Môžete zadať URL pre presmerovanie užívateľov"
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "Požiadajte poskytovateľa hostingu na zvýšenie limitu, aktuálny limit je %s."
+
+msgid "Inherit Permissions"
+msgstr "Zdediť práva"
+
+msgid "Explicitly set permissions"
+msgstr "Explicitné práva"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "Obmedziť prístup kategórie výberom jednej alebo viacerých užívateľských rolí"
+
+msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "To bude rekurzívna aktualizácia povolení všetkých existujúcich podriadených kategórií a súborov. Všimnite si, že oprávnenia nových súborov v tejto kategórii sa dedia automaticky bez toho, aby bolo čítné toto políčko."
+
+msgid "Owner"
+msgstr "Vlastník"
+

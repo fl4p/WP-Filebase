@@ -1,0 +1,1144 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2012-04-09 11:05+0100\n"
+"Last-Translator: Vincentas G <vg@host1plus.com>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Lithuanian\n"
+"X-Poedit-Country: LITHUANIA\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Į kategorijas nepaskirtos Rinkmenos"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Jūs neįkėlėte rinkmenos. <a href=\"%s\" target=\"_parent\">Paspauskite čia, kad įkeltumėte.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Įrašykite nuorodos tekstą:"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Pavienė rinkmena"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "Rinkmenos Universalioji nuoroda"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Rinkmenų sąrašas"
+
+msgid "Category list"
+msgstr "Kategorijų sąrašas"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Visos Kategorijos"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Priedai"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Jūs nesukūrėte kategorijos. <a href=\"%s\" target=\"_parent\">Paspauskite čia, kad sukurtumėte.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Pasirinkite Šabloną"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Numatytasis Šablonas"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Pridėti Šabloną"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Vienas įrašas eilutėje. Atskirkite antraštę ir trumpąją gairę (neilgėsnę nei 8 simboliai) '|' ženklu. <br />Visos eilutės, prasidedančios '*' yra pažymėtos kaip numatytosios."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "Vienas įrašas eilutėje."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Apriboja maksimalų siuntimo greitį. 0 = neribotas"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Apriboja maksimalų duomenų srautą. 0 = neribotas"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Įkelti Adresą"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Rodyti pridėtas rinkmenas"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Jeigu suaktyvinta, visos susijusios rinkmenos yra parodomos sąraše žemiau įrašo"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Numatytasis rikiavimas"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Rinkmenų savybių sąrašai yra išrikiuoti pagal"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Rikiavimo kryptis"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "Rinkmenų sąrašų rikiavimo kryptis"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Pralaidumo apribojimas svečiams"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Pralaidumo apribojimas registruotiems vartotojams"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Dienos srauto apribojimas"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Mėnesio srauto limitas"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Srauto limitas viršytas! Prašome pabandyti vėliau."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Srauto viršijimo pranešimas"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Vartotojo dienos siuntimo apribojimas"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Jeigu suaktyvinta, neregistruoti vartotojai negali parsisiųsti jokių rinkmenų. Jūs galite nustatyti skirtingus limitus kiekvienai vartotojų charakteristikai žemiau."
+
+msgid "downloads per day"
+msgstr "persisiuntimai per dieną"
+
+msgid "Daily limit for %s"
+msgstr "Dienos apribojimas %s"
+
+msgid "You can only download %d files per day."
+msgstr "Jūs galite parsisiųsti %d rinkmenų per dieną."
+
+msgid "Daily limit exceeded message"
+msgstr "Dienos apribojimo viršijimo pranešimas"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Ši rinkmena šiuo metu yra atjungta."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Atjungtos rinkmenos pranešimas"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Panaikinti parsisiuntimų permanuorodas"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Suaktyvinkite tai, jeigu turite problemų su permanuorodomis."
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "Parsisiųsti Universaliųjų rinkmenų bazę"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "Universaliosios nuorodos priešdėlis parsisiuntimų nuorodoms. Pavyzdžiui <code>%s</code> (Naudojama tik tada, kai permanuorodos suaktyvintos.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "Rinkmenų naršyklės įrašo identifikatorius"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Nurodykite įrašo ar puslapio, kuriame rinkmenų naršyklė turėtų būti patalpinta Identifikatorių. Jeigu Jūs norite panaikinti šią funkciją, palikite laukelį tuščią."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Kategorijų išskleidžiamasis sąrašas"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Naudokite kategorijų išskleidžiamąjį sąrašą rinkmenų naršyklėje, vietoje mėgiamų rinkmenų rodymo sąrašuose."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Visuomet priversti siųsti"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Jeigu suaktyvinta, rinkmenos, kurios gali būti peržiūrėtos naršyklėje (pavyzdžiui, vaizdai, PDF dokumentai ar filmai) gal būti parsisiųstos (be srautinio duomenų siuntimo)."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Ignoruot administratorių parsisiuntimus"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Paslėpti nepasiekiamas rinkmenas ir kateogrijas"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Jeigu suaktyvinta, rinkmenos su gairėmis <i>tik registruotiems vartotojams</i> nebus pateiktos svečiams, arba vartotojams, neturintiems reikiamų privilegijų."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "Jums neleidžiama pasiekti šios rinkmenos!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Nepasiekiamos rinkmenos pranešimas"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Šis pranešims bus rodomas, jeigu vartotojai bandys parsisiųsti rinkmeną, kurios parsisiuntimo privilegijų neturi"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Nukreipti prisijungimui"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Svečiai, bandantys parsisiųsti nepasiekiamas rinkmenas yra nukreipiami į prisijungimo puslapį, jeigu ši parinktis suaktyvinta."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "Analizuoti šablono gaires RSS padavimuose"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Jeigu suaktyvinta, WordPress rinkmenų bazės turinio gairės yra analizuojamos RSS padavimuose."
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Leisti skripto įkėlimą"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Jeigu tai suaktyvinta, PGP ar CGI skriptai gali būti įkelti. <b>DĖMESIO:</b> Skriptų įkėlimo suaktyvinimas gali įtakoti <b>saugumo spragų atsiradimą </b>"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Priimti tuščius kreipinius"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Jeigu suaktyvinta, tiesiogine nuoroda apsaugotos rinkmenos gali būti parsisiųstos, kuomet nuoroda yra tuščia (pvz., vartotojo adreso juostoje  įrašyta rinkmenos universalioji nuoroda ar naršyklė nesiunčia kreipinio)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Leidžiami kreipiniai"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Svetainės su sutampančiomis Universaliosiomis nuorodomis, gali nurodyti rinkmenas tiesiogiai."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Dešimtainiai rinkmenų dydžio priešdėliai"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Suaktyvinkite tai, jeigu Jūs norite dešimtainių priešdėlių (1 MB = 1000 KB = 1 000 000 B) vietoje dvejetainių (1 MiB = 1024 KiB = 1 048 576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Platformos"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Licencijos"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Reikalavimai"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Jūs galite pasirinktinai pridėti |<i>Universaliąją nuorodą </i> prie kiekvienos eilutės, susiejant ją su reikiama programine įranga/rinkmena."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Numatytasis Rinkmenos Šablonas"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "Šablonai priedams"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Kategorijos Šablonas"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "Šablonas kategorijų sąrašams (naudojama rinkmenų naršyklėje)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Parsisųsti JavaScript"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Jūs galite įvesti JavaScript kodą, kuris yra paleidžiamas, kuomet vartotojas paspaudžia parsisiuntimo nuorodą. Gali būti panaudoti šie kintamieji: <i>file_id</i>: the ID of the file, <i>file_url</i>: paspausta parsisiuntimo universalioji nuoroda"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "Kategorijos Universalioji nuoroda"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Kategorijos adresas (pvz. kat1/kat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Vertinti tik kategorijos aplanko pavadinimą, ne adresą"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Virškategorijų pavadinimas (tuščia, jeigu jų nėra)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "Kategorijos rinkmenų skaičius"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Žemiausias vartotojo lygmuo, kuriam leidžiama peržiūrėti šią kategoriją (-1 = Svečias, 0 = Prenumeratorius)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "Kategorijos Identifikatorius"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Unikalus Identifikatoriaus skaičus, skirtas identifikuoti šablono elementus"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Rinkemnos pavadinimas"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Formatuotos rinkmenos dydis"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Formatuotos rinkmenos data"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Miniatiūros rinkmenos pavadinimas"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Rinkmenos versija"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Palaikomos kalbos"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Palaikomos platformos (operacinės sistemos)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Reikalvimai rinkmenos panaudojimui"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Licencija"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Žemiausias vartotojo lygmuo, kuriam leidžiama parsisiųsti šią rinkmeną  (-1 = Svečias, 0 = Prenumeratorius ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 jeigu rinkmena nepasiekiama, priešingu atveju 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 jeigu tiesioginė nuoroda leistina, priešingu atveju 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "Kategorijos pavadinimas"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "Įrašo/puslapio, kuriam priklauso rinkmena, identifikatorius"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "Savininko vartotojo identifikatorius"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Kiek kartų ši rinkmena buvo parsisiųsta."
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "Paskutinio parsisiuntėjo IP adresas"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Paskutinio parsisiuntimo laikas"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "Parsisiuntimo Universalioji nuoroda"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "Įrašo/puslapio, kuriam rimena priklauso, Universalioji nuoroda"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "Piktogramos ar miniatiūros Universalioji nuoroda"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Kategorijos adresas ir rinkmenos pavadinimas (pvz kat1/kat2/rinkmena.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "Rinkmenos Identifikatorius"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Trumpasis aprašymas"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Nepasiekiamas > Pasiekiamas"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Tiesioginės nuorods > nukreipti į įrašą"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Pridėti šablono kintamąjį:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Jūs privalote įrašyti kategorijos arba aplanko pavadinimą."
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "Kategorijos aplanko pavadinime yra neleistinų ženklų."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "Direktorija %s jau yra sukurta!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "Neįmanoma perkelti kategorijos piktogramos!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "Rinkmenos <b>%s</b> plėtinys yra uždraustas!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Rinkmena %s jau yra sukurta. Jūs turite ištrinti egzistuojančią prieš kuriant naują!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Neįmanoma perkelti rinkmenos %s! Ar įkėlimų katalogas redaguotinas?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "Jokia rinkmena nebuvo įkelta."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "Neįmanoma suprasti vartotojo identifikatoriaus!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "Rinkmena <b>%s</b> nėra įrašoma!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Valdyti Kategorijas (<a href=\"%s\">pridėti naują</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Rinkmenos"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Patarimas:</strong><br />Kategorijos ištrynimas nenulemia kategorijos rinkmenų ištrynimo. Vietoje to, ištrinamai kategorijai priskirtos rinkmenos, perkeliamos į virškategorę."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Rinkmena įkelta."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Rinkmena pridėta."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Valdyti Rinkmenas (<a href=\"%s\">pridėti naują</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Ieškoti Rinkmenų"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Rinkmenos pavadinimas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Dydis"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Paspaudimai"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Paskutinis parsisiuntimas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Niekas nepakeista!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "Pakeisti %d elementai."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "Pridėtos %d rinkmenos."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Rinkmenų bazė sėkmingai sinchronizuota."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Užbaigti rinkmenos sinchronizavimą"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Patikrina keičiamas rinkmenas, taigi tai patikimiau, bet užima ilgiau laiko. Darykite tai, jeigu įkėlėte/pakeitėte rinkmenas per FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s nėra įrašoma!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Atnaujinti Rinkmeną"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Atstatyti Numatytąsias parinktis"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Redaguoti Šablonus"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Pateikti Šablono Pasikeitimus"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Šablono Gairė (pavienis žodis šablono apibūdinimui):"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Šablono Kodas:"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Įkėlimo katalogas <code>%s</code> neegiztuoja. Jis negali būti nesukurtas automatiškai, nes katalogas <code>%s</code> nėra įrašomas. Prašome sukurti <code>%s</code> ir užtikrinti, kad jis yra įrašomas tinklo serveriui, vykdant šią FTP komandą: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "Įkėlimo katalogas <code>%s</code> nėra įrašoma. Užtikrinkite, jog ji yra įrašoma PHP, vykdant šią FTP komandą: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Valdyti Rinkmenas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Peržiūrėti įkeltas rinkmenas ir redaguoti jas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Valdyti Kategorijas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Valdyti egzistuojančias kategorijas ir pridėti naujas."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Sinchronizavimo Rinkmenų bazė"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Sinchronizuoja duomenų bazė su rinkmenų sistema. Naudokite tai, norėdami pridėti per FTP įkeltas rinkmenas."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Redaguoti Stiliaus lapą"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Redaguoti CSS rinkmens šablonui"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Valdyti Šablonus"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Redaguoti individualizuotus rinkmenų sąrašo šablonus"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Paaukokite &amp; Funkcijos Prašymas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Jeigu Jums patinka šis papildinys ir norėtumėte prisidėti prie jo plėtojimo, prašome paaukoti. Jūs taip pat galite pateikti savo idėjas, į jas bus atsižvelgta!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Srautas"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Šiandien"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Šį mėnesį"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Nuostatos atkurtos."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ pridėtas į \"Atmestos Universaliosios nuorodos\" WP Super Cache sąrašą."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "ĮSPĖJIMAS: Skripto įkėlimas suaktyvintas!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Rinkmenos šablonas sėkmingai išanalizuotas."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Neįmanoma išanalizuoti šablono: klaida (%s) eilutėje %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Kategorijos šablonas sėkmingai išanalizuotas."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Nuostatos atnaujintos."
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "Neįmanoma perskaityti rinkmenos!"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Kategorijos Aplankas"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Kategorijos Piktograma"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Tik vartotojams"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Žemiausias vartotojo lygmuo: (žiūrėkite %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "Pritaikyti leidimą visioms porinkmenoms"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Redaguoti Rinkmeną"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Įkelti Rinkmeną"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Paprasta Forma"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "Išplėstinė Forma"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Pasirinkti Rinkmeną"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Maksimalus rinkmenos dydis: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Jūs galite pasirinktai įkelti miniatiūrą. Jeigu rinkmenos vaizdas yra tinkamas, miniatiūra sukuriama automatiškai."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Sekantys laukeliai yra pasirinktini."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Parsisiuntimų Skaičiuoklė"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Tiesioginių nuorodų priskyrimas"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Leisti tiesioginių nuorodų priskyrimą"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Nukreipti į įrašą"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Nepasiekiamas"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Limitas:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Šablonas:"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Galingas parsiuntimų valdytojas, palaikantis rinkmenų kategorijas, miniatiūras, srauto/pralaidumo limitus ir dar daug ko."
+
+#. Template
+msgid "Version"
+msgstr "Versija"
+
+msgid "Languages"
+msgstr "Kalbos"
+
+msgid "Author"
+msgstr "Autorius"
+
+msgid "Category"
+msgstr "Kategorija"
+
+msgid "Category:"
+msgstr "Kategorija:"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Details"
+msgstr "Išsami informacija"
+
+#. Option Categories
+msgid "Common"
+msgstr "Bendrasis"
+
+msgid "Display"
+msgstr "Ekranas"
+
+msgid "Download"
+msgstr "Parsisiųsti"
+
+msgid "Form Presets"
+msgstr "Formų Ruošiniai"
+
+msgid "Limits"
+msgstr "Limitai"
+
+msgid "Security"
+msgstr "Saugumas"
+
+msgid "Templates and Scripts"
+msgstr "Šablonai ir Skriptai"
+
+msgid "Lists the latest or most popular files"
+msgstr "Vėliausių ir populiariausių rinkmenų sąrašai"
+
+msgid "Simple listing of file categories"
+msgstr "Rinkmenų kategorijų paprastasis sąrašų kūrimas"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Prieš naudojant šį valdiklį prašome nustatyti įrašo Identifikatorių rinkmenų naršyklei ir WP-Filebase nuostatas."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Jeigu Jums patinka WP-Filebase, aš būčiau labai dėkingas už mažą auką, palaikančią mano darbą. Jūs taip pat galite pateikti įdėją, padedant dar labiau tobulinti WP-Filebase. Tik paspauskite mygtuką, pateiktą žemiau. Ačiū Jums!"
+
+msgid "Custom field '%s' removed!"
+msgstr "Individualizuotas laukelis '%s' pašalintas!"
+
+msgid "Custom field '%s' added."
+msgstr "Individualizuotas laukelis '%s' pridėtas."
+
+msgid "Search Integration"
+msgstr "Paieškos Integravimas"
+
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Ieško pridėtose rinkmenose ir susietų įrašų sąrašuose ir puslapiuose, kuomet vykdoma paieška svetainėje."
+
+msgid "Restore Default Settings"
+msgstr "Atstatyti Numatytąsias Nuostatas"
+
+msgid "Attachment Position"
+msgstr "Priedo Pozicija"
+
+msgid "After the Content"
+msgstr "Po Turinio"
+
+msgid "Before the Content"
+msgstr "Prieš Turinį"
+
+msgid "Title"
+msgstr "Antraštė"
+
+msgid "Category Name"
+msgstr "Kategorijos Pavadinimas"
+
+msgid "Category ID"
+msgstr "Kategorijos Identifikatorius"
+
+msgid "Number of files per page"
+msgstr "Rinkmenų puslapyje skaičius"
+
+msgid "Relative path of the file"
+msgstr "Susijęs rinkmenos adresas"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "Puslapio rinkmeų sąrašo ilgis. Nustatykite 0, jeigu norite panaikinti limitą."
+
+msgid "File browser category sorting"
+msgstr "Rinkmenų naršyklės kategorijų rikiavimas"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "Kategorijų savybių kategorijos rinkmenų naršyklėje rikiuojamos pagal"
+
+msgid "Name of the Category folder"
+msgstr "Kategorijų aplanko pavadinimas"
+
+msgid "Relative path of the category folder"
+msgstr "Susijęs kategorijos aplanko adresas"
+
+msgid "File browser file sorting"
+msgstr "Rinkmenų naršyklės rinkmenų rikiavimas"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "Rinkmenų savybių rinkmenos rinkmenų naršyklėje rikiuojamos pagal"
+
+msgid "Send HTTP-Range header"
+msgstr "Siųsti HTTP srities puslapinę antraštę"
+
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Leidžia vartotojams pristabdyti parsisiuntimus ir tęsti vėliau. Priedo, parsisiųntimų valdytojai gali naudoti daug sujungimų vienu metu."
+
+msgid "Disable HTTP Caching"
+msgstr "Deaktyvinti HTTP Sparčiosios atmintinės naudojimą"
+
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Suaktyvinkite tai, jeigu turite problemų su parsisiuntimais, naudodami WordPress su spartinančiosios atmintinės papildiniu."
+
+msgid "With custom fields you can add even more file properties."
+msgstr "Individualizuotų laukelių pagalba Jūs galite pridėti dar daugiau rinkmenų savybių."
+
+msgid "Redirect to referring page after login"
+msgstr "Peradresuoti į nukreipiamąjį puslapį po prisijungimo"
+
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Vartotojai yra peradresuojami į puslapį, kuriame jie paspaudė parsisiuntimo nuorodą po to, kai prisijungė."
+
+msgid "Protect upload path"
+msgstr "Apsaugoti įkėlimo adresą"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "Apsaugo tiesioginį priėjimą prie rinkmenų įkėlimo kataloge."
+
+msgid "Hide download links"
+msgstr "Paslėpti parisiuntimų nuorodas"
+
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Rinkmenų parsisiuntimo nuorodos naršyklės būsenos juostoje rodomos nebus. Jūs turėtumėte suaktyvinti '%s', kad būtų dar sunkiau surasti Universaliąją nuorodą."
+
+msgid "Auto-detect thumbnails"
+msgstr "Automatinis miniatiūrų aptikimas"
+
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "Vaizdai laikomi miniatiūromis to paties pavadinimo rinkmenos, kuomet sincrhonizuojama. (pvz `rinkmena.jpg` &lt;=&gt; `rinkmena.zip`"
+
+msgid "Automatic Sync"
+msgstr "Automatinis Sinchronizavimas"
+
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Suplanuoja kasvalandinį sinchronizavimą tarp rinkmenų sistemos ir duomenų bazės."
+
+msgid "Extension Blacklist"
+msgstr "Plėtinių Juodasis sąrašas"
+
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Rinkmenos su plėtiniu šiame sąraše sinchronizuojant yra praleidžiamos. (atskirkite kableliais)"
+
+msgid "Disable ID3 tag detection"
+msgstr "Išjungti ID3 gairės aptikimą"
+
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Tai išjungia visus meta rinkmenos informacijos nuskaitymus. Naudokite šią parinktį, jeigu turite problemų pridėdami dideles rinkmenas."
+
+msgid "Search ID3 Tags"
+msgstr "Ieškoti ID3 Gairių"
+
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Ieškoti meta duomenyse, tokiuose kaip ID3 ar MP3 rinkmenose, EXIF JPEG... (ši parinktis nepadidina serverio apkrovimo, nes visi duomenys yra laikomi MySQL lentelėje)"
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "Pridėti WP-Filebase į administratoriaus meniu juostą"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "Rodyti kai kuriuos rinkmenų valdymo greituosius veiksmus administratoriaus meniu juostoje."
+
+msgid "Statistics"
+msgstr "Statistika"
+
+msgid "Number of Files"
+msgstr "Rinkmenų Skaičius"
+
+msgid "Number of Categories"
+msgstr "Kategorijų Skaičius"
+
+msgid "Total Downloads"
+msgstr "Parisiuntimų, iš viso"
+
+msgid "Total File Size"
+msgstr "Visas Rinkmenos Dydis"
+
+msgid "Convert old Tags"
+msgstr "Keisti senąsias Gaires"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "Keisti gaires iš versijų, senesnių nei 0.2.0"
+
+msgid "Add File"
+msgstr "Pridėti Rinkmeną"
+
+msgid "Redirect download to URL"
+msgstr "Peradresuoti parsisiuntimą į Universaliąją nuorodą"
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "Kopijuoti rinkmeną į Rinkmenų bazę (šoninė apkrova)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "Apriboti rinkmenų pasiekiamumą, pažymint vieną ar daugiau vartotojų charakteristikų."
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "Pasirinkite daugiau charakteristų, laikydami CTRL/COMMAND mygtukus."
+
+msgid "Access Permission"
+msgstr "Priėjimo Leidimas"
+
+msgid "Everyone"
+msgstr "Visi"
+
+msgid "Add Category"
+msgstr "Pridėti Kategoriją"
+
+msgid "Exclude from file browser"
+msgstr "Išskirti iš rinkmenų naršyklės"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "Šablonai naudojami atskirai įterptoms rinkmenoms ar rinkmenų sąrašams."
+
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Kai kurioms rinkmenoms galima priskirti daugiau gairių. Žemiau formos, redaguodami rinkmeną, Jūs rasite visų gairių sąrašą."
+
+msgid "Reset all Templates to default"
+msgstr "Atstatyti visus Šablonus į numatytuosius"
+
+msgid "These templates can be used for categories."
+msgstr "Šie šablonai gali būti naudojami apibūdinti kategorijoms."
+
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "Sąrašo šablonas susideda iš puslapinės antraštės, puslapinės poraštės ir rinkmenos šablono. Tai pasirinktinai gali turėti kategorijos šabloną, pateikiant sub-kategorijų sąrašą."
+
+msgid "Header"
+msgstr "Puslapinė antraštė"
+
+msgid "Footer"
+msgstr "Puslapinė poraštė"
+
+msgid "File Template"
+msgstr "Rinkmenos Šablonas"
+
+msgid "Parent Category ID"
+msgstr "Virškategorės Identifikatorius"
+
+msgid "Number of files directly in the category"
+msgstr "Tiesioginių kategorijos rinkmenų skaičius"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "Visų kategorijos ir sub-kategorijų rinkmenų skaičius"
+
+msgid "Attach existing file"
+msgstr "Pridėti egizstuojančią rinkmeną"
+
+msgid "Select File"
+msgstr "Pasirinkite Rinkmeną"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "Pasirinkite kategorijas, kuriose yra rinkmenos, kurias norėtumėte parodyti sąraše."
+
+msgid "Include all Categories"
+msgstr "Įtraukti visas Kategorijas"
+
+msgid "Files per page:"
+msgstr "Rinkenos puslapyje:"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "Nustatykite kaip 0, jeigu norite naudoti numatytąjį limitą (%d), -1 panaikins puslapių numeravimą."
+
+msgid "File Tree View"
+msgstr "Rinkmenų Medžio Peržiūra"
+
+msgid "List selected Categories"
+msgstr "Parodyti pasirinktų Kategorijų sąrašą"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "Pasirinkite pagridinę rinkmenų medžio peržiūros rinkmenų naršyklėje kategoriją:"
+
+msgid "The File has been uploaded successfully."
+msgstr "Rinkmena sėkmingai įkelta."
+
+msgid "New Category created."
+msgstr "Nauja Katgorija sukurta."
+
+msgid "Selectable by Uploader"
+msgstr "Pasirinktinas Įkelėjui"
+
+msgid "Upload to Root"
+msgstr "Įkelti į Pagrindą"
+
+msgid "You can enter a URL to redirect users."
+msgstr "Jūs galite įrašyti universaliąją nuorodą, į kurią bus nukreipti vartotojai."
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "Paprašykite savo paslaugų tiekėjo, kad padidintų šį limitą, dabar jis nustatytas kaip %s."
+
+msgid "Inherit Permissions"
+msgstr "Automatiniai Leidimai"
+
+msgid "Explicitly set permissions"
+msgstr "Aiškiai nustatyti leidimai"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "Apribokite kategorijos pasiekiamumą, nustatyti vieną ar daugiau vartotojo charakteristikų."
+
+msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Tai rekursyviai atnaujins egzistuojančių pokategorijų ir porinkmenų leidimus. Žinokite, kad naujų rinkmenų šioje kategorijoje leidimai yra priskiriami automatiškai, be pažymimojo langelio pažymėjimo."
+
+msgid "Owner"
+msgstr "Savininkas"
+

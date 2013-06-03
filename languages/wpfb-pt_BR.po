@@ -1,0 +1,2610 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase v0.2.9.24\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2012-11-14 19:24:05+0000\n"
+"Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: editor_plugin.php:171
+#@ wpfb
+msgid "Enter link text:"
+msgstr "Entre com o texto do link:"
+
+#: editor_plugin.php:204
+#@ wpfb
+msgid "Single file"
+msgstr "Arquivo"
+
+#: editor_plugin.php:205
+#: lib/wpfb_form_file.php:180
+#: lib/wpfb_form_file.php:199
+#@ wpfb
+#@ default
+msgid "File URL"
+msgstr "URL do arquivo"
+
+#: classes/AdminGuiTpls.php:180
+#: classes/AdminLite.php:20
+#: classes/Core.php:51
+#: classes/Widget.php:407
+#: editor_plugin.php:206
+#@ wpfb
+#@ default
+msgid "File list"
+msgstr "Listagem de arquivos"
+
+#: editor_plugin.php:203
+#@ wpfb
+msgid "Attachments"
+msgstr "Anexos"
+
+#: wpfb-ajax.php:66
+#, php-format
+#@ wpfb
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Você não criou uma categoria. <a href=\"%s\" target=\"_parent\">Clique aqui para criar uma.</a>"
+
+#: editor_plugin.php:281
+#: editor_plugin.php:301
+#@ wpfb
+msgid "Select Template"
+msgstr "Escolha o template"
+
+#: editor_plugin.php:282
+#@ wpfb
+msgid "Default Template"
+msgstr "Template padrão"
+
+#: editor_plugin.php:288
+#: editor_plugin.php:307
+#@ wpfb
+msgid "Add Template"
+msgstr "Adicionar template"
+
+#: classes/Admin.php:19
+#@ wpfb
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Uma entrada por linha. Separe o título e a short-tag (até 8 caracteres) com '|'.<br />Todas as linhas prefixadas com '*' são selecionadas por padrão."
+
+#: classes/Admin.php:20
+#@ wpfb
+msgid "One entry per line."
+msgstr "Uma entrada por linha."
+
+#: classes/Admin.php:21
+#@ wpfb
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Limita a taxa de tranferência máxima para downloads. 0 = ilimitado"
+
+#: classes/Admin.php:22
+#@ wpfb
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Limita o tráfego máximo de dados. 0 = ilimitado"
+
+#: classes/Admin.php:36
+#@ wpfb
+msgid "Upload Path"
+msgstr "Caminho de upload"
+
+#: classes/Admin.php:49
+#@ wpfb
+msgid "Show attached files"
+msgstr "Mostrar arquivos anexados"
+
+#: classes/Admin.php:49
+#@ wpfb
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Se habilitado, todos os arquivos associados serão listados abaixo do artigo"
+
+#: classes/Admin.php:50
+#@ wpfb
+msgid "Default sorting"
+msgstr "Ordem padrão"
+
+#: classes/Admin.php:50
+#@ wpfb
+msgid "The file property lists are sorted by"
+msgstr "As listagens de propriedades de arquivos são ordenadas por"
+
+#: classes/Admin.php:51
+#@ wpfb
+msgid "The sorting direction of file lists"
+msgstr "A direção da ordenação das listagens de arquivos"
+
+#: classes/Admin.php:59
+#@ wpfb
+msgid "Bit rate limit for guests"
+msgstr "Limite de bitrate para convidados"
+
+#: classes/Admin.php:60
+#@ wpfb
+msgid "Bit rate limit for registered users"
+msgstr "Limite de bitrate para usuários registrados"
+
+#: classes/Admin.php:61
+#@ wpfb
+msgid "Daily traffic limit"
+msgstr "Limite de tráfego diário"
+
+#: classes/Admin.php:62
+#@ wpfb
+msgid "Monthly traffic limit"
+msgstr "Limite de tráfego mensal"
+
+#: classes/Admin.php:63
+#@ wpfb
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Limite de tráfego excedido. Favor tentar novamente mais tarde."
+
+#: classes/Admin.php:63
+#@ wpfb
+msgid "Traffic exceeded message"
+msgstr "Mensagem de limite de tráfego excedido"
+
+#: classes/Admin.php:64
+#@ wpfb
+msgid "This file is currently offline."
+msgstr "Este arquivo está atualmente offline."
+
+#: classes/Admin.php:64
+#@ wpfb
+msgid "File offline message"
+msgstr "Mensagem de arquivo offline"
+
+#: classes/Admin.php:74
+#@ wpfb
+msgid "Disable download permalinks"
+msgstr "Desabilitar permalinks de download"
+
+#: classes/Admin.php:74
+#@ wpfb
+msgid "Enable this if you have problems with permalinks."
+msgstr "Ative isto caso encontre problemas com permalinks."
+
+#: classes/Admin.php:75
+#@ wpfb
+msgid "Download URL base"
+msgstr "URL base de download"
+
+#: classes/Admin.php:75
+#, php-format
+#@ wpfb
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "O prefixo de url para links de download. Exemplo <code>%s</code> (Usado apenas quando permalinks estão habilitados.)"
+
+#: classes/Admin.php:77
+#@ wpfb
+msgid "Post ID of the file browser"
+msgstr "ID do post do navegador de arquivos"
+
+#: classes/Admin.php:77
+#@ wpfb
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Especifique o ID do post ou página onde o navegador de arquivos deve ser inserido. Se você deseja desabilitar esta função deixe este campo em branco."
+
+#: classes/Admin.php:88
+#@ wpfb
+msgid "Category drop down list"
+msgstr "Lista drop-down de categorias"
+
+#: classes/Admin.php:88
+#@ wpfb
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Use a lista drop-down de categorias no navegador de arquivos ao invés de usar a listagem de arquivos."
+
+#: classes/Admin.php:90
+#: classes/Admin.php:92
+#@ wpfb
+msgid "Always force download"
+msgstr "Sempre forçar o download"
+
+#: classes/Admin.php:90
+#@ wpfb
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Se habilitado, arquivos que podem ser vistos no browser (como imagens, documentos PDF ou vídeos) poderão ser apenas baixados (sem streaming)."
+
+#: classes/Admin.php:93
+#@ wpfb
+msgid "Ignore downloads by admins"
+msgstr "Ignorar download realizado por admins"
+
+#: classes/Admin.php:94
+#@ wpfb
+msgid "Hide inaccessible files and categories"
+msgstr "Esconder arquivos e categorias inacessíveis"
+
+#: classes/Admin.php:94
+#@ wpfb
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Se habilitado, arquivos marcados como <i>Apenas para membros</i> não serão listados para visitantes ou usuários com privilégios insuficientes."
+
+#: classes/Admin.php:95
+#@ wpfb
+msgid "You are not allowed to access this file!"
+msgstr "Você não tem permissão para acessar este arquivo!"
+
+#: classes/Admin.php:95
+#@ wpfb
+msgid "Inaccessible file message"
+msgstr "Mensagem de arquivo inacessível"
+
+#: classes/Admin.php:95
+#@ wpfb
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Esta mensagem será mostrada caso o usuário tente realizar download de um arquivo cujo o mesmo não tem permissão"
+
+#: classes/Admin.php:96
+#@ wpfb
+msgid "Redirect to login"
+msgstr "Redirecionar para login"
+
+#: classes/Admin.php:96
+#@ wpfb
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Visitantes tentando realizar download de arquivos inacessíveis serão redirecionados para página de login caso esta opção esteja habilitada."
+
+#: classes/Admin.php:102
+#@ wpfb
+msgid "Parse template tags in RSS feeds"
+msgstr "Parsear tags de template nos feeds RSS"
+
+#: classes/Admin.php:102
+#@ wpfb
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Se habilitado, as tags de conteúdo do WP-Filebase serão parseadas em feeds RSS."
+
+#: classes/Admin.php:104
+#@ wpfb
+msgid "Allow script upload"
+msgstr "Habilitar upload de scripts"
+
+#: classes/Admin.php:104
+#@ wpfb
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Caso habilite esta opção, scripts como PHP ou CGI poderão ser uploadeados. <b>WARNING:</b> Habilitar uploads de script é um <b>risco de segurança</b>!"
+
+#: classes/Admin.php:112
+#@ wpfb
+msgid "Accept empty referers"
+msgstr "Aceitar referências (Referers) vazios"
+
+#: classes/Admin.php:112
+#@ wpfb
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Se habilitado, arquivos protegidos contra linkagem direta poderão ser baixados quando o referer for vazio (ex: usuário digitou o caminho direto na barra de endereços ou o browser não envia informações de referer)"
+
+#: classes/Admin.php:113
+#@ wpfb
+msgid "Allowed referers"
+msgstr "Referências (referer) permitidas"
+
+#: classes/Admin.php:113
+#@ wpfb
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Sites com as seguintes URLs podem linkar arquivos diretamente."
+
+#: classes/Admin.php:117
+#@ wpfb
+msgid "Decimal file size prefixes"
+msgstr "Prefixo decimal do tamanho de arquivos"
+
+#: classes/Admin.php:117
+#@ wpfb
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Habilite isto caso deseje prefixos decimais (1 MB = 1000 KB = 1 000 000 B) ao invés da representação binária (1 MiB = 1024 KiB = 1 048 576 B)"
+
+#: classes/Admin.php:144
+#: lib/wpfb_form_file.php:269
+#@ wpfb
+msgid "Platforms"
+msgstr "Plataformas"
+
+#: classes/Admin.php:146
+#@ wpfb
+msgid "Licenses"
+msgstr "Licensas"
+
+#: classes/Admin.php:153
+#: lib/wpfb_form_file.php:273
+#@ wpfb
+msgid "Requirements"
+msgstr "Requerimentos"
+
+#: classes/Admin.php:153
+#@ wpfb
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Você pode opcionalmente adicionar |<i>URL</i> para cada linha para linkar com o software requerido"
+
+#: classes/Admin.php:195
+#@ wpfb
+msgid "Default File Template"
+msgstr "Arquivo de template padrão"
+
+#: classes/Admin.php:195
+#@ wpfb
+msgid "The template for attachments"
+msgstr "Template para anexos"
+
+#: classes/Admin.php:210
+#: classes/AdminGuiTpls.php:312
+#@ wpfb
+msgid "Category Template"
+msgstr "Template de categoria"
+
+#: classes/Admin.php:210
+#@ wpfb
+msgid "The template for category lists (used in the file browser)"
+msgstr "O template para listagens de categoria (usado no navegador de arquivos)"
+
+#: classes/Admin.php:220
+#@ wpfb
+msgid "Download JavaScript"
+msgstr "JavaScript de download"
+
+#: classes/Admin.php:220
+#@ wpfb
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Aqui você pode inserir código JavaScript que será executado quando um usuário clica no link de download do arquivo. As seguintes variáveis podem ser utilizadas: <i>file_id</i>: o ID do arquivo, <i>file_url</i>: a url de download"
+
+#: classes/Admin.php:234
+#@ wpfb
+msgid "The category URL"
+msgstr "A URL da categoria"
+
+#: classes/Admin.php:235
+#@ wpfb
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Caminho da categoria (ex: cat1/cat2)"
+
+#: classes/Admin.php:236
+#@ wpfb
+msgid "Just the category folder name, not the path"
+msgstr "Apenas o nome do diretório da categoria, não o caminho"
+
+#: classes/Admin.php:241
+#@ wpfb
+msgid "Name of the parent categories (empty if none)"
+msgstr "Nome das categorias pai (vazio para nenhum)"
+
+#: classes/Admin.php:242
+#@ wpfb
+msgid "Number of files in the category"
+msgstr "Numero de arquivos na categoria"
+
+#: classes/Admin.php:248
+#@ wpfb
+msgid "The category ID"
+msgstr "O ID da categoria"
+
+#: classes/Admin.php:249
+#: classes/Admin.php:305
+#@ wpfb
+msgid "A unique ID number to identify elements within a template"
+msgstr "Um número único para identificar elementos em um template"
+
+#: classes/Admin.php:253
+#: classes/Admin.php:315
+#@ wpfb
+msgid "Name of the file"
+msgstr "Nome do arquivo"
+
+#: classes/Admin.php:261
+#: classes/Admin.php:319
+#@ wpfb
+msgid "Formatted file size"
+msgstr "Tamanho do arquivo formatado"
+
+#: classes/Admin.php:262
+#: classes/Admin.php:320
+#@ wpfb
+msgid "Formatted file date"
+msgstr "Data do arquivo formatada"
+
+#: classes/Admin.php:274
+#@ wpfb
+msgid "Name of the thumbnail file"
+msgstr "Nome do arquivo de thumbnail"
+
+#: classes/Admin.php:263
+#: classes/Admin.php:316
+#@ wpfb
+msgid "File version"
+msgstr "Versão do arquivo"
+
+#: classes/Admin.php:267
+#@ wpfb
+msgid "Supported languages"
+msgstr "Línguas suportadas"
+
+#: classes/Admin.php:268
+#@ wpfb
+msgid "Supported platforms (operating systems)"
+msgstr "Plataformas suportadas (sistemas operacionais)"
+
+#: classes/Admin.php:269
+#@ wpfb
+msgid "Requirements to use this file"
+msgstr "Requerimentos para este arquivo"
+
+#: classes/Admin.php:270
+#: classes/Admin.php:331
+#: lib/wpfb_form_file.php:249
+#@ wpfb
+msgid "License"
+msgstr "Licensa"
+
+#: classes/Admin.php:283
+#@ wpfb
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 se o arquivo está offline, 0 caso contrário"
+
+#: classes/Admin.php:284
+#@ wpfb
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 se a linkagem direta é permitida, 0 caso contrário"
+
+#: classes/Admin.php:231
+#: classes/Admin.php:272
+#@ wpfb
+msgid "The category name"
+msgstr "Nome da categoria"
+
+#: classes/Admin.php:287
+#: classes/Admin.php:333
+#@ wpfb
+msgid "ID of the post/page this file belongs to"
+msgstr "ID do post/página que este arquivo pertence"
+
+#: classes/Admin.php:289
+#: classes/Admin.php:318
+#@ wpfb
+msgid "How many times this file has been downloaded."
+msgstr "Quantas vezes o arquivo foi baixado"
+
+#: classes/Admin.php:292
+#@ wpfb
+msgid "IP Address of the last downloader"
+msgstr "Endereço IP do usuário do último download"
+
+#: classes/Admin.php:293
+#: classes/Admin.php:321
+#@ wpfb
+msgid "Time of the last download"
+msgstr "Data e Hora do último download"
+
+#: classes/Admin.php:255
+#@ wpfb
+msgid "Download URL"
+msgstr "URL de download"
+
+#: classes/Admin.php:299
+#@ wpfb
+msgid "URL of the post/page this file belongs to"
+msgstr "URL do post/página que este arquivo pertence"
+
+#: classes/Admin.php:238
+#: classes/Admin.php:258
+#@ wpfb
+msgid "URL of the thumbnail or icon"
+msgstr "URL do thumbnail ou ícone"
+
+#: classes/Admin.php:301
+#@ wpfb
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Caminho da categoria e nome do arquivo (ex: cat1/cat2/arquivo.ext)"
+
+#: classes/Admin.php:303
+#@ wpfb
+msgid "The file ID"
+msgstr "O ID do arquivo"
+
+#: classes/Admin.php:232
+#: classes/Admin.php:266
+#: classes/Admin.php:329
+#: classes/Admin.php:347
+#@ wpfb
+msgid "Short description"
+msgstr "Descrição curta"
+
+#: classes/Admin.php:364
+#@ wpfb
+msgid "Add template variable:"
+msgstr "Adicionar variável de template:"
+
+#: classes/Admin.php:418
+#@ wpfb
+msgid "You must enter a category name or a folder name."
+msgstr "Voce deve fornecer um nome de categoria ou de diretório."
+
+#: classes/Admin.php:421
+#@ wpfb
+msgid "The category folder name contains invalid characters."
+msgstr "O nome do diretório da categoria contém caracteres inválidos."
+
+#: classes/Admin.php:473
+#: classes/Admin.php:487
+#@ wpfb
+msgid "Unable to move category icon!"
+msgstr "Não foi possível mover o ícone de categoria!"
+
+#: classes/Admin.php:559
+#, php-format
+#@ wpfb
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "A extensão de arquivo <b>%s</b> não é permitida!"
+
+#: classes/Admin.php:593
+#, php-format
+#@ wpfb
+msgid "File %s already exists. You have to delete it first!"
+msgstr "Arquivo %s já existe. Você deve deletá-lo primeiro!"
+
+#: classes/Admin.php:595
+#, php-format
+#@ wpfb
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "Não foi possível mover o arquivo %s! O diretório de upload possui permissão de escrita?"
+
+#: classes/Admin.php:553
+#: classes/Admin.php:604
+#: wpfb-async-upload.php:59
+#@ wpfb
+msgid "No file was uploaded."
+msgstr "Nenhum arquivo foi enviado."
+
+#: classes/Admin.php:551
+#@ wpfb
+msgid "Could not get user id!"
+msgstr "Não foi possível pegar o ID do usuário!"
+
+#: classes/Sync.php:360
+#, php-format
+#@ wpfb
+msgid "File <b>%s</b> is not writable!"
+msgstr "Arquivo <b>%s</b> não possui permissão de escrita!"
+
+#: classes/AdminGuiCats.php:90
+#, php-format
+#@ wpfb
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Gerenciar Categorias (<a href=\"%s\">adicionar nova</a>)"
+
+#: classes/AdminGuiCats.php:149
+#: classes/AdminGuiTpls.php:178
+#: classes/Widget.php:25
+#: classes/Widget.php:415
+#: editor_plugin.php:249
+#@ wpfb
+msgid "Files"
+msgstr "Arquivos"
+
+#: classes/AdminGuiCats.php:173
+#@ wpfb
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Nota:</strong><br />Remover uma categoria não apaga os arquivos sob a mesma. Ao invés, arquivos que estavam associados a categoria removida serão herdados pela categoria pai."
+
+#: classes/AdminGuiFiles.php:90
+#@ wpfb
+msgid "File updated."
+msgstr "Arquivo atualizado."
+
+#: classes/Admin.php:1110
+#: classes/AdminGuiFiles.php:90
+#@ wpfb
+msgid "File added."
+msgstr "Arquivo adicionado."
+
+#: classes/AdminGuiFiles.php:106
+#, php-format
+#@ wpfb
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Gerenciar Arquivos (<a href=\"%s\">adicionar novo</a>)"
+
+#: classes/AdminGuiFiles.php:119
+#: classes/AdminGuiFiles.php:121
+#: classes/Widget.php:269
+#@ wpfb
+msgid "Search Files"
+msgstr "Procurar arquivos"
+
+#: classes/AdminGuiFiles.php:173
+#: classes/FileListTable.php:31
+#@ wpfb
+msgid "Filename"
+msgstr "Nome do arquivo"
+
+#: classes/AdminGuiFiles.php:174
+#: classes/FileListTable.php:32
+#@ default
+msgid "Size"
+msgstr "Tamanho"
+
+#: classes/AdminGuiFiles.php:180
+#: classes/FileListTable.php:38
+#@ wpfb
+msgid "Hits"
+msgstr "Downloads"
+
+#: classes/AdminGuiFiles.php:181
+#: classes/FileListTable.php:39
+#@ wpfb
+msgid "Last download"
+msgstr "Último download"
+
+#: classes/Sync.php:393
+#@ wpfb
+msgid "Nothing changed!"
+msgstr "Nenhuma alteração!"
+
+#: classes/Sync.php:396
+#, php-format
+#@ wpfb
+msgid "Changed %d items."
+msgstr "Alterado %d items."
+
+#: classes/Sync.php:400
+#, php-format
+#@ wpfb
+msgid "Added %d files."
+msgstr "Adicionado %d arquivos."
+
+#: classes/Sync.php:405
+#@ wpfb
+msgid "Filebase successfully synced."
+msgstr "Filebase sincronizado com sucesso."
+
+#: classes/AdminGuiManage.php:273
+#@ wpfb
+msgid "Complete file sync"
+msgstr "Sincronização completa"
+
+#: classes/AdminGuiManage.php:273
+#@ wpfb
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Checa por alteração em arquivos. Mais confiável mas pode levar algum tempo. Faça isto caso tenha inserido/modificado arquivos por FTP."
+
+#: classes/AdminGuiCss.php:38
+#, php-format
+#@ wpfb
+msgid "%s is not writable!"
+msgstr "%s não tem permissão de escrita!"
+
+#: classes/AdminGuiCss.php:66
+#@ wpfb
+msgid "Update File"
+msgstr "Atualizar Arquivo"
+
+#: classes/AdminGuiCss.php:67
+#@ wpfb
+msgid "Restore Default"
+msgstr "Restaurar padrão"
+
+#: classes/AdminGuiTpls.php:299
+#@ wpfb
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Tag de template (uma única palavra para descrever o template):"
+
+#: classes/AdminGuiTpls.php:332
+#@ wpfb
+msgid "Template Code:"
+msgstr "Código do template:"
+
+#: classes/AdminGuiManage.php:67
+#, php-format
+#@ wpfb
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "O diretório de upload <code>%s</code> não existe.  Este não pode ser criado automaticamente pois o diretório <code>%s</code> não possui permissão de escrita. Favor crie o diretório <code>%s</code> e lhe forneça permissão de escrita para o webserver executando o seguinte comando FTP: <code>%s</code>"
+
+#: classes/AdminGuiManage.php:71
+#, php-format
+#@ wpfb
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "O diretório de upload <code>%s</code> não possui permissão de escrita. Favor fornecer permissão de escrita para o PHP executando o seguinte comando FTP: <code>%s</code>"
+
+#: classes/AdminGuiManage.php:177
+#: classes/Core.php:562
+#@ wpfb
+msgid "Sync Filebase"
+msgstr "Sincronizar o Filebase"
+
+#: classes/AdminGuiManage.php:177
+#@ wpfb
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Sincroniza o banco de dados de arquivos com o sistema de arquivos. Use isto para adicionar arquivos carregados por FTP."
+
+#: classes/AdminGuiManage.php:118
+#@ wpfb
+msgid "Traffic"
+msgstr "Tráfego"
+
+#: classes/AdminGuiManage.php:126
+#@ wpfb
+msgid "Today"
+msgstr "Hoje"
+
+#: classes/AdminGuiManage.php:135
+#@ wpfb
+msgid "This Month"
+msgstr "Este mês"
+
+#: classes/AdminGuiSettings.php:31
+#@ wpfb
+msgid "Settings reseted."
+msgstr "Configurações restauradas"
+
+#: classes/AdminGuiSettings.php:77
+#, php-format
+#@ wpfb
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ foi adicionado à lista de URIs rejeitadas do WP Super Cache."
+
+#: classes/AdminGuiSettings.php:148
+#@ wpfb
+msgid "WARNING: Script upload enabled!"
+msgstr "ATENÇÃO: Upload de scripts habilitado!"
+
+#: classes/AdminGuiSettings.php:89
+#@ wpfb
+msgid "File template successfully parsed."
+msgstr "Arquivo de template parseado com sucesso."
+
+#: classes/AdminGuiSettings.php:91
+#: classes/AdminGuiSettings.php:105
+#, php-format
+#@ wpfb
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "Impossível parsear arquivo de template: erro (%s) na linha %s."
+
+#: classes/AdminGuiSettings.php:103
+#@ wpfb
+msgid "Category template successfully parsed."
+msgstr "Template de categoria parseado com sucessso."
+
+#: classes/AdminGuiSettings.php:141
+#@ wpfb
+msgid "Settings updated."
+msgstr "Configurações atualizadas."
+
+#: classes/Download.php:411
+#@ wpfb
+msgid "Could not read file!"
+msgstr "Impossível ler o arquivo!"
+
+#: lib/wpfb_form_cat.php:35
+#@ wpfb
+msgid "Category Folder"
+msgstr "Diretório da categoria"
+
+#: lib/wpfb_form_cat.php:51
+#@ wpfb
+msgid "Category Icon"
+msgstr "Ícone da categoria"
+
+#: lib/wpfb_form_cat.php:77
+#@ wpfb
+msgid "Apply permission to all child files"
+msgstr "Aplicar permissão para todos os arquivos filhos"
+
+#: lib/wpfb_form_file.php:20
+#@ wpfb
+msgid "Edit File"
+msgstr "Editar arquivo"
+
+#: classes/Widget.php:163
+#: classes/Widget.php:190
+#@ wpfb
+msgid "Upload File"
+msgstr "Carregar arquivo"
+
+#: classes/Output.php:429
+#: lib/wpfb_form_file.php:186
+#@ wpfb
+msgid "Choose File"
+msgstr "Escolha o arquivo"
+
+#: lib/wpfb_form_file.php:213
+#@ wpfb
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Você pode opcionalmente carregar um thumbnail aqui. Se o arquivo é uma imagem válida, um thumbnail é gerado automaticamente."
+
+#: lib/wpfb_form_file.php:220
+#@ wpfb
+msgid "The following fields are optional."
+msgstr "Os seguintes campos são opcionais."
+
+#: lib/wpfb_form_file.php:264
+#@ wpfb
+msgid "Download Counter"
+msgstr "Contador de downloads"
+
+#: lib/wpfb_form_file.php:283
+#: lib/wpfb_form_file.php:285
+#@ wpfb
+#@ default
+msgid "Direct linking"
+msgstr "Linkagem direta"
+
+#: lib/wpfb_form_file.php:286
+#@ wpfb
+msgid "Allow direct linking"
+msgstr "Habilitar linkagem direta"
+
+#: lib/wpfb_form_file.php:287
+#@ wpfb
+msgid "Redirect to post"
+msgstr "Redirecionar para post"
+
+#: lib/wpfb_form_file.php:319
+#@ wpfb
+msgid "Offline"
+msgstr "Offline"
+
+#: classes/Widget.php:115
+#: classes/Widget.php:396
+#: classes/Widget.php:500
+#@ wpfb
+msgid "Limit:"
+msgstr "Limite:"
+
+#: classes/Widget.php:120
+#: classes/Widget.php:504
+#@ wpfb
+msgid "Template:"
+msgstr "Template:"
+
+#: lib/wpfb_form_file.php:226
+#@ default
+msgid "Version"
+msgstr "Versão"
+
+#: classes/Admin.php:143
+#: lib/wpfb_form_file.php:279
+#@ default
+msgid "Languages"
+msgstr "Línguas"
+
+#: classes/Admin.php:264
+#: classes/Admin.php:330
+#: lib/wpfb_form_file.php:230
+#@ default
+#@ wpfb
+msgid "Author"
+msgstr "Autor"
+
+#: classes/Admin.php:246
+#: classes/Admin.php:276
+#: classes/AdminGuiFiles.php:176
+#: classes/FileListTable.php:34
+#: classes/Output.php:433
+#: lib/wpfb_form_file.php:246
+#@ default
+msgid "Category"
+msgstr "Categoria"
+
+#: classes/Widget.php:95
+#: classes/Widget.php:193
+#: classes/Widget.php:474
+#@ wpfb
+#@ default
+msgid "Category:"
+msgstr "Categoria:"
+
+#: classes/AdminGuiFiles.php:179
+#: classes/FileListTable.php:37
+#: lib/wpfb_form_file.php:233
+#@ default
+msgid "Date"
+msgstr "Data"
+
+#: classes/AdminGuiSettings.php:206
+#@ wpfb
+msgid "Common"
+msgstr "Comum"
+
+#: classes/AdminGuiSettings.php:207
+#@ wpfb
+msgid "Display"
+msgstr "Exibição"
+
+#: classes/AdminGuiSettings.php:211
+#@ wpfb
+msgid "Download"
+msgstr "Download"
+
+#: classes/AdminGuiSettings.php:213
+#: lib/wpfb_form_file.php:335
+#@ wpfb
+msgid "Form Presets"
+msgstr "Valores padrões de formulário"
+
+#: classes/AdminGuiSettings.php:214
+#@ wpfb
+msgid "Limits"
+msgstr "Limites"
+
+#: classes/AdminGuiSettings.php:215
+#@ wpfb
+msgid "Security"
+msgstr "Segurança"
+
+#: classes/AdminGuiSettings.php:216
+#@ wpfb
+msgid "Templates and Scripts"
+msgstr "Templates e Scripts"
+
+#: classes/Widget.php:358
+#@ wpfb
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Antes que você possa utilizar este widget, por favor forneça um ID de post para o navegador de arquivos nas configurações do WP-Filebase"
+
+#: classes/AdminGuiSupport.php:24
+#@ wpfb
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Se você gostou do WP-Filebase eu apreciaria uma pequena doação para apoiar meu trabalho. Você pode adicionalmente incluir uma idéia para tornar o WP-Filebase ainda melhor. Apenas clique no botão abaixo. Obrigado!"
+
+#: classes/Admin.php:23
+#@ wpfb
+msgid "downloads per day"
+msgstr "downloads por dia"
+
+#: classes/Admin.php:24
+#, php-format
+#@ wpfb
+msgid "Daily limit for %s"
+msgstr "Limite diário de %s"
+
+#: classes/Admin.php:31
+#, php-format
+#@ wpfb
+msgid "Last cron sync on %1$s at %2$s."
+msgstr "Sincronia cron última em %1$s as %2$s."
+
+#: classes/Admin.php:36
+#@ wpfb
+msgid "Path where all files are stored. Relative to WordPress' root directory."
+msgstr "Caminho onde todos os arquivos são armazenados. Relativo ao diretório WordPress raiz."
+
+#: classes/Admin.php:37
+#@ default
+msgid "Thumbnail size"
+msgstr "tamanho da miniatura"
+
+#: classes/Admin.php:37
+#@ wpfb
+msgid "The maximum side of the image is scaled to this value."
+msgstr "O lado máximo da imagem é dimensionada para este valor."
+
+#: classes/Admin.php:38
+#@ wpfb
+msgid "Thumbnail Path"
+msgstr "Caminho Miniatura"
+
+#: classes/Admin.php:38
+#@ wpfb
+msgid "Thumbnails can be stored at a different path than the actual files. Leave empty to use the default upload path."
+msgstr "As miniaturas podem ser armazenados em um caminho diferente do que os arquivos reais. Deixe em branco para usar o padrão carregar caminho."
+
+#: classes/Admin.php:40
+#@ wpfb
+msgid "Auto-detect thumbnails"
+msgstr "Detecção Automática miniaturas"
+
+#: classes/Admin.php:40
+#@ wpfb
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "As imagens são consideradas como miniaturas de arquivos com o mesmo nome durante a sincronização. (p.ex `arquivo.jpg` &lt;=&gt; `arquivo.zip`)"
+
+#: classes/Admin.php:42
+#@ wpfb
+msgid "Extension Blacklist"
+msgstr "Lista negra de extensão"
+
+#: classes/Admin.php:42
+#@ wpfb
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Arquivos com a extensão na lista são ignorados enquanto a sincronização. (separar com vírgula)"
+
+#: classes/Admin.php:44
+#@ wpfb
+msgid "Attachment Position"
+msgstr "Area anexo"
+
+#: classes/Admin.php:44
+#@ wpfb
+msgid "Before the Content"
+msgstr "Antes do conteúdo"
+
+#: classes/Admin.php:44
+#@ wpfb
+msgid "After the Content"
+msgstr "Após o conteúdo"
+
+#: classes/Admin.php:46
+#@ wpfb
+msgid "Attachments in post lists"
+msgstr "Anexos em listas de correio"
+
+#: classes/Admin.php:46
+#@ wpfb
+msgid "Attach files to posts in archives, index and search result."
+msgstr "Anexar arquivos em arquivos de índice, e resultado da pesquisa."
+
+#: classes/Admin.php:51
+#: classes/Admin.php:80
+#: classes/Admin.php:83
+#: editor_plugin.php:310
+#@ default
+msgid "Sort Order:"
+msgstr "Ordem de classificação:"
+
+#: classes/Admin.php:51
+#: classes/Admin.php:80
+#: classes/Admin.php:83
+#: classes/Widget.php:112
+#: classes/Widget.php:393
+#: classes/Widget.php:497
+#: editor_plugin.php:319
+#: editor_plugin.php:340
+#@ default
+msgid "Ascending"
+msgstr "ascendente"
+
+#: classes/Admin.php:51
+#: classes/Admin.php:80
+#: classes/Admin.php:83
+#: classes/Widget.php:111
+#: classes/Widget.php:392
+#: classes/Widget.php:496
+#: editor_plugin.php:321
+#: editor_plugin.php:342
+#@ default
+msgid "Descending"
+msgstr "descendente"
+
+#: classes/Admin.php:52
+#@ wpfb
+msgid "Number of files per page"
+msgstr "Número de arquivos por página"
+
+#: classes/Admin.php:52
+#@ wpfb
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "Comprimento da lista de arquivos por página. Ajuste para 0 para desativar o limite."
+
+#: classes/Admin.php:54
+#@ wpfb
+msgid "File Date Format"
+msgstr "Formato de data do arquivo"
+
+#: classes/Admin.php:54
+#@ wpfb
+msgid "Date/Time formatting for files."
+msgstr "Data/Hora de formatação para arquivos."
+
+#: classes/Admin.php:54
+#@ default
+msgid "<a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting</a>."
+msgstr "<a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\">Documentação sobre formatação de data e hora</a>."
+
+#: classes/Admin.php:66
+#@ wpfb
+msgid "Daily user download limits"
+msgstr "Limites de download diários de usuários"
+
+#: classes/Admin.php:66
+#@ wpfb
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Se ativado, os usuários não registrados não podem baixar os arquivos. Você pode definir limites diferentes para cada função de usuário abaixo."
+
+#: classes/Admin.php:67
+#@ default
+msgctxt "User role"
+msgid "Subscriber"
+msgstr "assinante"
+
+#: classes/Admin.php:68
+#@ default
+msgctxt "User role"
+msgid "Contributor"
+msgstr "contribuinte"
+
+#: classes/Admin.php:69
+#@ default
+msgctxt "User role"
+msgid "Author"
+msgstr "autor"
+
+#: classes/Admin.php:70
+#@ default
+msgctxt "User role"
+msgid "Editor"
+msgstr "editor"
+
+#: classes/Admin.php:71
+#, php-format
+#@ wpfb
+msgid "You can only download %d files per day."
+msgstr "Você só pode baixar arquivos %d por dia."
+
+#: classes/Admin.php:71
+#@ wpfb
+msgid "Daily limit exceeded message"
+msgstr "Limite diário ultrapassa mensagem"
+
+#: classes/Admin.php:77
+#: classes/Admin.php:364
+#: lib/wpfb_form_file.php:259
+#@ default
+msgid "Select"
+msgstr "selecionar"
+
+#: classes/Admin.php:79
+#@ wpfb
+msgid "File browser category sorting"
+msgstr "Categoria de arquivo do navegador de classificação"
+
+#: classes/Admin.php:79
+#@ wpfb
+msgid "The category property categories in the file browser are sorted by"
+msgstr "As categorias da categoria de propriedade no navegador de arquivos são classificados por"
+
+#: classes/Admin.php:82
+#@ wpfb
+msgid "File browser file sorting"
+msgstr "Arquivo de classificação navegador de arquivos"
+
+#: classes/Admin.php:82
+#@ wpfb
+msgid "The file property files in the file browser are sorted by"
+msgstr "Os ficheiros de arquivo de propriedade no navegador de arquivos são classificados por"
+
+#: classes/Admin.php:85
+#@ wpfb
+msgid "Files before Categories"
+msgstr "Arquivos antes de Categorias"
+
+#: classes/Admin.php:85
+#@ wpfb
+msgid "Files will appear above categories in the file browser."
+msgstr "Arquivos aparecerá acima de categorias no navegador de arquivos."
+
+#: classes/Admin.php:91
+#@ wpfb
+msgid "Send HTTP-Range header"
+msgstr "Enviar HTTP-Range cabeçalho."
+
+#: classes/Admin.php:91
+#@ wpfb
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Permite que os usuários de downloads faça uma pausa e continue mais tarde. Além gerenciadores de download pode utilizar várias ligações ao mesmo tempo."
+
+#: classes/Admin.php:92
+#@ wpfb
+msgid "Hide download links"
+msgstr "Ocultar links de download"
+
+#: classes/Admin.php:92
+#, php-format
+#@ wpfb
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Links para este arquivo de download não vai ser exibido na barra de status do navegador. Você deve habilitar o '%s' para torná-lo ainda mais para descobrir a URL."
+
+#: classes/Admin.php:95
+#@ wpfb
+msgid "You can enter a URL to redirect users."
+msgstr "Você pode digitar uma URL para redirecionar os usuários."
+
+#: classes/Admin.php:97
+#@ wpfb
+msgid "Access to category denied!"
+msgstr "O acesso para a categoria foi negado!"
+
+#: classes/Admin.php:97
+#@ wpfb
+msgid "Inaccessible category message"
+msgstr "Mensagem da categoria inacessível"
+
+#: classes/Admin.php:97
+#@ wpfb
+msgid "This message will be displayed if users try to access a category without permission."
+msgstr "Esta mensagem será exibida se os usuários tentam acessar uma categoria sem permissão."
+
+#: classes/Admin.php:98
+#@ wpfb
+msgid "Redirect to referring page after login"
+msgstr "Redirecionar para página de referência após o login"
+
+#: classes/Admin.php:98
+#@ wpfb
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Os usuários são redirecionados para a página onde eles clicaram no link para download após o log in"
+
+#: classes/Admin.php:100
+#@ wpfb
+msgid "Disable HTTP Caching"
+msgstr "Desativar cache HTTP"
+
+#: classes/Admin.php:100
+#@ wpfb
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Ativá-la se você tem problemas com downloads enquanto usa Wordpress com um plugin de cache."
+
+#: classes/Admin.php:105
+#@ wpfb
+msgid "Protect upload path"
+msgstr "Proteger upload de caminho"
+
+#: classes/Admin.php:105
+#@ wpfb
+msgid "This prevents direct access to files in the upload directory."
+msgstr "Isso impede o acesso direto a arquivos no diretório de upload."
+
+#: classes/Admin.php:107
+#@ wpfb
+msgid "Private Files"
+msgstr "Arquivos Privados"
+
+#: classes/Admin.php:107
+#@ wpfb
+msgid "Access to files is only permitted to owner and administrators."
+msgstr "O acesso aos arquivos só é permitido ao proprietário e administradores."
+
+#: classes/Admin.php:109
+#@ wpfb
+msgid "Enable front end uploads"
+msgstr "Ativar o carregamento de front-end"
+
+#: classes/Admin.php:109
+#@ wpfb
+msgid "Global option to allow file uploads from widgets and embedded file forms"
+msgstr "Opção global para permitir o upload de arquivos de widgets e formas de arquivo embutidos"
+
+#: classes/Admin.php:115
+#@ wpfb
+msgid "Destroy session when downloading"
+msgstr "Destruir sessão ao fazer o download"
+
+#: classes/Admin.php:115
+#@ wpfb
+msgid "Should be enabled to allow users to download multiple files at the same time. This does not interfere WordPress user sessions, but can cause trouble with other plugins using the global $_SESSION."
+msgstr "Deve ser ativado para permitir que os usuários façam download de vários arquivos ao mesmo tempo. Isso não interfere sessões de usuários do WordPress, mas pode causar problemas com outros plugins usando o global $_SESSION."
+
+#: classes/Admin.php:119
+#@ wpfb
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "Adicionar WP Filebase a barra de menu de administração"
+
+#: classes/Admin.php:119
+#@ wpfb
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "Exibir algumas ações rápidas para gerenciamento de arquivos na barra de menu de administração."
+
+#: classes/Admin.php:122
+#@ wpfb
+msgid "Automatic Sync"
+msgstr "Sincronização automática"
+
+#: classes/Admin.php:122
+#@ wpfb
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Cronogramas de um cronjob para sincronizar o horário do sistema de arquivos e banco de dados."
+
+#: classes/Admin.php:125
+#@ wpfb
+msgid "Search Integration"
+msgstr "Integração pesquisa"
+
+#: classes/Admin.php:125
+#@ wpfb
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Pesquisas em arquivos anexados e listas dos posts e páginas associadas ao pesquisar no site."
+
+#: classes/Admin.php:127
+#@ wpfb
+msgid "Disable ID3 tag detection"
+msgstr "Desativar detecção de ID3 tag "
+
+#: classes/Admin.php:127
+#@ wpfb
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Isso desativa todos os meta leitura de informações do arquivo. Use esta opção se você tem problemas de adição de arquivos grandes."
+
+#: classes/Admin.php:128
+#@ wpfb
+msgid "Search ID3 Tags"
+msgstr "Pesquisar ID3 Tag"
+
+#: classes/Admin.php:128
+#@ wpfb
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Pesquisa em metadados do arquivo, como ID3 para arquivos MP3, EXIF para JPEG ... (esta opção não aumenta a carga significativamente do servidor uma vez que todos os dados são armazenados em cache em uma tabela MySQL)"
+
+#: classes/Admin.php:129
+#@ wpfb
+msgid "Use path instead of ID in Shortcode"
+msgstr "Usar caminho em vez de ID em Shortcode"
+
+#: classes/Admin.php:129
+#@ wpfb
+msgid "Files and Categories are identified by paths and not by their IDs in the generated Shortcodes"
+msgstr "Arquivos e Categorias são identificados por caminhos e não por suas identificações nas Shortcodes gerados"
+
+#: classes/Admin.php:130
+#@ wpfb
+msgid "Disable Name Formatting"
+msgstr "Desativar Formatação de Nome"
+
+#: classes/Admin.php:130
+#@ wpfb
+msgid "This will disable automatic formatting/uppercasing file names when they are used as title (e.g. when syncing)"
+msgstr "Isto irá desativar a formatação automática/mudar pra maiúsculas nomes de arquivos quando eles são usados ​​como título (por exemplo, quando sincronizar)"
+
+#: classes/Admin.php:134
+#@ wpfb
+msgid "Remove WP-Filebase Footer credits"
+msgstr "Remover créditos WP Filebase-Rodapé"
+
+#: classes/Admin.php:134
+#, php-format
+#@ wpfb
+msgid "This disables the footer credits only displayed on <a href=\"%s\">File Browser Page</a>. Why should you keep the credits? Every backlink helps WP-Filebase to get more popular, popularity motivates the developer to continue work on the plugin."
+msgstr "Isso desativa os créditos rodapé apenas mostradas em <a href=\"%s\">Página File Browser</a>. Por que você deve manter os créditos? Cada backlink ajuda WP Filebase para obter mais popular, a popularidade motiva o desenvolvedor para continuar o trabalho sobre o plugin."
+
+#: classes/Admin.php:135
+#@ wpfb
+msgid "Footer credits Style"
+msgstr "Estilo de créditos Rodapé"
+
+#: classes/Admin.php:135
+#@ wpfb
+msgid "Set custom CSS style for WP-Filebase footer credits"
+msgstr "Conjunto personalizado de estilo CSS para créditos WP Filebase-footer"
+
+#: classes/Admin.php:136
+#@ wpfb
+msgid "Late script loading"
+msgstr "Carregamento roteiro final"
+
+#: classes/Admin.php:136
+#@ wpfb
+msgid "Scripts will be included in content, not in header. Enable if your AJAX tree view does not work properly."
+msgstr "Scripts será incluído no conteúdo, e não no cabeçalho. Ativar se a sua exibição em árvore AJAX não funciona corretamente."
+
+#: classes/Admin.php:138
+#@ wpfb
+msgid "Default Author"
+msgstr "Autor padrão"
+
+#: classes/Admin.php:138
+#@ wpfb
+msgid "This author will be used as form default and when adding files with FTP"
+msgstr "Este autor será usado como forma padrão ao adicionar arquivos com FTP"
+
+#: classes/Admin.php:139
+#@ wpfb
+msgid "Default User Roles"
+msgstr "Funções de usuário padrão"
+
+#: classes/Admin.php:139
+#@ wpfb
+msgid "These roles are selected by default and will be used for files added with FTP"
+msgstr "Esses papéis são selecionados por padrão e será usado para arquivos adicionados com FTP"
+
+#: classes/Admin.php:141
+#@ wpfb
+msgid "Default Category"
+msgstr "Categoria padrão"
+
+#: classes/Admin.php:141
+#@ wpfb
+msgid "Preset Category in the file form"
+msgstr "Categoria predefinido na forma de arquivo"
+
+#: classes/Admin.php:155
+#@ default
+msgid "Custom Fields"
+msgstr "Os campos personalizados"
+
+#: classes/Admin.php:156
+#@ wpfb
+msgid "With custom fields you can add even more file properties."
+msgstr "Com campos personalizados que você pode adicionar propriedades do arquivo ainda mais."
+
+#: classes/Admin.php:239
+#: classes/Admin.php:276
+#, php-format
+#@ default
+msgid "HTML image tag for a small icon (height %d)"
+msgstr "HTML marca de imagem de um pequeno ícone (altura %d)"
+
+#: classes/Admin.php:243
+#@ wpfb
+msgid "Number of files in the category and all child categories"
+msgstr "Número de arquivos na categoria e todas as categorias de crianças"
+
+#: classes/Admin.php:246
+#: classes/Admin.php:281
+#, php-format
+#@ wpfb
+msgid "Variable to check if the %s is accessible (boolean 0/1)"
+msgstr "Variável para verificar se o s% é acessível (booleano 0/1)"
+
+#: classes/Admin.php:252
+#: classes/Admin.php:314
+#: lib/wpfb_form_file.php:224
+#@ wpfb
+#@ default
+msgid "Title"
+msgstr "Título"
+
+#: classes/Admin.php:256
+#@ wpfb
+msgid "Download URL encoded for use in query strings"
+msgstr "Baixar URL codificada para uso em cadeias de consulta"
+
+#: classes/Admin.php:265
+#: lib/wpfb_form_file.php:299
+#@ default
+msgid "Tags"
+msgstr "etiquetas"
+
+#: classes/Admin.php:275
+#@ wpfb
+msgid "URL of the category icon (if any)"
+msgstr "URL do ícone da categoria (se houver)"
+
+#: classes/Admin.php:281
+#@ wpfb
+msgid "File"
+msgstr "Arquivo"
+
+#: classes/Admin.php:288
+#: classes/Admin.php:334
+#@ wpfb
+msgid "User Name of the owner"
+msgstr "Nome de usuário do proprietário"
+
+#: classes/Admin.php:295
+#, php-format
+#@ wpfb
+msgid "Lowercase file extension (e.g. '%s')"
+msgstr "Extensão de arquivo em minúsculas (por exemplo, '%s')"
+
+#: classes/Admin.php:296
+#, php-format
+#@ wpfb
+msgid "File content type (e.g. '%s')"
+msgstr "Tipo de conteúdo do arquivo (por exemplo, '%s')"
+
+#: classes/Admin.php:306
+#@ wpfb
+msgid "ID of the current post or page"
+msgstr "ID do post atual ou página"
+
+#: classes/Admin.php:307
+#, php-format
+#@ wpfb
+msgid "Plugin root URL (%s)"
+msgstr "URL raiz do Plugin (%s)"
+
+#: classes/Admin.php:323
+#@ default
+msgid "Relative path of the file"
+msgstr "Caminho relativo do arquivo"
+
+#: classes/Admin.php:324
+#@ default
+msgid "File ID"
+msgstr "ID do arquivo"
+
+#: classes/Admin.php:326
+#: classes/Admin.php:345
+#@ wpfb
+msgid "Category Name"
+msgstr "Nome da Categoria"
+
+#: classes/Admin.php:327
+#: classes/Admin.php:350
+#@ wpfb
+msgid "Category ID"
+msgstr "Categoria ID"
+
+#: classes/Admin.php:346
+#@ wpfb
+msgid "Name of the Category folder"
+msgstr "Nome da pasta Categoria"
+
+#: classes/Admin.php:349
+#@ wpfb
+msgid "Relative path of the category folder"
+msgstr "Caminho relativo da pasta de categoria"
+
+#: classes/Admin.php:351
+#@ wpfb
+msgid "Parent Category ID"
+msgstr "Categoria ID pai"
+
+#: classes/Admin.php:353
+#@ wpfb
+msgid "Number of files directly in the category"
+msgstr "Número de arquivos diretamente na categoria"
+
+#: classes/Admin.php:354
+#@ wpfb
+msgid "Number of all files in the category and all sub-categories"
+msgstr "Número de todos os arquivos da categoria e todas as sub-categorias"
+
+#: classes/Admin.php:356
+#@ wpfb
+msgid "Custom Category Order"
+msgstr "Ordem categoria personalizada"
+
+#: classes/Admin.php:368
+#@ wpfb
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Para alguns arquivos há mais tags disponíveis. Você encontrará uma lista de todas as tags abaixo do formulário ao editar um arquivo."
+
+#: classes/Admin.php:539
+#: classes/Admin.php:787
+#, php-format
+#@ wpfb
+msgid "Could not get file information from %s!"
+msgstr "Não foi possível obter informações de arquivos de %s!"
+
+#: classes/Admin.php:563
+#@ wpfb
+msgid "Only HTTP links are supported."
+msgstr "Apenas links HTTP são suportados."
+
+#: classes/Admin.php:783
+#@ default
+msgid "Invalid URL Provided."
+msgstr "URL fornecido é inválido."
+
+#: classes/Admin.php:788
+#@ default
+msgid "Could not create Temporary file."
+msgstr "Não foi possível criar arquivo temporário."
+
+#: classes/Admin.php:1090
+#: classes/Admin.php:1096
+#: classes/Admin.php:1124
+#: classes/AdminGuiCats.php:34
+#: classes/AdminGuiCss.php:31
+#: classes/AdminGuiFiles.php:22
+#: classes/AdminGuiFiles.php:42
+#: classes/AdminGuiFiles.php:64
+#: classes/AdminGuiFiles.php:69
+#: classes/AdminGuiFiles.php:74
+#: classes/AdminGuiFiles.php:95
+#: classes/AdminGuiSettings.php:11
+#: classes/AdminGuiSettings.php:15
+#: classes/File.php:466
+#: editor_plugin.php:31
+#: editor_plugin.php:54
+#: editor_plugin.php:229
+#: wpfb-ajax.php:212
+#: wpfb-postbrowser.php:4
+#@ default
+msgid "Cheatin&#8217; uh?"
+msgstr "Trapaceando&#8217; uh?"
+
+#: classes/Admin.php:1104
+#: classes/Admin.php:1129
+#@ default
+msgid "Error "
+msgstr "Erro"
+
+#: classes/Admin.php:1107
+#@ wpfb
+msgid "The File has been uploaded successfully."
+msgstr "O arquivo foi enviado com sucesso."
+
+#: classes/Admin.php:1132
+#@ wpfb
+msgid "New Category created."
+msgstr "Nova categoria criada."
+
+#: classes/Admin.php:1135
+#: classes/AdminGuiCats.php:75
+#@ wpfb
+#@ default
+msgid "Category added."
+msgstr "Categoria adicionada."
+
+#: classes/Admin.php:1192
+#, php-format
+#@ wpfb
+msgid "Could not move thumnail %s to %s."
+msgstr "Não foi possível mover thumnail %s para %s."
+
+#: classes/Admin.php:1196
+#, php-format
+#@ wpfb
+msgid "%d Thumbnails moved."
+msgstr "%d Miniaturas movidas."
+
+#: classes/Admin.php:1212
+#: classes/Output.php:411
+#@ wpfb
+msgid "Everyone"
+msgstr "Todo o mundo"
+
+#: classes/AdminGuiCats.php:75
+#@ default
+msgid "Category updated."
+msgstr "Categoria atualizado."
+
+#: classes/AdminGuiCats.php:92
+#: classes/AdminGuiFiles.php:108
+#, php-format
+#@ default
+msgid "Search results for &#8220;%s&#8221;"
+msgstr "Resultados da busca por &#8220;%s&#8221;"
+
+#: classes/AdminGuiCats.php:100
+#: classes/AdminGuiCats.php:102
+#@ default
+msgid "Search Categories"
+msgstr "Categorias de busca"
+
+#: classes/AdminGuiCats.php:138
+#: classes/AdminGuiFiles.php:160
+#: classes/AdminGuiTpls.php:252
+#: classes/Core.php:501
+#: classes/FileListTable.php:60
+#: editor_plugin.php:257
+#: lib/wpfb_form_cat.php:55
+#: lib/wpfb_form_file.php:217
+#@ default
+msgid "Delete"
+msgstr "Excluir"
+
+#: classes/AdminGuiCats.php:147
+#: classes/AdminGuiFiles.php:172
+#: classes/AdminGuiTpls.php:224
+#: classes/AdminGuiTpls.php:232
+#: classes/FileListTable.php:30
+#@ default
+msgid "Name"
+msgstr "Nome"
+
+#: classes/AdminGuiCats.php:148
+#: classes/AdminGuiFiles.php:175
+#: lib/wpfb_form_cat.php:47
+#: lib/wpfb_form_file.php:295
+#@ default
+msgid "Description"
+msgstr "Descrição"
+
+#: classes/AdminGuiCats.php:150
+#: classes/Widget.php:234
+#: lib/wpfb_form_cat.php:40
+#@ default
+msgid "Parent Category"
+msgstr "Categoria pai"
+
+#: classes/AdminGuiCats.php:151
+#@ default
+msgid "Path"
+msgstr "Caminho"
+
+#: classes/AdminGuiCats.php:152
+#: classes/AdminGuiFiles.php:177
+#: classes/FileListTable.php:35
+#: lib/wpfb_form_cat.php:60
+#: lib/wpfb_form_file.php:304
+#@ wpfb
+msgid "Access Permission"
+msgstr "Permissão de Acesso"
+
+#: classes/AdminGuiCats.php:153
+#: lib/wpfb_form_cat.php:86
+#@ wpfb
+msgid "Custom Sort Order"
+msgstr "Ordem personalizada"
+
+#: classes/AdminGuiCss.php:23
+#, php-format
+#@ wpfb
+msgid "Custom CSS does only work if upload path is relative to WordPress path. It is currently set to <code>%s</code>, so <b>custom CSS will not work!</b>"
+msgstr "Personalizado CSS só funciona se o caminho de upload é relativo ao caminho WordPress. Ele está definido para <code> %s </ code>, assim <b> personalizado CSS não vai funcionar! </b>"
+
+#: classes/AdminGuiFiles.php:58
+#@ wpfb
+msgid "You do not have the permission to edit this file!"
+msgstr "Você não tem permissão para editar este arquivo!"
+
+#: classes/AdminGuiFiles.php:88
+#: classes/AdminGuiManage.php:54
+#@ default
+msgid "Go back"
+msgstr "Voltar"
+
+#: classes/AdminGuiFiles.php:171
+#: classes/FileListTable.php:29
+#@ default
+msgid "ID"
+msgstr "ID"
+
+#: classes/AdminGuiFiles.php:178
+#: classes/FileListTable.php:36
+#@ wpfb
+msgid "Owner"
+msgstr "Proprietário"
+
+#: classes/AdminGuiFiles.php:182
+#@ default
+msgid "Rating"
+msgstr "Classificação"
+
+#: classes/AdminGuiFiles.php:279
+#, php-format
+#@ wpfb
+msgid "The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code."
+msgstr "As seguintes tags podem ser usados ​​em modelos. Por exemplo, se você deseja exibir o artista de um arquivo MP3, colocar %s dentro do código do modelo."
+
+#: classes/AdminGuiFiles.php:285
+#@ wpfb
+msgid "Keywords used for search:"
+msgstr "Palavras-chave utilizadas para a busca:"
+
+#: classes/AdminGuiManage.php:78
+#@ wpfb
+msgid "WP-Filebase content tags must be converted"
+msgstr "Etiquetas WP Filebase de conteúdo deve ser convertido"
+
+#: classes/AdminGuiManage.php:84
+#, php-format
+#@ wpfb
+msgid "File Browser post or page not set! Some features like search will not work. <a href=\"%s\">Click here to set the File Browser Post ID.</a>"
+msgstr "Mensagem ou página não definido no navegador de arquivos! Alguns recursos como busca não irá funcionar.<a href=\"%s\"> Clique aqui para definir o arquivo Post ID Browser. </a>"
+
+#: classes/AdminGuiManage.php:84
+#: classes/AdminGuiSettings.php:208
+#: classes/AdminHowToStart.php:32
+#@ wpfb
+msgid "File Browser"
+msgstr "Navegador de Arquivos"
+
+#: classes/AdminGuiManage.php:101
+#@ wpfb
+msgid "Like this plugin?"
+msgstr "Gostou deste plugin?"
+
+#: classes/AdminGuiManage.php:144
+#@ wpfb
+msgid "Total File Size"
+msgstr "Tamanho total do arquivo"
+
+#: classes/AdminGuiManage.php:154
+#@ wpfb
+msgid "Statistics"
+msgstr "Estatística"
+
+#: classes/AdminGuiManage.php:157
+#@ wpfb
+msgid "Number of Files"
+msgstr "Número de Arquivos"
+
+#: classes/AdminGuiManage.php:161
+#@ wpfb
+msgid "Number of Categories"
+msgstr "Número de Categorias"
+
+#: classes/AdminGuiManage.php:165
+#@ wpfb
+msgid "Total Downloads"
+msgstr "Total de downloads"
+
+#: classes/AdminGuiManage.php:174
+#@ default
+msgid "Tools"
+msgstr "Ferramentas"
+
+#: classes/AdminGuiManage.php:178
+#@ wpfb
+msgid "Convert old Tags"
+msgstr "Converter tags antigas"
+
+#: classes/AdminGuiManage.php:178
+#, php-format
+#@ wpfb
+msgid "Convert tags from versions earlier than %s."
+msgstr "Converter tags de versões anteriores a %s."
+
+#: classes/AdminGuiManage.php:179
+#@ wpfb
+msgid "Add multiple URLs"
+msgstr "Adicionar várias URLs"
+
+#: classes/AdminGuiManage.php:179
+#@ wpfb
+msgid "Add multiple remote files at once."
+msgstr "Adicionar vários arquivos remotos de uma só vez."
+
+#: classes/AdminGuiManage.php:191
+#@ default
+msgid "About"
+msgstr "Sobre"
+
+#: classes/AdminGuiManage.php:200
+#@ default
+msgid "Tag Conversion"
+msgstr "Conversão tag"
+
+#: classes/AdminGuiManage.php:203
+#@ default
+msgid "<strong>Important:</strong> before updating, please <a href=\"http://codex.wordpress.org/WordPress_Backups\">backup your database and files</a>. For help with updates, visit the <a href=\"http://codex.wordpress.org/Updating_WordPress\">Updating WordPress</a> Codex page."
+msgstr "<strong>Importante:</strong> antes de atualizar, por favor <a href=\"http://codex.wordpress.org/WordPress_Backups\">faça backup de seu banco de dados e arquivos</a>. Para obter ajuda com as atualizações, visite o<a href=\"http://codex.wordpress.org/Updating_WordPress\">Atualizando WordPress</a> Codex página."
+
+#: classes/AdminGuiManage.php:205
+#@ default
+msgid "Continue"
+msgstr "Continuar"
+
+#: classes/AdminGuiManage.php:210
+#, php-format
+#@ default
+msgid "%d Tags in %d Posts has been converted."
+msgstr "%d Tags em %d Mensagens foram convertido."
+
+#: classes/AdminGuiManage.php:224
+#@ default
+msgid "Errors"
+msgstr "Erros"
+
+#: classes/AdminGuiManage.php:248
+#, php-format
+#@ default
+msgid "%d Files removed"
+msgstr "Arquivos %d removido."
+
+#: classes/AdminGuiManage.php:261
+#, php-format
+#@ default
+msgid "%d Categories removed"
+msgstr "Categorias %d removido"
+
+#: classes/AdminGuiManage.php:265
+#@ default
+msgid "Synchronisation"
+msgstr "Sincronização"
+
+#: classes/AdminGuiSettings.php:192
+#: classes/AdminLite.php:52
+#@ default
+msgid "Settings"
+msgstr "Configurações"
+
+#: classes/AdminGuiSettings.php:197
+#: classes/AdminGuiSettings.php:311
+#@ default
+msgid "Save Changes"
+msgstr "Salvar alterações"
+
+#: classes/AdminGuiSettings.php:217
+#@ default
+msgid "Misc"
+msgstr "Variados"
+
+#: classes/AdminGuiSettings.php:312
+#@ wpfb
+msgid "Restore Default Settings"
+msgstr "Restaurar as configurações padrão"
+
+#: classes/AdminGuiSettings.php:312
+#@ wpfb
+msgid "All settings (including default file and category template) will be set to default values. Continue?"
+msgstr "Todas as configurações (incluindo arquivo padrão e modelo da categoria) serão definidas para valores padrão. Continuar?"
+
+#: classes/AdminGuiTpls.php:52
+#@ wpfb
+msgid "Type missing!"
+msgstr "Digito faltando!"
+
+#: classes/AdminGuiTpls.php:53
+#@ wpfb
+msgid "Please enter a template tag."
+msgstr "Por favor insira um tag."
+
+#: classes/AdminGuiTpls.php:179
+#: classes/AdminLite.php:38
+#@ default
+msgid "Categories"
+msgstr "Categorias"
+
+#: classes/AdminGuiTpls.php:184
+#@ wpfb
+msgid "Templates used for single embedded files or file lists."
+msgstr "Modelos usados ​​para um único arquivos incorporados ou listas de arquivos."
+
+#: classes/AdminGuiTpls.php:189
+#@ wpfb
+msgid "These templates can be used for categories."
+msgstr "Estes modelos podem ser utilizados para as categorias."
+
+#: classes/AdminGuiTpls.php:194
+#@ wpfb
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "A lista de modelos consiste em modelo de cabeçalho, rodapé e arquivo. Ele pode, opcionalmente, ter um modelo de categoria para listar sub-categorias."
+
+#: classes/AdminGuiTpls.php:202
+#@ wpfb
+msgid "This will reset all File, Category and List Templates! Are your sure?"
+msgstr "Isso irá redefinir todos os modelos da categoria Arquivo e Lista! Tem certeza?"
+
+#: classes/AdminGuiTpls.php:203
+#@ wpfb
+msgid "Reset all Templates to default"
+msgstr "Redefinir todos os modelos para o padrão"
+
+#: classes/AdminGuiTpls.php:225
+#: classes/AdminGuiTpls.php:233
+#: classes/AdminGuiTpls.php:344
+#@ default
+msgid "Preview"
+msgstr "Visualização"
+
+#: classes/AdminGuiTpls.php:250
+#: classes/FileListTable.php:63
+#, php-format
+#@ default
+msgid "Edit &#8220;%s&#8221;"
+msgstr "Editar &#8220;%s&#8221;"
+
+#: classes/AdminGuiTpls.php:251
+#@ default
+msgid "Edit this item"
+msgstr "Editar este item"
+
+#: classes/AdminGuiTpls.php:251
+#: classes/Core.php:499
+#: classes/FileListTable.php:59
+#: editor_plugin.php:259
+#@ default
+msgid "Edit"
+msgstr "Editar"
+
+#: classes/AdminGuiTpls.php:252
+#@ default
+msgid "Delete this item permanently"
+msgstr "Excluir este item permanentemente"
+
+#: classes/AdminGuiTpls.php:292
+#@ wpfb
+msgid "Add TemplateEdit Template"
+msgstr "Adicionar Molde Editar"
+
+#: classes/AdminGuiTpls.php:306
+#@ wpfb
+msgid "Header"
+msgstr "Cabeçalho"
+
+#: classes/AdminGuiTpls.php:318
+#@ wpfb
+msgid "File Template"
+msgstr "Modelo de arquivo"
+
+#: classes/AdminGuiTpls.php:324
+#@ wpfb
+msgid "Footer"
+msgstr "Rodapé"
+
+#: classes/AdminGuiTpls.php:338
+#@ wpfb
+msgid "Add TemplateSubmit Template Changes"
+msgstr "Adicionar Modelo Enviar alterações do modelo"
+
+#: classes/AdminGuiTpls.php:354
+#: editor_plugin.php:314
+#@ default
+msgid "Default"
+msgstr "Padrão"
+
+#: classes/AdminHowToStart.php:21
+#, php-format
+#@ wpfb
+msgid "How to get started with %s?"
+msgstr "Como começar com %s?"
+
+#: classes/AdminHowToStart.php:24
+#@ wpfb
+msgid "Create a Category"
+msgstr "Criar uma categoria"
+
+#: classes/AdminHowToStart.php:26
+#@ wpfb
+msgid "Add a file. There are different ways:"
+msgstr "Adicionar um arquivo. Há maneiras diferentes:"
+
+#: classes/AdminHowToStart.php:28
+#, php-format
+#@ wpfb
+msgid "<a href=\"%s\">Use the normal File Upload Form.</a> You you can either upload a file from you local harddisk or you can provide a URL to a file that will be sideloaded to your blog."
+msgstr "<a href=\"%s\">Utilize o formulário de upload de arquivo normal.</a>Você pode fazer o upload de um arquivo de você disco rígido local ou você pode fornecer uma URL para um arquivo que será sideloaded no seu blog."
+
+#: classes/AdminHowToStart.php:29
+#, php-format
+#@ wpfb
+msgid "Use FTP: Use your favorite FTP Client to upload any directories/files to <code>%s</code>. Afterwards <a href=\"%s\">sync the filebase</a> to add the newly uploaded files to the database."
+msgstr "Usar FTP: Use o seu cliente FTP favorito para carregar todos os diretórios / arquivos para <code>%s</code>  Afterwards <a href=\"%s\"> sincronizar o filebase </a> para adicionar os arquivos recém-enviados para o banco de dados."
+
+#: classes/AdminHowToStart.php:32
+#, php-format
+#@ wpfb
+msgid "Goto <a href=\"%s\">WP-Filebase Settings -> Filebrowser</a> and set the Page ID to get a nice AJAX Tree View of all your files."
+msgstr "Ir a <a href=\"%s\"> Definições WP Filebase ->Filebrowser </a> e definir o ID da página para obter uma exibição de árvore agradável AJAX de todos os seus arquivos."
+
+#: classes/AdminHowToStart.php:33
+#, php-format
+#@ wpfb
+msgid "WP-Filebase adds a new button to the visual editor. When creating or editing posts/pages, use the Editor Plugin %s to insert single files, file lists and other stuff into your content."
+msgstr "WP-Filebase adiciona um novo botão para o editor visual. Ao criar ou editar mensagens / páginas, utilize o Editor Plugin %s para inserir arquivos individuais, listas de arquivos e outras coisas em seu conteúdo."
+
+#: classes/AdminHowToStart.php:34
+#, php-format
+#@ wpfb
+msgid "Take a look at the <a href=\"%s\">Widgets</a>. WP-Filebase adds three widgets for file listing, category listing and user uploads."
+msgstr "Dê uma olhada na <a href=\"%s\">Widgets</a>. WP-Filebase acrescenta três widgets para upload de arquivos anúncio Listing categoria, e do usuário."
+
+#: classes/AdminHowToStart.php:35
+#, php-format
+#@ wpfb
+msgid "<a href=\"%s\">Manage the Templates</a> (for advanced users): You can modify any file- or category template to fit your Wordpress theme."
+msgstr "<a href=\"%s\">Gerenciar os Modelos</a> para usuários avançados): Você pode modificar qualquer modelo de arquivo ou categoria para caber seu tema Wordpress."
+
+#: classes/AdminHowToStart.php:38
+#@ wpfb
+msgid "Never show this again."
+msgstr "Nunca mostrar isso de novo."
+
+#: classes/AdminLite.php:20
+#@ wpfb
+msgid "DEPRECATED"
+msgstr "OBSOLETO"
+
+#: classes/AdminLite.php:60
+#@ wpfb
+msgid "tit"
+msgstr "teta"
+
+#: classes/Core.php:51
+#@ wpfb
+msgid "Deprecated, use other widget instead!"
+msgstr "Obsoleta, use outro widget!"
+
+#: classes/Core.php:307
+#, php-format
+#@ wpfb
+msgid "<a href=\"%s\" title=\"Wordpress Download Manager Plugin\" style=\"color:inherit;font-size:inherit;\">Downloads served by WP-Filebase</a>"
+msgstr "<a href=\"%s\" title=\"Gerencador de Plugin de Download Wordpress\" style=\"color:inherit;font-size:inherit;\">Download servido por WP-Filebase</a>"
+
+#: classes/Core.php:544
+#: classes/Core.php:553
+#: lib/wpfb_form_file.php:20
+#@ wpfb
+msgid "Add File"
+msgstr "Adicionar Arquivo"
+
+#: classes/Core.php:558
+#@ wpfb
+msgid "Manage attachments"
+msgstr "Gerenciar anexos"
+
+#: classes/Item.php:477
+#, php-format
+#@ default
+msgid "Unable to create directory %s. Is it's parent directory writable?"
+msgstr "Não foi possível criar diretório %s. O diretório pai é gravável?"
+
+#: classes/Output.php:279
+#@ default
+msgid "None"
+msgstr "Nenhum"
+
+#: classes/Output.php:431
+#: lib/wpfb_form_file.php:188
+#, php-format
+#@ default
+msgid "Maximum upload file size: %d%s"
+msgstr "Tamanho máximo de arquivo de upload: %d%s"
+
+#: classes/Output.php:439
+#@ default
+msgctxt "file"
+msgid "Add New"
+msgstr "Adicionar Novo"
+
+#: classes/PLUpload.php:50
+#: classes/SWFUpload.php:51
+#, php-format
+#@ wpfb
+msgid "File %s uploaded."
+msgstr "Ficheiro %s enviado."
+
+#: classes/PLUpload.php:116
+#@ default
+msgid "Allowed Files"
+msgstr "Arquivos permitidos"
+
+#: classes/PLUpload.php:137
+#@ default
+msgid "Drop files here"
+msgstr "Solte os arquivos aqui"
+
+#: classes/PLUpload.php:137
+#@ default
+msgctxt "Uploader: Drop files here - or - Select Files"
+msgid "or"
+msgstr "ou"
+
+#: classes/PLUpload.php:137
+#: classes/SWFUpload.php:102
+#@ default
+msgid "Select Files"
+msgstr "Selecionar arquivos"
+
+#: classes/PLUpload.php:145
+#@ default
+msgid "Your browser has some limitations uploading large files with the multi-file uploader. Please use the browser uploader for files over 100MB."
+msgstr "Seu navegador tem algumas limitações de upload de arquivos grandes com o uploader multi-arquivo. Por favor use o uploader navegador para arquivos maiores de 100MB."
+
+#: classes/ProgressReporter.php:75
+#, php-format
+#@ wpfb
+msgid "%d files <i>%s</i>"
+msgstr "%d arquivos <i>%s</i>"
+
+#: classes/SWFUpload.php:148
+#@ default
+msgid "Cancel Upload"
+msgstr "Cancelar Envio"
+
+#: classes/Sync.php:34
+#@ wpfb
+msgid "Checking for file changes..."
+msgstr "Verificando alterações de arquivo ..."
+
+#: classes/Sync.php:47
+#@ wpfb
+msgid "Searching for new files..."
+msgstr "Procurando por novos arquivos ..."
+
+#: classes/Sync.php:96
+#, php-format
+#@ wpfb
+msgid "%d Files found, %d new."
+msgstr "%d  Arquivos encontrados, %d novo."
+
+#: classes/Sync.php:132
+#, php-format
+#@ wpfb
+msgid "Sync Time: %01.2f s, Memory Peak: %s"
+msgstr "Sincronizar Hora: %01.2f s, Pico da memória: %s"
+
+#: classes/Sync.php:158
+#, php-format
+#@ wpfb
+msgid "Category (ID %d) of file %s does not exist!"
+msgstr "Categoria (ID %d) do arquivo %s não existe!"
+
+#: classes/Sync.php:411
+#, php-format
+#@ wpfb
+msgid "%d Files could not be found."
+msgstr "%d Arquivo não pôde ser encontrado."
+
+#: classes/Sync.php:411
+#: classes/Sync.php:413
+#@ default
+msgid "Remove entries from database"
+msgstr "Remova as entradas do banco de dados"
+
+#: classes/Sync.php:413
+#, php-format
+#@ wpfb
+msgid "%d Category Folders could not be found."
+msgstr "%d Pastas de categorias não pôde ser encontrado."
+
+#: classes/Widget.php:90
+#: classes/Widget.php:192
+#: classes/Widget.php:253
+#: classes/Widget.php:297
+#: classes/Widget.php:373
+#: classes/Widget.php:470
+#@ default
+msgid "Title:"
+msgstr "Título:"
+
+#: classes/Widget.php:96
+#: classes/Widget.php:476
+#: editor_plugin.php:351
+#@ default
+msgid "All"
+msgstr "Todos"
+
+#: classes/Widget.php:100
+#: classes/Widget.php:382
+#: classes/Widget.php:486
+#: editor_plugin.php:312
+#@ default
+msgid "Sort by:"
+msgstr "Classificar por:"
+
+#: classes/Widget.php:150
+#@ default
+msgid "File Upload"
+msgstr "Upload de Arquivo"
+
+#: classes/Widget.php:150
+#@ wpfb
+msgid "Allows users to upload files from the front end."
+msgstr "Permite aos usuários fazer upload de arquivos a partir do final da frente."
+
+#: classes/Widget.php:186
+#@ wpfb
+msgid "Frontend upload is disabled in security settings!"
+msgstr "Frontend upload é desativado nas configurações de segurança!"
+
+#: classes/Widget.php:195
+#: editor_plugin.php:365
+#@ wpfb
+msgid "Selectable by Uploader"
+msgstr "Selecionável pelo Uploader"
+
+#: classes/Widget.php:196
+#: editor_plugin.php:366
+#@ wpfb
+msgid "Upload to Root"
+msgstr "Enviar para Root"
+
+#: classes/Widget.php:199
+#: editor_plugin.php:370
+#@ wpfb
+msgid "Overwrite existing files"
+msgstr "Substituir os arquivos existentes"
+
+#: classes/Widget.php:200
+#@ wpfb
+msgid "Attach file to current post/page"
+msgstr "Anexar arquivo para cargo atual / página"
+
+#: classes/Widget.php:208
+#: lib/wpfb_form_cat.php:11
+#@ wpfb
+msgid "Add Category"
+msgstr "Adicionar categoria"
+
+#: classes/Widget.php:208
+#@ wpfb
+msgid "Allows users to create file categories from the front end."
+msgstr "Permite aos usuários criar categorias de arquivos a partir do final da frente."
+
+#: classes/Widget.php:220
+#: classes/Widget.php:251
+#@ wpfb
+msgid "Add File Category"
+msgstr "Adicionar categoria de Arquivo"
+
+#: classes/Widget.php:230
+#: lib/wpfb_form_cat.php:31
+#@ default
+msgid "New category name"
+msgstr "Nome da nova categoria"
+
+#: classes/Widget.php:237
+#@ default
+msgid "Add New Category"
+msgstr "Adicionar nova categoria"
+
+#: classes/Widget.php:261
+#: classes/Widget.php:280
+#: classes/Widget.php:295
+#@ default
+msgid "Search"
+msgstr "Pesquisar"
+
+#: classes/Widget.php:261
+#@ wpfb
+msgid "Widget for searching files."
+msgstr "Widget para arquivos de pesquisa."
+
+#: classes/Widget.php:305
+#@ wpfb
+msgid "Category list"
+msgstr "lista de categorias"
+
+#: classes/Widget.php:305
+#@ wpfb
+msgid "Simple listing of file categories"
+msgstr "Simples lista de categorias de arquivo"
+
+#: classes/Widget.php:319
+#: classes/Widget.php:365
+#@ wpfb
+#@ default
+msgid "File Categories"
+msgstr "Categorias de arquivo"
+
+#: classes/Widget.php:360
+#@ default
+msgid "Goto File Browser Settings"
+msgstr "Vá em File Browser Settings"
+
+#: classes/Widget.php:378
+#: classes/Widget.php:481
+#@ default
+msgid "Show hierarchy"
+msgstr "Mostrar hierarquia"
+
+#: classes/Widget.php:407
+#@ wpfb
+msgid "Listing of files with custom sorting"
+msgstr "Listagem de arquivos com classificação personalizada"
+
+#: editor_plugin.php:207
+#@ wpfb
+msgid "File Tree View"
+msgstr "Exibir árvore de arquivos"
+
+#: editor_plugin.php:218
+#, php-format
+#@ default
+msgid "Note: Listing of attached files is disabled. You have to <a href=\"%s\">insert the attachments tag</a> to show the files in the content."
+msgstr "Nota: Listagem dos arquivos anexados está desativado. Você tem que <a href=\"%s\">inserir o tag anexos</a> para mostrar os arquivos no conteúdo."
+
+#: editor_plugin.php:252
+#@ default
+msgid "No items found."
+msgstr "Nenhum item foi encontrado."
+
+#: editor_plugin.php:258
+#@ default
+msgid "Remove"
+msgstr "Remover"
+
+#: editor_plugin.php:268
+#@ wpfb
+msgid "Change Order"
+msgstr "Alterar Ordem"
+
+#: editor_plugin.php:275
+#@ wpfb
+msgid "Attach existing file"
+msgstr "Anexar arquivo existente"
+
+#: editor_plugin.php:291
+#@ wpfb
+msgid "Select File"
+msgstr "Selecione Arquivo"
+
+#: editor_plugin.php:295
+#@ default
+msgid "Select Category"
+msgstr "Selecione a categoria"
+
+#: editor_plugin.php:296
+#@ wpfb
+msgid "Select the categories containing the files you would like to list."
+msgstr "Selecione as categorias que contêm os arquivos que você gostaria de listar."
+
+#: editor_plugin.php:297
+#@ wpfb
+msgid "Include all Categories"
+msgstr "Incluir todas as categorias"
+
+#: editor_plugin.php:324
+#@ wpfb
+msgid "Files per page:"
+msgstr "Arquivos por página:"
+
+#: editor_plugin.php:326
+#, php-format
+#@ wpfb
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "Ajuste para 0 para usar o limite padrão (%d), -1 irá desativar a paginação."
+
+#: editor_plugin.php:330
+#@ wpfb
+msgid "List selected Categories"
+msgstr "Lista de categorias selecionadas"
+
+#: editor_plugin.php:333
+#@ wpfb
+msgid "Category order"
+msgstr "ordem de categoria"
+
+#: editor_plugin.php:335
+#@ wpfb
+msgid "None (order of IDs in shortcode)"
+msgstr "Nenhum (ordem de IDs no shortcode)"
+
+#: editor_plugin.php:345
+#: editor_plugin.php:354
+#: editor_plugin.php:372
+#@ default
+msgid "Insert"
+msgstr "Inserir"
+
+#: editor_plugin.php:350
+#@ wpfb
+msgid "Select the root category of the tree view file browser:"
+msgstr "Selecione a categoria raiz do navegador de arquivos de exibição de árvore:"
+
+#: editor_plugin.php:363
+#@ wpfb
+msgid "Category where uploaded files will be moved in:"
+msgstr "Categoria onde os arquivos enviados serão movidos em:"
+
+#: lib/wpfb_form_cat.php:11
+#@ default
+msgid "Edit Category"
+msgstr "Editar Categoria"
+
+#: lib/wpfb_form_cat.php:37
+#@ default
+msgid "The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."
+msgstr "O &#8220;slug&#8221; é a versão URL-friendly do nome. É geralmente todas as letras minúsculas e contém apenas letras, números e hífens."
+
+#: lib/wpfb_form_cat.php:43
+#@ default
+msgid "Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional."
+msgstr "Categorias, ao contrário de Tags, podem ter uma hierarquia. Você pode ter uma categoria Jazz, e nas que possuem categorias para Bebop e Big Band. Totalmente opcional."
+
+#: lib/wpfb_form_cat.php:64
+#: lib/wpfb_form_file.php:308
+#@ wpfb
+msgid "Inherit Permissions"
+msgstr "Herdar Permissões"
+
+#: lib/wpfb_form_cat.php:66
+#: lib/wpfb_form_file.php:310
+#@ wpfb
+msgid "Explicitly set permissions"
+msgstr "Permissões explicitamente definidas"
+
+#: lib/wpfb_form_cat.php:69
+#@ wpfb
+msgid "Limit category access by selecting one or more user roles."
+msgstr "Limitar o acesso da categoria, selecionando uma ou mais funções do usuário."
+
+#: lib/wpfb_form_cat.php:78
+#@ wpfb
+msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Isso vai recursivle permissões de atualização de todas as categorias existentes criança e arquivos. Observe que as permissões de arquivos novos nesta categoria são herdadas automaticamente, sem ter verificado esta caixa."
+
+#: lib/wpfb_form_cat.php:82
+#@ wpfb
+msgid "Exclude from file browser"
+msgstr "Excluir do navegador de arquivos"
+
+#: lib/wpfb_form_cat.php:90
+#@ default
+msgid "UpdateAdd New Category"
+msgstr "Atualize Adicionar Nova Categoria"
+
+#: lib/wpfb_form_file.php:53
+#: lib/wpfb_form_file.php:57
+#@ wpfb
+msgid "Simple FormExtended Form"
+msgstr "Forma simples FormExtended"
+
+#: lib/wpfb_form_file.php:179
+#@ default
+msgid "Upload"
+msgstr "Fazer upload"
+
+#: lib/wpfb_form_file.php:188
+#, php-format
+#@ wpfb
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "Pergunte ao seu webhoster para aumentar esse limite, ela é definida em %s."
+
+#: lib/wpfb_form_file.php:189
+#@ default
+msgid "You are using the Browser uploader."
+msgstr "Você está usando o uploader Browser."
+
+#: lib/wpfb_form_file.php:190
+#, php-format
+#@ default
+msgid "Try the <a href=\"%s\">Flash uploader</a> instead."
+msgstr "Tente o <a href=\"%s\">Flash uploader</a> em vez disso."
+
+#: lib/wpfb_form_file.php:194
+#@ default
+msgid "Rename"
+msgstr "Renomear"
+
+#: lib/wpfb_form_file.php:202
+#@ wpfb
+msgid "Redirect download to URL"
+msgstr "Redirecionar o download para URL"
+
+#: lib/wpfb_form_file.php:203
+#@ wpfb
+msgid "Copy file into Filebase (sideload)"
+msgstr "Copie o arquivo em Filebase (sideload)"
+
+#: lib/wpfb_form_file.php:204
+#@ wpfb
+msgid "Scan remote file (disable for large files)"
+msgstr "Digitalização de arquivos remotos (desativar para arquivos grandes)"
+
+#: lib/wpfb_form_file.php:211
+#@ default
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: lib/wpfb_form_file.php:258
+#@ default
+msgid "Post"
+msgstr "Postar"
+
+#: lib/wpfb_form_file.php:286
+#@ default
+msgid "Yes"
+msgstr "Sim"
+
+#: lib/wpfb_form_file.php:287
+#@ default
+msgid "No"
+msgstr "Não"
+
+#: lib/wpfb_form_file.php:313
+#@ default
+msgid "Limit file access by selecting one or more user roles."
+msgstr "Limitar o acesso ao arquivo, selecionando uma ou mais funções do usuário."
+
+#: lib/wpfb_form_file.php:335
+#@ wpfb
+msgid "Manage Custom Fields"
+msgstr "Gerenciar campos personalizados"
+
+#: lib/wpfb_form_file.php:338
+#@ default
+msgid "Update"
+msgstr "Atualizar"
+
+#: lib/wpfb_form_file.php:347
+#@ wpfb
+msgid "File Info Tags (ID3 Tags)"
+msgstr "Arquivo de Informações tags ( ID3 Tag)"
+
+#: wpfb-async-upload.php:36
+#@ default
+msgid "You do not have permission to upload files."
+msgstr "Você não tem permissão para fazer upload de arquivos."
+
+#: wpfb-async-upload.php:66
+#@ default
+msgid "Dismiss"
+msgstr "Descartar"
+
+#: wpfb-async-upload.php:67
+#, php-format
+#@ default
+msgid "&#8220;%s&#8221; has failed to upload due to an error"
+msgstr "&#8220;%s&#8221; falhou ao carregar devido a um erro"
+
+#: wpfb-postbrowser.php:9
+#: wpfb-postbrowser.php:66
+#@ default
+msgid "Posts"
+msgstr "Mensagens"
+

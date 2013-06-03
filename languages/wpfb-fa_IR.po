@@ -1,0 +1,1148 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2012-03-07 16:28+0330\n"
+"Last-Translator: Mahdi Maftouhi <mahdi.mf@gmail.com>\n"
+"Language-Team: Mahdi Maftouhi <m4hdi.mf@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Persian\n"
+"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "فایل های دسته بندی نشده"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "شما فایلی ارسال نکردید. <a href=\"%s\" target=\"_parent\">برای ارسال فایل کلیک کنید.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "متن پیوند را وارد کنید :"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "تک فایل"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "آدرس فایل"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "لیست فایل ها"
+
+msgid "Category list"
+msgstr "لیست دسته ها"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "همه دسته ها "
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "پیوست ها"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "شما هنوز دسته ای  را ایجاد نکردید.  <a href=\"%s\" target=\"_parent\">برای ایجاد دسته  کلیک کنید.</a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "انتخاب قالب"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "قالب پیش فرض"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "افزودن قالب"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "در هر خط یکی وارد کنید . عنوان و برچسب را با '|' جدا کنید(بیشتر از 8 کاراکتر نباشد).<br />هر خطی که با '*' شروع شود به عنوان پیش فرض  انتخاب خواهد شد. "
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "در هر خط یکی وارد نمایید."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "محدودیت حداکثر سرعت دانلود. 0 = نامحدود"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "حداکثر محدودیت ترافیک. 0= نامحدود"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "مکان فایل های ارسالی"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "نمایش فایل های پیوست شده"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "اگر فعال باشد ، تمامی فایل های مرتبط  در پایین مطلب نمایش داده خواهند شد."
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "طبقه بندی پیش فرض"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "تنظیمات فایل مرتب شده است برا اساس"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "مرتب سازی بر اساس سمت"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "سمت مرتب سازی فایل ها از لیست"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "محدودیت میزان بایت برای مهمان"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "محدودیت میزان بایت برای اعضا"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "محدودیت ترافیک روزانه"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "محدودیت ترافیک ماهانه"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "ترافیک بیش از حد مصرف شده است. لطفا بعدا سعی کنید."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "متن مصرف بیش از حد ترافیک"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "محدودیت دانلود روزانه اعضا"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "اگر فعال باشد، کاربران عضو نشده ، نمی توانند هیچ فایلی را دانلود کنند. شما می توانید در پایین محدودیت متفاوتی برای گروه های کاربری ایجاد کنید."
+
+msgid "downloads per day"
+msgstr "دانلود های یک روز"
+
+msgid "Daily limit for %s"
+msgstr "محدودیت روزانه برای %s "
+
+msgid "You can only download %d files per day."
+msgstr "شما فقط  می توانید  %d فایل در روز دانلود کنید."
+
+msgid "Daily limit exceeded message"
+msgstr "متن مصرف بیش از حد در یک روز"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "این فایل در حال حاضر در دسترس نمی باشد."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "متن فایل از دسترس خارج شده(آفلاین)"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "غیر فعال کردن پیوند یکتای بخش دانلود"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "اگر با پیوند یکتا مشکلی دارید این گزینه را فعال کنید."
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "آدرس دانلود پایه"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "آدرس دانلود فایل ها.  نمونه  <code>%s</code> : (این گزینه زمانی کار خواهد کرد که پیوند یکتا(بخش دانلود) فعال باشد) "
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "شناسه مطلب  در مرورگر فایل"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr ""
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "لیست دسته های کشوی پایین رو"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr ""
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "مجبور به دانلود کردن"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "اگر فعال باشد کاربر دیگر نمی تواند فایل های تصویری (مثل عکس و ...) در مرورگر مشاهده کند و فقط می تواند دانلود کند."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "نادیده گرفتن دانلود های مدیریت"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "مخفی کردن نمایش فایل"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "اگر فعال باشد، فایل ها برای مهمان و کاربرانی که حق دسترسی ندارند نمایش داده نمی شود."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "شما  اجازه دسترسی به این فایل را ندارید."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "متن فایل غیر قابل دسترس"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "این متن زمانی نمایش داده خواهد شد ، که کاربری بخواهد سیستم را دور بزند و فایلی را که به آن دسترسی ندارد، دانلود کند"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "هدایت به فرم ورد به سایت"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "اگر فعال باشد  مهمان  برای دانلود فایل به  بخش ورود به سایت هدایت می شود."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "تجزیه تگ های قالب در آر اس اس فید"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "اگر فعال باشد تگ های WP-Filebase  خوراک  تجزیه خواهد شد. "
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "ایا اسکریپ ها اپلود شوند"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "اگر فعال باشد ، اسکر یپت های چون PHP یا CGI   اپلود می شوند .<b>هشدار</b>   فعال کردن این گزینه  ریسک امنیتی محسوب می شود."
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "اجازه برای referer های خالی"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "اگر فعال باشد، لینک فایل های محافظ شده هنگامی که referers خالی باشد قابل دانلود هستند(مثلا : وقتی کاربر آدرس فایل را در آدرس بار یا در مرورگر وارد کند referers ارسال نمی شود)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "referer های مجاز"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "آدرس سایت های که می توانند فایل ها را مستقیما دانلود کنند."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr ""
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "اگر فعال باشد ،  اندازه فایل  بصورت (1 MB = 1000 KB = 1 000 000 B)  نمایش داده خواهند شد ، اگر فعال نباشد بصورت (1 MiB = 1024 KiB = 1 048 576 B) نمایش داده خواهند شد."
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "سیستم عامل"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "جواز نامه"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "مورد نیاز"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "شما می توانید آدرس فایل مورد نیاز  را با | جدا کنید(نمونه: نام فایل |برچسب|آدرس فایل )."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "قالب پیش فرض فایل"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "قالب برای پیوست ها"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "قالب دسته "
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "قالب برای لیست دسته ها  (در مرورگر فایل استفاده خواهد شد)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "دانلود جاوا اسکریپت"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "شما  می توانید در اینجا کد جاوا اسکریپت خود را وارد کنید و با کلیک کردن کاربر اجرا شود.  کد های قابل استفاده : <i>file_id</i>:  شناسه فایل ، <i>file_url</i>:  آدرس فایل "
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "آدرس دسته "
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "آدرس دهی  دسته ها (نمونه: cat1/cat2/ )"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "فقط نام پوشه دسته ،نه آدرس دهی دسته "
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "نام والد دسته ها (اگر خالی باشد هیچ)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "تعداد  فایل های موجود در دسته "
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "کمترین سطح دسترسی برای مشاهده دسته  (مهمان = -1، مشترک = 0، ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "شناسه دسته "
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "شماره ID منحصر به فرد برای شناسایی عناصر درون یک قالب"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "نام فایل"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "اندازه فایل"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "تاریخ فایل"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "نام فایل بند انگشتی"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "نسخه فایل"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "زبان های پشتیبانی شده"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "سیستم عامل های پشتیبانی شده"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "شرایط لازم برای استفاده از این فایل"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "جواز"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "کمترین سطح دسترسی برای دانلود فایل (مهمان = -1، مشترک = 0، ...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "اگر فایل آفلاین(در دسترس نباشد) باشد= 1 ، در غیر اینصورت 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 = لینک مستقیم ، در غیر اینصورت 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "دسته "
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "شناسه پست / صفحه این فایل متعلق به"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the uploader"
+msgstr "شناسه کاربر در آپلودر "
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "چند بار این فایل دانلود شده است."
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "IP آخرین دانلود "
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "زمان آخرین دانلود"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "آدرس دانلود"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "آدرس پست / صفحه این فایل متعلق به"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "آدرس بندگشتی یا آیکون"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "آدرس دهی دسته  و نام فایل (e.g cat1/cat2/file.ext) "
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "شناسه فایل"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "توضیح کوتاه"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "آفلاین > آنلاین"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "لینک مستقیم >  ردایرکت به مطلب"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "افزودن متغییر های قالب"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "شما باید  نام یک دسته  یا پوشه را وارد نمایید."
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "کاراکتر  نامعتبر قابل قبول نمی باشد."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "شاخه %s از قبل وجود دارد!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "ناتوانی در انتقال ایکون دسته "
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "پسوند فایل <b>%s</b>  غیر مجاز می باشد!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "فایل  %sاز قبل وجود دارد . شما باید اول   آن را حذف کنید."
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "ناتوانی در  انتقال فایل %s، آیا  شاخه ای که در آن اپلود می کنید قابل نوشتن می باشد؟"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "فایلی آپلود نشد"
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "ناتوانی در دریافت شناسه کاربر!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "فایل <b>%s</b> قابل نوشتن نمی باشد!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "مدیریت دسته ها  (<a href=\"%s\">افزودن</a>) "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "فایل ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "با حذف یک دسته  ، فایل های موجود در آن حذف نمی شوند و به دسته والد انتقال می یابند. <br /><strong>توجه : </strong> "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "فایل آپلود شد."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "فایل اضافه شد."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "مدیریت فایل (<a href=\"%s\">افزودن</a>) "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "جستجو در فایل ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "نام فایل"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "اندازه"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "بازدید"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "آخرین دانلود"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "چیزی تغییر نکرد"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "%d موارد تغییر یافتند"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "%d فایل اضافه شد.."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "همگام سازی با موفقیت انجام شد."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "همگام سازی کامل فایل"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr ""
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s قابل نوشتن نیست!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "بر روز رسانی فایل"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "بازیابی پیش فرض"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "ویرایش قالب ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "ثبت تغییرات قالب"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "تگ قالب :"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "کد قالب :"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "شاخه آپلودی <code>%s</code> وجود ندارد، نمی توان بصورت خودکار ایجاد کرد زیرا  شاخه  <code>%s</code> قابل نوشتن نمی باشد. لطفا  <code>%s</code> ایجاد کنید و به آن دسترسی های لازم را با استفاده از FTP command: <code>%s</code>   بدهید"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "  شاخه  <code>%s</code> قابل نوشتن نمی باشد.  به آن دسترسی های لازم را با استفاده از FTP command: <code>%s</code>   بدهید"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "مدیریت فایل ها "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "مشاهده فایل های آپلودی و ویرایش آنها "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "مدیریت دسته ها "
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "مدیریت دسته ها موجود و افزودن یک دسته ."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "همگام سازی فایل ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "هماهنگ سازی دیتابیس  و فایل های سیستم. اگر فایل خود را در پوشه آپلود ، آپلود کردید با استفاده از  این امکان آن را بصورت خودکار وارد دیتابیس نمایید."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "ویرایش  Stylesheet"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "ویرایش  CSS برای قالب فایل"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "مدیریت قالب ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "سفارش سازی قالب لیست فایل ها"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "کمک مالی  &amp; در خواست ویژگی جدید"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "اگر افزونه  مفید واقع شد و برای پشتیبانی ادامه کار  ، لطفا در حد توان به من کمک مالی کنید. شما فقط  می توانید  ایده های خود را برای بهتر شدن افزونه برایم ارسال کنید."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "ترافیک"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "امروز"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "این ماه"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "تنظیمات ریست شد."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr ""
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "هشدار : قابلیت ارسال  اسکریپت فعال است!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "قالب فایل با موفقیت پردازش شد."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "ناتوانی در پردازش قالب : خطا  (%s) در خط %s ."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "قالب دسته ها  با موفقیت پردازش شد."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "تنظیمات بروز رسانی شد."
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "ناتوانی در خواندن فایل !"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "پوشه دسته "
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "آیکون دسته "
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "فقط اعضا"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "کمترین سطح دسترسی : ( مشاهده%s )"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "تنظیم حق دسترسی برای  فایل های زیر مجموعه"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "ویرایش فایل"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "آپلود فایل"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "فرم ساده"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "فرم پیشرفته"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "انتخاب فایل"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "حداکٍر اندازه فایل :  %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "شما بصورت اختیاری می توانید  تصویر بندانگشتی فایل را از اینجا اپلود کنید . اگر فایل عکس باشد ، بصورت خودکار بند انگشتی ایجاد خواهد شد."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "فیلد های زیر اختیاری می باشند."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "شمارنده دانلود"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "لینک مستقیم"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "لینک مستقیم"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "هدایت به مطلب"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "آفلاین"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "محدود:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "قالب :"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "یک دانلود منیجر  قدرتمند با قابلیت پشتیبانی از دسته بندی  ، تصاویر یند انگشتی ، ترافیک/محدودیت بایت و دیگر امکانات."
+
+#. Template
+msgid "Version"
+msgstr "نسخه"
+
+msgid "Languages"
+msgstr "زبان"
+
+msgid "Author"
+msgstr "نویسنده"
+
+msgid "Category"
+msgstr "دسته"
+
+msgid "Category:"
+msgstr "دسته:"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Details"
+msgstr "اطلاعات بیشتر"
+
+#. Option Categories
+msgid "Common"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Form Presets"
+msgstr ""
+
+msgid "Limits"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "Templates and Scripts"
+msgstr ""
+
+msgid "Lists the latest or most popular files"
+msgstr "لیست آخرین یا محبوب ترین فایل ها"
+
+msgid "Simple listing of file categories"
+msgstr "فهرست ساده از دسته بندی فایل"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "قبل استفاده از این ، لطفا در تنظیمات برای مرورگر فایل  شناسه پست تعیین کنید."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "اگر افزونه  مفید واقع شد و برای پشتیبانی ادامه کار  ، لطفا در حد توان به من کمک مالی کنید. شما فقط  می توانید  ایده های خود را برای بهتر شدن افزونه برایم ارسال کنید."
+
+msgid "Custom field '%s' removed!"
+msgstr "فیلد زمینه  '%s'  دلخواه  حذف شد!"
+
+msgid "Custom field '%s' added."
+msgstr "فیلد زمینه '%s' دلخواه  اضافه شد."
+
+msgid "Search Integration"
+msgstr "یکپارچه سازی بخش جستجو"
+
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "جستجو در فایل های پیوست شده و لیست مربوط به پست ها و صفحات در هنگام جستجو در سایت."
+
+msgid "Restore Default Settings"
+msgstr "بازگردانی به تنظیمات پیش فرض"
+
+msgid "Attachment Position"
+msgstr " جایگاه  پیوست ها"
+
+msgid "After the Content"
+msgstr "بعد پست"
+
+msgid "Before the Content"
+msgstr "قبل پست"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Category Name"
+msgstr "نانم دسته"
+
+msgid "Category ID"
+msgstr "شناسه دسته"
+
+msgid "Number of files per page"
+msgstr "تعداد فایل در هر صفحه"
+
+msgid "Relative path of the file"
+msgstr "مسیر نسبی فایل"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "طول لیست فایل ها در صفحه. برای غیر فعال کردن محدودیت 0 قرار دهید."
+
+msgid "File browser category sorting"
+msgstr "نوع قرار گیری دسته های  مرورگر فایل"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "ویژگی های  دسته بندی در مرورگر فایل مرتب شوند بصورت"
+
+msgid "Name of the Category folder"
+msgstr "نام  پوشه دسته"
+
+msgid "Relative path of the category folder"
+msgstr ""
+
+msgid "File browser file sorting"
+msgstr "قرار گیری فایل در مرورگر فایل"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "ویژگی های فایل ها در مرورگر فایل  مرتب شوند بصورت "
+
+msgid "Send HTTP-Range header"
+msgstr "ارسال HTTP-Range header "
+
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "این امکان به کاربران توانایی متوقف کردن دانلود و شروع دوباره آن در یک زمان دیگر را می دهد . علاوه بر این دانلود منیجر می تواند در بعضی اوقات مولتی کانکشن استفاده کند."
+
+msgid "Disable HTTP Caching"
+msgstr "غیر فعال کردن HTTP Caching"
+
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "این گزینه را زمانی فعال کنید که با یک افزونه  cache مشکل دارید و نمی توانید فایل دانلود کنید."
+
+msgid "With custom fields you can add even more file properties."
+msgstr "با استفاده از  فیلد زمینه دلخواه می توانید ویژگیهای زیادی از فایل را به نمایش بگذارید."
+
+msgid "Redirect to referring page after login"
+msgstr "هدایت کاربر به صفحه قبلی بعد ورود به سایت"
+
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "کاربران هدایت خواهند شد به صفحه در هر کجا که بر روی لینک دانلود کلیک کنند بعد ورود به سایت."
+
+msgid "Protect upload path"
+msgstr "محافظت از مسیر (پوشه) آپلود"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "جلوگیری از دسترسی مستقیم به پوشه آپلود فایل ها"
+
+msgid "Hide download links"
+msgstr "مخفی کردن لینک های دانلود"
+
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr ""
+
+msgid "Auto-detect thumbnails"
+msgstr "تشخیص خودکار تصاویر بند انگشتی"
+
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` <=> `file.zip`)"
+msgstr ""
+
+msgid "Automatic Sync"
+msgstr "همگام سازی خودکار"
+
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "زمان بندی ساعتی  با استفاده از کرون جاب  برای همگام سازی فایل ها و دیتابیس."
+
+msgid "Extension Blacklist"
+msgstr "لیست غیر مجاز پسوند ها"
+
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "فایل های با این نوع پسوند در لیست ، زمان همگام سازی  چشم پوشی خواهند شد. (جداسازی با کاما) "
+
+msgid "Disable ID3 tag detection"
+msgstr "غیرفعال سازی تشخیص تگ  ID3"
+
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr ""
+
+msgid "Search ID3 Tags"
+msgstr "جستجوی تگ ID3"
+
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr ""
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "اضافه کردن افزونه به ادمین بار"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "نمایش بعضی از  امکانات افزونه در ادمین بار"
+
+msgid "Statistics"
+msgstr "آمار"
+
+msgid "Number of Files"
+msgstr "تعداد فایل ها"
+
+msgid "Number of Categories"
+msgstr "تعداد دسته بندی"
+
+msgid "Total Downloads"
+msgstr "تعداد دانلود ها"
+
+msgid "Total File Size"
+msgstr "کل حجم فایل"
+
+msgid "Convert old Tags"
+msgstr "تبدیل تگ های قدیمی"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "تبدیل تگ ها  از نسخه های قبل از 0.2.0"
+
+msgid "Add File"
+msgstr "افزودن فایل"
+
+msgid "Redirect download to URL"
+msgstr "تغییر مسیر دانلود به آدرس فایل "
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "کپی فایل (انتقال سرور به سرور)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "محدودیت دسترسی فایل ها  با انتخاب یک یا چند گروه کاربری"
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "انتخاب چند گروه کاربری با نگه داشتن  CTRL/ انتخاب کردن"
+
+msgid "Access Permission"
+msgstr "حق دسترسی"
+
+msgid "Everyone"
+msgstr "هرکس"
+
+msgid "Add Category"
+msgstr "افزودن دسته"
+
+msgid "Exclude from file browser"
+msgstr "حذف از مرورگر فایل"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "قالب برای تک فایل ها  و یا لیست فایل ها استفاده می شود."
+
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "برای بعضی از فایل ها تعداد زیادی تگ وجود دارد. شما تگ مناسب برای استفاده در قالب را از لیست انتخاب کنید."
+
+msgid "Reset all Templates to default"
+msgstr "باز گردانی تمامی قالب ها به پیشفرض"
+
+msgid "These templates can be used for categories."
+msgstr "این قالب ها را می توان برای دسته بندی  استفاده کرد."
+
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr ""
+
+msgid "Header"
+msgstr "سربرگ"
+
+msgid "Footer"
+msgstr "پانوشت"
+
+msgid "File Template"
+msgstr "قالب فایل"
+
+msgid "Parent Category ID"
+msgstr "شناسه دسته والد"
+
+msgid "Number of files directly in the category"
+msgstr "تعداد فایل ها به طور مستقیم در دسته"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "تعداد همه فایل ها در دسته و همه زیر دسته ها"
+
+msgid "Attach existing file"
+msgstr "فایل پیوست از قبل وجود دارد"
+
+msgid "Select File"
+msgstr "انتخاب فایل"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "انتحاب دسته های که می خواید فایل ها در لیست قرار گیرد."
+
+msgid "Include all Categories"
+msgstr "شامل همه دسته ها"
+
+msgid "Files per page:"
+msgstr "فایل ها در هر صفحه :"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "تنطیم 0 برای استفاده پیش فرض محدود  (%d)،-1  غیر فعال کردن صفحه بندی "
+
+msgid "File Tree View"
+msgstr "نمایش درختی فایل"
+
+msgid "List selected Categories"
+msgstr "لیست  دسته های انتخاب شده"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "انتخاب  دسته ریشه برای مشاهده درختی در مرورگر فایل :"
+
+msgid "The File has been uploaded successfully."
+msgstr "فایل با موفقیت آپلود شد."
+
+msgid "New Category created."
+msgstr "دسته جدید ایجاد شد."
+
+msgid "Selectable by Uploader"
+msgstr "انتخاب توسط ارسال کننده"
+
+msgid "Upload to Root"
+msgstr "آپلود به ریشه"
+
+msgid "You can enter a URL to redirect users."
+msgstr "شما می توانید آدرسی برای هدایت کاربران وارد نمایید."
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "از  سرویس دهنده خود بخواهید این محدودیت را افزایش دهد، آن را %s تنظیم کنید."
+
+msgid "Inherit Permissions"
+msgstr "تنظیمات پیش فرض"
+
+msgid "Explicitly set permissions"
+msgstr "سفارش سازی حق دسترسی"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "محدودیت دسترسی به دسته  با انتخاب یک یا چند نقش کاربری"
+
+msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr ""
+
+msgid "Owner"
+msgstr "مدیر(مالک)"
+
