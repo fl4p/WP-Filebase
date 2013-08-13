@@ -1,4 +1,3 @@
-
 /**
  * Change the order of the table
  *  @param {object} oSettings dataTables settings object

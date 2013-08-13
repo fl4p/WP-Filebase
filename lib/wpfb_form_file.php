@@ -37,8 +37,10 @@ if(empty($nonce_action)) {
 
 if($update)
 	$file_category = $file->file_category;
-else
-	$file_category = reset(array_filter(array(@$_REQUEST['file_category'], $file->file_category, WPFB_Core::GetOpt('default_cat')))); 
+else {
+	$cats = array_filter(array(@$_REQUEST['file_category'], $file->file_category, WPFB_Core::GetOpt('default_cat')));
+	$file_category = reset($cats); 
+}
 
 //$file_category = ($update || empty($_REQUEST['file_category'])) ? $file->file_category : $_REQUEST['file_category'];
 
@@ -52,7 +54,7 @@ if(isset($_GET['visual_editor'])) {
 	global $user_ID;
 	update_user_option($user_ID, WPFB.'_visual_editor', (int)$_GET['visual_editor']);
 }
-$visual_editor = get_user_option(WPFB.'_visual_editor') && !$in_widget;
+$visual_editor = get_user_option(WPFB.'_visual_editor') && !$in_widget && !$in_editor;
 
 ?>
 
@@ -319,7 +321,7 @@ function WPFB_addTag(tag)
 	</tr>
 	<tr <?php if(!$visual_editor) { ?>class="form-field"<?php } ?>>
 		<th scope="row" valign="top"><label for="file_description"><?php _e('Description') ?></label>
-		<?php if(!$in_widget) { ?><br /><br />
+		<?php if(!$in_widget && !$in_editor) { ?><br /><br />
 		<a style="font-style:normal; font-size:9px; padding:3px; margin:0;" href="<?php echo add_query_arg('visual_editor', ($visual_editor ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($visual_editor ? 'Simple Editor' : 'Visual Editor', WPFB) ?></a>
 		<?php } ?>
 		</th>
@@ -356,13 +358,13 @@ function WPFB_addTag(tag)
 		
 	</tr>
 	<?php }
-	$custom_fields = WPFB_Core::GetCustomFields();
+	$custom_fields = WPFB_Core::GetCustomFields(false, $custom_defaults);
 	foreach($custom_fields as $ct => $cn) {
 		$hid = 'file_custom_'.esc_attr($ct);
 	?>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="<?php echo $hid; ?>"><?php echo esc_html($cn) ?></label></th>
-		<td colspan="3"><textarea name="<?php echo $hid; ?>" id="<?php echo $hid; ?>" rows="2" cols="50" style="width: 97%;"><?php echo empty($file->$hid) ? '' : esc_html($file->$hid); ?></textarea></td>
+		<td colspan="3"><textarea name="<?php echo $hid; ?>" id="<?php echo $hid; ?>" rows="2" cols="50" style="width: 97%;"><?php echo empty($file->$hid) ? $custom_defaults[$ct] : esc_html($file->$hid); ?></textarea></td>
 	</tr> <?php
 	} 
 	if(!empty($custom_fields)) { ?>

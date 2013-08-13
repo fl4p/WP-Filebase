@@ -1,4 +1,3 @@
-
 /**
  * Add a column to the list used for the table with default values
  *  @param {object} oSettings dataTables settings object

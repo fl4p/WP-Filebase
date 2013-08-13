@@ -1,4 +1,3 @@
-
 /**
  * Save the state of a table in a cookie such that the page can be reloaded
  *  @param {object} oSettings dataTables settings object

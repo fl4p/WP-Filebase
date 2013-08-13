@@ -12,10 +12,10 @@ static function InitClass()
 	
 	@ini_set('max_execution_time', '0');
 	@set_time_limit(0);
-
 	self::$error_log_file = WPFB_Core::UploadDir().'/_wpfb_sync_errors_'.md5(WPFB_Core::UploadDir()).'.log';
-	if(is_file(self::$error_log_file))
-		file_put_contents(self::$error_log_file, "\n".str_repeat('=',20)."\nINIT SYNC\n", FILE_APPEND);
+	if(is_file(self::$error_log_file) && is_writable(self::$error_log_file)) {
+		@file_put_contents(self::$error_log_file, "\n".str_repeat('=',20)."\nINIT SYNC\n", FILE_APPEND);
+	}
 	@ini_set ("error_log", self::$error_log_file);
 	
 	if(!empty($_GET['output']) || !empty($_GET['debug'])) {
@@ -98,6 +98,8 @@ private static function SyncPase1($sync_data, $output)
 		$cat_path = $cat->GetLocalPath(true);
 		if(!@is_dir($cat_path) || !@is_readable($cat_path))
 		{
+			if(WPFB_Core::$settings->remove_missing_files)
+				$cat->Delete();
 			$sync_data->log['missing_folders'][$id] = $cat;
 			continue;
 		}		
@@ -125,9 +127,9 @@ private static function SyncPase1($sync_data, $output)
 		if(strlen($fn) < 2 || $fbn{0} == '.' || strpos($fn, '/.tmp') !== false 				|| $fbn == '_wp-filebase.css' || strpos($fbn, '_caticon.') !== false || strpos($fbn, '_wpfb_') === 0
 				|| strpos($fbn, '.__info.xml') !== false
 				|| in_array(substr($fn, strlen($upload_dir)), $sync_data->known_filenames)
-				//|| in_array(utf8_encode(substr($fn, strlen($upload_dir))), $sync_data->known_filenames)
+				//  || self::fast_in_array(utf8_encode(substr($fn, strlen($upload_dir))), $sync_data->known_filenames)
 				|| !is_file($fn) || !is_readable($fn)
-				|| (!empty($fext_blacklist) && in_array(trim(strrchr($fbn, '.'),'.'), $fext_blacklist)) // check for blacklisted extension
+				|| (!empty($fext_blacklist) && self::fast_in_array(trim(strrchr($fbn, '.'),'.'), $fext_blacklist)) // check for blacklisted extension
 			)
 			continue;
 		
@@ -137,7 +139,16 @@ private static function SyncPase1($sync_data, $output)
 			{
 				// make sure cat tree to new file location exists, and set the cat of the moved file
 				$cat_id = WPFB_Admin::CreateCatTree($fn);
-				$mf->ChangeCategoryOrName($cat_id, null, true);
+				if(!empty($cat_id['error'])) {
+					$sync_data->log['error'][] = $cat_id['error'];
+					continue 2;
+				}
+				
+				$result = $mf->ChangeCategoryOrName($cat_id, null, true);				
+				if(is_array($result) && !empty($result['error'])) {
+					$sync_data->log['error'][] = $result['error'];
+					continue 2;
+				}
 				
 				// rm form missing list, add to changed
 				unset($sync_data->missing_files[$mf->file_id]);
@@ -284,7 +295,7 @@ static function CheckChangedFiles($sync_data)
 			$file->file_mtime = $file_mtime;
 			$file->file_hash = $sync_data->hash_sync ? $file_hash : WPFB_Admin::GetFileHash($file_path);
 			
-			WPFB_GetID3::UpdateCachedFileInfo($file);
+				WPFB_GetID3::UpdateCachedFileInfo($file);
 			
 			$res = $file->DBSave();
 			
@@ -294,6 +305,9 @@ static function CheckChangedFiles($sync_data)
 				$sync_data->log['changed'][$id] = $file;
 		}
 	}
+	
+	// prepare for binary search (fast_in_array)
+	sort($sync_data->known_filenames);
 }
 
 static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
@@ -303,6 +317,8 @@ static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
 	$upload_dir = self::cleanPath(WPFB_Core::UploadDir());
 	$upload_dir_len = strlen($upload_dir);
 	$batch_size = 0;
+	
+	$start_time = $cur_time = time();
 
 	foreach($keys as $i)
 	{		
@@ -310,9 +326,10 @@ static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
 		$rel_path = substr($fn, $upload_dir_len);
 		unset($sync_data->new_files[$i]);
 		if(empty($fn)) continue;
-		
-		$fbn = basename($fn);
 
+		// skip files that where already added, for some reason
+		if(is_null($ex_file = WPFB_Item::GetByPath($rel_path)))
+		{
 			self::PrintDebugTrace("add_existing_file:$fn");
 			$res = WPFB_Admin::AddExistingFile($fn, empty($sync_data->thumbnails[$fn]) ? null : $sync_data->thumbnails[$fn]);
 			self::PrintDebugTrace("added_existing_file");
@@ -324,6 +341,11 @@ static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
 					$sync_data->known_filenames[] = substr(self::cleanPath($res['file']->GetThumbPath()), $upload_dir_len);
 			} else
 				$sync_data->log['error'][] = $res['error'] . " (file $fn)";
+		} else {
+			//$res = array('file' => $ex_file);
+			$sync_data->log['added'][] = $ex_file;
+			$sync_data->known_filenames[] = $rel_path;
+		}
 		
 		$sync_data->num_files_processed++;
 			
@@ -369,6 +391,7 @@ static function GetThumbnails($sync_data)
 		$len = strrpos($sync_data->new_files[$i], '.');
 		
 		// file and thumbnail should be neighbours in the list, so only check the prev element for matching name
+		// todo: use fast_in_array? is new_files sorted?
 		if(strlen($sync_data->new_files[$i-1]) > ($len+2) && substr($sync_data->new_files[$i-1],0,$len) == substr($sync_data->new_files[$i],0,$len) && !in_array(substr($sync_data->new_files[$i-1], $upload_dir_len), $sync_data->known_filenames))
 		{
 			$suffix = substr($sync_data->new_files[$i-1], $len);
@@ -457,8 +480,8 @@ static function SyncCats(&$cats = null)
 			}
 		}
 		
-		if(is_dir($cat->GetLocalPath()))
-			chmod ($cat->GetLocalPath(), octdec(WPFB_PERM_DIR));
+		if(is_dir($cat->GetLocalPath()) && is_writable($cat->GetLocalPath()))
+			@chmod ($cat->GetLocalPath(), octdec(WPFB_PERM_DIR));
 	}
 	
 	return $updated_cats;
@@ -472,7 +495,9 @@ static function Chmod($base_dir, $files)
 	$upload_dir_len = strlen($upload_dir);
 	
 	// chmod
-	chmod ($upload_dir, octdec(WPFB_PERM_DIR));
+	if(is_writable($upload_dir))
+		@chmod ($upload_dir, octdec(WPFB_PERM_DIR));
+	
 	for($i = 0; $i < count($files); $i++)
 	{
 		$f = "$base_dir/".$files[$i];
@@ -533,15 +558,17 @@ static function PrintResult(&$result)
 			// first files should be deleted, then cats!
 			if(!empty($result['missing_files'])) {
 				echo '<p>' . sprintf(__('%d Files could not be found.', WPFB), count($result['missing_files'])) . ' '.
-				(WPFB_Core::GetOpt('remove_missing_files') ? 'The corresponding entries have been removed from the database.' : (' <a href="'.$clean_uri.'&amp;action=del&amp;files='.join(',',array_keys($result['missing_files'])).'" class="button" target="_top">'.__('Remove entries from database').'</a>')).'</p>';
+				(WPFB_Core::GetOpt('remove_missing_files') ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;files='.join(',',array_keys($result['missing_files'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
 			} elseif(!empty($result['missing_folders'])) {
-				echo '<p>' . sprintf(__('%d Category Folders could not be found.', WPFB), count($result['missing_folders'])) . ' <a href="'.$clean_uri.'&amp;action=del&amp;cats='.join(',',array_keys($result['missing_folders'])).'" class="button" target="_top">'.__('Remove entries from database').'</a></p>';
+				echo '<p>' . sprintf(__('%d Category Folders could not be found.', WPFB), count($result['missing_folders'])) . ' '.
+				(WPFB_Core::GetOpt('remove_missing_files') ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;cats='.join(',',array_keys($result['missing_folders'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
 			}
 }
 
 static function PrintDebugTrace($tag="") {
 	if(!empty($_GET['debug']))
 	{
+		wpfb_loadclass('Output');
 		$ms = self::GetMemStats();
 		echo "<!-- [$tag] (MEM: ". WPFB_Output::FormatFilesize($ms['used'])." / $ms[limit]) BACKTRACE:\n";
 		echo esc_html(print_r(wp_debug_backtrace_summary(), true));
@@ -550,6 +577,22 @@ static function PrintDebugTrace($tag="") {
 		self::UpdateMemBar();
 	}
 }
+
+	private static function fast_in_array($elem, $array) 
+	{ 
+		$top = sizeof($array) -1; 
+		$bot = 0; 
+
+		while($top >= $bot) 
+		{ 
+			$p = floor(($top + $bot) / 2); 
+			if ($array[$p] < $elem) $bot = $p + 1; 
+			elseif ($array[$p] > $elem) $top = $p - 1; 
+			else return TRUE; 
+		} 
+
+		return FALSE; 
+	} 
 }
 
 

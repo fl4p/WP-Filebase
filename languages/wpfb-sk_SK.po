@@ -1136,7 +1136,7 @@ msgstr "Explicitné práva"
 msgid "Limit category access by selecting one or more user roles."
 msgstr "Obmedziť prístup kategórie výberom jednej alebo viacerých užívateľských rolí"
 
-msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgid "This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
 msgstr "To bude rekurzívna aktualizácia povolení všetkých existujúcich podriadených kategórií a súborov. Všimnite si, že oprávnenia nových súborov v tejto kategórii sa dedia automaticky bez toho, aby bolo čítné toto políčko."
 
 msgid "Owner"

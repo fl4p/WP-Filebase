@@ -34,7 +34,7 @@
 		if(!isset($instance['sort-by'])) $instance['sort-by'] = 'cat_name';
 		$instance['sort-asc'] = !empty($instance['sort-asc']);
 		
-		wpfb_loadclass('Admin');
+		wpfb_loadclass('Models');
 	?>
 	<div>
 		<p><label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?>
@@ -49,7 +49,7 @@
 			<label for="<?php echo $obj->get_field_id('sort-by'); ?>"><?php _e('Sort by:'/*def*/); ?></label>
 			<select id="<?php echo $obj->get_field_id('sort-by'); ?>" name="<?php echo $obj->get_field_name('sort-by'); ?>">
 			<?php
-				$sort_vars = WPFB_Admin::CatSortFields();
+				$sort_vars = WPFB_Models::CatSortFields();
 				foreach($sort_vars as $tag => $name)
 				{
 					echo '<option value="' . esc_attr($tag) . '" title="' . esc_attr($name) . '"' . ( ($instance['sort-by'] == $tag) ? ' selected="selected"' : '' ) . '>' .$tag.'</option>';
@@ -80,7 +80,7 @@
 		foreach($defaults as $prop => $val)
 			if(!isset($instance[$prop])) $instance[$prop] = $val;
 		
-		wpfb_loadclass('Admin','Output');
+		wpfb_loadclass('Admin','Models','Output');
 	?>
 	<div>
 		<p><label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?>
@@ -102,7 +102,7 @@
 			<label for="<?php echo $obj->get_field_id('sort-by'); ?>"><?php _e('Sort by:'/*def*/); ?></label>
 			<select id="<?php echo $obj->get_field_id('sort-by'); ?>" name="<?php echo $obj->get_field_name('sort-by'); ?>">
 			<?php
-				$sort_vars = WPFB_Admin::FileSortFields();
+				$sort_vars = WPFB_Models::FileSortFields();
 				foreach($sort_vars as $tag => $name)
 				{
 					echo '<option value="' . esc_attr($tag) . '" title="' . esc_attr($name) . '"' . ( ($instance['sort-by'] == $tag) ? ' selected="selected"' : '' ) . '>' .$tag.'</option>';
@@ -119,7 +119,7 @@
 		
 		<p><label for="<?php echo $obj->get_field_id('tpl'); ?>"><?php _e('Template:', WPFB); ?>
 			<input class="widefat" type="text" id="<?php echo $obj->get_field_id('id'); ?>" name="<?php echo $obj->get_field_name('tpl'); ?>" value="<?php echo esc_attr($instance['tpl']); ?>" /></label>
-			<br /><?php	echo WPFB_Admin::TplFieldsSelect($obj->get_field_id('id'), true); ?>
+			<br /><?php	echo WPFB_Models::TplFieldsSelect($obj->get_field_id('id'), true); ?>
 		</p>
 	</div>
 	<?php

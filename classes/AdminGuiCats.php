@@ -121,7 +121,7 @@ static function Display()
 
 			$extra_sql = '';
 			if(!empty($_GET['s'])) {
-				$s = $wpdb->escape(trim($_GET['s']));
+				$s = esc_sql(trim($_GET['s']));
 				$extra_sql .= "WHERE cat_name LIKE '%$s%' OR cat_description LIKE '%$s%' OR cat_folder LIKE '%$s%' ";
 			}
 			

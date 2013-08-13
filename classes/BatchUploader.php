@@ -142,11 +142,12 @@ jQuery(document).ready( function() {
 		pm++;	pm %= 3;
 		batchUploaderSetPresetsMore(pm);
 	});
-	batchUploaderSetPresetsMore(parseInt(getUserSetting('wpfb_batch_presets_more')));
+	batchUploaderSetPresetsMore(getUserSetting('wpfb_batch_presets_more') ? parseInt(getUserSetting('wpfb_batch_presets_more')) : 0);
 });
 
 function batchUploaderSetPresetsMore(m)
 {
+	if(isNaN(m)) m = 0;
 	var form = jQuery('#wpfb-batch-uploader-presets').find('form');
 	var s = (m+morePresets);
 	

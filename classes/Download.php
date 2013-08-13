@@ -241,6 +241,8 @@ static function GetFileType($name)
 		case 'thmx':	return 'application/vnd.ms-officetheme';
 		
 		case 'notebook':	return 'application/notebook';
+			
+		case 'gadget': return 'application/x-windows-gadget';
 		
 		default:		return 'application/octet-stream';
 	}
@@ -455,8 +457,10 @@ static function SendFile($file_path, $args=array())
 	// clean up things that are not needed for download
 	@session_write_close(); // disable blocking of multiple downloads at the same time
 	global $wpdb;
-	if(!empty($wpdb->dbh))
+	if(!empty($wpdb->dbh) && is_resource($wpdb->dbh))
 		@mysql_close($wpdb->dbh);
+	else
+		@mysql_close();
 	
 	@ob_flush();
    @flush();

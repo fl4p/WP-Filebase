@@ -29,7 +29,7 @@ private static function getSearchTerms($s)
 		
 	if ( !empty($s) )
 	{
-		$s = $wpdb->escape(stripslashes($s));
+		$s = esc_sql(stripslashes($s));
 		if ($sentence)
 			$search_terms = array($s);
 		else {
@@ -87,6 +87,8 @@ static function PostsSearch($sql)
 	
 	wpfb_loadclass('File');
 	
+	$is_wp_search = !empty($_GET['s']) && empty($_GET['wpfb_s']);
+	
 	$search_id3 = WPFB_Core::GetOpt('search_id3');
 	$no_matches = false;	
 	$where = self::SearchWhereSql($search_id3);	
@@ -94,8 +96,9 @@ static function PostsSearch($sql)
 	$where = "($where AND (".WPFB_File::GetReadPermsWhere()."))";
 	
 	// check if there are matching files, if there are, include the filebrowser page/post in the resulst!
+	// if we have file pages, only include the file browser if file search widget was used!
 	$file_browser_id = intval(WPFB_Core::GetOpt('file_browser_post_id'));
-	if($file_browser_id > 0 && WPFB_File::GetNumFiles2($where, true) > 0) {	
+	if($file_browser_id > 0 && WPFB_File::GetNumFiles2($where, true) > 0 ) {	
 		$where = "($where OR ({$wpdb->posts}.ID = $file_browser_id))"; // TODO!
 		wpfb_loadclass('Output');
 		WPFB_Core::$file_browser_search = true;

@@ -3,8 +3,8 @@ Contributors: fabifott
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfilebase%40fabi%2eme&item_name=WP-Filebase&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 0.2.9.36
+Tested up to: 3.6
+Stable tag: 0.3.0.01
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -50,6 +50,8 @@ More features are:
 
 You can see a [live demo on my Website](http://fabi.me/downloads/ "WP-Filebase demo"), [documentation can be found here](http://wpfilebase.com/documentation/ "WP-Filebase documentation").
 For support, please [leave a message on my blog](http://fabi.me/wordpress-plugins/wp-filebase-file-download-manager/#postcomment "Post comment"). When having trouble don't forget to post PHP and Wordpress version! Any ideas/feature requests are welcome.
+
+[WP-Filebase on GitHub](https://github.com/f4bsch/WP-Filebase)
 
 = WP-Filebase Pro =
 [WP-Filebase Pro](http://wpfilebase.com/) includes even more advanced features:
@@ -112,6 +114,39 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 
 == Changelog ==
+
+= 0.3.0.01 =
+* New File List Table in Dashboard
+* Custom Folder Icons for File Browser
+* Improved CSS & thumbnail loading time
+* Editor Plugin remembers extendend/simple form
+* Added Sync Option `Fake MD5` to improve performance if MD5 not required
+* Added iframe preview for templates
+* Missing categories auto remove during sync
+* Disabled Visual Editor for File Description in Editor Plugin
+* Changed Category List Widget: If Root Category is Empty, all childs are displayed
+* Updated jQuery treeview plugin. There were some CSS changes, please check your File Browser!
+* Added mime type `application/x-windows-gadget`
+* Fixed blank Editor Plugin screen occuring with some 3-rd party plugins
+* Fixed HTML escaping for some file template vars
+* Fixed feedback page when creating a category with the widget
+* Fixed ID3 tag detection for files with large meta data
+* Fixed mysql_close during download
+* Fixed some strict standard warnings
+* Fixed sync error handling
+* No auto version on files like `01.01.01-01.02.03.mp3`
+* Removed WP-Filebase test coockie
+
+= 0.2.9.37 =
+* Fixed Batch Uploader
+* Further memory optimizations
+* Updated DataTables to 1.9.4
+* Fixed monthly/daily traffic limit
+* Fixed download range header handling (thanks to mrogaski)
+* Minified DataTables init JS to prevent auto p-tags
+* Added `wpfilebase_file_downloaded` hook for download logging
+* Fixed HTML escaping for some file template vars
+
 
 = 0.2.9.36 =
 * New Feature: Drag&Drop Batch Uploader with Upload Presets
@@ -653,6 +688,9 @@ If you want to translate WP-Filebase in your language, open `wp-filebase/languag
 
 == Plugin Developers ==
 WP-Filebase currently offers the action `wpfilebase_sync`. This will run a fast filebase sync that adds new files.
+
+The hook `wpfilebase_file_downloaded` with file_id as parameter can be used for download logging.
+
 
 == WP-Filebase Pro ==
 [WP-Filebase Pro](http://wpfilebase.com/) is the commercial version of WP-Filebase with an extended range of functions. It supports secondary categories, extended permissions, embedded upload forms. Furthermore it can generate PDF thumbnails, sync with Dropbox or FTP and includes an improved file sync algorithm.

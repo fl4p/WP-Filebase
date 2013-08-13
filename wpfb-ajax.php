@@ -1,11 +1,15 @@
 <?php
 
 define('DOING_AJAX', true);
+//FASTLOAD define('WP_INSTALLING', true); // make wp load faster
 error_reporting(0);
 
 @ob_start();
 require_once(dirname(__FILE__).'/../../../wp-load.php');
 @ob_end_clean();
+
+//FASTLOAD require_once(dirname(__FILE__).'/wp-filebase.php'); // load wp-filebase only, no other plugins
+//FASTLOAD wpfb_loadclass('Core');
 
 function wpfb_print_json($obj) {
 	//if(!WP_DEBUG)

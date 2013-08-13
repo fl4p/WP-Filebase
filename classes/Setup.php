@@ -276,7 +276,7 @@ static function SetupDBTables($old_ver=null)
   `file_license` varchar(255) NOT NULL default '',
   `file_user_roles` varchar(2000) NOT NULL default '',
   `file_offline` enum('0','1') NOT NULL default '0',
-  `file_direct_linking` enum('0','1','3') NOT NULL default '0',
+  `file_direct_linking` enum('0','1','2') NOT NULL default '0',
   `file_force_download` enum('0','1') NOT NULL default '0',
   `file_category` int(8) unsigned NOT NULL default '0',
   `file_category_name` varchar(127) NOT NULL default '',
@@ -381,7 +381,11 @@ static function SetupDBTables($old_ver=null)
 	if(!empty($old_ver) && version_compare($old_ver, '0.2.9.24') < 0)
 		$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_direct_linking`  `file_direct_linking` ENUM(  '0',  '1',  '2' ) NOT NULL DEFAULT '0'";
 
+	
 	// since 0.2.9.25
+	
+	// fix (0,1,3) => (0,1,2)
+	$queries[] = "@ALTER TABLE `$tbl_files` CHANGE  `file_direct_linking`  `file_direct_linking` ENUM(  '0',  '1',  '2' )  NOT NULL DEFAULT  '0'";
 	
 	$queries[] = "OPTIMIZE TABLE `$tbl_cats`";
 	$queries[] = "OPTIMIZE TABLE `$tbl_files`";
@@ -554,7 +558,8 @@ static function OnActivateOrVerChange($old_ver=null) {
 	$old_options = get_option(WPFB_OPT_NAME);
 	self::AddOptions();
 	self::AddTpls($old_ver);
-	WPFB_Admin::SettingsUpdated($old_options, get_option(WPFB_OPT_NAME));
+	$new_options = get_option(WPFB_OPT_NAME);
+	WPFB_Admin::SettingsUpdated($old_options, $new_options);
 	self::ProtectUploadPath();
 	
 	WPFB_Admin::WPCacheRejectUri(WPFB_Core::GetOpt('download_base') . '/', $old_options['download_base'] . '/');

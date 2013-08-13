@@ -1,4 +1,3 @@
-
 /**
  * Add any control elements for the table - specifically scrolling
  *  @param {object} oSettings dataTables settings object

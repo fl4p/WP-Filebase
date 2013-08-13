@@ -1,4 +1,3 @@
-
 /**
  * Perform a jQuery selector action on the table's TR elements (from the tbody) and
  * return the resulting jQuery object.
@@ -473,20 +472,23 @@ this.fnDestroy = function ( bRemove )
 	var nBody = oSettings.nTBody;
 	var i, iLen;
 
-	bRemove = (bRemove===undefined) ? false : true;
+	bRemove = (bRemove===undefined) ? false : bRemove;
 	
 	/* Flag to note that the table is currently being destroyed - no action should be taken */
 	oSettings.bDestroying = true;
 	
 	/* Fire off the destroy callbacks for plug-ins etc */
 	_fnCallbackFire( oSettings, "aoDestroyCallback", "destroy", [oSettings] );
-	
-	/* Restore hidden columns */
-	for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+
+	/* If the table is not being removed, restore the hidden columns */
+	if ( !bRemove )
 	{
-		if ( oSettings.aoColumns[i].bVisible === false )
+		for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
 		{
-			this.fnSetColumnVis( i, true );
+			if ( oSettings.aoColumns[i].bVisible === false )
+			{
+				this.fnSetColumnVis( i, true );
+			}
 		}
 	}
 	
@@ -562,12 +564,19 @@ this.fnDestroy = function ( bRemove )
 	  oSettings.nTable.style.width = _fnStringToCss(oSettings.sDestroyWidth);
 	}
 	
-	/* If the were originally odd/even type classes - then we add them back here. Note
-	 * this is not fool proof (for example if not all rows as odd/even classes - but 
+	/* If the were originally stripe classes - then we add them back here. Note
+	 * this is not fool proof (for example if not all rows had stripe classes - but
 	 * it's a good effort without getting carried away
 	 */
-	$(nBody).children('tr:even').addClass( oSettings.asDestroyStripes[0] );
-	$(nBody).children('tr:odd').addClass( oSettings.asDestroyStripes[1] );
+	iLen = oSettings.asDestroyStripes.length;
+	if (iLen)
+	{
+		var anRows = $(nBody).children('tr');
+		for ( i=0 ; i<iLen ; i++ )
+		{
+			anRows.filter(':nth-child(' + iLen + 'n + ' + i + ')').addClass( oSettings.asDestroyStripes[i] );
+		}
+	}
 	
 	/* Remove the settings object from the settings array */
 	for ( i=0, iLen=DataTable.settings.length ; i<iLen ; i++ )
@@ -580,6 +589,7 @@ this.fnDestroy = function ( bRemove )
 	
 	/* End it all */
 	oSettings = null;
+	oInit = null;
 };
 
 
@@ -673,7 +683,17 @@ this.fnFilter = function( sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseIns
 			var n = oSettings.aanFeatures.f;
 			for ( var i=0, iLen=n.length ; i<iLen ; i++ )
 			{
-				$(n[i]._DT_Input).val( sInput );
+				// IE9 throws an 'unknown error' if document.activeElement is used
+				// inside an iframe or frame...
+				try {
+					if ( n[i]._DT_Input != document.activeElement )
+					{
+						$(n[i]._DT_Input).val( sInput );
+					}
+				}
+				catch ( e ) {
+					$(n[i]._DT_Input).val( sInput );
+				}
 			}
 		}
 	}
@@ -793,7 +813,8 @@ this.fnGetNodes = function( iRow )
  * and column index including hidden columns
  *  @param {node} nNode this can either be a TR, TD or TH in the table's body
  *  @returns {int} If nNode is given as a TR, then a single index is returned, or
- *    if given as a cell, an array of [row index, column index (visible)] is given.
+ *    if given as a cell, an array of [row index, column index (visible), 
+ *    column index (all)] is given.
  *  @dtopt API
  *
  *  @example

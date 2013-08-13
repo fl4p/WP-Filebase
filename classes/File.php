@@ -40,6 +40,7 @@ class WPFB_File extends WPFB_Item {
 	var $file_last_dl_ip;
 	var $file_last_dl_time;
 	
+	
 	//var $file_edited_time;
 	
 	//var $file_meta;
@@ -78,6 +79,9 @@ class WPFB_File extends WPFB_Item {
 	
 	static function GetSqlCatWhereStr($cat_id)
 	{
+		if(is_array($cat_id))
+			return implode("OR", array_map(array(__CLASS__,__FUNCTION__), $cat_id));
+		
 		$cat_id = (int)$cat_id;
 		return " (`file_category` = $cat_id) ";
 	}
@@ -93,7 +97,7 @@ class WPFB_File extends WPFB_Item {
 			foreach($where as $field => $value) {
 				if($where_str != '') $where_str .= "AND ";
 				if(is_numeric($value)) $where_str .= "$field = $value ";
-				else $where_str .= "$field = '".$wpdb->escape($value)."' ";
+				else $where_str .= "$field = '".esc_sql($value)."' ";
 			}
 		} else $where_str =& $where;
 		
@@ -399,7 +403,7 @@ class WPFB_File extends WPFB_Item {
 			case 'file_user_can_access': return $this->CurUserCanAccess();
 			
 			case 'file_description':	return nl2br($this->file_description);
-			case 'file_tags':			return str_replace(',',', ',trim($this->file_tags,','));
+			case 'file_tags':			return esc_html(str_replace(',',', ',trim($this->file_tags,',')));
 			
 			case 'file_date':
 			case 'file_last_dl_time':	return htmlspecialchars($this->GetFormattedDate($name));
@@ -418,7 +422,7 @@ class WPFB_File extends WPFB_Item {
     	if(strpos($name, 'file_info/') === 0)
 		{
 			$path = explode('/',substr($name, 10));
-			return htmlspecialchars($this->getInfoValue($path));
+			return esc_html($this->getInfoValue($path));
 		} elseif(strpos($name, 'file_custom') === 0) // dont esc custom
 			return isset($this->$name) ? $this->$name : '';
 		
@@ -431,7 +435,7 @@ class WPFB_File extends WPFB_Item {
 			return $str;
 		}
 		
-		return isset($this->$name) ? htmlspecialchars($this->$name) : '';
+		return isset($this->$name) ? esc_html($this->$name) : '';
     }
 	
 	function DownloadDenied($msg_id) {
@@ -519,13 +523,16 @@ class WPFB_File extends WPFB_Item {
 				$wpdb->query("UPDATE " . $wpdb->wpfilebase_files . " SET file_hits = file_hits + 1, file_last_dl_ip = '" . $downloader_ip . "', file_last_dl_time = '" . current_time('mysql') . "' WHERE file_id = " . (int)$this->file_id);
 		}
 		
+		// external hooks
+		do_action( 'wpfilebase_file_downloaded', $this->file_id );
+		
 		// download or redirect
 		$bw = 'bitrate_' . ($logged_in?'registered':'unregistered');
 		if($this->IsLocal())
 			WPFB_Download::SendFile($this->GetLocalPath(), array(
 				'bandwidth' => WPFB_Core::$settings->$bw,
 				'etag' => $this->file_hash,
-				'md5_hash' => $this->file_hash,
+				'md5_hash' => WPFB_Core::$settings->fake_md5 ? null : $this->file_hash, // only send real md5
 				'force_download' => $this->file_force_download,
 				'cache_max_age' => 10
 			));

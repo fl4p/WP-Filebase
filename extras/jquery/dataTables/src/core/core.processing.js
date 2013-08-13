@@ -1,4 +1,3 @@
-
 /**
  * Generate the node required for the processing node
  *  @param {object} oSettings dataTables settings object

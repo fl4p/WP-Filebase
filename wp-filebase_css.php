@@ -1,12 +1,12 @@
 <?php
 // ob_start();
 define('WPFB_SIMPLE_LOAD', true);
+define('WP_INSTALLING', true); // make wp load faster
 
 if(empty($_GET['rp'])) // if rel path not set, need to load whole WP stuff to get to path to custom CSS!
 	require_once(dirname(__FILE__).'/../../../wp-load.php');
-else
-	require_once(dirname(__FILE__).'/wp-filebase.php'); // this only loads some wp-filebase stuff, NOT WP!
 
+require_once(dirname(__FILE__).'/wp-filebase.php'); // this only loads some wp-filebase stuff, NOT WP!
 wpfb_loadclass('Core');
 
 $file = WPFB_Core::GetCustomCssPath(stripslashes(@$_GET['rp']));

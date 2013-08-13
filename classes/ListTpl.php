@@ -60,7 +60,7 @@ class WPFB_ListTpl {
 		
 		
 		$count = 0;
-		$str = preg_replace("/jQuery\((.+?)\)\.dataTable\s*\((.*?)\)\s*;/", 'jQuery($1).dataTable(wpfb_DataTableOptionsFilter'.$uid.'($2));'." /*%WPFB_DATA_TABLE_OPTIONS_FILTER%*/", $str, -1, $count);
+		$str = preg_replace("/jQuery\((.+?)\)\.dataTable\s*\((.*?)\)\s*;/", 'jQuery($1).dataTable((function(options){/*%WPFB_DATA_TABLE_OPTIONS_FILTER%*/})($2));', $str, -1, $count);
 		if($count > 0)
 		{
 			$dataTableOptions = array();
@@ -78,11 +78,9 @@ class WPFB_ListTpl {
 			
 			
 			$str = str_replace('/*%WPFB_DATA_TABLE_OPTIONS_FILTER%*/', 
-" function wpfb_DataTableOptionsFilter{$uid}(options){ ".
 	" var wpfbOptions = ".json_encode($dataTableOptions)."; ".
 	" if('object' == typeof(options)) { for (var v in options) { wpfbOptions[v] = options[v]; } }".
-	" return wpfbOptions; ".
-"}"
+	" return wpfbOptions; "
 , $str);
 		}	
 		
@@ -139,7 +137,8 @@ class WPFB_ListTpl {
 				WPFB_Item::Sort($categories, $this->current_list->cat_order);
 		
 			$cat = reset($categories); // get first category
-			if(count($categories) == 1 && $cat->cat_num_files > 0) { // single cat
+			// here we check if single category and cat has at least one file (also secondary cat files!)
+			if(count($categories) == 1 && ($cat->cat_num_files > 0 )) { // single cat
 				if(!$cat->CurUserCanAccess()) return '';
 				
 				$where = "($where) AND ".WPFB_File::GetSqlCatWhereStr($cat->cat_id);

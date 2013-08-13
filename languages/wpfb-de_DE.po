@@ -1136,7 +1136,7 @@ msgstr "Berechtigungen explizit setzen"
 msgid "Limit category access by selecting one or more user roles."
 msgstr "Begrenze den Zugriff auf diese Kategorie, indem du eine oder mehrere Benutzerrollen auswählst."
 
-msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgid "This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
 msgstr "Berechtigungen werden rekursiv auf alle existierenden Unterkategorien und Dateien angewandt. Beachte, dass Berechtigungen neuer Dateien in dieser Kategorie automatisch vererbt werden, ohne dass diese Checkbox aktiviert werden muss."
 
 msgid "Owner"

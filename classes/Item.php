@@ -14,13 +14,15 @@ class WPFB_Item {
 	static $tpl_uid = 0;
 	static $id_var;
 	
+	
 	function WPFB_Item($db_row=null)
 	{
 		if(!empty($db_row))
 		{
 			foreach($db_row as $col => $val){
 				$this->$col = $val;
-			}
+			}	
+		
 			$this->is_file = isset($this->file_id);
 			$this->is_category = isset($this->cat_id);
 		}
@@ -66,7 +68,8 @@ class WPFB_Item {
 	static function GetByName($name, $parent_id=0)
 	{
 		global $wpdb;
-		$name = $wpdb->escape($name);
+		
+		$name = esc_sql($name);
 		$parent_id = intval($parent_id);
 		
 		$items = WPFB_Category::GetCats("WHERE cat_folder = '$name' AND cat_parent = $parent_id LIMIT 1");
@@ -82,7 +85,7 @@ class WPFB_Item {
 	{
 		global $wpdb;
 		$path = trim(str_replace('\\','/',$path),'/');		
-		$items = WPFB_Category::GetCats("WHERE cat_path = '".$wpdb->escape($path)."' LIMIT 1");
+		$items = WPFB_Category::GetCats("WHERE cat_path = '".esc_sql($path)."' LIMIT 1");
 		if(empty($items)){
 			$items = WPFB_File::GetFiles2(array('file_path' => $path), false, null, 1);
 			if(empty($items)) return null;
@@ -147,8 +150,10 @@ class WPFB_Item {
 	{
 		global $wpdb;
 		
-		if($this->locked > 0)
-			return $this->TriggerLockedError();
+		if($this->locked > 0) {
+			$this->TriggerLockedError();
+			return array('error' => 'Item locked.');
+		}
 		
 		$values = array();
 		
@@ -168,6 +173,7 @@ class WPFB_Item {
 			foreach($cvars as $var => $cn)
 				$values[$var] = empty($this->$var) ? '' : $this->$var;
 		}
+		
 		
 		$update = !empty($this->$id_var);
 		$tbl = $this->is_file?$wpdb->wpfilebase_files:$wpdb->wpfilebase_cats;
@@ -195,19 +201,22 @@ class WPFB_Item {
 		return $this->IsAncestorOf($p);
 	}
 	
-	function CurUserCanAccess($for_tpl=false)
+	function CurUserCanAccess($for_tpl=false, $user = null)
 	{
-		global $user_ID; // is 0 when not logged in						
-		if(is_null(WPFB_Core::$current_user))
-			WPFB_Core::$current_user = new WP_User($user_ID); //load all roles
+		global $user_ID; // is 0 when not logged in
 		
-		if( ($for_tpl && !WPFB_Core::GetOpt('hide_inaccessible')) || in_array('administrator',WPFB_Core::$current_user->roles) || ($this->is_file && $this->CurUserIsOwner()) )
+		if(empty($user)) {
+			if(is_null(WPFB_Core::$current_user)) WPFB_Core::$current_user = new WP_User($user_ID); //load all roles
+			$user = WPFB_Core::$current_user;
+		}
+		
+		if( ($for_tpl && !WPFB_Core::GetOpt('hide_inaccessible')) || in_array('administrator',$user->roles) || ($this->is_file && $this->CurUserIsOwner($user)) )
 			return true;
-		if(WPFB_Core::GetOpt('private_files') && $this->GetOwnerId() != 0 && !$this->CurUserIsOwner()) // check private files
+		if(WPFB_Core::GetOpt('private_files') && $this->GetOwnerId() != 0 && !$this->CurUserIsOwner($user)) // check private files
 			return false;
 		$frs = $this->GetReadPermissions();
 		if(empty($frs)) return true; // item is for everyone!		
-		foreach(WPFB_Core::$current_user->roles as $ur) { // check user roles against item roles
+		foreach($user->roles as $ur) { // check user roles against item roles
 			if(in_array($ur, $frs))
 				return true;
 		}
@@ -309,7 +318,7 @@ class WPFB_Item {
 		if($this->is_category)
 		{
 			// add mtime for cache updates
-			return WPFB_PLUGIN_URI . (empty($this->cat_icon) ? ('images/'.(($size=='small')?'folder48':'crystal_cat').'.png') : "wp-filebase_thumb.php?cid=$this->cat_id&t=".@filemtime($this->GetThumbPath()));
+			return empty($this->cat_icon) ? (($size=='small')?(WP_CONTENT_URL.WPFB_Core::$settings->folder_icon):(WPFB_PLUGIN_URI.'images/crystal_cat.png')) : WPFB_PLUGIN_URI."wp-filebase_thumb.php?cid=$this->cat_id&t=".@filemtime($this->GetThumbPath());
 		}
 
 		if(!empty($this->file_thumbnail) /* && file_exists($this->GetThumbPath())*/) // speedup
@@ -389,10 +398,10 @@ class WPFB_Item {
 	}
 	
 		
-	function CurUserIsOwner() {
+	function CurUserIsOwner($user=null) {
 		global $current_user;
-		$owner = $this->GetOwnerId();
-		return (!empty($current_user->ID) && $owner > 0 && $owner == $current_user->ID);
+		$uid = empty($user) ? (empty($current_user->ID) ? 0 : $current_user->ID) : $user->ID;
+		return ($uid > 0 && $this->GetOwnerId() == $uid);
 	}
 	
 	function ChangeCategoryOrName($new_cat_id, $new_name=null, $add_existing=false, $overwrite=false)
@@ -488,7 +497,8 @@ class WPFB_Item {
 					}
 				} else {
 					if(!@is_dir($new_path)) wp_mkdir_p($new_path);
-					if(!@WPFB_Admin::MoveDir($old_path, $new_path))
+					wpfb_loadclass('FileUtils');
+					if(!@WPFB_FileUtils::MoveDir($old_path, $new_path))
 						return array( 'error' => sprintf('Could not move folder %s to %s', $old_path, $new_path));
 				}
 			} else {
@@ -545,7 +555,7 @@ class WPFB_Item {
 				$permission_sql = "$permissions_field = ''";
 				$roles = $current_user->roles;
 				foreach($roles as $ur) {
-					$ur = $wpdb->escape($ur);
+					$ur = esc_sql($ur);
 					$permission_sql .= " OR MATCH($permissions_field) AGAINST ('{$ur}' IN BOOLEAN MODE)";
 				}
 				if($current_user->ID > 0)

@@ -2485,8 +2485,8 @@ msgstr "Limitar o acesso da categoria, selecionando uma ou mais funções do usu
 
 #: lib/wpfb_form_cat.php:78
 #@ wpfb
-msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
-msgstr "Isso vai recursivle permissões de atualização de todas as categorias existentes criança e arquivos. Observe que as permissões de arquivos novos nesta categoria são herdadas automaticamente, sem ter verificado esta caixa."
+msgid "This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Isso vai recursivly permissões de atualização de todas as categorias existentes criança e arquivos. Observe que as permissões de arquivos novos nesta categoria são herdadas automaticamente, sem ter verificado esta caixa."
 
 #: lib/wpfb_form_cat.php:82
 #@ wpfb

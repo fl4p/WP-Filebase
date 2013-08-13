@@ -37,11 +37,14 @@
 	function PrintScripts($prefix='', $auto_submit=false)
 	{
 		$this->Scripts($prefix);
-		?>
 		
-<script type="text/javascript">
-//<![CDATA[
-//jQuery(document).ready(function($){	
+		$minify = true;
+		
+		if($minify) ob_start();
+		?><script type="text/javascript">
+/* <![CDATA[ */
+
+
 function fileQueued(fileObj) {
 	jQuery('#file-upload-progress').show().html('<div class="progress"><div class="percent">0%</div><div class="bar" style="width: 30px"></div></div><div class="filename original"> ' + fileObj.name + '</div>');
 
@@ -54,7 +57,7 @@ function fileQueued(fileObj) {
 	jQuery('#file-submit').prop('disabled', true);
 	jQuery('#cancel-upload').show().prop('disabled', false);
 
-	 // delete already uploaded temp file	
+	 /* delete already uploaded temp file */
 	if(jQuery('#file_flash_upload').val() != '0') {
 		jQuery.ajax({type: 'POST', async: true, url:"<?php echo esc_attr( WPFB_PLUGIN_URI.'wpfb-async-upload.php' ); ?>",
 		data: {<?php echo $this->GetAjaxAuthData(true) ?> , "delupload": jQuery('#file_flash_upload').val()},
@@ -77,7 +80,7 @@ function uploadError(fileObj, errorCode, message, uploader) {
 }
 
 function uploadSuccess(fileObj, serverData) {
-	// if async-upload returned an error message, place it in the media item div and return
+	/* if async-upload returned an error message, place it in the media item div and return */
 	if ( serverData.match('media-upload-error') || serverData.match('error-div') ) {
 		wpFileError(fileObj, serverData);
 		return;
@@ -116,9 +119,16 @@ function uploadComplete(fileObj) {
 	jQuery('#cancel-upload').hide().prop('disabled', true);
 }
 
-//]]>
+	
+/* ]]> */
 </script>
-		<?php
+<?php
+		
+		if($minify) { // todo: remove // comments!!
+			echo str_replace(array(" /* <![CDATA[ */ "," /* ]]> */ "), array("\r\n/* <![CDATA[ */\r\n","\r\n/* ]]> */\r\n"),
+					  str_replace(array("\r\n", "\n"), " ", ob_get_clean())
+			);
+		}
 	}
 	
 	function Display()

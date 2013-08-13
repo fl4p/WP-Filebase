@@ -59,7 +59,9 @@ public function Init($cotainer_id, $browser_btn_id, $drop_el_id, $error_el_id)
 {
 	$max_upload_size = WPFB_Core::GetMaxUlSize();
 	
-	wp_print_scripts('plupload-all');
+	wp_print_scripts('plupload-all'); 
+	wp_print_scripts('wp-plupload');
+	
 	
 $plupload_init = array(
 	'runtimes' => 'html5,gears,silverlight,flash,html4',

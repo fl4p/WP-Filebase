@@ -182,7 +182,8 @@ jQuery(document).ready( function() {
 			
 		default:
 ?>
-<h2><?php _e('Templates',WPFB); ?></h2>
+<div class="wrap">
+<h2><?php _e('Templates',WPFB); ?> <a href="<?php echo add_query_arg('iframe-preview',(int)empty($_GET['iframe-preview'])); ?>" class="add-new-h2">iframe preview</a></h2>
 <div id="wpfb-tabs">
 	<ul class="wpfb-tab-menu">
 		<li><a href="#file"><?php _e('Files', WPFB) ?></a></li>
@@ -213,6 +214,8 @@ jQuery(document).ready( function() {
 <form action="<?php echo remove_query_arg(array('action','type','tpl')) ?>" method="post" onsubmit="return confirm('<?php _e('This will reset all File, Category and List Templates! Are your sure?', WPFB) ?>');"><p>
 	<input type="submit" name="reset-tpls" value="<?php _e('Reset all Templates to default', WPFB) ?>" class="button" />
 </p></form>
+
+</div>
 <?php 
 	break;
 
@@ -226,7 +229,7 @@ static function TplsTable($type, $exclude=array(), $include=array()) {
 	$tpls = $list ? get_option(WPFB_OPT_NAME.'_list_tpls') : WPFB_Core::GetTpls($type);
 	if(!$list) $tpls['default'] = WPFB_Core::GetOpt("template_$type");	
 	
-	$item = ($cat?self::$sample_cat:self::$sample_file);
+	$item = ($cat ? self::$sample_cat: self::$sample_file);
 ?>
 <table class="widefat post fixed" cellspacing="0">
 	<thead>
@@ -251,22 +254,31 @@ static function TplsTable($type, $exclude=array(), $include=array()) {
 	$edit_link = add_query_arg(array('action'=>'edit','type'=>$type,'tpl'=>$tpl_tag));
 	if($list) $tpl = WPFB_ListTpl::Get($tpl_tag);
 	
-	$table_found = !$list && (strpos($tpl_src, '<table') !== false);
-	if(!$list && !$table_found && strpos($tpl_src, '<tr') !== false) {
-		$tpl_src = "<table>$tpl_src</table>";
-	}
+
 	?>
 	<tr id="tpl-<?php echo "$type-$tpl_tag" ?>" class="iedit" valign="top">
 		<th scope="row" class="check-column"><input type="checkbox" name="tpl[]" value="<?php echo esc_attr($tpl_tag) ?>" /></th>
 		<td class="column-title">
-			<strong><a class="row-title" href="<?php echo $edit_link ?>" title="<?php printf(__('Edit &#8220;%s&#8221;'), $tpl_tag) ?>"><?php echo self::TplTitle($tpl_tag); ?></a></strong>
+			<strong><a class="row-title" href="<?php echo $edit_link ?>" title="<?php printf(__('Edit &#8220;%s&#8221;'), $tpl_tag) ?>"><?php echo self::TplTitle($tpl_tag); ?></a></strong><br />
+			<code>tag=<?php echo $tpl_tag; ?></code>
 			<div class="row-actions"><span class='edit'><a href="<?php echo $edit_link ?>" title="<?php _e('Edit this item') ?>"><?php _e('Edit') ?></a></span>
 			<?php if(!in_array($tpl_tag, self::$protected_tags)){ ?><span class='trash'>| <a class='submitdelete' title='<?php _e('Delete this item permanently') ?>' href='<?php echo add_query_arg(array('action'=>'del','type'=>$type,'tpl'=>$tpl_tag)).'#'.$type ?>'><?php _e('Delete') ?></a></span><?php } ?>
 			</div>
 		</td>
 		<td>
 			<div class="entry-content wpfilebase-tpl-preview">
-				<div id="tpl-preview_<?php echo $tpl_tag ?>"><?php echo do_shortcode($list ? $tpl->Sample(self::$sample_cat, self::$sample_file) : $item->GenTpl(WPFB_TplLib::Parse($tpl_src), 'sample')) ?></div>
+				<div id="tpl-preview_<?php echo $tpl_tag ?>">
+					<?php if(!empty($_GET['iframe-preview'])) { ?>					
+					<iframe src="<?php echo WPFB_PLUGIN_URI."tpl-preview.php?type=$type&tag=$tpl_tag"; ?>" style="width:100%;height:220px;"></iframe>
+					<?php } else {
+						$table_found = !$list && (strpos($tpl_src, '<table') !== false);
+						if(!$list && !$table_found && strpos($tpl_src, '<tr') !== false) {
+							$tpl_src = "<table>$tpl_src</table>";
+						}
+						echo do_shortcode($list ? $tpl->Sample(self::$sample_cat, self::$sample_file) : $item->GenTpl(WPFB_TplLib::Parse($tpl_src), 'sample'));
+					} ?>
+				</div>
+					
 				<div style="height: 50px; float: left;"></div>
 				<div class="clear"></div>
 			</div>
@@ -344,7 +356,7 @@ static function TplForm($type, $tpl_tag=null)
 	<p>
 		<?php _e('Template Code:', WPFB) ?><br />
 		<textarea id="<?php echo $code_id ?>" cols="70" rows="<?php echo (max(2, count(explode("\n",$tpl_code)))+3); ?>" wrap="off" name="tplcode" class="codepress html wpfilebase-tpledit" onkeyup="WPFB_PreviewTpl(this, '<?php echo $type ?>')" onchange="WPFB_PreviewTpl(this, '<?php echo $type ?>')"><?php echo htmlspecialchars($tpl_code) ?></textarea><br />
-		<?php echo WPFB_Admin::TplFieldsSelect($code_id, false, $cat) ?>
+		<?php wpfb_loadclass('Models'); echo WPFB_Models::TplFieldsSelect($code_id, false, $cat) ?>
 	</p>
 	<?php } ?>
 			

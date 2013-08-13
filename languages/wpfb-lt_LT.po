@@ -1136,7 +1136,7 @@ msgstr "Aiškiai nustatyti leidimai"
 msgid "Limit category access by selecting one or more user roles."
 msgstr "Apribokite kategorijos pasiekiamumą, nustatyti vieną ar daugiau vartotojo charakteristikų."
 
-msgid "This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgid "This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
 msgstr "Tai rekursyviai atnaujins egzistuojančių pokategorijų ir porinkmenų leidimus. Žinokite, kad naujų rinkmenų šioje kategorijoje leidimai yra priskiriami automatiškai, be pažymimojo langelio pažymėjimo."
 
 msgid "Owner"

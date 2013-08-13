@@ -172,13 +172,13 @@ static function DownloadRedirect()
 	if(!empty($file) && is_object($file) && !empty($file->is_file)) {
 		$file->Download();		
 		exit;
-	} else {
+	} /* else { // don't set coockies anymore
 		// no download, a normal request: set site visited coockie to disable referer check
 		if(empty($_COOKIE[WPFB_OPT_NAME])) {
 			@setcookie(WPFB_OPT_NAME, '1');
 			$_COOKIE[WPFB_OPT_NAME] = '1';
 		}
-	}
+	} */
 }
 
 static function Ext2TypeFilter($arr) {
@@ -187,7 +187,7 @@ static function Ext2TypeFilter($arr) {
 	return $arr;
 }
 
-function SearchExcerptFilter($content)
+static function SearchExcerptFilter($content)
 {
 	global $id;
 	
@@ -202,7 +202,7 @@ function SearchExcerptFilter($content)
 	return $content;
 }
 
-function ContentFilter($content)
+static function ContentFilter($content)
 {
 	global $id, $wpfb_fb, $post;
 	
@@ -255,7 +255,7 @@ static function ShortCode($atts, $content=null, $tag=null) {
 		'num' => 0,
 		'pagenav' => 1,
 		'linktext' => null,
-	
+			
 	), $atts), $content, $tag);
 }
 
@@ -303,7 +303,7 @@ static function GetFileListSortSql($sort=null, $attach_order=false)
 	global $wpdb;
 	wpfb_loadclass('Output');
 	list($sort, $sortdir) = WPFB_Output::ParseFileSorting($sort, $attach_order);	
-	$sort = $wpdb->escape($sort);
+	$sort = esc_sql($sort);
 	return $attach_order ? "`file_attach_order` ASC, `$sort` $sortdir" : "`$sort` $sortdir";
 }
 
@@ -329,7 +329,7 @@ static function PrintJS() {
 	$context_menu = current_user_can('upload_files') && self::GetOpt('file_context_menu') && !defined('WPFB_EDITOR_PLUGIN') && !is_admin();
 	
 	$conf = array(
-		'ql'=>1, // querylinks with jQuery
+		'ql'=>!is_admin(), // querylinks with jQuery
 		'hl'=> (int)self::GetOpt('hide_links'), // hide links
 		'pl'=>(self::GetOpt('disable_permalinks') ? 0 : (int)!!get_option('permalink_structure')), // permlinks
 		'hu'=> trailingslashit(home_url()),// home url
@@ -405,13 +405,15 @@ static function Cron() {
 
 static function GetMaxUlSize() {	return wpfb_call('Misc','ParseIniFileSize', ini_get('upload_max_filesize')); }
 
-public static function GetCustomFields($full_field_names=false) {
+public static function GetCustomFields($full_field_names=false, &$default_values=null) {
 	$custom_fields = isset(WPFB_Core::$settings->custom_fields)?explode("\n",WPFB_Core::$settings->custom_fields):array();
 	$arr = array();
+	$default_values = array();
 	if(empty($custom_fields[0])) return array();
 	foreach($custom_fields as $cf) {
 		$cfa = explode("|", $cf);
-		$arr[$full_field_names?('file_custom_'.trim($cfa[1])):trim($cfa[1])] = $cfa[0];
+		$arr[$k = $full_field_names?('file_custom_'.trim($cfa[1])):trim($cfa[1])] = $cfa[0];
+		$default_values[$k] = empty($cfa[2]) ? '' : $cfa[2];
 	}
 	return $arr;
 }

@@ -1,4 +1,3 @@
-
 /**
  * Draw the table for the first time, adding all required features
  *  @param {object} oSettings dataTables settings object

@@ -128,6 +128,7 @@
 	height: 32px;
 }
 
+
 #wpfilebase-form-upload-row th, #wpfilebase-form-upload-row td {
 	margin: 0;
 	padding: 0;
@@ -295,21 +296,21 @@
 
 #wpfb-liking-toggle {
 	float: right;
-	width: 12px;
+	width: 14px;
 	height: 23px;
 	cursor:pointer;
 	/*padding: 0 16px 0 6px;*/
 	background-repeat: no-repeat;
-	background-position: bottom center;
+	background-position: center left;
 	
-	background-image:url("../../../wp-admin/images/screen-options-toggle-vs.gif");
+	background-image:url("../../../wp-admin/images/sort-2x.gif");
 	
 		
 	/*background-position: left top;*/
 }
 
 #wpfb-liking-toggle.closed {
-	background-position: top center;
+	background-position: center right;
 }
 
 #wpfb-how-start .widget-liquid-right {
@@ -494,4 +495,50 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 	color: #666;
 	text-shadow: 0px 1px 0px #eee;
 	text-transform: uppercase;
+}
+
+
+
+.fixed .column-size, .fixed .column-cat, .fixed .column-perms, .fixed .column-owner, .fixed .column-date, .fixed .column-hits, .fixed .column-last_dl_time {
+	width: 8%;
+}
+
+.fixed .check-column {
+	width: 2.5em;
+}
+
+.fixed .column-size {
+	width: 68px;
+}
+
+.fixed .column-hits {
+	width: 85px;
+	text-align: right;
+	padding-right: 15px;
+}
+
+.fixed .column-date {
+	width: 68px;
+}
+
+.fixed .check-column span {
+	margin-left: 5px;
+	text-align: right;
+}
+
+.fixed .column-name img {
+	margin-right: 8px;
+	float: left;
+}
+
+.fixed .column-name .row-actions {
+	clear: both;
+}
+
+span.offline {
+	background-color: #d54e4e;
+	color: white;
+	padding: 2px;
+	border-radius: 3px;
+	font-size: 10px;
 }

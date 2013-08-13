@@ -6,6 +6,9 @@ static function Display()
 
 	wpfb_loadclass('Admin', 'Output');
 	WPFB_Core::PrintJS(); // prints wpfbConf.ajurl
+	
+	wp_register_script('jquery-imagepicker', WPFB_PLUGIN_URI.'extras/jquery/image-picker/image-picker.min.js', array('jquery'), WPFB_VERSION);
+	wp_register_style('jquery-imagepicker', WPFB_PLUGIN_URI.'extras/jquery/image-picker/image-picker.css', array(), WPFB_VERSION);
 
 	if(!current_user_can('manage_options'))
 		wp_die(__('Cheatin&#8217; uh?'));
@@ -141,7 +144,7 @@ static function Display()
 				$lines[$i] = str_replace('||','|',trim($lines[$i], "|\r"));
 				if(empty($lines[$i]) || $lines[$i] == '|')	continue;
 				$pos = strpos($lines[$i], '|');
-				if($pos <= 0) $lines[$i] .= '|'.str_replace(array(' ','|'),'',strtolower(substr($lines[$i], 0, min(8, strlen($lines[$i])))));
+				if($pos <= 0) $lines[$i] .= '|'. sanitize_key(substr($lines[$i], 0, min(8, strlen($lines[$i]))));
 				$lines2[] = $lines[$i];
 			}
 			$options[$opt_tag] = implode("\n", $lines2);
@@ -224,15 +227,15 @@ jQuery(document).ready( function() {
 	$option_categories = array(
 		__('Common', WPFB)					=> array('upload_path','search_integration' /*'cat_drop_down'*/),
 		__('Display', WPFB)					=> array('file_date_format','thumbnail_size','auto_attach_files', 'attach_loop','attach_pos', 'filelist_sorting', 'filelist_sorting_dir', 'filelist_num', /* TODO: remove? 'parse_tags_rss',*/ 'decimal_size_format','search_result_tpl'),
-		__('File Browser',WPFB)				=> array('file_browser_post_id','file_browser_cat_sort_by','file_browser_cat_sort_dir','file_browser_file_sort_by','file_browser_file_sort_dir','file_browser_fbc', 'late_script_loading','small_icon_size',
+		__('File Browser',WPFB)				=> array('file_browser_post_id','file_browser_cat_sort_by','file_browser_cat_sort_dir','file_browser_file_sort_by','file_browser_file_sort_dir','file_browser_fbc', 'late_script_loading', 'folder_icon', 'small_icon_size',
 		'disable_footer_credits','footer_credits_style',
-		),
+			  		),
 		__('Download', WPFB)				=> array('hide_links', 'disable_permalinks', 'download_base', 'force_download', 'range_download', 'http_nocache', 'ignore_admin_dls', 'accept_empty_referers','allowed_referers' /*,'dl_destroy_session'*/,'use_fpassthru'),
 		__('Form Presets', WPFB)			=> array('default_author','default_roles', 'default_cat', 'default_direct_linking','languages', 'platforms', 'licenses', 'requirements', 'custom_fields'),
 		__('Limits', WPFB)					=> $limits,
 		__('Security', WPFB)				=> array('allow_srv_script_upload', 'fext_blacklist', 'frontend_upload', 'hide_inaccessible', 'inaccessible_msg', 'inaccessible_redirect', 'cat_inaccessible_msg', 'login_redirect_src', 'protect_upload_path', 'private_files'),
 		__('Templates and Scripts', WPFB)	=> array('template_file', 'template_cat', 'dlclick_js'),
-		__('Sync',WPFB)						=> array('cron_sync', 'base_auto_thumb', 'remove_missing_files'),
+		__('Sync',WPFB)						=> array('cron_sync', 'base_auto_thumb', 'remove_missing_files','fake_md5' ),
 		__('Misc')							=> $misc_tags,
 	);
 	?>
@@ -303,6 +306,24 @@ jQuery(document).ready( function() {
 				case 'roles':
 					WPFB_Admin::RolesCheckList($opt_tag, $opt_val, empty($field_data['not_everyone']));
 					break;
+				
+								case 'icon':
+					wp_print_scripts('jquery-imagepicker');
+					wp_print_styles('jquery-imagepicker');
+					
+					echo '<select class="image-picker show-html" name="' . $opt_tag . '" id="' . $opt_tag . '">';
+					?>
+						<?php
+						foreach($field_data['icons'] as $icon)
+							echo '<option data-img-src="'.$icon['url'].'" value="'.$icon['path'].'" ' . (($icon['path'] === $opt_val) ? ' selected="selected" ' : '').'>'.basename($icon['path']).'</option>';
+						?>
+					</select>
+					<script type="text/javascript">
+					jQuery(document).ready( function() { jQuery("#<?php echo $opt_tag; ?>").imagepicker(); });
+					</script>
+					<?php
+					break;
+									
 					
 				case 'cat':
 					echo "<select name='$opt_tag' id='$opt_tag'>";

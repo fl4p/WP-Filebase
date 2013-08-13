@@ -59,6 +59,14 @@ class WPFB_Category extends WPFB_Item {
 		return $cats;
 	}
 	
+	/**
+	 * Get category objects
+	 *
+	 * @access public
+	 *
+	 * @param int $id ID 
+	 * @return WPFB_Category
+	 */
 	static function GetCat($id)
 	{
 		$id = intval($id);

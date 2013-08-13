@@ -52,7 +52,7 @@ static function Display()
 				else 
 					wp_die('No files to edit.');
 			} else {
-				$file = &WPFB_File::GetFile($_GET['file_id']);
+				$file = WPFB_File::GetFile($_GET['file_id']);
 				if(is_null($file) || !$file->CurUserCanEdit())
 					wp_die(__('You do not have the permission to edit this file!',WPFB));
 				WPFB_Admin::PrintForm('file', $file);
@@ -93,6 +93,7 @@ static function Display()
 			if(!current_user_can('upload_files'))
 				wp_die(__('Cheatin&#8217; uh?'));
 				
+			
 			if(!empty($_POST['deleteit'])) {
 				foreach ( (array)$_POST['delete'] as $file_id ) {					
 					if(is_object($file = WPFB_File::GetFile($file_id)))
@@ -114,116 +115,24 @@ static function Display()
 		unset($file);
 		WPFB_Admin::PrintForm('file', null, array('exform' => $exform, 'item' => new WPFB_File((isset($result['error']) && $result['error']) ? $_POST : null)));
 	}
-	?>
-	<form class="search-form topmargin" action="" method="get"><p class="search-box">
-			<input type="hidden" value="<?php echo esc_attr($_GET['page']); ?>" name="page" />
-			<label class="hidden" for="file-search-input"><?php _e('Search Files', WPFB); ?>:</label>
-			<input type="text" class="search-input" id="file-search-input" name="s" value="<?php echo(isset($_GET['s']) ? esc_attr($_GET['s']) : ''); ?>" />
-			<input type="submit" value="<?php _e('Search Files', WPFB); ?>" class="button" />
-	</p></form>
+	wpfb_loadclass('FileListTable');
+$file_table = new WPFB_FileListTable();
+$file_table->prepare_items();
+
+?>
 	
-	<br class="clear" />
-
-	<form id="posts-filter" action="" method="post">
-		<div class="tablenav">
-			<?php
-			$pagenum = max(isset($_GET['pagenum']) ? absint($_GET['pagenum']) : 0, 1);
-			if( !isset($filesperpage) || $filesperpage < 0 )
-				$filesperpage = self::$FilesPerPage;
-				
-			$pagestart = ($pagenum - 1) * $filesperpage;
-			$extra_sql = '';
-			wpfb_loadclass('Search');
-			$where = WPFB_Search::SearchWhereSql(true);
-			$order = "$wpdb->wpfilebase_files." . ((!empty($_GET['order']) && in_array($_GET['order'], array_keys(get_class_vars('WPFB_File')))) ?
-				($_GET['order']." ".(!empty($_GET['desc']) ? "DESC" : "ASC")) : "file_id DESC");
-				
-			if(!empty($_GET['file_category'])) 
-				$where = (empty($where) ? '' : ("($where) AND ")) . "file_category = " . intval($_GET['file_category']);
-
-			$files = WPFB_File::GetFiles2($where, 'edit', $order, $filesperpage, $pagestart);
-			
-			if(empty($files) && !empty($wpdb->last_error)) {
-				wp_die("<b>Database error</b>: ".$wpdb->last_error);
-			}
-
-			$page_links = paginate_links( array(
-				'base' => add_query_arg( 'pagenum', '%#%' ),
-				'format' => '',
-				'total' => ceil(WPFB_File::GetNumFiles2($where, 'edit') / $filesperpage),
-				'current' => $pagenum
-			));
-
-			if ( $page_links )
-				echo "<div class='tablenav-pages'>$page_links</div>";
-			?>
-			<div class="alignleft">
-				<input type="submit" value="<?php _e('Delete'); ?>" name="deleteit" class="button delete" />
-				<?php wp_nonce_field('bulk-files'); ?>
-			</div>
-		</div> <!-- tablenav -->
-		
-		<br class="clear" />
-		
-		<table class="widefat">
-			<thead>
-			<tr>
-				<th scope="col" class="check-column"><input type="checkbox" /></th>
-				<th scope="col" class="num"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_id') ?>"><?php _e('ID'/*def*/) ?></a></th>	
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_display_name') ?>"><?php _e('Name'/*def*/) ?></a></th>	
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_name') ?>"><?php _e('Filename', WPFB) ?></a></th>    
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_size') ?>"><?php _e('Size'/*def*/) ?></a></th>  		
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_description') ?>"><?php _e('Description'/*def*/) ?></a></th>
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_category_name') ?>"><?php _e('Category'/*def*/) ?></a></th>
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_user_roles') ?>"><?php _e('Access Permission',WPFB) ?></a></th>
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_added_by') ?>"><?php _e('Owner',WPFB) ?></a></th>
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_date') ?>"><?php _e('Date'/*def*/) ?></a></th>   
-				<th scope="col" class="num"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_hits') ?>"><?php _e('Hits', WPFB) ?></a></th>
-				<th scope="col"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_last_dl_time') ?>"><?php _e('Last download', WPFB) ?></a></th>
-				<!-- TODO <th scope="col" class="num"><a href="<?php echo WPFB_Admin::AdminTableSortLink('file_') ?>"><?php _e('Rating'/*def*/) ?></th> -->
-			</tr>
-			</thead>
-			<tbody id="the-list" class="list:file wpfilebase-list">
-			<?php
-				foreach($files as $file_id => $file)
-				{
-					if($file->file_ratings > 0)
-						$rating = round((float)$file->file_rating_sum / (float)$file->file_ratings, 2);
-					else
-						$rating = '-';
-						
-					$cat = $file->GetParent();
-					$user_roles = $file->GetReadPermissions();
-				?>
-				<tr id='file-<?php echo $file_id ?>'<?php if($file->file_offline) { echo " class='offline'"; } ?>>
-						    <th scope='row' class='check-column'><input type='checkbox' name='delete[]' value='<?php echo $file_id ?>' /></th>
-						    <td class="num"><?php echo $file_id ?></td>
-							<td class="wpfilebase-admin-list-row-title">
-							<a class='row-title' href='<?php echo esc_attr($file->GetEditUrl()) ?>' title='&quot;<?php echo esc_attr($file->file_display_name); ?>&quot; bearbeiten'>
-							<?php if(!empty($file->file_thumbnail)) { ?><img src="<?php echo esc_attr($file->GetIconUrl()); ?>" height="32" /><?php } ?>
-							<span><?php if($file->IsRemote()){echo '*';} echo esc_html($file->file_display_name); ?></span>
-							</a></td>
-							<td><a href="<?php echo $file->GetUrl() ?>"><?php echo esc_html($file->file_name); ?></a></td>
-							<td><?php echo WPFB_Output::FormatFilesize($file->file_size); ?></td>
-							<td><?php echo empty($file->file_description) ? '-' : esc_html($file->file_description); ?></td>
-							<td><?php echo (!is_null($cat)) ? ('<a href="'.$cat->GetEditUrl().'">'.esc_html($file->file_category_name).'</a>') : '-'; ?></td>
-							<td><?php echo WPFB_Output::RoleNames($user_roles, true) ?></td>
-							<td><?php echo (empty($file->file_added_by) || !($usr = get_userdata($file->file_added_by))) ? '-' : esc_html($usr->user_login) ?></td>
-							<td><?php echo $file->GetFormattedDate(); ?></td>
-							<td class='num'><?php echo $file->file_hits; ?></td>
-							<td><?php echo ( (!empty($file->file_last_dl_time) && $file->file_last_dl_time > 0) ? mysql2date(get_option('date_format'), $file->file_last_dl_time) : '-') ?></td>
-							<!-- TODO <td class='num'><?php echo $rating ?></td> -->
-							
-				</tr>
-				<?php
-				}
-			?>
-			</tbody>
-		</table>		
-		<div class="tablenav"><?php if ( $page_links ) { echo "<div class='tablenav-pages'>$page_links</div>"; } ?></div>		
-	</form>
-	
-	<br class="clear" />
+<form class="search-form topmargin" action="" method="get">
+	<input type="hidden" value="<?php echo esc_attr($_GET['page']); ?>" name="page" />
+	<input type="hidden" value="<?php echo empty($_GET['view']) ? '' : esc_attr(@$_GET['view']); ?>" name="view" />
+<?php $file_table->search_box( __("Search Files",WPFB), 's' ); ?>
+</form>	
+ 
+<?php $file_table->views(); ?>
+ <form id="posts-filter" action="" method="post">
+ <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+ <?php $file_table->display() ?>
+ </form>
+ <br class="clear" />
 
 <?php
 

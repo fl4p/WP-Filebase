@@ -1,9 +1,13 @@
 <?php
 ob_start();  // suppress any errors
 
+define('WP_INSTALLING', true); // make wp load faster
+
 error_reporting(0);
 require(dirname(__FILE__).'/../../../wp-load.php'); // TODO: dont load all wordpress-stuff!
 error_reporting(0);
+require_once(dirname(__FILE__).'/wp-filebase.php'); // this only loads some wp-filebase stuff, NOT WP!
+wpfb_loadclass('Core');
 wpfb_loadclass('File','Category','Download');
 
 @ob_end_clean(); // suppress any errors

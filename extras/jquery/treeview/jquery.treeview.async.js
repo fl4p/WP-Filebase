@@ -1,16 +1,11 @@
 /*
  * Async Treeview 0.1 - Lazy-loading extension for Treeview
- * 
+ *
  * http://bassistance.de/jquery-plugins/jquery-plugin-treeview/
  *
- * Copyright (c) 2007 Jörn Zaefferer
- *
- * Dual licensed under the MIT and GPL licenses:
+ * Copyright 2010 Jörn Zaefferer
+ * Released under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
- *   http://www.gnu.org/licenses/gpl.html
- *
- * Revision: $Id$
- *
  */
 
 ;(function($) {
@@ -88,9 +83,12 @@ $.fn.treeview = function(settings) {
 	if (!settings.url) {
 		return proxied.apply(this, arguments);
 	}
+	if (!settings.root) {
+		settings.root = "source";
+	}
 	var container = this;
 	if (!container.children().size())
-		load(settings, "source", this, container);
+		load(settings, settings.root, this, container);
 	var userToggle = settings.toggle;
 	return proxied.call(this, $.extend({}, settings, {
 		collapsed: true,

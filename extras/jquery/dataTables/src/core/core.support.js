@@ -1,4 +1,3 @@
-
 /**
  * Return the settings object for a particular table
  *  @param {node} nTable table we are using as a dataTable

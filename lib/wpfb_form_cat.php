@@ -76,7 +76,7 @@ $form_action = add_query_arg('page', 'wpfilebase_cats', remove_query_arg(array('
 		<?php if($update) { ?>
 		<tr>
 			<th scope="row" valign="top"><label for="cat_child_apply_perm"><?php _e('Apply permission to all child files', WPFB) ?></label></th>
-			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursivle update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.',WPFB); ?></td>
+			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.',WPFB); ?></td>
 		</tr>
 		<?php } ?>
 		<tr>

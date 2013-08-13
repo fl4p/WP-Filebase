@@ -105,6 +105,7 @@ if($file_add_now) {
 		parse_str(stripslashes($_REQUEST['presets']), $presets);
 		if(isset($presets['file_user_roles'])) {
 			$presets['file_user_roles'] = array_values(array_filter($presets['file_user_roles']));
+			$presets['file_perm_explicit'] = !empty($presets['file_user_roles']); // set explicit if perm != everyone
 		}
 		$file_data = array_merge($file_data, $presets);
 	}
