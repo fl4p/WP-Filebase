@@ -15,7 +15,7 @@ function wpfb_print_json($obj) {
 	//if(!WP_DEBUG)
 	@header('Content-Type: application/json; charset=' . get_option('blog_charset'));
 	$json = json_encode($obj);
-	@header('Content-Length: '.strlen($json));
+//	@header('Content-Length: '.strlen($json));
 	echo $json;
 	exit;
 }
