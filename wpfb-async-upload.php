@@ -4,36 +4,17 @@
  *
  */
 
-function wpfb_on_shutdown()
-{
-	 $error = error_get_last( );
-	 if( $error && $error['type'] != E_STRICT && $error['type'] != E_NOTICE && $error['type'] != E_WARNING  ) {
-		 wpfb_ajax_die(json_encode($error));
-	 } else { return true; }
-}
-register_shutdown_function('wpfb_on_shutdown');
-
+define('DOING_AJAX', true);
 define('TMP_FILE_MAX_AGE', 3600*3);
+define('FRONTEND_UPLOAD', !empty($_REQUEST['frontend_upload']) && $_REQUEST['frontend_upload'] !== "false");
+define('WP_ADMIN', !FRONTEND_UPLOAD);
 
-$frontend_upload = !empty($_REQUEST['frontend_upload']) && $_REQUEST['frontend_upload'] !== "false";
-$file_add_now = !$frontend_upload && !empty($_REQUEST['file_add_now']) && $_REQUEST['file_add_now'] !== "false";
+require_once('wpfb-load.php');
 
-ob_start();
-define('WP_ADMIN', !$frontend_upload);
+// global vars like this have to be set after wp-load.php, because they sometimes get unset?!
+$frontend_upload = FRONTEND_UPLOAD;
+$file_add_now = !empty($_REQUEST['file_add_now']) && $_REQUEST['file_add_now'] !== "false";
 
-if ( defined('ABSPATH') )
-	require_once(ABSPATH . 'wp-load.php');
-else
-	require_once(dirname(__FILE__).'/../../../wp-load.php');
-
-error_reporting(0);
-
-function wpfb_ajax_die($msg) {
-	@ob_end_clean();
-	echo '<div class="error-div">
-	<strong>' . $msg . '</strong></div>';
-	exit;	
-}
 
 // Flash often fails to send cookies with the POST or upload, so we need to pass it in GET or POST instead
 if ( is_ssl() && empty($_COOKIE[SECURE_AUTH_COOKIE]) && !empty($_REQUEST['auth_cookie']) )
@@ -44,10 +25,6 @@ if ( empty($_COOKIE[LOGGED_IN_COOKIE]) && !empty($_REQUEST['logged_in_cookie']) 
 	$_COOKIE[LOGGED_IN_COOKIE] = $_REQUEST['logged_in_cookie'];
 unset($current_user);
 
-if(!$frontend_upload)
-	require_once(ABSPATH.'wp-admin/admin.php');
-@ob_end_clean();
-
 if(!WP_DEBUG) {
 	send_nosniff_header();
 	error_reporting(0);
@@ -55,9 +32,13 @@ if(!WP_DEBUG) {
 @header('Content-Type: text/plain; charset=' . get_option('blog_charset'));
 
 
-if($frontend_upload) {
-	if(!WPFB_Core::GetOpt('frontend_upload') && !current_user_can('upload_files'))
-		wpfb_ajax_die(__('You do not have permission to upload files.'));
+if($frontend_upload) {	
+	if($file_add_now) {
+		wp_die('Unsupported upload!');
+	} else {
+		if(!WPFB_Core::GetOpt('frontend_upload') && !current_user_can('upload_files'))
+			wpfb_ajax_die(__('You do not have permission to upload files.'));
+	}
 } else {
 	wpfb_loadclass('Admin');
 	if ( !WPFB_Admin::CurUserCanUpload()  )
@@ -103,10 +84,7 @@ if($file_add_now) {
 	if(!empty($_REQUEST['presets'])) {
 		$presets = array();
 		parse_str(stripslashes($_REQUEST['presets']), $presets);
-		if(isset($presets['file_user_roles'])) {
-			$presets['file_user_roles'] = array_values(array_filter($presets['file_user_roles']));
-			$presets['file_perm_explicit'] = !empty($presets['file_user_roles']); // set explicit if perm != everyone
-		}
+		WPFB_Admin::AdaptPresets($presets);
 		$file_data = array_merge($file_data, $presets);
 	}
 	
@@ -115,6 +93,8 @@ if($file_add_now) {
 		$json = json_encode(array_merge((array)$result['file'], array(
 			 'file_thumbnail_url' => $result['file']->GetIconUrl(),
 			 'file_edit_url' => $result['file']->GetEditUrl(),
+			 'file_cur_user_can_edit' => $result['file']->CurUserCanEdit(),
+			 'file_download_url' => $result['file']->GetUrl(),
 			 'nonce' => wp_create_nonce(WPFB.'-updatefile'.$result['file_id'])
 		)));
 	} else {

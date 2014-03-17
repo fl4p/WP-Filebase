@@ -1,8 +1,6 @@
 <?php
 
-//define('WP_INSTALLING', true); // make wp load faster
-require(dirname(__FILE__).'/../../../wp-load.php');
-require_once(dirname(__FILE__).'/wp-filebase.php');
+require_once('wpfb-load.php');
 wpfb_loadclass('Core');
 
 $type = $_REQUEST['type'];

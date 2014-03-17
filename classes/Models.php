@@ -52,7 +52,7 @@ static function TplVarsDesc($for_cat=false)
 	//'file_thumbnail'		=> __('Name of the thumbnail file', WPFB), // useless
 	'cat_icon_url'			=> __('URL of the category icon (if any)', WPFB),
 	'cat_small_icon'		=> __('Category').': '.sprintf(__('HTML image tag for a small icon (height %d)'), 32),
-	
+	'cat_id'					=> __('The category ID', WPFB),
 
 	
 	//'file_required_level'	=> __('The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)', WPFB),

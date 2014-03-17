@@ -10,11 +10,12 @@ static function Display()
 	wp_register_script('jquery-imagepicker', WPFB_PLUGIN_URI.'extras/jquery/image-picker/image-picker.min.js', array('jquery'), WPFB_VERSION);
 	wp_register_style('jquery-imagepicker', WPFB_PLUGIN_URI.'extras/jquery/image-picker/image-picker.css', array(), WPFB_VERSION);
 
-	if(!current_user_can('manage_options'))
-		wp_die(__('Cheatin&#8217; uh?'));
+	if(!current_user_can('manage_options')) {
+		wp_die(__('Cheatin&#8217; uh?').'<!-- manage_options -->');
+	}
 	
 	// nonce and referer check (security)
-	if(!empty($_POST) && (!wp_verify_nonce($_POST['wpfb-nonce'],'wpfb-update-settings') || !check_admin_referer('wpfb-update-settings','wpfb-nonce')))
+	if((!empty($_POST['reset']) || !empty($_POST['submit'])) && (!wp_verify_nonce($_POST['wpfb-nonce'],'wpfb-update-settings') || !check_admin_referer('wpfb-update-settings','wpfb-nonce')))
 		wp_die(__('Cheatin&#8217; uh?'));
 	
 	$post = stripslashes_deep($_POST);
@@ -37,7 +38,9 @@ static function Display()
 		WPFB_Core::UpdateOption('template_file', $file_tpl);
 		WPFB_Core::UpdateOption('template_cat', $cat_tpl);		
 		
-		$messages += WPFB_Admin::SettingsUpdated($options, get_option(WPFB_OPT_NAME));
+		$new_options = get_option(WPFB_OPT_NAME);
+		$messages = array_merge($messages, WPFB_Admin::SettingsUpdated($options, $new_options));
+		unset($new_options);
 		$messages[] = __('Settings reseted.', WPFB);		
 		$options = get_option(WPFB_OPT_NAME);
 	}
@@ -154,8 +157,8 @@ static function Display()
 		update_option(WPFB_OPT_NAME, $options);
 		WPFB_Core::$settings = (object)$options;
 		
-		$messages += WPFB_Admin::SettingsUpdated($old_options, $options);
-		
+		$messages = array_merge($messages, WPFB_Admin::SettingsUpdated($old_options, $options));
+
 		if(count($errors) == 0)
 			$messages[] = __('Settings updated.', WPFB);
 		

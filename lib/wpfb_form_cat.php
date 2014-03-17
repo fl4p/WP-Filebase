@@ -51,7 +51,7 @@ $form_action = add_query_arg('page', 'wpfilebase_cats', remove_query_arg(array('
 			<th scope="row" valign="top" class="form-field"><label for="cat_icon"><?php _e('Category Icon', WPFB) ?></label></th>
 			<td><input type="file" name="cat_icon" id="cat_icon" />
 			<?php if(!empty($file_category->cat_icon)) { ?>
-				<br /><img src="<?php echo $file_category->GetIconUrl(); ?>" /><br />
+				<br /><img src="<?php echo $file_category->GetIconUrl(); ?>" alt="Icon" /><br />
 				<input type="checkbox" value="1" name="cat_icon_delete" id="file_delete_thumb" /><label for="cat_icon_delete"><?php _e('Delete'/*def*/); ?></label>
 			<?php } ?>
 			</td>
@@ -76,7 +76,7 @@ $form_action = add_query_arg('page', 'wpfilebase_cats', remove_query_arg(array('
 		<?php if($update) { ?>
 		<tr>
 			<th scope="row" valign="top"><label for="cat_child_apply_perm"><?php _e('Apply permission to all child files', WPFB) ?></label></th>
-			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.',WPFB); ?></td>
+			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.',WPFB); ?></td>
 		</tr>
 		<?php } ?>
 		<tr>

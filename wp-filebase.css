@@ -1,19 +1,19 @@
-
 /* #################### DEFAULT FILE TEMPLATE #################### */
 .wpfilebase-file-default {
 	width: 420px;
 	padding: 5px;
 	margin: 10px auto 25px auto;	
-	border: 1px solid #999;
+	/* border: 1px solid #999; twenty14 adjust*/
 	
 	color: #333;
 	text-align: left;	
 	line-height: normal;
 	
+	/*
 	-moz-border-radius: 4px;
 	-khtml-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border-radius: 4px;
+	border-radius: 4px;  twenty14 adjust*/
 
 	cursor:pointer;
 
@@ -233,3 +233,7 @@
 	margin: 0 auto 2px auto;
 	text-align: center;
 }
+
+/* DOWNLOAD BUTTON */
+.wpfb-dlbtn div { width:250px; height:40px; margin:0; padding:0; background:transparent url('images/dl_btn.png') no-repeat top center;}
+.wpfb-dlbtn div:hover { background-image: url('images/dl_btn_hover.png'); }

@@ -95,8 +95,9 @@ static function Schema()
 	
 	'file_browser_fbc'		=> array('default' => false, 'title' => __('Files before Categories', WPFB), 'type' => 'checkbox', 'desc' => __('Files will appear above categories in the file browser.', WPFB)),
 
-		
-			'folder_icon' => array('default' => '/plugins/wp-filebase-pro/images/folder-icons/folder_orange48.png', 'title' => __('Folder Icon', WPFB), 'type' => 'icon', 'icons' => $folder_icons, 'desc' => sprintf(__('Choose the default category icon and file browser icon. You can put custom icons in <code>%s</code>.', WPFB),'wp-content/images/foldericons')),
+		 
+	
+			'folder_icon' => array('default' => '/plugins/wp-filebase/images/folder-icons/folder_orange48.png', 'title' => __('Folder Icon', WPFB), 'type' => 'icon', 'icons' => $folder_icons, 'desc' => sprintf(__('Choose the default category icon and file browser icon. You can put custom icons in <code>%s</code>.', WPFB),'wp-content/images/foldericons')),
 			 
 	'small_icon_size'		=> array('default' => 32, 'title' => __('Small Icon Size'), 'desc' => __('Icon size (height) for categories and files. Set to 0 to show icons in full size.', WPFB), 'type' => 'number', 'class' => 'num', 'size' => 8),
 			
@@ -106,7 +107,7 @@ static function Schema()
 	'force_download'		=> array('default' => false, 'title' => __('Always force download', WPFB), 'type' => 'checkbox', 'desc' => __('If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming).', WPFB)),
 	'range_download'		=> array('default' => true, 'title' => __('Send HTTP-Range header', WPFB), 'type' => 'checkbox', 'desc' => __('Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time.', WPFB)),
 	'hide_links'			=> array('default' => false, 'title' => __('Hide download links', WPFB), 'type' => 'checkbox', 'desc' => sprintf(__('File download links wont be displayed in the browser\'s status bar. You should enable \'%s\' to make it even harder to find out the URL.', WPFB), __('Always force download', WPFB))),
-	'ignore_admin_dls'		=> array('default' => true, 'title' => __('Ignore downloads by admins', WPFB), 'type' => 'checkbox'),
+	'ignore_admin_dls'		=> array('default' => true, 'title' => __('Ignore downloads by admins', WPFB), 'type' => 'checkbox', 'desc' => sprintf(__('Download by an admin user does not increase hit counter. <a href="%s" class="button" onclick="alert(\'Sure?\');" style="vertical-align: baseline;">Reset All Hit Counters to 0</a>'),esc_attr(admin_url('admin.php?page=wpfilebase_manage&action=reset-hits')))),
 	'hide_inaccessible'		=> array('default' => true, 'title' => __('Hide inaccessible files and categories', WPFB), 'type' => 'checkbox', 'desc' => __('If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights.', WPFB)),
 	'inaccessible_msg'		=> array('default' => __('You are not allowed to access this file!', WPFB), 'title' => __('Inaccessible file message', WPFB), 'type' => 'text', 'size' => 65, 'desc' => (__('This message will be displayed if users try to download a file they cannot access', WPFB).'. '.__('You can enter a URL to redirect users.', WPFB))),
 	'inaccessible_redirect'	=> array('default' => false, 'title' => __('Redirect to login', WPFB), 'type' => 'checkbox', 'desc' => __('Guests trying to download inaccessible files are redirected to the login page if this option is enabled.', WPFB)),
@@ -181,7 +182,7 @@ Open Office|ooffice|http://www.openoffice.org/download/index.html
 	
 	'default_direct_linking'	=> array('default' => 1, 'title' => __('Default File Direct Linking'), 'type' => 'select', 'desc' => __('', WPFB), 'options' => array(1 => __('Allow direct linking', WPFB), 0 => __('Redirect to post', WPFB) )),	 
 		 
-	'custom_fields'			=> array('default' => "Custom Field 1|cf1\nCustom Field 2|cf2", 'title' => __('Custom Fields'), 'type' => 'textarea', 'desc' => 
+	'custom_fields'			=> array('default' => "Custom 1|cf1\nCustom 2|cf2", 'title' => __('Custom Fields'), 'type' => 'textarea', 'desc' => 
 	__('With custom fields you can add even more file properties.',WPFB).' '.  sprintf(__('Append another %s to set the default value.',WPFB),'|<i>Default Value</i>'.' '.$multiple_entries_desc)),
 	
 	

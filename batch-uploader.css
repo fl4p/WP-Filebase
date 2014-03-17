@@ -1,0 +1,151 @@
+.wpfb-batch-uploader-interface .uploader-presets {
+	float:right;
+	width: 400px;
+}
+
+.wpfb-embedded-form  .wpfb-batch-uploader-interface .uploader-presets {
+	width: 235px;
+	margin-left: 105px;
+}
+
+/*
+.wpfb-embedded-form  .wpfb-batch-uploader-interface .uploader-presets form {
+	border: 20px solid;
+	margin: -20px;
+}
+*/
+
+
+.wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets label {
+	width: 85px;
+	display: inline-block;
+	vertical-align: top;
+	float: left;
+	overflow: visible;
+	margin-left: -85px;
+	font-size: 0.8rem;	
+}
+
+.wpfb-batch-uploader-interface .uploader-presets .wpfilebase-roles-checklist {
+	height: 100px;
+}
+
+.wpfb-batch-uploader-interface .uploader-presets table th, .wpfb-batch-uploader-interface .uploader-presets table td {
+	padding: 1px;
+	margin: 0;
+}
+
+.wpfb-batch-uploader-interface .drag-drop-uploader {
+	padding-right: 450px;
+}
+
+.wpfb-embedded-form .wpfb-batch-uploader-interface .drag-drop-uploader {
+	overflow: hidden;
+	padding-right: 6px;
+}
+
+.wpfb-batch-uploader-interface .drag-drop-area {
+	width: 100%;
+	height: 300px;
+	border: 3px dashed #ccc;
+	border-radius: 0px;
+	
+	background-color: #fff;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: #ccc;
+}
+
+.wpfb-batch-uploader-interface .drag-drop-area.drag-over {
+	border-color:#83b4d8;
+	background-color: #ffe;
+}
+
+
+
+.wpfb-batch-uploader-interface {
+	background-color: #fff; /*#f5f5f5; /* #efefef; */
+	padding: 15px;
+	padding-top: 2px;
+	border-radius: 5px;
+}
+
+.batch-uploader-file {
+	background-color: #fff; /*#efefef; */
+	padding: 2px 15px 6px 8px;
+
+	border-radius: 5px;
+	margin-top: 20px;
+	/* height: 30px;*/
+	box-shadow: 0px 1px 2px #999;
+	line-height: 40px;
+	overflow: hidden;
+}
+
+.batch-uploader-file span {
+	font-size: 20px;
+}
+
+.batch-uploader-file .error {
+	font-size: 12px;
+	color: #d33;
+}
+
+.batch-uploader-file img {
+	height: 34px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.batch-uploader-file span {
+	vertical-align: bottom;
+}
+
+.batch-uploader-file .progress {
+	margin-top: 10px !important;
+	margin-right: 0px !important;
+}
+
+.wpfb-batch-uploader-interface .more-toggle {
+	cursor: pointer;	
+	text-align: center;
+}
+
+.wpfb-batch-uploader-interface .more-toggle td {
+	border-top: 2px solid #ccc;
+}
+
+.wpfb-batch-uploader-interface .more-toggle td span {
+	background-color: #ccc;
+	padding: 3px;
+	border-radius: 0px 0px 3px 3px;
+	color: #666;
+	text-shadow: 0px 1px 0px #eee;
+	text-transform: uppercase;
+}
+
+.wpfb-embedded-form .batch-uploader-file .progress {
+	float: right;
+}
+
+.wpfb-embedded-form .batch-uploader-file {
+	box-shadow: 1px 1px 1px #CCC;
+	border-radius: 0px;
+	
+	background: #EEE;
+	/* gradient */
+	background: -moz-linear-gradient(top, #EEE 0%, #CCC 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EEE), color-stop(100%,#CCC));
+	background: -webkit-linear-gradient(top, #EEE 0%,#CCC 100%);
+	background: -o-linear-gradient(top, #EEE 0%,#CCC 100%);
+	background: -ms-linear-gradient(top, #EEE 0%,#CCC 100%);
+	background: linear-gradient(to bottom, #EEE 0%,#CCC 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
+}
+
+.wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets input,
+.wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets select,
+.wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets textarea {
+	width: 220px !important;	
+}

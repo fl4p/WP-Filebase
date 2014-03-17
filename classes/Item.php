@@ -203,19 +203,15 @@ class WPFB_Item {
 	
 	function CurUserCanAccess($for_tpl=false, $user = null)
 	{
-		global $user_ID; // is 0 when not logged in
-		
-		if(empty($user)) {
-			if(is_null(WPFB_Core::$current_user)) WPFB_Core::$current_user = new WP_User($user_ID); //load all roles
-			$user = WPFB_Core::$current_user;
-		}
+		$user = is_null($user) ? wp_get_current_user() : (empty($user->roles) ? new WP_User($user) : $user);
+		$user->get_role_caps();
 		
 		if( ($for_tpl && !WPFB_Core::GetOpt('hide_inaccessible')) || in_array('administrator',$user->roles) || ($this->is_file && $this->CurUserIsOwner($user)) )
 			return true;
 		if(WPFB_Core::GetOpt('private_files') && $this->GetOwnerId() != 0 && !$this->CurUserIsOwner($user)) // check private files
 			return false;
 		$frs = $this->GetReadPermissions();
-		if(empty($frs)) return true; // item is for everyone!		
+		if(empty($frs)) return true; // item is for everyone!
 		foreach($user->roles as $ur) { // check user roles against item roles
 			if(in_array($ur, $frs))
 				return true;
@@ -223,10 +219,11 @@ class WPFB_Item {
 		return false;
 	}
 	
-	function CurUserCanEdit()
+	function CurUserCanEdit($user = null)
 	{
-		// current_user_can('edit_files') checks if user is admin!
-		return $this->CurUserIsOwner() || current_user_can('edit_files') || (!WPFB_Core::GetOpt('private_files') && current_user_can($this->is_file ? 'edit_others_posts' : 'manage_categories'));
+		if(is_null($user)) $user = wp_get_current_user ();
+		// current_user_can('manage_options') checks if user is admin!
+		return $this->CurUserIsOwner($user) || user_can($user, 'manage_options') || (!WPFB_Core::GetOpt('private_files') && user_can($user, $this->is_file ? 'edit_others_posts' : 'manage_categories'));
 	}
 	
 	function GetUrl($rel=false, $to_file_page=false)
@@ -508,7 +505,7 @@ class WPFB_Item {
 				}
 			}
 			
-			$all_files = $this->GetChildFiles(true); // all children files (recursivly)
+			$all_files = $this->GetChildFiles(true); // all children files (recursively)
 			if(!empty($all_files)) foreach($all_files as $file) {
 				if($cat_changed) {
 					if($old_cat) $old_cat->NotifyFileRemoved($file); // notify parent cat to remove files
@@ -539,27 +536,27 @@ class WPFB_Item {
 		 */
 	}
 	
-	protected static function GetPermissionWhere($owner_field, $permissions_field) {
-		global $wpdb, $user_ID;
-		
-		if(is_null(WPFB_Core::$current_user))
-			WPFB_Core::$current_user = new WP_User($user_ID); //load all roles
-		$current_user = WPFB_Core::$current_user;
-		
+	protected static function GetPermissionWhere($owner_field, $permissions_field, $user=null) {		
+		//$user = is_null($user) ? wp_get_current_user() : (empty($user->roles) ? new WP_User($user) : $user);
+		$user = is_null($user) ? wp_get_current_user() : $user;
+		$user->get_role_caps();
+				
 		static $permission_sql = '';
 		if(empty($permission_sql)) { // only generate once per request
-			if(in_array('administrator',$current_user->roles)) $permission_sql = '1=1'; // administrator can access everything!
+			if(in_array('administrator',$user->roles)) $permission_sql = '1=1'; // administrator can access everything!
 			elseif(WPFB_Core::GetOpt('private_files')) {
-				$permission_sql = "$owner_field = 0 OR $owner_field = " . (int)$current_user->ID;
+				$permission_sql = "$owner_field = 0 OR $owner_field = " . (int)$user->ID;
 			} else {
 				$permission_sql = "$permissions_field = ''";
-				$roles = $current_user->roles;
+				$roles = $user->roles;
 				foreach($roles as $ur) {
 					$ur = esc_sql($ur);
-					$permission_sql .= " OR MATCH($permissions_field) AGAINST ('{$ur}' IN BOOLEAN MODE)";
+					// assuming mysql ft_min_word_len is 4:
+					$permission_sql .= (strlen($ur) < 4) ? " OR $permissions_field LIKE '%$ur|%' OR $permissions_field LIKE '%|$ur|%' OR $permissions_field LIKE '%|$ur%'"
+																	 : " OR MATCH($permissions_field) AGAINST ('{$ur}' IN BOOLEAN MODE)";
 				}
-				if($current_user->ID > 0)
-					$permission_sql .= " OR ($owner_field = " . (int)$current_user->ID . ")";
+				if($user->ID > 0)
+					$permission_sql .= " OR ($owner_field = " . (int)$user->ID . ")";
 			}
 		}
 		return $permission_sql;

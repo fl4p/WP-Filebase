@@ -1,5 +1,13 @@
 <?php
 class WPFB_AdminGuiCss {
+	
+static function MakeCssUrlsAbsolute($css)
+{
+	$base_uri = WPFB_PLUGIN_URI;	
+	$css = preg_replace('/url\\(\'?(images\\/.+?)\'?\\)/',"url('{$base_uri}\\1')", $css);
+	return $css;
+}
+
 static function Display()
 {
 	global $wpdb, $user_ID;
@@ -29,8 +37,16 @@ static function Display()
 		default:
 			if(!current_user_can('edit_themes'))
 				wp_die(__('Cheatin&#8217; uh?'));
-		
-			$css_path_edit = WPFB_Core::GetCustomCssPath();
+			
+			
+			// try to use default wp upload path
+			$wp_upload = wp_upload_dir();
+			$wp_upload_ok = (empty($wp_upload['error']) && is_writable($wp_upload['basedir']));
+			
+			// if no file at wp upload, fallback to Old custom css path
+			$css_path_edit = ($wp_upload_ok && (is_file($wp_upload['basedir'] . '/wp-filebase.css') || !empty($_POST['newcontent']))) ?
+					  $wp_upload['basedir'] . '/wp-filebase.css'
+					  : WPFB_Core::GetOldCustomCssPath();
 			$css_path_default = WPFB_PLUGIN_ROOT . 'wp-filebase.css';
 			
 			$exists = file_exists($css_path_edit) && is_file($css_path_edit);
@@ -40,12 +56,18 @@ static function Display()
 			}
 			
 			if(!empty($_POST['restore_default'])) {
+				update_option('wpfb_css', WPFB_PLUGIN_URI . 'wp-filebase.css?t='.time());
 				@unlink($css_path_edit);
 				$exists = false;				
 			} elseif(!empty($_POST['submit']) && !empty($_POST['newcontent'])) {
 				// write
 				$newcontent = stripslashes($_POST['newcontent']);
+				
+				$newcontent = self::MakeCssUrlsAbsolute($newcontent);
+				
 				$exists = (file_put_contents($css_path_edit, $newcontent) !== false);
+				
+				update_option('wpfb_css', $wp_upload_ok ? ($wp_upload['baseurl'] . '/wp-filebase.css?t='.time()) : false);
 			}
 
 			$fpath = $exists ? $css_path_edit : $css_path_default;

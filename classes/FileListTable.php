@@ -60,7 +60,7 @@ class WPFB_FileListTable extends WP_List_Table {
    
     function column_cb($item){
         return sprintf(
-            '<input type="checkbox" name="%1$s[]" value="%2$s" /><br /><span>%2$s</span>', // 
+            '<input type="checkbox" name="%1$s[]" value="%2$s" /><br /><span'.(($item->GetId()>999)?' style="font-size:10px;"':'').'>%2$s</span>', // 
             /*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("movie")
             /*$2%s*/ $item->GetId()                //The value of the checkbox should be the record's id
         );
@@ -75,10 +75,15 @@ class WPFB_FileListTable extends WP_List_Table {
 				'delete'    => '<a class="submitdelete" href="'.add_query_arg(array('action' => 'delete', 'file[]' => $file->GetId())).'" onclick="return confirm(\''.__("Are you sure you want to do this?").'\')">'.__('Delete').'</a>',
 				'download'    => '<a href="'.esc_attr($file->GetUrl(false, false)).'">'.__('Download').'</a>',
         );
+		 
+		 if(!$file->CurUserCanEdit())
+		 {
+			 unset($actions['delete']);
+		 }
         
         $col = '<a class="row-title" href="'.$edit_url.'" title="'.esc_attr(sprintf(__('Edit &#8220;%s&#8221;'),$file->GetTitle())).'">';
        // if(!empty($file->file_thumbnail))
-        	$col .= '<img src="'.esc_attr($file->GetIconUrl()).'" height="32" />';
+        	$col .= '<img src="'.esc_attr($file->GetIconUrl()).'" alt="Icon" height="32" />';
         $col .= '<span>'.($file->IsRemote()?'*':'').esc_html($file->GetTitle(32)).'</span>';
         $col .= '</a>';							
         $col .= $this->row_actions($actions);
@@ -160,13 +165,21 @@ class WPFB_FileListTable extends WP_List_Table {
 		 if(!$this->current_action() || empty($_REQUEST['file']))
 			 return;
 		 
-		 $files = array_filter(array_map(array('WPFB_File','GetFile'), $_REQUEST['file']));			
-			
+		 // filter files current user can edit
+		 $files = array_filter(array_map(array('WPFB_File','GetFile'), $_REQUEST['file']),
+					create_function('$file',
+							  'return ($file && $file->CurUserCan'.'Edit'.'());'));
+		 
+			$message = null;
 			switch($this->current_action())
 			{
 				case 'delete':
-					foreach($files as $file) $file->Remove(true);
+					foreach($files as $file) {
+						$file->Remove(true);
+					}
 					WPFB_Admin::SyncCustomFields();
+					$message = sprintf(__("%d File(s) deleted.",WPFB), count($files));
+					
 					break;
 				
 				
@@ -175,6 +188,7 @@ class WPFB_FileListTable extends WP_List_Table {
 						$file->file_offline = 1;
 						$file->DbSave();
 					}
+					$message = sprintf(__("%d File(s) were set offline.",WPFB), count($files));
 					break;
 				
 				case 'set_on':
@@ -182,8 +196,12 @@ class WPFB_FileListTable extends WP_List_Table {
 						$file->file_offline = 0;
 						$file->DbSave();
 					}
+					$message = sprintf(__("%d File(s) were set online.",WPFB), count($files));
+					
 					break;
-			}        
+			}
+			
+			if ( !empty($message) ) : ?><div id="message" class="updated fade"><p><?php echo $message; ?></p></div><?php endif; 
     }
 	 
 	 function get_file_where_cond($view='all')

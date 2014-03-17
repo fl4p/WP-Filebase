@@ -1,15 +1,8 @@
 <?php
 
 define('DOING_AJAX', true);
-//FASTLOAD define('WP_INSTALLING', true); // make wp load faster
-error_reporting(0);
 
-@ob_start();
-require_once(dirname(__FILE__).'/../../../wp-load.php');
-@ob_end_clean();
-
-//FASTLOAD require_once(dirname(__FILE__).'/wp-filebase.php'); // load wp-filebase only, no other plugins
-//FASTLOAD wpfb_loadclass('Core');
+require_once('wpfb-load.php');
 
 function wpfb_print_json($obj) {
 	//if(!WP_DEBUG)
@@ -96,7 +89,7 @@ switch ( $action = $_REQUEST['action'] ) {
 			if(!empty($_REQUEST['exclude_attached']) && $_REQUEST['exclude_attached'] != 'false') $where .= " AND `file_post_id` = 0";
 			
 			$files = WPFB_File::GetFiles2(
-				$where,  WPFB_Core::GetOpt('hide_inaccessible'),
+				$where,  (WPFB_Core::GetOpt('hide_inaccessible') && !($filesel && wpfb_call('Admin','CurUserCanUpload'))),
 				$browser ? WPFB_Core::GetFileListSortSql((WPFB_Core::GetOpt('file_browser_file_sort_dir')?'>':'<').WPFB_Core::GetOpt('file_browser_file_sort_by')) : 'file_name'
 			);
 			
@@ -248,9 +241,11 @@ switch ( $action = $_REQUEST['action'] ) {
 		if($id == 0)
 			$terms = array_merge($terms, get_pages(/*array('parent' => $id)*/));
 			
-		foreach($terms as &$t) {
+		foreach($terms as $t) {
+			$post_title = stripslashes(get_the_title($t->ID));
+			if(empty($post_title)) $post_title = $t->ID;
 			$items[] = array('id' => $t->ID, 'classes' => 'file',
-			'text'=> ('<a href="javascript:'.sprintf($onclick,$t->ID, str_replace('\'','\\\'',/*htmlspecialchars*/(stripslashes(get_the_title($t->ID))))).'">'.get_the_title($t->ID).'</a>'));
+			'text'=> ('<a href="javascript:'.sprintf($onclick,$t->ID, str_replace('\'','\\\'',/*htmlspecialchars*/$post_title)).'">'.$post_title.'</a>'));
 		}
 
 		wpfb_print_json($items);

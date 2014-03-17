@@ -60,7 +60,7 @@ class WPFB_ListTpl {
 		
 		
 		$count = 0;
-		$str = preg_replace("/jQuery\((.+?)\)\.dataTable\s*\((.*?)\)\s*;/", 'jQuery($1).dataTable((function(options){/*%WPFB_DATA_TABLE_OPTIONS_FILTER%*/})($2));', $str, -1, $count);
+		$str = preg_replace("/jQuery\((.+?)\)\.dataTable\s*\((.*?)\)(\.?.*?)\s*;/", 'jQuery($1).dataTable((function(options){/*%WPFB_DATA_TABLE_OPTIONS_FILTER%*/})($2))$3;', $str, -1, $count);
 		if($count > 0)
 		{
 			$dataTableOptions = array();

@@ -99,5 +99,22 @@ if(typeof(jQuery) != 'undefined') {
 	jQuery(document).ready(function() {
 		wpfb_setupLinks();
 		setInterval(wpfb_setupLinks, 300);
-	});
+	});	
+}
+
+function wpfb_setupFormAutoSave(form)
+{
+	var theForm = jQuery(form);
+	theForm.dis
+	var form_name = theForm.attr('name');
+	var settingName = form_name ? form_name :'batch_presets';
+	// serialization (save/load)
+	theForm.find('*[name^="file_"]').prop('disabled',true).change(function(){
+		var formData = theForm.serialize().replace(/file_user_roles%5B%5D=.+?&/gi,''); // fix: remove user roles, serialization does not work properly!
+		jQuery.ajax({url: wpfbConf.ajurl, type:"POST", data:{action:'set-user-setting',name:settingName,value: formData }});
+	});	
+	jQuery.ajax({url: wpfbConf.ajurl, data:{action:'get-user-setting',name:settingName}, dataType:'json', success: (function(data){
+			theForm.find('*[name^="file_"]').prop('disabled', false);
+		if(data) theForm.deserialize(data);
+	})});
 }

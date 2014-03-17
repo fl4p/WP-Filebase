@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
 	<div class="sidebar-name">
 	<div class="sidebar-name-arrow"><br /></div>
 	<h3><?php printf(__('How to get started with %s?', WPFB), WPFB_PLUGIN_NAME); ?></h3></div>
-	<div class='widgets-sortables'>
+	<div class='widgets-sortables' style="display:none;">
 		<ul>
 			<li><a href="<?php echo esc_attr(admin_url("admin.php?page=wpfilebase_cats#addcat")); ?>"><?php _e('Create a Category',WPFB) ?></a></li>
 			

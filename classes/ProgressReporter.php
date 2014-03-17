@@ -10,6 +10,7 @@
 	function WPFB_ProgressReporter($suppress_output = false)
 	{
 		$this->quiet = !!$suppress_output;
+		$this->debug = !empty($_REQUEST['debug']);
 	}
 	
 	function Log($msg, $no_new_line=false) {
@@ -27,6 +28,10 @@
 	{
 		if($this->quiet) return;
 		self::DEcho("<span style='color:#d00;'>".$e->getMessage()."</span><br />");
+		if($this->debug)  {
+			var_dump ($e);
+			self::DEcho("<br />");
+		}
 	}
 	
 	function InitProgress($progress_end)

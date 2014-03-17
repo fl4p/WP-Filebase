@@ -31,6 +31,9 @@ require_once('wp-filebase.php');
 if(!function_exists('get_current_screen')) {
 	function get_current_screen() { return null; }
 }
+if(!function_exists('add_meta_box')) {
+	function add_meta_box() { return null; }
+}
 
 auth_redirect(); 
 
@@ -90,10 +93,9 @@ case 'change-order':
 		if(strpos($n, 'file_attach_order-') === 0)
 		{
 			$file_id = intval(substr($n, strlen('file_attach_order-')));
-			$file = WPFB_File::GetFile($file_id);
-			if(!is_null($file)) {
-				$file->file_attach_order = intval($v);
-				$file->DBSave();
+			if(!is_null($f = WPFB_File::GetFile($file_id))) {
+				$f->file_attach_order = intval($v);
+				$f->DBSave();
 			}
 		}
 	}
@@ -156,9 +158,30 @@ wp_admin_css( 'colors-fresh', true );
 		margin-top: 10px;
 	}
 	
+	.media-item input {
+		text-align: right;
+		width: 30px;
+		display: inline-block;
+	}
+	
+	.media-item img.pinkynail {
+		display: inline-block;
+		vertical-align: middle;
+		float: none;
+	}
+	
+	.media-item .filename {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	
 	form, .container {
 		padding: 0;
 		margin: 10px;
+	}
+	
+	#media-upload .widefat {
+		width: 100% !important;
 	}
 	
 -->
@@ -180,9 +203,6 @@ var currentTab = '';
 var selectedCats = [];
 var includeAllCats = false;
 
-
-
-
 function selectFile(id, name)
 {
 	var theTag = {"tag":currentTab, <?php echo WPFB_Core::GetOpt('use_path_tags') ? '"path": getFilePath(id)' : '"id":id'; ?>};
@@ -202,7 +222,7 @@ function selectFile(id, name)
 		return;
 	} else if(currentTab == 'fileurl') {
 <?php if(empty($_GET['content'])) {?>
-		var linkText = prompt("<?php echo esc_attr(__('Enter link text:', WPFB)); ?>", name);
+		var linkText = prompt("<?php echo esc_attr(__('Enter link text. Prepend * to open link in a new tab.', WPFB)); ?>", name);
 		if(!linkText || linkText == null || linkText == '')	return;
 <?php } else echo " var linkText = '".$_GET['content']."'; "; ?>
 		theTag.linktext = linkText;
@@ -229,7 +249,7 @@ function insBrowserTag()
 </script>
 
 </head>
-<body id="media-upload" class="wp-core-ui">
+<body id="media-upload" class="wp-core-ui" style="background:none;">
 
 <div id="media-upload-header">
 <?php if(!$manage_attachments) {?>
@@ -251,6 +271,7 @@ if(!WPFB_Core::GetOpt('auto_attach_files')) {
 	printf(__('Note: Listing of attached files is disabled. You have to <a href="%s">insert the attachments tag</a> to show the files in the content.'),'javascript:insAttachTag();');
 	echo '</div>';
 }
+
 
 if($action =='addfile' || $action =='updatefile')
 {
@@ -274,7 +295,7 @@ if($action =='addfile' || $action =='updatefile')
 	}
 }
 
-$post_attachments = ($post_id > 0) ? WPFB_File::GetAttachedFiles($post_id) : array();
+$post_attachments = ($post_id > 0) ? WPFB_File::GetAttachedFiles($post_id, true) : array();
 	
 if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) {
 	?>
@@ -285,14 +306,15 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	if(empty($post_attachments)) echo "<div class='media-item'>",__('No items found.'),"</div>";
 	else foreach($post_attachments as $pa) { ?>
 		<div class='media-item'>
-			<?php if(!empty($pa->file_thumbnail)) { ?><img class="pinkynail toggle" src="<?php echo $pa->GetIconUrl(); ?>" alt="" style="margin-top: 3px; display: block;" /><?php } ?>
+			<input type="text" size="3" name="file_attach_order-<?php echo $pa->file_id ?>" value="<?php echo $pa->file_attach_order ?>" />
+
+			<?php if(!empty($pa->file_thumbnail)) { ?><img class="pinkynail toggle" src="<?php echo $pa->GetIconUrl(); ?>" alt="" /><?php } ?>
 
 			<a class='toggle describe-toggle-on' href="<?php echo add_query_arg(array('file_id'=>$pa->file_id,'action'=>'delfile')) ?>" onclick="return confirm('Do you really want to delete this file?')" title="<?php _e('Delete') ?>"><img style="display: inline;" src="<?php echo WPFB_PLUGIN_URI.'extras/jquery/contextmenu/delete_icon.gif'; ?>" /></a>
 			<a class='toggle describe-toggle-on' href="<?php echo add_query_arg(array('file_id'=>$pa->file_id,'action'=>'detachfile')) ?>" title="<?php _e('Remove') ?>"><img src="<?php echo WPFB_PLUGIN_URI.'extras/jquery/contextmenu/page_white_delete.png'; ?>" /></a>
 			<a class='toggle describe-toggle-on' href="<?php echo add_query_arg(array('file_id'=>$pa->file_id,'action'=>'editfile')) ?>" title="<?php _e('Edit') ?>"><img src="<?php echo WPFB_PLUGIN_URI.'extras/jquery/contextmenu/page_white_edit.png'; ?>" /></a>
 
 			<div class='filename'>
-				<input type="text" size="3" name="file_attach_order-<?php echo $pa->file_id ?>" value="<?php echo $pa->file_attach_order ?>" style="text-align: right; width: 30px;" />
 				<span class='title'><?php echo $pa->file_display_name ?></span>
 			</div>
 		</div>
@@ -334,10 +356,13 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 </div>
 <div id="catselect" class="container">
 	<h2><?php _e('Select Category'/*def*/); ?></h2>
-	<p><?php _e('Select the categories containing the files you would like to list.',WPFB); ?></p>
-	<p><input type="checkbox" id="list-all-files" name="list-all-files" value="1" onchange="incAllCatsChanged(this.checked)"/> <label for="list-all-files"><?php _e('Include all Categories',WPFB); ?></label></p>
+	<div id="catselect-filter">
+		<p><?php _e('Select the categories containing the files you would like to list.',WPFB); ?></p>
+		<p><input type="checkbox" id="list-all-files" name="list-all-files" value="1" onchange="incAllCatsChanged(this.checked)"/> <label for="list-all-files"><?php _e('Include all Categories',WPFB); ?></label></p>
+	
+	</div>
+	
 	<ul id="catbrowser" class="filetree"></ul>
-
 </div>
 <form id="listtplselect">
 	<h2><?php _e('Select Template', WPFB) ?></h2>

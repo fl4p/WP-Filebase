@@ -6,7 +6,7 @@ static $sample_cat = null;
 static $protected_tags = array('default','single','excerpt','filebrowser','filepage','filepage_excerpt');
 
 static function InitClass() {
-	global $user_identity, $current_user;
+	global $user_identity;
 	wpfb_loadclass('File', 'Category');
 	
 	self::$sample_file = new WPFB_File(array(
@@ -21,7 +21,7 @@ static function InitClass() {
 		'file_version' => WPFB_VERSION,
 		'file_author' => $user_identity,
 		'file_hits' => 3,
-		'file_added_by' => $current_user->ID
+		'file_added_by' => wp_get_current_user()->ID
 	));
 	
 	self::$sample_cat = new WPFB_Category(array(
@@ -260,7 +260,7 @@ static function TplsTable($type, $exclude=array(), $include=array()) {
 		<th scope="row" class="check-column"><input type="checkbox" name="tpl[]" value="<?php echo esc_attr($tpl_tag) ?>" /></th>
 		<td class="column-title">
 			<strong><a class="row-title" href="<?php echo $edit_link ?>" title="<?php printf(__('Edit &#8220;%s&#8221;'), $tpl_tag) ?>"><?php echo self::TplTitle($tpl_tag); ?></a></strong><br />
-			<code>tag=<?php echo $tpl_tag; ?></code>
+			<code>tpl=<?php echo $tpl_tag; ?></code>
 			<div class="row-actions"><span class='edit'><a href="<?php echo $edit_link ?>" title="<?php _e('Edit this item') ?>"><?php _e('Edit') ?></a></span>
 			<?php if(!in_array($tpl_tag, self::$protected_tags)){ ?><span class='trash'>| <a class='submitdelete' title='<?php _e('Delete this item permanently') ?>' href='<?php echo add_query_arg(array('action'=>'del','type'=>$type,'tpl'=>$tpl_tag)).'#'.$type ?>'><?php _e('Delete') ?></a></span><?php } ?>
 			</div>
@@ -335,13 +335,13 @@ static function TplForm($type, $tpl_tag=null)
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="tpl-list-cat-tpl"><?php _e('Category Template', WPFB) ?></label></th>
 		<td width="">
-			<select id="tpl-list-cat-tpl" name="tpl-list-cat-tpl" onchange="WPFB_PreviewTpl(this, '<?php echo $type ?>')"><?php echo self::TplDropDown('cat', $tpl->cat_tpl_tag); ?></select>
+			<select id="tpl-list-cat-tpl" name="tpl-list-cat-tpl" onchange="WPFB_PreviewTpl(this, '<?php echo $type ?>')"><?php echo WPFB_Admin::TplDropDown('cat', $tpl->cat_tpl_tag); ?></select>
 		</td>
 	</tr>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="tpl-list-file-tpl"><?php _e('File Template', WPFB) ?></label></th>
 		<td>
-			<select id="tpl-list-file-tpl" name="tpl-list-file-tpl" onchange="WPFB_PreviewTpl(this, '<?php echo $type ?>')"><?php echo self::TplDropDown('file', $tpl->file_tpl_tag); ?></select>
+			<select id="tpl-list-file-tpl" name="tpl-list-file-tpl" onchange="WPFB_PreviewTpl(this, '<?php echo $type ?>')"><?php echo WPFB_Admin::TplDropDown('file', $tpl->file_tpl_tag); ?></select>
 		</td>
 	</tr>
 	<tr class="form-field">
@@ -374,14 +374,7 @@ static function TplForm($type, $tpl_tag=null)
 <?php
 }
 
-static function TplDropDown($type, $selected=null) {
-	$tpls = WPFB_Core::GetTpls($type);
-	$content = '<option value="default">'.__('Default').'</option>';
-	foreach($tpls as $tag => $tpl) {
-		if($tag != 'default') $content .= '<option value="'.$tag.'"'.(($selected==$tag)?' selected="selected"':'').'>'.__(__(esc_attr(WPFB_Output::Filename2Title($tag))), WPFB).'</option>';
-	}
-	return $content;
-}
+
 
 static function TplTitle($tpl_tag)
 {

@@ -43,16 +43,16 @@ static function AddOptions()
 	
 	add_option(WPFB_OPT_NAME.'_ftags', array(), null, 'no'/*autoload*/); 
 	
+	
+	
+	// for static css caching
+	add_option('wpfb_css', WPFB_PLUGIN_URI . 'wp-filebase.css');
  
 }
 static function AddTpls($old_ver=null) {	
 	$def_tpls_file = array(
 		'filebrowser' => '%file_small_icon% <a href="%file_url%" title="Download %file_display_name%">%file_display_name%</a> (%file_size%)',
-		'download-button' => '<style type="text/css" media="screen">
-	.wpfb-dlbtn div { width:250px; height:40px; margin:0; padding:0; background:transparent url(\'%wpfb_url%/images/dl_btn.png\') no-repeat top center;}
-	.wpfb-dlbtn div:hover { background-image: url(%wpfb_url%/images/dl_btn_hover.png); }
-</style>
-<div style="text-align:center; width:250px; margin: auto; font-size:smaller;"><a href="%file_url%" class="wpfb-dlbtn"><div></div></a>
+		'download-button' => '<div style="text-align:center; width:250px; margin: auto; font-size:smaller;"><a href="%file_url%" class="wpfb-dlbtn"><div></div></a>
 %file_display_name% (%file_size%, %file_hits% downloads)
 </div>',
 		'image_320' => '[caption id="file_%file_id%" align="alignnone" width="320" caption="<!-- IF %file_description% -->%file_description%<!-- ELSE -->%file_display_name%<!-- ENDIF -->"]<img class="size-full" title="%file_display_name%" src="%file_url%" alt="%file_display_name%" width="320" />[/caption]'."\n\n",
@@ -196,6 +196,8 @@ static function RemoveOptions()
 {
 	delete_option(WPFB_OPT_NAME);
 	
+	delete_option('wpfb_css');
+	
 	// delete old options too
 	$options = WPFB_Admin::SettingsSchema();
 	foreach($options as $opt_name => $opt_data)
@@ -306,6 +308,8 @@ static function SetupDBTables($old_ver=null)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8";
 
 	
+	
+
 
 	// errors of queries starting with @ are supressed
 	
@@ -533,13 +537,19 @@ static function ContentReplaceOldTags(&$content)
 	return $converted;
 }
 
-static function ProtectUploadPath()
+static function UnProtectUploadPath()
 {
 	$dir = WPFB_Core::UploadDir();
 	if(!is_dir($dir)) WPFB_Admin::Mkdir($dir);
 	$htaccess = "$dir/.htaccess";
 	
-	if(is_file($htaccess)) @unlink($htaccess);
+	if(is_file($htaccess)) @unlink($htaccess);	
+	return $htaccess;
+}
+
+static function ProtectUploadPath()
+{
+	$htaccess = self::UnProtectUploadPath();
 	
 	if(WPFB_Core::GetOpt('protect_upload_path') && is_writable(WPFB_Core::UploadDir()) && ($fp = @fopen($htaccess, 'w')) )
 	{
@@ -578,11 +588,23 @@ static function OnActivateOrVerChange($old_ver=null) {
 	if(!get_option('wpfb_install_time')) add_option('wpfb_install_time', (($ft=(int)mysql2date('U',$wpdb->get_var("SELECT file_mtime FROM $wpdb->wpfilebase_files ORDER BY file_mtime ASC LIMIT 1")))>0)?$ft:time(), null, 'no');
 	
 	
+	
+	// move old css
+	if(file_exists(WPFB_Core::GetOldCustomCssPath())) {
+		$wp_upload = wp_upload_dir();
+		$wp_upload_ok = (empty($wp_upload['error']) && is_writable($wp_upload['basedir']));
+		if($wp_upload_ok && @rename(WPFB_Core::GetOldCustomCssPath(), $wp_upload['basedir'] . '/wp-filebase.css')) {
+			update_option('wpfb_css', $wp_upload['baseurl'] . '/wp-filebase.css?t='.time());
+		}
+	}
+	
 	flush_rewrite_rules();
 }
 
 static function OnDeactivate() {
 	wp_clear_scheduled_hook(WPFB.'_cron');
+	
+	self::UnProtectUploadPath();
 	
 	if(get_option('wpfb_uninstall')) {
 		self::RemoveOptions();

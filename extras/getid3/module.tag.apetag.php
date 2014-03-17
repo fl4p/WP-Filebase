@@ -3,6 +3,7 @@
 /// getID3() by James Heinrich <info@getid3.org>               //
 //  available at http://getid3.sourceforge.net                 //
 //            or http://www.getid3.org                         //
+//          also https://github.com/JamesHeinrich/getID3       //
 /////////////////////////////////////////////////////////////////
 // See readme.txt for more details                             //
 /////////////////////////////////////////////////////////////////
@@ -15,10 +16,10 @@
 
 class getid3_apetag extends getid3_handler
 {
-	var $inline_attachments = true; // true: return full data for all attachments; false: return no data for all attachments; integer: return data for attachments <= than this; string: save as file to this directory
-	var $overrideendoffset  = 0;
+	public $inline_attachments = true; // true: return full data for all attachments; false: return no data for all attachments; integer: return data for attachments <= than this; string: save as file to this directory
+	public $overrideendoffset  = 0;
 
-	function Analyze() {
+	public function Analyze() {
 		$info = &$this->getid3->info;
 
 		if (!getid3_lib::intValueSupported($info['filesize'])) {
@@ -32,8 +33,8 @@ class getid3_apetag extends getid3_handler
 
 		if ($this->overrideendoffset == 0) {
 
-			fseek($this->getid3->fp, 0 - $id3v1tagsize - $apetagheadersize - $lyrics3tagsize, SEEK_END);
-			$APEfooterID3v1 = fread($this->getid3->fp, $id3v1tagsize + $apetagheadersize + $lyrics3tagsize);
+			$this->fseek(0 - $id3v1tagsize - $apetagheadersize - $lyrics3tagsize, SEEK_END);
+			$APEfooterID3v1 = $this->fread($id3v1tagsize + $apetagheadersize + $lyrics3tagsize);
 
 			//if (preg_match('/APETAGEX.{24}TAG.{125}$/i', $APEfooterID3v1)) {
 			if (substr($APEfooterID3v1, strlen($APEfooterID3v1) - $id3v1tagsize - $apetagheadersize, 8) == 'APETAGEX') {
@@ -51,8 +52,8 @@ class getid3_apetag extends getid3_handler
 
 		} else {
 
-			fseek($this->getid3->fp, $this->overrideendoffset - $apetagheadersize, SEEK_SET);
-			if (fread($this->getid3->fp, 8) == 'APETAGEX') {
+			$this->fseek($this->overrideendoffset - $apetagheadersize);
+			if ($this->fread(8) == 'APETAGEX') {
 				$info['ape']['tag_offset_end'] = $this->overrideendoffset;
 			}
 
@@ -68,21 +69,21 @@ class getid3_apetag extends getid3_handler
 		// shortcut
 		$thisfile_ape = &$info['ape'];
 
-		fseek($this->getid3->fp, $thisfile_ape['tag_offset_end'] - $apetagheadersize, SEEK_SET);
-		$APEfooterData = fread($this->getid3->fp, 32);
+		$this->fseek($thisfile_ape['tag_offset_end'] - $apetagheadersize);
+		$APEfooterData = $this->fread(32);
 		if (!($thisfile_ape['footer'] = $this->parseAPEheaderFooter($APEfooterData))) {
 			$info['error'][] = 'Error parsing APE footer at offset '.$thisfile_ape['tag_offset_end'];
 			return false;
 		}
 
 		if (isset($thisfile_ape['footer']['flags']['header']) && $thisfile_ape['footer']['flags']['header']) {
-			fseek($this->getid3->fp, $thisfile_ape['tag_offset_end'] - $thisfile_ape['footer']['raw']['tagsize'] - $apetagheadersize, SEEK_SET);
-			$thisfile_ape['tag_offset_start'] = ftell($this->getid3->fp);
-			$APEtagData = fread($this->getid3->fp, $thisfile_ape['footer']['raw']['tagsize'] + $apetagheadersize);
+			$this->fseek($thisfile_ape['tag_offset_end'] - $thisfile_ape['footer']['raw']['tagsize'] - $apetagheadersize);
+			$thisfile_ape['tag_offset_start'] = $this->ftell();
+			$APEtagData = $this->fread($thisfile_ape['footer']['raw']['tagsize'] + $apetagheadersize);
 		} else {
 			$thisfile_ape['tag_offset_start'] = $thisfile_ape['tag_offset_end'] - $thisfile_ape['footer']['raw']['tagsize'];
-			fseek($this->getid3->fp, $thisfile_ape['tag_offset_start'], SEEK_SET);
-			$APEtagData = fread($this->getid3->fp, $thisfile_ape['footer']['raw']['tagsize']);
+			$this->fseek($thisfile_ape['tag_offset_start']);
+			$APEtagData = $this->fread($thisfile_ape['footer']['raw']['tagsize']);
 		}
 		$info['avdataend'] = $thisfile_ape['tag_offset_start'];
 
@@ -289,7 +290,7 @@ class getid3_apetag extends getid3_handler
 		return true;
 	}
 
-	function parseAPEheaderFooter($APEheaderFooterData) {
+	public function parseAPEheaderFooter($APEheaderFooterData) {
 		// http://www.uni-jena.de/~pfk/mpp/sv8/apeheader.html
 
 		// shortcut
@@ -313,7 +314,7 @@ class getid3_apetag extends getid3_handler
 		return $headerfooterinfo;
 	}
 
-	function parseAPEtagFlags($rawflagint) {
+	public function parseAPEtagFlags($rawflagint) {
 		// "Note: APE Tags 1.0 do not use any of the APE Tag flags.
 		// All are set to zero on creation and ignored on reading."
 		// http://www.uni-jena.de/~pfk/mpp/sv8/apetagflags.html
@@ -328,7 +329,7 @@ class getid3_apetag extends getid3_handler
 		return $flags;
 	}
 
-	function APEcontentTypeFlagLookup($contenttypeid) {
+	public function APEcontentTypeFlagLookup($contenttypeid) {
 		static $APEcontentTypeFlagLookup = array(
 			0 => 'utf-8',
 			1 => 'binary',
@@ -338,7 +339,7 @@ class getid3_apetag extends getid3_handler
 		return (isset($APEcontentTypeFlagLookup[$contenttypeid]) ? $APEcontentTypeFlagLookup[$contenttypeid] : 'invalid');
 	}
 
-	function APEtagItemIsUTF8Lookup($itemkey) {
+	public function APEtagItemIsUTF8Lookup($itemkey) {
 		static $APEtagItemIsUTF8Lookup = array(
 			'title',
 			'subtitle',
@@ -368,5 +369,3 @@ class getid3_apetag extends getid3_handler
 	}
 
 }
-
-?>

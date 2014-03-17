@@ -3,6 +3,7 @@
 /// getID3() by James Heinrich <info@getid3.org>               //
 //  available at http://getid3.sourceforge.net                 //
 //            or http://www.getid3.org                         //
+//          also https://github.com/JamesHeinrich/getID3       //
 /////////////////////////////////////////////////////////////////
 //                                                             //
 // extension.cache.mysql.php - part of getID3()                //
@@ -10,8 +11,8 @@
 //                                                            ///
 /////////////////////////////////////////////////////////////////
 //                                                             //
-// This extension written by Allan Hansen <ahØartemis*dk>      //
-// Table name mod by Carlo Capocasa <calroØcarlocapocasa*com>  //
+// This extension written by Allan Hansen <ahÃ˜artemis*dk>      //
+// Table name mod by Carlo Capocasa <calroÃ˜carlocapocasa*com>  //
 //                                                            ///
 /////////////////////////////////////////////////////////////////
 
@@ -74,12 +75,12 @@ class getID3_cached_mysql extends getID3
 {
 
 	// private vars
-	var $cursor;
-	var $connection;
+	private $cursor;
+	private $connection;
 
 
 	// public: constructor - see top of this file for cache type and cache_options
-	function getID3_cached_mysql($host, $database, $username, $password, $table='getid3_cache') {
+	public function getID3_cached_mysql($host, $database, $username, $password, $table='getid3_cache') {
 
 		// Check for mysql support
 		if (!function_exists('mysql_pconnect')) {
@@ -112,13 +113,13 @@ class getID3_cached_mysql extends getID3
 			$this->clear_cache();
 		}
 
-		parent::getID3();
+		parent::__construct();
 	}
 
 
 
 	// public: clear cache
-	function clear_cache() {
+	public function clear_cache() {
 
 		$this->cursor = mysql_query("DELETE FROM `".mysql_real_escape_string($this->table)."`", $this->connection);
 		$this->cursor = mysql_query("INSERT INTO `".mysql_real_escape_string($this->table)."` VALUES ('".getID3::VERSION."', -1, -1, -1, '".getID3::VERSION."')", $this->connection);
@@ -127,7 +128,7 @@ class getID3_cached_mysql extends getID3
 
 
 	// public: analyze file
-	function analyze($filename) {
+	public function analyze($filename) {
 
 		if (file_exists($filename)) {
 
@@ -157,7 +158,7 @@ class getID3_cached_mysql extends getID3
 
 
 	// private: (re)create sql table
-	function create_table($drop=false) {
+	private function create_table($drop=false) {
 
 		$this->cursor = mysql_query("CREATE TABLE IF NOT EXISTS `".mysql_real_escape_string($this->table)."` (
 			`filename` VARCHAR(255) NOT NULL DEFAULT '',
@@ -165,9 +166,7 @@ class getID3_cached_mysql extends getID3
 			`filetime` INT(11) NOT NULL DEFAULT '0',
 			`analyzetime` INT(11) NOT NULL DEFAULT '0',
 			`value` TEXT NOT NULL,
-			PRIMARY KEY (`filename`,`filesize`,`filetime`)) TYPE=MyISAM", $this->connection);
+			PRIMARY KEY (`filename`,`filesize`,`filetime`)) ENGINE=MyISAM", $this->connection);
 		echo mysql_error($this->connection);
 	}
 }
-
-?>

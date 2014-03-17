@@ -1,0 +1,1144 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2013-10-25 22:57+0100\n"
+"Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: editor_plugin.php:37
+#: editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "Arxius Sense Categoria"
+
+#: editor_plugin.php:42
+#, php-format
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "No ha carregat un fitxer. <a href=\"%s\" target=\"_parent\"> Fes clic aquí per afegir-ne un. </ a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "Introduïu el text de l'enllaç:"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "Només un fitxer"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "URL de l'arxiu"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "Llista de fitxers"
+
+msgid "Category list"
+msgstr "Llista de categories"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "Totes les categories"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "Adjunts"
+
+#: editor_plugin.php:266
+#, php-format
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Vostè no ha creat una categoria. <a href=\"%s\" target=\"_parent\"> Faci clic aquí per crear-ne una. </ a>"
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "Seleccioneu Plantilla"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "Plantilla per defecte"
+
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "Afegir plantilla"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Una entrada per línia. Separeu el títol i una etiqueta curta (no més de 8 caràcters) amb '|'. <br /> Totes les línies que comencen amb '*' són seleccionats per defecte."
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "Una entrada per línia."
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "Limita la velocitat màxima de transferència per a les descàrregues. 0 = il·limitada"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "Limita el tràfic de dades màxim. 0 = il·limitat"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "Ruta de pujades"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "Show attached files"
+msgstr "Mostra tots els fitxers adjunts"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "Si està activada, tots els arxius associats s'enumeren a continuació d'un article"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "Ordenació per defecte"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "Les llistes de propietats d'arxius estan ordenades per"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "Direcció d'ordenació"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "El sentit de l'ordre de les llistes d'arxius"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "Límit de velocitat per als convidats"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "Límit de velocitat per als usuaris registrats"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "Límit de tràfic diari"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "Límit de tràfic mensual"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "Quantitat de tràfic excedit! Si us plau intenta-ho de nou més tard."
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "Missatge d'excés de Tràfic"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "Límit diari de descàrrega per a l'usuari"
+
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Si està habilitat, els usuaris no registrats no poden descarregar cap fitxer. Podeu establir límits diferents per a cada rol d'usuari a continuació."
+
+msgid "downloads per day"
+msgstr "descàrregues per dia"
+
+msgid "Daily limit for %s"
+msgstr "Límit diari per%s"
+
+msgid "You can only download %d files per day."
+msgstr "Només pots descarregar %d fitxers per dia."
+
+msgid "Daily limit exceeded message"
+msgstr "Missatge de límit diari excedit"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "Aquest fitxer és fora de línia."
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "Missatge de fitxer fora de línia"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "Desactivar descàrregar permalinks"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "Habiliteu aquesta opció si té problemes amb els permalinks."
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "URL base de descàrrega"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "URL prefix per als enllaços de descàrrega de fitxers. Exemple: <codi>%s</code> (Només s'utilitza quan els Permalinks estan habilitats.)"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "ID de l'entrada de l'explorador de fitxers"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Especifiqueu l'identificador de l'entrada o la pàgina o on s'hauria d'ubicar l'explorador de fitxers. Si voleu desactivar aquesta funció deixeu el camp en blanc."
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "Llista desplegable de categories"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Utilitzeu la llista desplegable de categories al navegador de fitxers en lloc del llistat com a fitxers."
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "Sempre forçar descàrrega"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Si està activat, els fitxers poden ser visualitzats al navegador (com imatges, documents PDF o vídeos) només es poden descarregar (sense streaming)."
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "Ignorar les descàrregues dels administradors"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "Amaga arxius inaccessibles i categories"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Si habilitat els fitxers etiquetats <i>Només per a membres </i> no seràn llistats als convidats o usuaris sense permisos insuficients."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "No se li permet tenir accés a aquest fitxer!"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "Missatge de fitxers inaccessible"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Aquest missatge es mostra si els usuaris intenten descarregar un fitxer al que no tenen accés"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "Redireccionar per iniciar la sessió"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Si aquesta opció està activada, els convidats que intentin descarregar fitxers inaccessibles seran redirigits a la pàgina d'inici de sessió."
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "Analitzar etiquetes de plantilla en els canals RSS"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "Si està habilitat etiquetes de contingut WP-filebase s'analitzen en els canals RSS."
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "Permetre script de càrrega"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Si activeu aquesta opció, els scripts com PHP o CGI poden ser carregats. <b>ADVERTÈNCIA:</b> Habilita script de càrrega és un <b>risc de seguretat</b>!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "Acceptar referers buides"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Si està habilitat, els arxius d'enllaç directe protegits poden ser descarregats quan el referenciador està buit (és a dir, l'usuari introdueix la URL de l'arxiu a la barra d'adreces o el navegador no envia referers)"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "Acceptar referers"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "Els llocs amb adreces URL que coincideixin poden enllaçar als fitxers directament."
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "Prefixos de mida del fitxer en sistema decimal"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Habiliteu aquesta opció si voleu prefixos en sistema decimal (1 Mb = 1.000 Kb = 1 000 000 B) en lloc de binari (1 Mb = 1024 Kb = 1048576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "Plataformes"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "Llicències"
+
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "Requeriments"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Vostè pot afegir opcionalment | <i>URL</i> a cada línia per enllaçar el programari/fitxer desitjat."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "Fitxer de plantilla per defecte"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "La plantilla per als fitxers adjunts"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "Plantilla de Categoria"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "La plantilla per a llistes de categories (utilitzat en l'explorador de fitxers)"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "Descarregar JavaScript"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Aquí podeu introduir codi JavaScript que s'executa quan un usuari fa clic a enllaç de descàrrega del fitxer. Les variables es poden utilitzar: <i>file_id</i>: l'ID del fitxer, <i>file_url</i>: la URL de l'enllaç clicat"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "La categoria d'URL"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "Ruta de la categoria (exemple: cat1/cat2/)"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "Només el nom de carpeta de la categoria, i no la ruta"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "Nom de la categoria pare (buit si no hi ha)"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "El nombre de fitxers a la categoria"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "El nivell mínim d'usuari per accedir a aquesta categoria (-1 = convidat, 0 = Subscriptor...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "Identificador de la categoria"
+
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "Un únic número identificador per identificar els elements d'una plantilla"
+
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "Nom del fitxer"
+
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "Mida del fitxer amb format"
+
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "Data del fitxer amb format"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "Nom del fitxer de miniatura"
+
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "Versió del fitxer"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "Idiomes suportats"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "Plataformes compatibles (sistemes operatius)"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "Requisits per utilitzar aquest fitxer"
+
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "Llicència"
+
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "El nivell mínim d'usuari per descarregar aquest fitxer (-1 = convidat, 0 = subscriptor...)"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "1 si l'arxiu no està en línia, en cas contrari 0"
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1 si es permet la vinculació directa, en cas contrari 0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "El nom de la categoria"
+
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "Identificació de l'entrada/pàgina al que pertany aquest fitxer"
+
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "IDentificador de l'usuari propietari"
+
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "Quantes vegades s'ha descarregat el fitxer."
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "Adreça IP de l'últim descarregador"
+
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "Hora de la última descàrrega"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "URL de descàrrega"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "URL de l'entrada/pàgina al que pertany aquest fitxer"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "URL de la imatge miniatura o icona"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "Ruta i nom del fitxer de la categoria (per exemple: cat1/cat2/file.ext)"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "ID del fitxer"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "Descripció curta"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "Desconnectat > Online"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "Vinculació directa > redirigir a l'entrada"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "Afegir variable de la plantilla:"
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "Heu d'introduir un nom de categoria o carpeta."
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "El nom de la carpeta o categoria conté caràcters no vàlids."
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "El directori %s ja existeix!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "No es pot moure icona de la categoria!"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "L'extensió del fitxer del fitxer <b>%s</b> està prohibit!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "El fitxer %s ja existeix. Vostè l'ha d'eliminar abans!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "No es pot moure el fitxer %s! El directori de càrrega té permisos d'escriptura?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "No s'ha pujat cap fitxer."
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "No s'ha pogut obtenir la identificació de l'usuari!"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "El fitxer <b>%s</ b> no es pot escriure!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "Administrar categories (<a href=\"%s\"> afegir nova </a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "Fitxers"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Nota:</strong><br /> L'eliminació d'una categoria no s'eliminen els fitxers d'aquesta categoria. En el seu lloc, els fitxers es reassignen a la categoria pare."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "Fitxer actualitzat."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "Fitxer afegit."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "Gestionar fitxers (<a href=\"%s\">afegir nou</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "Cercar fitxers"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "Mida"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "Impactes"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "Darrera descàrrega"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "Res ha canviat!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "Han canviat %d elements."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "Afegits %d fitxers."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "Filebase sincronitzada correctament."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "Completada la sincronització de fitxers"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Comprova els canvis dels fitxers, és més fiable, però tarda molt més. Utilitza aquesta opció si has pujat/canviat fitxers per FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s no té permisos d'escriptura!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "Actualitzar fitxer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "Restaurar valors predeterminats"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "Editar plantilles"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "Guardar els canvis de la plantilla"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "Etiqueta de la plantilla (una sola paraula per descriure la plantilla):"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "Codi de la plantilla:"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "El directori de càrrega <code>%s</code> no existeix. I no es pot crear automàticament perquè el directori <code>%s</code> no té permisos d'escriptura. Si us plau, crea abans <code>%s</code> i fer-lo d'escriptura per al servidor web executant la següent comanda FTP: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "El directori de càrrega <code>%s</code> no té permisos d'escriptura. Si us plau, fes-lo d'escriptura per a PHP executant la següent comanda FTP: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "Gestió de fitxers"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "Veure fitxers carregats i editar-los"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "Gestionar Categories"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "Gestionar les categories existents i afegir-ne de noves."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "Sincronitzar Filebase"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Sincronitza la base de dades amb el sistema de fitxers. Utilitzeu aquesta opció per afegir fitxers per FTP."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "Edita full d'estils"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "Edita el full CSS de la plantilla de fitxer"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "Gestionar plantilles"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "Edita la llista plantilles personalitzades"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "Donar i funció de sol·licitud"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Si t'agrada aquest plugin i vols recolzar la meva feina, si us plau fes un donatiu. També pot publicar les seves idees fent el plugin millor."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "Tràfic"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "Avui"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "Aquest mes"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "Configuració reiniciada."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ afegida a la llista de URLs rebutjades per WP Super Caché."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "ADVERTÈNCIA: L'script de càrrega està activat!"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "Fitxer de la plantilla analitzat correctament."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "No s'ha pogut analitzar la plantilla: error (%s) a la línia%s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "Categoria de la plantilla analitzada correctament."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "Configuració actualitzada."
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "No s'ha pogut llegir el fitxer?"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "Carpeta de Categories"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "Icona de la Categoria"
+
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "Només per a membres"
+
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "Mínim nivell d'usuari: (vegeu %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "Aplicar els permisos a tots els fitxers fills"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "Editar el fitxer"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "Carregar Fitxer"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "Formulari Simple"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "Formulari Estès"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "Seleccioneu Fitxer"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "Mida màxima del fitxer: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Pots pujar opcionalment una miniatura aquí. Si el fitxer és una imatge vàlida, es genera automàticament una miniatura."
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "Els següents camps són opcionals."
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "Comptador de descàrregues"
+
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "Enllaç directe"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "Permetre enllaç directe"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "Redirigir a l'entrada"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "Desconnectat"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "Límit:"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "Plantilla:"
+
+#. Description of an extension
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Un potent gestor de descàrregues que suporta categories de fitxers, miniatures, límits de velocitat de tràfic i més."
+
+#. Template
+msgid "Version"
+msgstr "Versió"
+
+msgid "Languages"
+msgstr "Idiomes"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Category:"
+msgstr "Categoria:"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Details"
+msgstr "Detalls"
+
+#. Option Categories
+msgid "Common"
+msgstr "Comú"
+
+msgid "Display"
+msgstr "Mostra"
+
+msgid "Download"
+msgstr "Descarregar"
+
+msgid "Form Presets"
+msgstr "Ajustos de fromulari"
+
+msgid "Limits"
+msgstr "Límits"
+
+msgid "Security"
+msgstr "Seguretat"
+
+msgid "Templates and Scripts"
+msgstr "Plantilles i scripts"
+
+msgid "Lists the latest or most popular files"
+msgstr "Llistat dels fitxers més recents o els més populars"
+
+msgid "Simple listing of file categories"
+msgstr "Llistat simple de categories de fitxers"
+
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Abans d'utilitzar aquest giny, configuri una entrada per a l'explorador de fitxers a la configuració de WP-Filebase."
+
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Si t'agrada WP-filebase t'agrairia una petita donació per donar suport la meva feina. Pot a més, afegir alguna idea per fer WP-filebase encara millor. Feu clic al botó de sota. Gràcies!"
+
+msgid "Custom field '%s' removed!"
+msgstr "Camp personalitzat '%s' eliminat!"
+
+msgid "Custom field '%s' added."
+msgstr "El camp personalitzat '%s' s'ha afegit."
+
+msgid "Search Integration"
+msgstr "Integració amb cerques"
+
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Cerques en fitxers i llistes d'annexes associats a les entrades i a les pàgines quan es cerca al lloc."
+
+msgid "Restore Default Settings"
+msgstr "Restablir configuració per defecte"
+
+msgid "Attachment Position"
+msgstr "Posició d'annex"
+
+msgid "After the Content"
+msgstr "Després del contingut"
+
+msgid "Before the Content"
+msgstr "Abans del contingut"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Category Name"
+msgstr "Nom de la categoria"
+
+msgid "Category ID"
+msgstr "ID de la Categoria"
+
+msgid "Number of files per page"
+msgstr "Nombre de fitxers per pàgina"
+
+msgid "Relative path of the file"
+msgstr "Ruta d'accés relativa del fitxer"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "Longitud de la llista de fitxers per pàgina. Si s'estableix a 0 es desactiva el límit."
+
+msgid "File browser category sorting"
+msgstr "Ordenació de les categories per a l'Explorador de fitxers"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "La propietat de la categoria de les categories a l'explorador de fitxers són ordenades per"
+
+msgid "Name of the Category folder"
+msgstr "Nom de la carpeta de categories"
+
+msgid "Relative path of the category folder"
+msgstr "Ruta relativa a la carpeta de categories"
+
+msgid "File browser file sorting"
+msgstr "Ordenació dels fitxers de l'explorador de fitxers"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "El fitxer de propietats dels fitxers a l'explorador de fitxers és ordenat per"
+
+msgid "Send HTTP-Range header"
+msgstr "Enviar capçalera HTTP-Range"
+
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Permet als usuaris pausar les descàrregues i continuar més tard. A més a més, els gestors de descàrrega poden utilitzar diverses connexions al mateix temps."
+
+msgid "Disable HTTP Caching"
+msgstr "Desactivar caché HTTP"
+
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Activeu aquesta opció si teniu problemes amb les descàrregues mentre utilitzeu algun plugin Wordpress per a caché."
+
+msgid "With custom fields you can add even more file properties."
+msgstr "Amb els camps personalitzats es pot afegir encara més les propietats del fitxer."
+
+msgid "Redirect to referring page after login"
+msgstr "Redirigir a la pàgina de referència després d'iniciar sessió"
+
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Els usuaris són redireccionats cap a la pàgina en la qual van clicar l'enllaç de descàrrega després d'iniciar sessió."
+
+msgid "Protect upload path"
+msgstr "Protegir la ruta de càrrega"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "Això impedeix l'accés directe als fitxers del directori de càrrega."
+
+msgid "Hide download links"
+msgstr "Amaga els enllaços de descàrrega"
+
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Els enllaços de descàrrega no es mostraran a la barra d'estat del navegador. Hauríeu d'habilitar '%s' perquè sigui encara més difícil de trobar fora de la URL."
+
+msgid "Auto-detect thumbnails"
+msgstr "Auto-detectar miniatures"
+
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "Les imatges es consideren com miniatures dels fitxers amb el mateix nom al sincronitzar. (per exemple `fitxer.jpg`&lt;=&gt; `fitxer.zip`)"
+
+msgid "Automatic Sync"
+msgstr "Sincronització automàtica"
+
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Crear una tasca programada per sincronitzar cada hora sistema de fitxers i la base de dades."
+
+msgid "Extension Blacklist"
+msgstr "Llista negra d'extensions"
+
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Els fitxers amb una extensió d'aquesta llista són omeses durant la sincronització. (Separar amb comes)"
+
+msgid "Disable ID3 tag detection"
+msgstr "Desactivar la detecció d'etiquetes ID3"
+
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Això desactiva la lectura de tota la meta informació. Utilitzeu aquesta opció si teniu problemes d'addició de fitxers grans (kilobytes)."
+
+msgid "Search ID3 Tags"
+msgstr "Cercar Etiquetes ID3"
+
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Cercar a les metadades dels fitxers, com ID3 per a fitxers MP3, EXIF per a JPEG... (aquesta opció no augmenta significativament la càrrega del servidor, ja que totes les dades s'emmagatzemen a una taula de MySQL)"
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "Afegir WP-Filebase a la barra de menú d'administració"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "Mostra algunes accions ràpides per a la gestió de fitxers a la barra del menú d'administració."
+
+msgid "Statistics"
+msgstr "Estadístiques"
+
+msgid "Number of Files"
+msgstr "Nombre de fitxers"
+
+msgid "Number of Categories"
+msgstr "Nombre de categories"
+
+msgid "Total Downloads"
+msgstr "Descàrregues totals"
+
+msgid "Total File Size"
+msgstr "Mida total"
+
+msgid "Convert old Tags"
+msgstr "Convertir antigues etiquetes"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "Convertir etiquetes de versions anteriors a 0.2.0"
+
+msgid "Add File"
+msgstr "Afegir fitxer"
+
+msgid "Redirect download to URL"
+msgstr "Redirigir descàrrega cap a la URL"
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "Copiar el fitxer a Filebase (sideload)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "Limitar l'accés als fitxers mitjançant la selecció d'un o més rols d'usuari."
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "Seleccionar diverses funcions mantenint premuda la tecla CTRL/COMMAND."
+
+msgid "Access Permission"
+msgstr "Permís d'accés"
+
+msgid "Everyone"
+msgstr "Tothom"
+
+msgid "Add Category"
+msgstr "Afegir categoria"
+
+msgid "Exclude from file browser"
+msgstr "Excloure de l'explorador de fitxers"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "Plantilles usades per a fitxers individuals o llistes de fitxers incrustats."
+
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Per a alguns fitxers hi ha més etiquetes disponibles. Trobareu una llista d'etiquetes sota del formulari quan s'edita un fitxer."
+
+msgid "Reset all Templates to default"
+msgstr "Restablir totes les plantilles als valors per defecte"
+
+msgid "These templates can be used for categories."
+msgstr "Aquestes plantilles es poden utilitzar per a les categories."
+
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "Una llista de plantilles es composa de capçalera, peu de pàgina i el fitxer de la plantilla. Es pot tenir opcionalment una plantilla de categoria per llistar subcategories."
+
+msgid "Header"
+msgstr "Encapçalament"
+
+msgid "Footer"
+msgstr "Peu de pàgina"
+
+msgid "File Template"
+msgstr "Fitxer de plantilla"
+
+msgid "Parent Category ID"
+msgstr "ID de la categoria pare"
+
+msgid "Number of files directly in the category"
+msgstr "Nombre de fitxers de la categoria"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "Nombre de tots els fitxers de la categoria i totes les sub-categories"
+
+msgid "Attach existing file"
+msgstr "Annexar fitxer existent"
+
+msgid "Select File"
+msgstr "Seleccioneu fitxer"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "Seleccioneu les categories que contenen els fitxers que volgueu llistar."
+
+msgid "Include all Categories"
+msgstr "Incloure totes les categories"
+
+msgid "Files per page:"
+msgstr "Fitxers per pàgina"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "Establir a 0 per utilitzar el límit predeterminat (%d), -1 desactivarà la paginació."
+
+msgid "File Tree View"
+msgstr "Vista de fitxers en arbre"
+
+msgid "List selected Categories"
+msgstr "Llista de les categories seleccionades"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "Seleccioneu la categoria arrel de la vista d'arbre del navegador de fitxers:"
+
+msgid "The File has been uploaded successfully."
+msgstr "El fitxer s'ha pujat correctament."
+
+msgid "New Category created."
+msgstr "Nova categoria creada."
+
+msgid "Selectable by Uploader"
+msgstr "Seleccionable pel carregador"
+
+msgid "Upload to Root"
+msgstr "Carregar a l'arrèl"
+
+msgid "You can enter a URL to redirect users."
+msgstr "Podeu introduir una adreça URL per redirigir als usuaris."
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "Demaneu al seu proveidor d'allotjament per augmentar aquest límit, està establert en %s."
+
+msgid "Inherit Permissions"
+msgstr "Heretar permisos"
+
+msgid "Explicitly set permissions"
+msgstr "Permisos definits explícitament"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "Limiti l'accés a la categoria seleccionant un o més rols d'usuari."
+
+msgid "This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Això actualitzarà recursivament els permisos de totes les categories i arxius fills existents. Tingueu en compte que els permisos dels nous arxius en aquesta categoria s'hereten de forma automàtica, sense haver marcat aquesta casella."
+
+msgid "Owner"
+msgstr "Propietari"
+

@@ -20,6 +20,11 @@
 	display: none;
 }
 
+.wpfilebase-date-edit select, .wpfilebase-date-edit input {
+	width: auto !important;
+	display: inline-block !important;
+}
+
 .wpfilebase-list .offline {
 	/* color: #d33;
 	background-color: #f99;  */
@@ -136,11 +141,11 @@
 
 #wpfilebase-upload-menu
 {
-	width: 100%;
+	
+	float: left;
 	height: 104px;
 	background-color: #ddd;
 	padding: 0;
-
 	border: 1px solid #ddd;
 	border-right: none;
 	
@@ -182,6 +187,7 @@
 	display: block;
 	margin: 8px 0 8px 6px;
 	padding: 2px;
+	padding-right: 10px;
 }
 
 #wpfilebase-upload-menu a.current, #wpfilebase-upload-menu a:hover {
@@ -200,7 +206,7 @@
 
 #wpfilebase-upload-tabs .drag-drop #drag-drop-area {
 	width: 370px;
-	height: 40px;
+	height: auto;
 	border-width: 2px;
 }
 
@@ -210,7 +216,7 @@
 }
 
 #wpfilebase-upload-tabs .drag-drop-inside p {
-	margin: 0;
+	margin: 15px;
 	font-size: 12px;
 }
 
@@ -360,22 +366,34 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 }
 
 
-.wpfb-tools td {
-	padding: 10px;
-	cursor: default;
+
+#wpfb-tools {
+	height: 130px;
 }
 
-.wpfb-tools th {
-	text-align:center;
-	padding: 10px
+#wpfb-tools .button {
+	height: 70px !important;
 }
 
-.wpfb-tools tr {
-	border-bottom: 1px solid #aaa;
+#wpfb-tools .button span {
+	height: 32px;
+	width: 32px;
+	display: block;
+	margin: 6px auto 1px auto;
 }
 
-.wpfb-tools tr:hover {
-	background-color: #eee;
+#wpfb-tools ul {
+	height: 40px;
+}
+
+#wpfb-tools ul li {
+	float: left;
+	margin-right: 10px;
+}
+
+#wpfb-tools .tool-desc {
+	clear: left;
+	display: none;
 }
 
 .wpfb-stats-table {
@@ -393,108 +411,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 	padding: 2px;
 	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
 	font-size: 18px;
-}
-
-#wpfb-batch-uploader-presets {
-	float:right;
-	width: 400px;
-}
-
-#wpfb-batch-uploader-presets label {
-	
-}
-
-#wpfb-batch-uploader-presets .wpfilebase-roles-checklist {
-	height: 100px;
-}
-
-#wpfb-batch-uploader-presets table th, #wpfb-batch-uploader-presets table td {
-	padding: 1px;
-	margin: 0;
-}
-
-#batch-drag-drop-uploader {
-	padding-right: 450px;
-}
-
-#batch-drag-drop-area {
-	width: 100%;
-	height: 300px;
-	border: 3px dashed #ccc;
-	border-radius: 0px;
-	
-	background-color: #fff;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 20px;
-	color: #ccc;
-}
-
-#batch-drag-drop-area.drag-over {
-	border-color:#83b4d8;
-	background-color: #ffe;
-}
-
-
-
-#batch-uploader-interface {
-	background-color: #efefef;
-	padding: 15px;
-	padding-top: 2px;
-	border-radius: 5px;
-}
-
-.batch-uploader-file {
-	background-color: #efefef;
-	padding: 2px 15px 6px 8px;
-
-	border-radius: 5px;
-	margin-top: 20px;
-	/* height: 30px;*/
-	box-shadow: 0px 1px 2px #999;
-	line-height: 40px;
-}
-
-.batch-uploader-file span {
-	font-size: 20px;
-}
-
-.batch-uploader-file .error {
-	font-size: 12px;
-	color: #d33;
-}
-
-.batch-uploader-file img {
-	height: 34px;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-
-.batch-uploader-file span {
-	vertical-align: bottom;
-}
-
-.batch-uploader-file .progress {
-	margin-top: 10px;
-	margin-right: 0px;
-}
-
-#batch-uploader-presets-more-toggle {
-	cursor: pointer;	
-	text-align: center;
-}
-
-#batch-uploader-presets-more-toggle td {
-	border-top: 2px solid #ccc;
-}
-
-#batch-uploader-presets-more-toggle td span {
-	background-color: #ccc;
-	padding: 3px;
-	border-radius: 0px 0px 3px 3px;
-	color: #666;
-	text-shadow: 0px 1px 0px #eee;
-	text-transform: uppercase;
 }
 
 

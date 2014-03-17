@@ -68,7 +68,8 @@ if(!$in_widget) {
 		?><div style="float: right;"><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')); ?>"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a></div><h3 class="media-title"><?php echo $title ?></h3><?php
 	} else {
 		echo "<h2>".$title;
-		?><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a><?php
+		if(!$update) { ?><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a><?php
+		}
 		
 		if(!$update) {
 			echo '<a href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload',WPFB).'</a>';
@@ -202,36 +203,38 @@ function WPFB_addTag(tag)
 <table class="form-table">
 <?php if(!$multi_edit) { ?>
 	<tr id="wpfilebase-form-upload-row">
-		<th scope="row" valign="top"><div id="wpfilebase-upload-menu">
-			<a href="#" <?php echo ($file->IsRemote() ? '' : 'class="current"'); ?> onclick="return WPFB_switchFileUpload(0)"><?php _e('Upload')?></a>
-			<a href="#" <?php echo ($file->IsRemote() ? 'class="current"' : ''); ?> onclick="return WPFB_switchFileUpload(1)"><?php _e('File URL')?></a>
-			<input type="hidden" name="file_is_remote" id="file_is_remote" value="<?php echo ($file->IsRemote() ? 1 : 0); ?>" />
-		</div></th>		
-		<td colspan="3" valign="top"><div id="wpfilebase-upload-tabs">
-			<div id="file-upload-wrap" <?php echo ($file->IsRemote() ? 'class="hidden"' : ''); ?>>
-			 	<div id="html-upload-ui">
-					<label for="file_upload"><?php _e('Choose File', WPFB) ?></label>
-					<input type="file" name="file_upload" id="file_upload" /><br />
-					<?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.',WPFB), 'php.ini'); ?>">?</a></b>
-					<p class="upload-html-bypass hide-if-no-js"><?php _e('You are using the Browser uploader.'); 
-					printf( __('Try the <a href="%s">Flash uploader</a> instead.'), esc_url(add_query_arg('flash', 1)) );
-					?>
+		<td colspan="4">			
+			<div id="wpfilebase-upload-menu">
+				<a href="#" <?php echo ($file->IsRemote() ? '' : 'class="current"'); ?> onclick="return WPFB_switchFileUpload(0)"><?php _e('Upload')?></a>
+				<a href="#" <?php echo ($file->IsRemote() ? 'class="current"' : ''); ?> onclick="return WPFB_switchFileUpload(1)"><?php _e('File URL')?></a>
+				<input type="hidden" name="file_is_remote" id="file_is_remote" value="<?php echo ($file->IsRemote() ? 1 : 0); ?>" />
+			</div>
+			<div id="wpfilebase-upload-tabs">
+				<div id="file-upload-wrap" <?php echo ($file->IsRemote() ? 'class="hidden"' : ''); ?>>
+					<div id="html-upload-ui">
+						<label for="file_upload"><?php _e('Choose File', WPFB) ?></label>
+						<input type="file" name="file_upload" id="file_upload" /><br />
+						<?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.',WPFB), 'php.ini'); ?>">?</a></b>
+						<p class="upload-html-bypass hide-if-no-js"><?php _e('You are using the Browser uploader.'); 
+						printf( __('Try the <a href="%s">Flash uploader</a> instead.'), esc_url(add_query_arg('flash', 1)) );
+						?>
+					</div>
+					<div id="flash-upload-ui"><?php $adv_uploader->Display(); ?></div> <!--  flash-upload-ui -->
+					<?php if($update) { echo '<div>'.__('Rename').': '; ?>
+					<input name="file_rename" id="file_rename" type="text" value="<?php echo esc_attr($file->file_name); ?>" style="width:280px;" /><br />
+					<?php echo ' (' . $file->GetFormattedSize() . ', '.wpfb_call('Download', 'GetFileType', $file->file_name).', MD5: <code>'.$file->file_hash.'</code>)</div>'; } ?>
 				</div>
-			 	<div id="flash-upload-ui"><?php $adv_uploader->Display(); ?></div> <!--  flash-upload-ui -->
-				<?php if($update) { echo '<div>'.__('Rename').': '; ?>
-				<input name="file_rename" id="file_rename" type="text" value="<?php echo esc_attr($file->file_name); ?>" style="width:280px;" /><br />
-				<?php echo ' (' . $file->GetFormattedSize() . ', '.wpfb_call('Download', 'GetFileType', $file->file_name).', MD5: <code>'.$file->file_hash.'</code>)</div>'; } ?>
+				<div id="file-remote-wrap" <?php echo ($file->IsRemote() ? '' : 'class="hidden"'); ?>>
+					<label for="file_remote_uri"><?php _e('File URL') ?></label>
+					<input name="file_remote_uri" id="file_remote_uri" type="text" value="<?php echo esc_attr($file->file_remote_uri); ?>" style="width:98%" /><br />
+					<fieldset><legend class="hidden"></legend>
+						<label><input type="radio" name="file_remote_redirect" value="1" <?php checked($file->IsRemote()); ?> onchange="jQuery('#wpfilebase-remote-scan-wrap').show();" /><?php _e('Redirect download to URL', WPFB) ?></label>
+						<label><input type="radio" name="file_remote_redirect" value="0" <?php checked($file->IsLocal()); ?>  onchange="jQuery('#wpfilebase-remote-scan-wrap').hide();" /><?php _e('Copy file into Filebase (sideload)', WPFB) ?></label>
+						<span id="wpfilebase-remote-scan-wrap" class="hidden"><br /><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)', WPFB) ?></label></span>
+					</fieldset>
+				</div>
 			</div>
-			<div id="file-remote-wrap" <?php echo ($file->IsRemote() ? '' : 'class="hidden"'); ?>>
-				<label for="file_remote_uri"><?php _e('File URL') ?></label>
-				<input name="file_remote_uri" id="file_remote_uri" type="text" value="<?php echo esc_attr($file->file_remote_uri); ?>" style="width:98%" /><br />
-				<fieldset><legend class="hidden"></legend>
-					<label><input type="radio" name="file_remote_redirect" value="1" <?php checked($file->IsRemote()); ?> onchange="jQuery('#wpfilebase-remote-scan-wrap').show();" /><?php _e('Redirect download to URL', WPFB) ?></label>
-					<label><input type="radio" name="file_remote_redirect" value="0" <?php checked($file->IsLocal()); ?>  onchange="jQuery('#wpfilebase-remote-scan-wrap').hide();" /><?php _e('Copy file into Filebase (sideload)', WPFB) ?></label>
-					<span id="wpfilebase-remote-scan-wrap" class="hidden"><br /><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)', WPFB) ?></label></span>
-				</fieldset>
-			</div>
-		</div></td>
+		</td>
 	</tr>
 	<tr>		
 		<?php if($exform) { ?>		
@@ -239,7 +242,7 @@ function WPFB_addTag(tag)
 		<td class="form-field" colspan="3"><input type="file" name="file_upload_thumb" id="file_upload_thumb" />
 		<br /><?php _e('You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically.', WPFB); ?>
 		<div style="<?php if(empty($file->file_thumbnail)) echo "display:none;"; ?>" id="file_thumbnail_wrap">
-			<br /><img src="<?php echo esc_attr($file->GetIconUrl()); ?>" /><br />
+			<br /><img src="<?php echo esc_attr($file->GetIconUrl()); ?>" alt="Icon" /><br />
 			<b id="file_thumbnail_name"><?php echo $file->file_thumbnail; ?></b><br />
 			<?php if($update && !empty($file->file_thumbnail)) { ?> <label for="file_delete_thumb"><?php _e('Delete') ?></label><input type="checkbox" value="1" name="file_delete_thumb" id="file_delete_thumb" style="display:inline; width:30px;" />
 			<?php } ?>

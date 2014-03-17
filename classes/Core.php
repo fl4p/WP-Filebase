@@ -5,7 +5,6 @@ class WPFB_Core {
 static $load_js = false;
 static $file_browser_search = false;
 static $file_browser_item = null;
-static $current_user = null;
 static $post_url_cache = array();
 
 /**
@@ -19,7 +18,7 @@ static $settings;
 
 static function InitClass()
 {	
-	if(defined('WPFB_SIMPLE_LOAD')) return;	// used with CSS proxy
+	if(defined('WPFB_NO_CORE_INIT')) return;	// used with CSS proxy
 	
 	//Load settings
 	self::$settings = (object)get_option(WPFB_OPT_NAME);
@@ -53,12 +52,18 @@ static function InitClass()
 	// DataTables
 	wp_register_script('jquery-dataTables', WPFB_PLUGIN_URI.'extras/jquery/dataTables/js/jquery.dataTables.min.js', array('jquery'), WPFB_VERSION);
 	wp_register_style('jquery-dataTables', WPFB_PLUGIN_URI.'extras/jquery/dataTables/css/jquery.dataTables.css', array(), WPFB_VERSION);
+	
+	wp_register_script('jquery-dataTables-columnFilter', WPFB_PLUGIN_URI.'extras/jquery/dataTables/js/jquery.dataTables.columnFilter.js', array('jquery-dataTables'), WPFB_VERSION);
 
 	wp_register_script(WPFB, WPFB_PLUGIN_URI.'js/common.js', array('jquery'), WPFB_VERSION); // cond loading (see Footer)
 	
-	// TODO Optimization: cache to css file to static file!
-	$upload_path = path_is_absolute(WPFB_Core::$settings->upload_path) ? '' : WPFB_Core::$settings->upload_path;
-	wp_enqueue_style(WPFB, WPFB_PLUGIN_URI."wp-filebase_css.php?rp=$upload_path", array(), WPFB_VERSION, 'all');
+	$wpfb_css = get_option('wpfb_css');
+	if($wpfb_css) { // static file?
+		wp_enqueue_style(WPFB, $wpfb_css, array(), WPFB_VERSION, 'all');
+	} else {
+		$upload_path = path_is_absolute(WPFB_Core::$settings->upload_path) ? '' : WPFB_Core::$settings->upload_path;
+		wp_enqueue_style(WPFB, WPFB_PLUGIN_URI."wp-filebase_css.php?rp=$upload_path", array(), WPFB_VERSION, 'all');
+	}
 
 	
 	if((is_admin() && !empty($_GET['page']) && strpos($_GET['page'], 'wpfilebase_') !== false) || defined('WPFB_EDITOR_PLUGIN'))
@@ -419,7 +424,7 @@ public static function GetCustomFields($full_field_names=false, &$default_values
 }
 
 
-static function GetCustomCssPath($path=null) {
+static function GetOldCustomCssPath($path=null) {
 	$path = empty($path) ? self::UploadDir() : (ABSPATH .'/'.trim(str_replace('\\','/',str_replace('..','', $path)),'/'));
 	return @is_dir($path) ? "$path/_wp-filebase.css" : null;
 }

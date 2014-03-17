@@ -184,32 +184,48 @@ static function Display()
 
 
 <div>
-<h2><?php _e('Tools'); ?></h2>
-<table class="wpfb-tools">
-<tr><th><a href="<?php echo add_query_arg(
-				array('action' => 'sync',
-				)); ?>" class="button"><?php _e('Sync Filebase',WPFB)?></a></th><td><?php _e('Synchronises the database with the file system. Use this to add FTP-uploaded files.',WPFB) ?><br />
-				
-<?php		
+<!-- <h2><?php _e('Tools'); ?></h2> -->
+<?php
+
+$cron_sync_desc = '';
 if(WPFB_Core::GetOpt('cron_sync')) {
-	_e('Automatic sync is enabled. Cronjob scheduled hourly.');
+	$cron_sync_desc .= __('Automatic sync is enabled. Cronjob scheduled hourly.');
 	$last_sync_time	= intval(get_option(WPFB_OPT_NAME.'_cron_sync_time'));
-	echo ($last_sync_time > 0) ? (" (".sprintf( __('Last cron sync on %1$s at %2$s.',WPFB), date_i18n( get_option( 'date_format'), $last_sync_time ), date_i18n( get_option( 'time_format'), $last_sync_time ) ).")") : '';
+	$cron_sync_desc .=  ($last_sync_time > 0) ? (" (".sprintf( __('Last cron sync on %1$s at %2$s.',WPFB), date_i18n( get_option( 'date_format'), $last_sync_time ), date_i18n( get_option( 'time_format'), $last_sync_time ) ).")") : '';
 } else {
-	_e('Cron sync is disabled.',WPFB);
+	$cron_sync_desc .= __('Cron sync is disabled.',WPFB);
 }
+
+$tools = array(
+	 array(
+		  'url' => add_query_arg(array('action' => 'sync', )),
+		  'icon' => 'activity',
+		  'label' => __('Sync Filebase',WPFB),
+		  'desc' => __('Synchronises the database with the file system. Use this to add FTP-uploaded files.',WPFB).'<br />'.$cron_sync_desc		  
+	)
+);
+
 ?>
-				</td>
-</tr>
+<div id="wpfb-tools">
+<ul>
+<?php foreach($tools as $id => $tool) {
+	?>
+	<li id="wpfb-tool-<?php echo $id; ?>"><a href="<?php echo $tool['url']; ?>" <?php if(!empty($tool['confirm'])) { ?> onclick="return confirm('<?php echo $tool['confirm']; ?>')" <?php } ?> class="button"><span style="background-image:url(<?php echo esc_attr(WPFB_PLUGIN_URI); ?>images/<?php echo $tool['icon']; ?>.png)"></span><?php echo $tool['label']; ?></a></li>
+<?php } ?>
+</ul>
+<?php foreach($tools as $id => $tool) { ?>	
+<div id="wpfb-tool-desc-<?php echo $id; ?>" class="tool-desc">
+	<?php echo $tool['desc']; ?>
+</div>
+<?php } ?>
+<script>
+jQuery('#wpfb-tools li').mouseenter(function(e) {
+	jQuery('#wpfb-tools .tool-desc').hide();
+	jQuery('#wpfb-tool-desc-'+this.id.substr(10)).show();
+});
+</script>
 
-		
 
-
-
-
-
-</table>
-	
 				
 <?php if(WPFB_Core::GetOpt('tag_conv_req')) { ?><p><a href="<?php echo add_query_arg('action', 'convert-tags') ?>" class="button"><?php _e('Convert old Tags',WPFB)?></a> &nbsp; <?php printf(__('Convert tags from versions earlier than %s.',WPFB), '0.2.0') ?></p> <?php } ?>
 <!--  <p><a href="<?php echo add_query_arg('action', 'add-urls') ?>" class="button"><?php _e('Add multiple URLs',WPFB)?></a> &nbsp; <?php _e('Add multiple remote files at once.', WPFB); ?></p>
@@ -233,7 +249,8 @@ if(WPFB_Core::GetOpt('cron_sync')) {
 			<p>
 			<?php echo WPFB_PLUGIN_NAME . ' ' . WPFB_VERSION ?> by Fabian Schlieper <a href="http://fabi.me/">
 			<?php if(strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') === false) { ?><img src="http://fabi.me/misc/wpfb_icon.gif?lang=<?php if(defined('WPLANG')) {echo WPLANG;} ?>" alt="" /><?php } ?> fabi.me</a><br/>
-			Includes the great file analyzer <a href="http://www.getid3.org/">getID3()</a> by James Heinrich
+			Includes the great file analyzer <a href="http://www.getid3.org/">getID3()</a> by James Heinrich.<br />
+			Tools Icons by <a href="http://www.icondeposit.com/">Matt Gentile</a>.
 			</p>
 			<?php if(current_user_can('edit_files')) { ?>
 			<p><a href="<?php echo admin_url('plugins.php?wpfb-uninstall=1') ?>" class="button"><?php _e('Completely Uninstall WP-Filebase') ?></a></p>
@@ -306,10 +323,10 @@ if(WPFB_Core::GetOpt('cron_sync')) {
 				
 				echo '<div id="message" class="updated fade"><p>'.sprintf(__('%d Categories removed'), $nd).'</p></div>';
 			}
-			
+	
 		case 'sync':
 			echo '<h2>'.__('Synchronisation').'</h2>';
-			wpfb_loadclass('Sync');
+			wpfb_loadclass('Sync');			
 			$result = WPFB_Sync::Sync(!empty($_GET['hash_sync']), true);
 			if(!is_null($result))
 				WPFB_Sync::PrintResult($result);
@@ -329,6 +346,16 @@ if(WPFB_Core::GetOpt('cron_sync')) {
 			$batch_uploader = new WPFB_BatchUploader();
 			$batch_uploader->Display();
 			break;
+		
+	case 'reset-hits':
+		global $wpdb;
+		$n = 0;
+		if(current_user_can('manage_options'))
+			$n = $wpdb->query("UPDATE `$wpdb->wpfilebase_files` SET file_hits = 0 WHERE 1=1");
+		echo "<p>";
+		printf(__('Done. %d Files affected.'), $n);
+		echo "</p>";
+		break;
 		
 	} // switch	
 	?>

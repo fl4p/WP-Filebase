@@ -5,14 +5,14 @@ static $MIN_SIZE_FOR_PROGRESSBAR = 2097152;//2MiB
 const MAX_USERS_PER_ROLE_DISPLAY = 50;
 
 static function InitClass()
-{	
+{
 	wpfb_loadclass('AdminLite', 'Item', 'File', 'Category','FileUtils');
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-tabs');
 	wp_enqueue_script(WPFB.'-admin', WPFB_PLUGIN_URI.'js/admin.js', array(), WPFB_VERSION);	
 
 	wp_enqueue_style('widgets');
-	
+
 	require_once(ABSPATH . 'wp-admin/includes/file.php');
 }
 
@@ -173,7 +173,7 @@ private static function fileApplyMeta(&$file, &$data)
 static function InsertFile($data, $in_gui =false)
 {
 	if(!is_object($data)) $data = (object)$data;
-	
+
 	$file_id = isset($data->file_id) ? (int)$data->file_id : 0;
 	$file = null;
 	if($file_id > 0) {
@@ -488,7 +488,7 @@ static function CreateCatTree($file_path)
 	return $last_cat_id;
 }
 
-static function AddExistingFile($file_path, $thumb=null)
+static function AddExistingFile($file_path, $thumb=null, $presets=null)
 {
 	$cat_id = self::CreateCatTree($file_path);
 	
@@ -498,13 +498,18 @@ static function AddExistingFile($file_path, $thumb=null)
 	// check if file still exists (it could be renamed while creating the category if its used for category icon!)
 	if(!is_file($file_path))
 		return array();
+	
+	if(empty($presets) || !is_array($presets))
+		$presets = array();
+	else
+		WPFB_Admin::AdaptPresets($presets);
 		
-	return self::InsertFile(array(
+	return self::InsertFile(array_merge($presets, array(
 		'add_existing' => true,
 		'file_category' => $cat_id,
 		'file_path' => $file_path,
 		'file_thumbnail' => $thumb
-	));
+	)));
 }
 
 static function WPCacheRejectUri($add_uri, $remove_uri='')
@@ -742,6 +747,7 @@ public static function ProcessWidgetUpload(){
 		wp_die(__('Cheatin&#8217; uh?'). " (disabled)");
 
 	{
+		$form = null;
 		$nonce_action = $_POST['prefix']."=&cat=".((int)$_POST['cat'])."&overwrite=".((int)$_POST['overwrite'])."&file_post_id=".((int)$_POST['file_post_id']);
 		// nonce/referer check (security)
 		if(!wp_verify_nonce($_POST['wpfb-file-nonce'],$nonce_action) || !check_admin_referer($nonce_action,'wpfb-file-nonce'))
@@ -753,13 +759,14 @@ public static function ProcessWidgetUpload(){
 	$result = WPFB_Admin::InsertFile(array_merge(stripslashes_deep($_POST), $_FILES, array('frontend_upload' => true, 'form' => empty($form) ? null : $form)));
 	if(isset($result['error']) && $result['error']) {
 		$content .= '<div id="message" class="updated fade"><p>'.$result['error'].'</p></div>';
-		$title .= __('Error ');
+		$title .= __('Error');
 	} else {
 		// success!!!!
-		$content = __('The File has been uploaded successfully.', WPFB);
-		$file = WPFB_File::GetFile($result['file_id']);
-		$content .= $file->GenTpl2();
+		$file = WPFB_File::GetFile($result['file_id']);	
 		$title = trim(__('File added.', WPFB),'.');
+		
+		$content = __('The File has been uploaded successfully.', WPFB) . $file->GenTpl2();
+		
 	}
 	
 	wpfb_loadclass('Output');
@@ -824,7 +831,7 @@ public static function SettingsUpdated($old, &$new) {
 	wpfb_call('Setup','ProtectUploadPath');
 			
 	// custom fields:
-	$messages += WPFB_Admin::SyncCustomFields();
+	$messages = array_merge($messages, WPFB_Admin::SyncCustomFields());
 	
 	if($old['thumbnail_path'] != $new['thumbnail_path']) {
 
@@ -934,9 +941,12 @@ static function GetFileHash($filename)
 {
 	static $use_php_func = -1;
 	if(WPFB_Core::$settings->fake_md5) return '#'.substr(md5(filesize($filename)."-".filemtime($filename)), 1);
-	if($use_php_func === -1) $use_php_func = strpos(@ini_get('disable_functions').','.@ini_get('suhosin.executor.func.blacklist'), 'exec') !== false;
+	if($use_php_func === -1) {
+		$use_php_func = strpos(@ini_get('disable_functions').','.@ini_get('suhosin.executor.func.blacklist'), 'exec') !== false;
+		@setlocale(LC_CTYPE, "en_US.UTF-8"); // avoid strip of UTF-8 chars in escapeshellarg()
+	}
 	if($use_php_func) return md5_file($filename);
-	$hash = substr(trim(substr(@exec("md5sum \"$filename\""), 0, 33),"\\ \t"), 0, 32); // on windows, hash starts with \ if not in same dir!
+	$hash = substr(trim(substr(@exec("md5sum ".escapeshellarg($filename)), 0, 33),"\\ \t"), 0, 32); // on windows, hash starts with \ if not in same dir!
 	if(empty($hash) && file_exists($filename)) {
 		$use_php_func = true;
 		return md5_file($filename);
@@ -954,5 +964,22 @@ static function CurUserCanCreateCat()
 	return  current_user_can('manage_categories');
 }
 
+
+static function TplDropDown($type, $selected=null) {
+	$tpls = WPFB_Core::GetTpls($type);
+	$content = '<option value="default">'.__('Default').'</option>';
+	foreach($tpls as $tag => $tpl) {
+		if($tag != 'default') $content .= '<option value="'.$tag.'"'.(($selected==$tag)?' selected="selected"':'').'>'.__(__(esc_attr(WPFB_Output::Filename2Title($tag))), WPFB).'</option>';
+	}
+	return $content;
+}
+
+	static function AdaptPresets(&$presets)
+	{
+		if(isset($presets['file_user_roles'])) {
+			$presets['file_user_roles'] = array_values(array_filter($presets['file_user_roles']));
+			$presets['file_perm_explicit'] = !empty($presets['file_user_roles']); // set explicit if perm != everyone
+		}
+	}
 
 }

@@ -27,9 +27,10 @@ function tabclick(a)
 	var showEls = {
 		'fileselect': (currentTab == 'file' || currentTab == 'fileurl'),
 		'filetplselect': (currentTab == 'file'),
-		'catselect': (currentTab == 'list' /* || currentTab == 'browser'*/),
-		'listtplselect': (currentTab == 'list')
-	};
+		'catselect': (currentTab == 'list'  /* || currentTab == 'browser'*/),
+		'listtplselect': (currentTab == 'list'),
+		'catselect-filter': (currentTab == 'list'),
+			};
 
 	for(var id in showEls) {
 		if(showEls[id]) jQuery('#'+id).show();
@@ -43,7 +44,6 @@ function selectCat(id, name)
 {
 	var selected = false;
 	var el = jQuery('span.folder','#catsel-cat-'+id).first();
-
 	for(var i=0; i<selectedCats.length; i++) {
 		if (selectedCats[i] == id) {
 			selected = true;

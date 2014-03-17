@@ -8,30 +8,26 @@ msgstr ""
 "Project-Id-Version: WP-Filebase 0.1.3.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
 "POT-Creation-Date: 2010-01-18 23:16+0000\n"
-"PO-Revision-Date: 2013-05-30 22:28+0100\n"
-"Last-Translator: Anja Skrba <anjas@webhostinggeeks.com>\n"
+"PO-Revision-Date: 2013-10-25 23:00+0100\n"
+"Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
 "Language-Team: Anja Skrba <anjas@webhostinggeeks.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr_RS\n"
 "X-Generator: Poedit 1.5.5\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: editor_plugin.php:37 editor_plugin.php:256
+#: editor_plugin.php:37
+#: editor_plugin.php:256
 msgid "Uncategorized Files"
 msgstr "Nekategorizovani fajlovi"
 
 #: editor_plugin.php:42
 #, php-format
-msgid ""
-"You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to "
-"add one.</a>"
-msgstr ""
-"Niste otpremili fajl. <a href=\"%s\" target=\"_parent\">Kliknite ovde da "
-"dodate jedan.</a>"
+msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
+msgstr "Niste otpremili fajl. <a href=\"%s\" target=\"_parent\">Kliknite ovde da dodate jedan.</a>"
 
 #: editor_plugin.php:219
 msgid "Enter link text:"
@@ -62,12 +58,8 @@ msgstr "Prilozi"
 
 #: editor_plugin.php:266
 #, php-format
-msgid ""
-"You did not create a category. <a href=\"%s\" target=\"_parent\">Click here "
-"to create one.</a>"
-msgstr ""
-"Niste kreirali kategoriju. <a href=\"%s\" target=\"_parent\">Kliknite ovde "
-"da kreirate jednu.</a>"
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr "Niste kreirali kategoriju. <a href=\"%s\" target=\"_parent\">Kliknite ovde da kreirate jednu.</a>"
 
 #: editor_plugin.php:273
 msgid "Select Template"
@@ -77,20 +69,15 @@ msgstr "Izaberite šablon"
 msgid "Default Template"
 msgstr "Podrazumevani šablon"
 
-#: editor_plugin.php:281 lib/wp-filebase_admin_gui_manage.lib.php:472
+#: editor_plugin.php:281
+#: lib/wp-filebase_admin_gui_manage.lib.php:472
 #: lib/wp-filebase_admin_gui_manage.lib.php:481
 msgid "Add Template"
 msgstr "Dodajte šablon"
 
 #: lib/wp-filebase_admin.lib.php:9
-msgid ""
-"One entry per line. Seperate the title and a short tag (not longer than 8 "
-"characters) with '|'.<br />All lines beginning with '*' are selected by "
-"default."
-msgstr ""
-"Jedan unos po liniji. Razdvojite naslov i kratku oznaku (ne dužu od 8 "
-"karaktera) sa '|'.<br />Sve linije koje počinju sa '*' će po \"default\"-u "
-"biti izabrane."
+msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
+msgstr "Jedan unos po liniji. Razdvojite naslov i kratku oznaku (ne dužu od 8 karaktera) sa '|'.<br />Sve linije koje počinju sa '*' će po \"default\"-u biti izabrane."
 
 #: lib/wp-filebase_admin.lib.php:10
 msgid "One entry per line."
@@ -114,8 +101,7 @@ msgstr "Prikazati priložene fajlove"
 
 #: lib/wp-filebase_admin.lib.php:19
 msgid "If enabled, all associated files are listed below an article"
-msgstr ""
-"Ako je ova opcija uključena, svi pridruženi fajlovi se prikazuju ispod članka"
+msgstr "Ako je ova opcija uključena, svi pridruženi fajlovi se prikazuju ispod članka"
 
 #: lib/wp-filebase_admin.lib.php:20
 msgid "Default sorting"
@@ -161,12 +147,8 @@ msgstr "Poruka za prekoračen saobraćaj"
 msgid "Daily user download limits"
 msgstr "Dnevni limiti za preuzimanje, za korisnike"
 
-msgid ""
-"If enabled, unregistered users cannot download any files. You can set "
-"different limits for each user role below."
-msgstr ""
-"Ako je ova opcija uključena, neregistrovani korisnici ne mogu da preuzimaju "
-"fajlove. Možete podesiti različite limite za svaku korisničku ulogu, ispod."
+msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
+msgstr "Ako je ova opcija uključena, neregistrovani korisnici ne mogu da preuzimaju fajlove. Možete podesiti različite limite za svaku korisničku ulogu, ispod."
 
 msgid "downloads per day"
 msgstr "preuzimanja na dan"
@@ -202,49 +184,32 @@ msgstr "URL baza preuzimanja"
 
 #: lib/wp-filebase_admin.lib.php:31
 #, php-format
-msgid ""
-"The url prefix for file download links. Example: <code>%s</code> (Only used "
-"when Permalinks are enabled.)"
-msgstr ""
-"Url prefiks za linkove za preuzimanje fajlova. Primer: <code>%s</code> "
-"(Koristi se samo kada su permalinkovi uključeni.)"
+msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr "Url prefiks za linkove za preuzimanje fajlova. Primer: <code>%s</code> (Koristi se samo kada su permalinkovi uključeni.)"
 
 #: lib/wp-filebase_admin.lib.php:33
 msgid "Post ID of the file browser"
 msgstr "ID posta pretraživača fajlova"
 
 #: lib/wp-filebase_admin.lib.php:33
-msgid ""
-"Specify the ID of the post or page where the file browser should be placed. "
-"If you want to disable this feature leave the field blank."
-msgstr ""
-"Navedite ID posta ili strane gde treba postaviti pretraživač fajlova. Ako "
-"želite da isključite ovo svojstvo, ostavite prazno polje."
+msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
+msgstr "Navedite ID posta ili strane gde treba postaviti pretraživač fajlova. Ako želite da isključite ovo svojstvo, ostavite prazno polje."
 
 #: lib/wp-filebase_admin.lib.php:34
 msgid "Category drop down list"
 msgstr "Padajuća lista sa kategorijama"
 
 #: lib/wp-filebase_admin.lib.php:34
-msgid ""
-"Use category drop down list in the file browser instead of listing like "
-"files."
-msgstr ""
-"Koristiti u pregledaču fajlova padajuću listu, umesto prikaza poput liste "
-"fajlova."
+msgid "Use category drop down list in the file browser instead of listing like files."
+msgstr "Koristiti u pregledaču fajlova padajuću listu, umesto prikaza poput liste fajlova."
 
 #: lib/wp-filebase_admin.lib.php:36
 msgid "Always force download"
 msgstr "Uvek forsirati preuzimanje"
 
 #: lib/wp-filebase_admin.lib.php:36
-msgid ""
-"If enabled files that can be viewed in the browser (like images, PDF "
-"documents or videos) can only be downloaded (no streaming)."
-msgstr ""
-"Ako je ova opcija uključena, fajlovi koji se vide u pregledaču (poput slika, "
-"PDF dokumenata, ili videa) mogu samo da se preuzimaju (nema reprodukovanja "
-"tokom preuzimanja, tj. striminga)."
+msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
+msgstr "Ako je ova opcija uključena, fajlovi koji se vide u pregledaču (poput slika, PDF dokumenata, ili videa) mogu samo da se preuzimaju (nema reprodukovanja tokom preuzimanja, tj. striminga)."
 
 #: lib/wp-filebase_admin.lib.php:37
 msgid "Ignore downloads by admins"
@@ -255,12 +220,8 @@ msgid "Hide inaccessible files and categories"
 msgstr "Sakriti nedostupne fajlove i kategorije"
 
 #: lib/wp-filebase_admin.lib.php:38
-msgid ""
-"If enabled files tagged <i>For members only</i> will not be listed for "
-"guests or users whith insufficient rights."
-msgstr ""
-"Ako je ova opcija uključena, fajlovi označeni sa <i>Samo za članove</i> se "
-"neće prikazivati gostima, ili korisnicima sa nedovoljnim pravima."
+msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
+msgstr "Ako je ova opcija uključena, fajlovi označeni sa <i>Samo za članove</i> se neće prikazivati gostima, ili korisnicima sa nedovoljnim pravima."
 
 #: lib/wp-filebase_admin.lib.php:39
 msgid "You are not allowed to access this file!"
@@ -271,24 +232,16 @@ msgid "Inaccessible file message"
 msgstr "Poruka za nedostupan fajl"
 
 #: lib/wp-filebase_admin.lib.php:39
-msgid ""
-"This message will be displayed if users try to download a file they cannot "
-"access"
-msgstr ""
-"Ova poruka će se prikazati ako korisnici pokušaju da preuzmu fajl kome ne "
-"mogu da pristupe"
+msgid "This message will be displayed if users try to download a file they cannot access"
+msgstr "Ova poruka će se prikazati ako korisnici pokušaju da preuzmu fajl kome ne mogu da pristupe"
 
 #: lib/wp-filebase_admin.lib.php:40
 msgid "Redirect to login"
 msgstr "Preusmeriti na prijavu"
 
 #: lib/wp-filebase_admin.lib.php:40
-msgid ""
-"Guests trying to download inaccessible files are redirected to the login "
-"page if this option is enabled."
-msgstr ""
-"Ako je ova opcija uključena, gosti koji pokušavaju da preuzmu nedostupne "
-"fajlove se preusmeravaju na stranu za prijavu."
+msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgstr "Ako je ova opcija uključena, gosti koji pokušavaju da preuzmu nedostupne fajlove se preusmeravaju na stranu za prijavu."
 
 #: lib/wp-filebase_admin.lib.php:40
 msgid "Parse template tags in RSS feeds"
@@ -296,36 +249,23 @@ msgstr "Parsirati šablon oznake u RSS izvorima informacija"
 
 #: lib/wp-filebase_admin.lib.php:40
 msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
-msgstr ""
-"Ako je ova opcija uključena, WP_Filebase oznake sadržaja se parsiraju u RSS "
-"izvorima informacija."
+msgstr "Ako je ova opcija uključena, WP_Filebase oznake sadržaja se parsiraju u RSS izvorima informacija."
 
 #: lib/wp-filebase_admin.lib.php:42
 msgid "Allow script upload"
 msgstr "Dozvoliti otpremanje skripti"
 
 #: lib/wp-filebase_admin.lib.php:42
-msgid ""
-"If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> "
-"Enabling script uploads is a <b>security risk</b>!"
-msgstr ""
-"Ako uključite ovu opciju, mogu da se otpremaju skripte, poput PHP i CGI "
-"skripti. <b>UPOZORENJE:</b> Omogućavanje otpremanja skripti je <b>sigurnosni "
-"rizik</b>!"
+msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
+msgstr "Ako uključite ovu opciju, mogu da se otpremaju skripte, poput PHP i CGI skripti. <b>UPOZORENJE:</b> Omogućavanje otpremanja skripti je <b>sigurnosni rizik</b>!"
 
 #: lib/wp-filebase_admin.lib.php:44
 msgid "Accept empty referers"
 msgstr "Prihvatati prazne referere"
 
 #: lib/wp-filebase_admin.lib.php:44
-msgid ""
-"If enabled, direct-link-protected files can be downloaded when the referer "
-"is empty (i.e. user entered file url in address bar or browser does not send "
-"referers)"
-msgstr ""
-"Ako je ova opcija uključena, fajlovi zaštićeni od pristupanja direktnim "
-"linkom se mogu preuzimati kada je referer prazan (npr. kada korisnik unese "
-"url u adresnu traku, ili kada pregledač ne šalje referere)"
+msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgstr "Ako je ova opcija uključena, fajlovi zaštićeni od pristupanja direktnim linkom se mogu preuzimati kada je referer prazan (npr. kada korisnik unese url u adresnu traku, ili kada pregledač ne šalje referere)"
 
 #: lib/wp-filebase_admin.lib.php:45
 msgid "Allowed referers"
@@ -333,22 +273,18 @@ msgstr "Dozvoljeni refereri"
 
 #: lib/wp-filebase_admin.lib.php:45
 msgid "Sites with matching URLs can link to files directly."
-msgstr ""
-"Sajtovi sa podudarajućim URL -ovima mogu da linkuju direktno na fajlove."
+msgstr "Sajtovi sa podudarajućim URL -ovima mogu da linkuju direktno na fajlove."
 
 #: lib/wp-filebase_admin.lib.php:47
 msgid "Decimal file size prefixes"
 msgstr "Decimalni prefiksi za veličinu fajla"
 
 #: lib/wp-filebase_admin.lib.php:47
-msgid ""
-"Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) "
-"instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
-msgstr ""
-"Uključite ovu opciju ako želite decimalne prefikse (1 MB = 1000 KB = 1 000 "
-"000 B) umesto binarnih (1 MiB = 1024 KiB = 1 048 576 B)"
+msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr "Uključite ovu opciju ako želite decimalne prefikse (1 MB = 1000 KB = 1 000 000 B) umesto binarnih (1 MiB = 1024 KiB = 1 048 576 B)"
 
-#: lib/wp-filebase_admin.lib.php:50 lib/wp-filebase_form_file.php:80
+#: lib/wp-filebase_admin.lib.php:50
+#: lib/wp-filebase_form_file.php:80
 msgid "Platforms"
 msgstr "Platforme"
 
@@ -356,17 +292,14 @@ msgstr "Platforme"
 msgid "Licenses"
 msgstr "Licence"
 
-#: lib/wp-filebase_admin.lib.php:52 lib/wp-filebase_form_file.php:84
+#: lib/wp-filebase_admin.lib.php:52
+#: lib/wp-filebase_form_file.php:84
 msgid "Requirements"
 msgstr "Zahtevi"
 
 #: lib/wp-filebase_admin.lib.php:52
-msgid ""
-"You can optionally add |<i>URL</i> to each line to link to the required "
-"software/file."
-msgstr ""
-"Opciono možete dodati |<i>URL</i> svakoj liniji, da linkujete ka potrebnom "
-"softveru/fajlu."
+msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgstr "Opciono možete dodati |<i>URL</i> svakoj liniji, da linkujete ka potrebnom softveru/fajlu."
 
 #: lib/wp-filebase_admin.lib.php:88
 msgid "Default File Template"
@@ -389,15 +322,8 @@ msgid "Download JavaScript"
 msgstr "Preuzeti JavaScript"
 
 #: lib/wp-filebase_admin.lib.php:113
-msgid ""
-"Here you can enter JavaScript Code which is executed when a user clicks on "
-"file download link. The following variables can be used: <i>file_id</i>: the "
-"ID of the file, <i>file_url</i>: the clicked download url"
-msgstr ""
-"Ovde možete uneti JavaScript kod koji se izvršava kada korisnik klikne na "
-"link za preuzimanje fajla. Mogu se koristiti sledeće promenljive: "
-"<i>file_id</i>: ID oznaka fajla, <i>file_url</i>: url za preuzimanje na koji "
-"je kliknuto"
+msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
+msgstr "Ovde možete uneti JavaScript kod koji se izvršava kada korisnik klikne na link za preuzimanje fajla. Mogu se koristiti sledeće promenljive: <i>file_id</i>: ID oznaka fajla, <i>file_url</i>: url za preuzimanje na koji je kliknuto"
 
 #: lib/wp-filebase_admin.lib.php:129
 msgid "The category URL"
@@ -420,29 +346,30 @@ msgid "Number of files in the category"
 msgstr "Broj linija u kategoriji"
 
 #: lib/wp-filebase_admin.lib.php:136
-msgid ""
-"The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
-msgstr ""
-"Minimalni korisnički nivo za gledanje ove kategorije (-1 = gost, 0 = "
-"Pretplatnik ...)"
+msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "Minimalni korisnički nivo za gledanje ove kategorije (-1 = gost, 0 = Pretplatnik ...)"
 
 #: lib/wp-filebase_admin.lib.php:138
 msgid "The category ID"
 msgstr "ID kategorije"
 
-#: lib/wp-filebase_admin.lib.php:139 lib/wp-filebase_admin.lib.php:174
+#: lib/wp-filebase_admin.lib.php:139
+#: lib/wp-filebase_admin.lib.php:174
 msgid "A unique ID number to identify elements within a template"
 msgstr "Jedinstveni ID broj, za identifikovanje elemenata u nekom šablonu"
 
-#: lib/wp-filebase_admin.lib.php:142 lib/wp-filebase_admin.lib.php:181
+#: lib/wp-filebase_admin.lib.php:142
+#: lib/wp-filebase_admin.lib.php:181
 msgid "Name of the file"
 msgstr "Ime fajla"
 
-#: lib/wp-filebase_admin.lib.php:143 lib/wp-filebase_admin.lib.php:182
+#: lib/wp-filebase_admin.lib.php:143
+#: lib/wp-filebase_admin.lib.php:182
 msgid "Formatted file size"
 msgstr "Formatirana veličina fajla"
 
-#: lib/wp-filebase_admin.lib.php:144 lib/wp-filebase_admin.lib.php:183
+#: lib/wp-filebase_admin.lib.php:144
+#: lib/wp-filebase_admin.lib.php:183
 msgid "Formatted file date"
 msgstr "Formatirani datum fajla"
 
@@ -450,7 +377,8 @@ msgstr "Formatirani datum fajla"
 msgid "Name of the thumbnail file"
 msgstr "Ime fajla sa sličicom"
 
-#: lib/wp-filebase_admin.lib.php:148 lib/wp-filebase_admin.lib.php:186
+#: lib/wp-filebase_admin.lib.php:148
+#: lib/wp-filebase_admin.lib.php:186
 msgid "File version"
 msgstr "Verzija fajla"
 
@@ -466,17 +394,16 @@ msgstr "Podržane platforme (operativni sistemi)"
 msgid "Requirements to use this file"
 msgstr "Zahtevi za korišćenje ovog fajla"
 
-#: lib/wp-filebase_admin.lib.php:153 lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_admin.lib.php:153
+#: lib/wp-filebase_admin.lib.php:188
 #: lib/wp-filebase_form_file.php:66
 msgid "License"
 msgstr "Licenca"
 
-#: lib/wp-filebase_admin.lib.php:154 lib/wp-filebase_admin.lib.php:189
-msgid ""
-"The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
-msgstr ""
-"Minimalni korisnički nivo za preuzimanje ovog fajla (-1 = gost, 0 = "
-"Pretplatnik ...)"
+#: lib/wp-filebase_admin.lib.php:154
+#: lib/wp-filebase_admin.lib.php:189
+msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "Minimalni korisnički nivo za preuzimanje ovog fajla (-1 = gost, 0 = Pretplatnik ...)"
 
 #: lib/wp-filebase_admin.lib.php:155
 msgid "1 if file is offline, otherwise 0"
@@ -490,15 +417,18 @@ msgstr "1 ako je direktno linkovanje dozvoljeno, u suprotnom 0"
 msgid "The category name"
 msgstr "Ime kategorije"
 
-#: lib/wp-filebase_admin.lib.php:159 lib/wp-filebase_admin.lib.php:193
+#: lib/wp-filebase_admin.lib.php:159
+#: lib/wp-filebase_admin.lib.php:193
 msgid "ID of the post/page this file belongs to"
 msgstr "ID posta/strane kojoj ovaj fajl pripada"
 
-#: lib/wp-filebase_admin.lib.php:160 lib/wp-filebase_admin.lib.php:194
+#: lib/wp-filebase_admin.lib.php:160
+#: lib/wp-filebase_admin.lib.php:194
 msgid "User ID of the owner"
 msgstr "Korisnički ID vlasnika"
 
-#: lib/wp-filebase_admin.lib.php:161 lib/wp-filebase_admin.lib.php:195
+#: lib/wp-filebase_admin.lib.php:161
+#: lib/wp-filebase_admin.lib.php:195
 msgid "How many times this file has been downloaded."
 msgstr "Koliko puta ovaj fajl može da se preuzme."
 
@@ -506,7 +436,8 @@ msgstr "Koliko puta ovaj fajl može da se preuzme."
 msgid "IP Address of the last downloader"
 msgstr "IP adresa poslednjeg preuzimaoca"
 
-#: lib/wp-filebase_admin.lib.php:165 lib/wp-filebase_admin.lib.php:196
+#: lib/wp-filebase_admin.lib.php:165
+#: lib/wp-filebase_admin.lib.php:196
 msgid "Time of the last download"
 msgstr "Vreme poslednjeg preuzimanja"
 
@@ -576,9 +507,7 @@ msgstr "Fajl %s već postoji. Morate prvo da ga obrišete!"
 #: lib/wp-filebase_admin.lib.php:392
 #, php-format
 msgid "Unable to move file %s! Is the upload directory writeable?"
-msgstr ""
-"Nije moguće premestiti fajl %s! Da li je moguće upisivanje u direktorijum "
-"otpremanja?"
+msgstr "Nije moguće premestiti fajl %s! Da li je moguće upisivanje u direktorijum otpremanja?"
 
 #: lib/wp-filebase_admin.lib.php:394
 msgid "No file was uploaded."
@@ -603,14 +532,8 @@ msgid "Files"
 msgstr "Fajlovi"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:146
-msgid ""
-"<strong>Note:</strong><br />Deleting a category does not delete the files in "
-"that category. Instead, files that were assigned to the deleted category are "
-"set to the parent category."
-msgstr ""
-"<strong>Napomena:</strong><br />Brisanjem kategorije se ne brišu fajlovi u "
-"toj kategoriji. Umesto toga se fajlovi koji su dodeljeni toj kategoriji "
-"dodeljuju roditeljskoj kategoriji."
+msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
+msgstr "<strong>Napomena:</strong><br />Brisanjem kategorije se ne brišu fajlovi u toj kategoriji. Umesto toga se fajlovi koji su dodeljeni toj kategoriji dodeljuju roditeljskoj kategoriji."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:185
 msgid "File updated."
@@ -669,12 +592,8 @@ msgid "Complete file sync"
 msgstr "Potpuna sinhronizacija fajlova"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:377
-msgid ""
-"Checks files for changes, so more reliable but might take much longer. Do "
-"this if you uploaded/changed files with FTP."
-msgstr ""
-"Proverava fajlove po pitanju promena, tako da je pouzdanije, ali traje mnogo "
-"duže. Radite ovo ako ste otpremili/promenili fajlove FTP -om."
+msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgstr "Proverava fajlove po pitanju promena, tako da je pouzdanije, ali traje mnogo duže. Radite ovo ako ste otpremili/promenili fajlove FTP -om."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:390
 #, php-format
@@ -707,26 +626,13 @@ msgstr "Kod šablona:"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:497
 #, php-format
-msgid ""
-"The upload directory <code>%s</code> does not exists. It could not be "
-"created automatically because the directory <code>%s</code> is not writable. "
-"Please create <code>%s</code> and make it writable for the webserver by "
-"executing the following FTP command: <code>%s</code>"
-msgstr ""
-"Direktorijum otpremanja <code>%s</code> ne postoji. Nije mogao automatski da "
-"se kreira jer u direktorijum <code>%s</code> nije moguć upis. Molim vas, "
-"kreirajte <code>%s</code> i omogućite upis u njega od strane web servera, "
-"izvršivši sledeću FTP komandu: <code>%s</code>"
+msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
+msgstr "Direktorijum otpremanja <code>%s</code> ne postoji. Nije mogao automatski da se kreira jer u direktorijum <code>%s</code> nije moguć upis. Molim vas, kreirajte <code>%s</code> i omogućite upis u njega od strane web servera, izvršivši sledeću FTP komandu: <code>%s</code>"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:499
 #, php-format
-msgid ""
-"The upload directory <code>%s</code> is not writable. Please make it "
-"writable for PHP by executing the follwing FTP command: <code>%s</code>"
-msgstr ""
-"U direktorijum otpremanja <code>%s</code>nije moguć upis. Molim vas, "
-"omogućite upis u njega od strane PHP -a, izvršavanjem sledeće FTP komande: "
-"<code>%s</code>"
+msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr "U direktorijum otpremanja <code>%s</code>nije moguć upis. Molim vas, omogućite upis u njega od strane PHP -a, izvršavanjem sledeće FTP komande: <code>%s</code>"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:506
 msgid "Manage Files"
@@ -749,12 +655,8 @@ msgid "Sync Filebase"
 msgstr "Sinhronizacija baze fajlova (Filebase)"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:508
-msgid ""
-"Synchronises the database with the file system. Use this to add FTP-uploaded "
-"files."
-msgstr ""
-"Sinhronizovanje baze podataka sa fajl sistemom. Upotrebite ovu opciju da "
-"dodate FTP-otpremljene fajlove."
+msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
+msgstr "Sinhronizovanje baze podataka sa fajl sistemom. Upotrebite ovu opciju da dodate FTP-otpremljene fajlove."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:509
 msgid "Edit Stylesheet"
@@ -777,12 +679,8 @@ msgid "Donate &amp; Feature Request"
 msgstr "Donacija i zahtev za svojstvo"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:511
-msgid ""
-"If you like this plugin and want to support my work, please donate. You can "
-"also post your ideas making the plugin better."
-msgstr ""
-"Ako vam se dopada ovaj dodatak, i želite da podržite moj rad, molim vas, "
-"dajte donaciju. Takođe možete davati svoje ideje za poboljšanje dodatka."
+msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgstr "Ako vam se dopada ovaj dodatak, i želite da podržite moj rad, molim vas, dajte donaciju. Takođe možete davati svoje ideje za poboljšanje dodatka."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:520
 msgid "Traffic"
@@ -839,11 +737,13 @@ msgstr "Folder kategorije"
 msgid "Category Icon"
 msgstr "Ikona kategorije"
 
-#: lib/wp-filebase_form_cat.php:59 lib/wp-filebase_form_file.php:112
+#: lib/wp-filebase_form_cat.php:59
+#: lib/wp-filebase_form_file.php:112
 msgid "For members only"
 msgstr "Samo za članove"
 
-#: lib/wp-filebase_form_cat.php:62 lib/wp-filebase_form_file.php:115
+#: lib/wp-filebase_form_cat.php:62
+#: lib/wp-filebase_form_file.php:115
 #, php-format
 msgid "Minimum user level: (see %s)"
 msgstr "Minimalni korisnički nivo: (pogledajte %s)"
@@ -878,12 +778,8 @@ msgid "Maximum file size: %s"
 msgstr "Maksimalna veličina fajla: %s"
 
 #: lib/wp-filebase_form_file.php:32
-msgid ""
-"You can optionally upload a thumbnail here. If the file is a valid image, a "
-"thumbnail is generated automatically."
-msgstr ""
-"Opciono možete otpremiti sličicu ovde.  Ako je fajl validna slika, sličica "
-"se generiše automatski."
+msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
+msgstr "Opciono možete otpremiti sličicu ovde.  Ako je fajl validna slika, sličica se generiše automatski."
 
 #: lib/wp-filebase_form_file.php:38
 msgid "The following fields are optional."
@@ -893,7 +789,8 @@ msgstr "Sledeća polja su opciona."
 msgid "Download Counter"
 msgstr "Brojač preuzimanja"
 
-#: lib/wp-filebase_form_file.php:94 lib/wp-filebase_form_file.php:96
+#: lib/wp-filebase_form_file.php:94
+#: lib/wp-filebase_form_file.php:96
 msgid "Direct linking"
 msgstr "Direktno povezivanje (linkovanje)"
 
@@ -918,12 +815,8 @@ msgid "Template:"
 msgstr "Šablon:"
 
 #. Description of an extension
-msgid ""
-"A powerful download manager supporting file categories, thumbnails, traffic/"
-"bit rate limits and more."
-msgstr ""
-"Moćan softver za upravljanje preuzimanjima, koji podržava kategorije "
-"fajlova, limite brzina saobraćaja/bitova i još toga"
+msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
+msgstr "Moćan softver za upravljanje preuzimanjima, koji podržava kategorije fajlova, limite brzina saobraćaja/bitova i još toga"
 
 #. Template
 msgid "Version"
@@ -975,21 +868,11 @@ msgstr "Prikaz liste poslednjih, ili najpopularnijih fajlova"
 msgid "Simple listing of file categories"
 msgstr "Prikaz jednostavne liste kategorija fajlova"
 
-msgid ""
-"Before you can use this widget, please set a Post ID for the file browser in "
-"WP-Filebase settings."
-msgstr ""
-"Pre nego budete mogli da koristite ovaj vidžet, molim vas, podesite Post ID "
-"za pregledač fajlova u WP-Filebase podešavanjima."
+msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
+msgstr "Pre nego budete mogli da koristite ovaj vidžet, molim vas, podesite Post ID za pregledač fajlova u WP-Filebase podešavanjima."
 
-msgid ""
-"If you like WP-Filebase I would appreciate a small donation to support my "
-"work. You can additionally add an idea to make WP-Filebase even better. Just "
-"click the button below. Thank you!"
-msgstr ""
-"Ako vam se dopada WP-Filebase, cenio bih malu donaciju kao podršku mom radu. "
-"Uz to možete i dodati neku ideju, da učinite WP-Filebase još boljim. Samo "
-"kliknite na dugme ispod. Hvala vam!"
+msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
+msgstr "Ako vam se dopada WP-Filebase, cenio bih malu donaciju kao podršku mom radu. Uz to možete i dodati neku ideju, da učinite WP-Filebase još boljim. Samo kliknite na dugme ispod. Hvala vam!"
 
 msgid "Custom field '%s' removed!"
 msgstr "Prilagođeno polje '%s' je uklonjeno!"
@@ -1000,12 +883,8 @@ msgstr "Prilagođeno polje '%s' je dodato!"
 msgid "Search Integration"
 msgstr "Integracija pretrage"
 
-msgid ""
-"Searches in attached files and lists the associated posts and pages when "
-"searching the site."
-msgstr ""
-"Pretražuje priložene fajlove, i prikazuje listu pridruženih postova i "
-"strana, kada se pretražuje sajt."
+msgid "Searches in attached files and lists the associated posts and pages when searching the site."
+msgstr "Pretražuje priložene fajlove, i prikazuje listu pridruženih postova i strana, kada se pretražuje sajt."
 
 msgid "Restore Default Settings"
 msgstr "Vratiti podrazumevana podešenja"
@@ -1058,23 +937,14 @@ msgstr "Fajlovi sa svojstvima fajlova se u pregledaču fajlova sortiraju po"
 msgid "Send HTTP-Range header"
 msgstr "Slati HTTP-Range zaglavlje"
 
-msgid ""
-"Allows users to pause downloads and continue later. In addition download "
-"managers can use multiple connections at the same time."
-msgstr ""
-"Korisnicima omogućava da pauziraju preuzimanja i da nastave kasnije. Uz to, "
-"programi za upravljanje preuzimanjima (download managers) mogu da koriste "
-"više konekcija u isto vreme."
+msgid "Allows users to pause downloads and continue later. In addition download managers can use multiple connections at the same time."
+msgstr "Korisnicima omogućava da pauziraju preuzimanja i da nastave kasnije. Uz to, programi za upravljanje preuzimanjima (download managers) mogu da koriste više konekcija u isto vreme."
 
 msgid "Disable HTTP Caching"
 msgstr "Isključiti HTTP keširanje"
 
-msgid ""
-"Enable this if you have problems with downloads while using Wordpress with a "
-"cache plugin."
-msgstr ""
-"Uključite ovu opciju ako imate problema sa preuzimanjima dok koristite "
-"Wordpress sa nekim dodatkom za keširanje."
+msgid "Enable this if you have problems with downloads while using Wordpress with a cache plugin."
+msgstr "Uključite ovu opciju ako imate problema sa preuzimanjima dok koristite Wordpress sa nekim dodatkom za keširanje."
 
 msgid "With custom fields you can add even more file properties."
 msgstr "Sa prilagođenim poljima možete dodati čak i više svojstava fajlova."
@@ -1082,87 +952,56 @@ msgstr "Sa prilagođenim poljima možete dodati čak i više svojstava fajlova."
 msgid "Redirect to referring page after login"
 msgstr "Preusmeriti na referencirajuću stranu nakon prijave"
 
-msgid ""
-"Users are redirected to the page where they clicked on the download link "
-"after logging in."
-msgstr ""
-"Korisnici se preusmeravaju na stranu gde su kliknuli na link za preuzimanje "
-"posle prijavljivanja."
+msgid "Users are redirected to the page where they clicked on the download link after logging in."
+msgstr "Korisnici se preusmeravaju na stranu gde su kliknuli na link za preuzimanje posle prijavljivanja."
 
 msgid "Protect upload path"
 msgstr "Zaštititi putanju otpremanja"
 
 msgid "This prevents direct access to files in the upload directory."
-msgstr ""
-"Ovim se sprečava direktan pristup fajlovima u direktorijumu za otpremanje."
+msgstr "Ovim se sprečava direktan pristup fajlovima u direktorijumu za otpremanje."
 
 msgid "Hide download links"
 msgstr "Sakriti linkove za preuzimanja"
 
-msgid ""
-"File download links wont be displayed in the browser's status bar. You "
-"should enable '%s' to make it even harder to find out the URL."
-msgstr ""
-"Linkovi za preuzimanje fajlova se neće prikazivati u statusnoj traci "
-"pregledača. Treba da uključite '%s' da učinite još težim otkrivanje URL -ova."
+msgid "File download links wont be displayed in the browser's status bar. You should enable '%s' to make it even harder to find out the URL."
+msgstr "Linkovi za preuzimanje fajlova se neće prikazivati u statusnoj traci pregledača. Treba da uključite '%s' da učinite još težim otkrivanje URL -ova."
 
 msgid "Auto-detect thumbnails"
 msgstr "Automatski detektovati sličice"
 
-msgid ""
-"Images are considered as thumbnails for files with the same name when "
-"syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
-msgstr ""
-"Kada se sinhronizuje, slikovni fajlovi se smatraju za sličice (thumbnails) "
-"fajlova sa istim imenom (npr. `file.jpg` &lt;=&gt; `file.zip`)"
+msgid "Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr "Kada se sinhronizuje, slikovni fajlovi se smatraju za sličice (thumbnails) fajlova sa istim imenom (npr. `file.jpg` &lt;=&gt; `file.zip`)"
 
 msgid "Automatic Sync"
 msgstr "Automatska sinhronizacija"
 
-msgid ""
-"Schedules a cronjob to hourly synchronize the filesystem and the database."
-msgstr ""
-"Zakazuje da cronjob na svaki sat sinhronizuje fajl sistem i bazu podataka."
+msgid "Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "Zakazuje da cronjob na svaki sat sinhronizuje fajl sistem i bazu podataka."
 
 msgid "Extension Blacklist"
 msgstr "\"Crna lista\" ekstenzija"
 
-msgid ""
-"Files with an extension in this list are skipped while synchronisation. "
-"(seperate with comma)"
-msgstr ""
-"Fajlovi sa ekstenzijom koja je na ovoj listi se preskaču tokom "
-"sinhronizacije. (razdvojeno zapetom)"
+msgid "Files with an extension in this list are skipped while synchronisation. (seperate with comma)"
+msgstr "Fajlovi sa ekstenzijom koja je na ovoj listi se preskaču tokom sinhronizacije. (razdvojeno zapetom)"
 
 msgid "Disable ID3 tag detection"
 msgstr "Isključiti detekciju ID3 oznaka"
 
-msgid ""
-"This disables all meta file info reading. Use this option if you have issues "
-"adding large files."
-msgstr ""
-"Ova opcija isključuje sva čitanja meta informacija o fajlovima. Koristite "
-"ovu opciju ako imate problema sa dodavanjem velikih fajlova."
+msgid "This disables all meta file info reading. Use this option if you have issues adding large files."
+msgstr "Ova opcija isključuje sva čitanja meta informacija o fajlovima. Koristite ovu opciju ako imate problema sa dodavanjem velikih fajlova."
 
 msgid "Search ID3 Tags"
 msgstr "Traženje ID3 oznaka"
 
-msgid ""
-"Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this "
-"option does not increase significantly server load since all data is cached "
-"in a MySQL table)"
-msgstr ""
-"Traženje među meta podacima fajlova, poput ID3 za MP3 fajlove, EXIF za "
-"JPEG... (ova opcija ne povećava u značajnoj meri opterećenje servera pošto "
-"se svi podaci keširaju u MySQL tabelu)"
+msgid "Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this option does not increase significantly server load since all data is cached in a MySQL table)"
+msgstr "Traženje među meta podacima fajlova, poput ID3 za MP3 fajlove, EXIF za JPEG... (ova opcija ne povećava u značajnoj meri opterećenje servera pošto se svi podaci keširaju u MySQL tabelu)"
 
 msgid "Add WP-Filebase to admin menu bar"
 msgstr "Dodati WP-Filebase u traku sa menijima za administraciju"
 
 msgid "Display some quick actions for file management in the admin menu bar."
-msgstr ""
-"Prikazati neke brze akcije za upravljanje fajlovima, u traci sa menijima, "
-"administracije."
+msgstr "Prikazati neke brze akcije za upravljanje fajlovima, u traci sa menijima, administracije."
 
 msgid "Statistics"
 msgstr "Statistike"
@@ -1213,15 +1052,10 @@ msgid "Exclude from file browser"
 msgstr "Isključiti iz pregledača fajlova"
 
 msgid "Templates used for single embedded files or file lists."
-msgstr ""
-"Šablon koji se koristi za pojedinačne ugrađene fajlove, ili liste fajlova."
+msgstr "Šablon koji se koristi za pojedinačne ugrađene fajlove, ili liste fajlova."
 
-msgid ""
-"For some files there are more tags available. You find a list of all tags "
-"below the form when editing a file."
-msgstr ""
-"Za neke fajlove postoji više raspoloživih oznaka. Potražite listu svih "
-"oznaka ispod forme, kada uređujete neki fajl."
+msgid "For some files there are more tags available. You find a list of all tags below the form when editing a file."
+msgstr "Za neke fajlove postoji više raspoloživih oznaka. Potražite listu svih oznaka ispod forme, kada uređujete neki fajl."
 
 msgid "Reset all Templates to default"
 msgstr "Resetovati sve šablone na podrazumevane"
@@ -1229,12 +1063,8 @@ msgstr "Resetovati sve šablone na podrazumevane"
 msgid "These templates can be used for categories."
 msgstr "Ovi šabloni se mogu koristiti za kategorije."
 
-msgid ""
-"A list-template consists of header, footer and file template. It can "
-"optionally have a category template to list sub-categories."
-msgstr ""
-"Šablon liste se sastoji od zaglavlja, podnožja i šablona fajla. Opciono može "
-"sadržati šablon kategorije za prikaz liste pod-kategorija."
+msgid "A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories."
+msgstr "Šablon liste se sastoji od zaglavlja, podnožja i šablona fajla. Opciono može sadržati šablon kategorije za prikaz liste pod-kategorija."
 
 msgid "Header"
 msgstr "Zaglavlje"
@@ -1261,8 +1091,7 @@ msgid "Select File"
 msgstr "Odaberite fajl"
 
 msgid "Select the categories containing the files you would like to list."
-msgstr ""
-"Odaberite kategorije koje sadrže fajlove koje želite da prikažete kao listu."
+msgstr "Odaberite kategorije koje sadrže fajlove koje želite da prikažete kao listu."
 
 msgid "Include all Categories"
 msgstr "Uključiti sve kategorije"
@@ -1271,9 +1100,7 @@ msgid "Files per page:"
 msgstr "Fajlova po strani:"
 
 msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
-msgstr ""
-"Podesite 0 da koristite podrazumevani limit (%d), -1 će isključiti "
-"numerisanje strana."
+msgstr "Podesite 0 da koristite podrazumevani limit (%d), -1 će isključiti numerisanje strana."
 
 msgid "File Tree View"
 msgstr "Prikaz stabla fajlova"
@@ -1300,8 +1127,7 @@ msgid "You can enter a URL to redirect users."
 msgstr "Možete uneti URL da preusmerite korisnike."
 
 msgid "Ask your webhoster to increase this limit, it is set in %s."
-msgstr ""
-"Pitajte svog web hosting provajdera da poveća ovaj limit, on je podešen u %s."
+msgstr "Pitajte svog web hosting provajdera da poveća ovaj limit, on je podešen u %s."
 
 msgid "Inherit Permissions"
 msgstr "Naslediti dozvole"
@@ -1310,17 +1136,11 @@ msgid "Explicitly set permissions"
 msgstr "Eksplicitno podesiti dozvole"
 
 msgid "Limit category access by selecting one or more user roles."
-msgstr ""
-"Ograničiti pristup kategoriji biranjem jedne ili više korisničkih uloga."
+msgstr "Ograničiti pristup kategoriji biranjem jedne ili više korisničkih uloga."
 
-msgid ""
-"This will recursivly update permissions of all existing child categories and "
-"files. Note that permissions of new files in this category are inherited "
-"automatically, without having checked this checkbox."
-msgstr ""
-"Ovo će rekurzivno ažurirati dozvole svih postojećih potomak-kategorija i "
-"fajlova. Imajte na umu da se dozvole iz novih linija u ovoj kategoriji "
-"automatski nasleđuju, bez da se čekira ova \"kućica\"."
+msgid "This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgstr "Ovo će rekurzivno ažurirati dozvole svih postojećih potomak-kategorija i fajlova. Imajte na umu da se dozvole iz novih linija u ovoj kategoriji automatski nasleđuju, bez da se čekira ova \"kućica\"."
 
 msgid "Owner"
 msgstr "Vlasnik"
+

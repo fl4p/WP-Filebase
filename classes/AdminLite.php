@@ -48,9 +48,11 @@ static function InitClass()
 
 static function SetupMenu()
 {
+	global $wp_version;
 	$pm_tag = WPFB_OPT_NAME.'_manage';
+	$icon = (floatval($wp_version) >= 3.8) ? 'images/admin_menu_icon2.png' : 'images/admin_menu_icon.png';
 	
-	add_menu_page(WPFB_PLUGIN_NAME, WPFB_PLUGIN_NAME, 'manage_categories', $pm_tag, array(__CLASS__, 'DisplayManagePage'), WPFB_PLUGIN_URI.'images/admin_menu_icon.png' /*, $position*/ );
+	add_menu_page(WPFB_PLUGIN_NAME, WPFB_PLUGIN_NAME, 'manage_categories', $pm_tag, array(__CLASS__, 'DisplayManagePage'), WPFB_PLUGIN_URI.$icon /*, $position*/ );
 	
 	$menu_entries = array(
 		array('tit'=>'Files',						'tag'=>'files',	'fnc'=>'DisplayFilesPage',	'desc'=>'View uploaded files and edit them',
@@ -114,7 +116,7 @@ private static function CheckChangedVer()
 }
 
 static function JsRedirect($url) {
-	echo '<script type="text/javascript"> window.location = "',$url,'"; </script><h1><a href="',$url,'">',$url,'</a></h1>'; 
+	echo '<script type="text/javascript"> window.location = "',esc_js($url),'"; </script><h1><a href="',esc_attr($url),'">',esc_html($url),'</a></h1>'; 
 }
 
 static function PrintCKEditorPlugin() {

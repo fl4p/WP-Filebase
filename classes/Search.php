@@ -63,18 +63,23 @@ static function SearchWhereSql($search_id3=false, $s=null) {
 	
 	// TODO: search fields with match...
 	foreach($search_terms as $term) {
-		$where .= " AND (";
+		$where .= ($not = ($term{0} === '-')) ? " AND NOT (" : " AND (";
+		if($not) $term = substr($term,1);
+		
+		$wc = strpos($term, '*') !== false; // check for wildcard
+		
 		$or = '';
 		foreach($search_fields as $sf) {
 			$col = "{$wpdb->wpfilebase_files}.{$sf}";
-			$where .= " {$or}({$col} LIKE '{$p}{$term}{$p}')";
+			$where .= " {$or}({$col} LIKE '".($wc?str_replace('*','%',$term):"{$p}{$term}{$p}")."')";
 			if(empty($or)) $or = 'OR ';
 		}
-		if($search_id3) $where .= " OR ({$wpdb->wpfilebase_files_id3}.keywords LIKE '{$p}{$term}{$p}')"; // TODO: MATCH func here
+		// !$not -> dont exclude from id3 files 
+		if(!$not && $search_id3) $where .= " OR ({$wpdb->wpfilebase_files_id3}.keywords LIKE '{$p}{$term}{$p}')"; // TODO: MATCH func here
 		$where .= ") ";
 	}
 	$where .= ")";
-	
+
 	return $where;
 }
 

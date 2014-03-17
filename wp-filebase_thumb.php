@@ -1,16 +1,9 @@
 <?php
-ob_start();  // suppress any errors
 
-define('WP_INSTALLING', true); // make wp load faster
+define('FASTLOAD', true);
+require_once('wpfb-load.php');
+wpfb_loadclass('Core','File','Category','Download');
 
-error_reporting(0);
-require(dirname(__FILE__).'/../../../wp-load.php'); // TODO: dont load all wordpress-stuff!
-error_reporting(0);
-require_once(dirname(__FILE__).'/wp-filebase.php'); // this only loads some wp-filebase stuff, NOT WP!
-wpfb_loadclass('Core');
-wpfb_loadclass('File','Category','Download');
-
-@ob_end_clean(); // suppress any errors
 
 $item = null;
 
@@ -43,5 +36,3 @@ if(empty($item->file_thumbnail) && empty($item->cat_icon))
 
 // send thumbnail
 WPFB_Download::SendFile($item->GetThumbPath(), array('cache_max_age' => 3600 * 12));
-
-?>

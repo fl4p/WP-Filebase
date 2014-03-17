@@ -23,9 +23,12 @@ static function ProcessShortCode($args, $content = null, $tag = null)
 		case 'fileurl':
 			if($id > 0 && ($file = wpfb_call('File','GetFile',$id)) != null) {
 				if(empty($args['linktext']))	return $file->GetUrl();
-				return '<a href="'.$file->GetUrl().'">'.$args['linktext'].'</a>';
+				if( ($new_tab = ($args['linktext']{0} == '*')) )
+					$args['linktext'] = substr($args['linktext'], 1);
+				return '<a href="'.$file->GetUrl().'" '.($new_tab?'target="_blank"':'').'>'.$args['linktext'].'</a>';
 			}
 			else break;
+			
 			
 		case 'attachments':	return do_shortcode(self::PostAttachments(false, $args['tpl']));
 		
@@ -175,15 +178,18 @@ private static function FileBrowserList(&$content, $root_cat=null, $args=array()
 	$open_cat = empty($args['open_cats']) ? null : array_pop($args['open_cats']);
 	$files_before_cats = WPFB_Core::GetOpt('file_browser_fbc');
 	
-	$files =  WPFB_File::GetFiles2(array('file_category' => $root_id),  WPFB_Core::GetOpt('hide_inaccessible'), WPFB_Core::GetFileListSortSql((WPFB_Core::GetOpt('file_browser_file_sort_dir')?'>':'<').WPFB_Core::GetOpt('file_browser_file_sort_by')));
+	$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::GetOpt('hide_inaccessible'), WPFB_Core::GetFileListSortSql((WPFB_Core::GetOpt('file_browser_file_sort_dir')?'>':'<').WPFB_Core::GetOpt('file_browser_file_sort_by')));
 	
 	if($files_before_cats) {
 		foreach($files as $file)
 			$content .= '<li id="wpfb-file-'.$file->file_id.'"><span>'.$file->GenTpl2('filebrowser', false)."</span></li>\n";
 	}	
 	
+	$no_cats = true;
 	foreach($cats as $cat) {
 		if(!$cat->CurUserCanAccess(true)) continue;
+		
+		$no_cats = false;
 		
 		$liclass = '';
 		if( ($has_children = $cat->HasChildren()) ) $liclass .= 'hasChildren';
@@ -206,6 +212,7 @@ private static function FileBrowserList(&$content, $root_cat=null, $args=array()
 		foreach($files as $file)
 			$content .= '<li id="wpfb-file-'.$file->file_id.'"><span>'.$file->GenTpl2('filebrowser', false)."</span></li>\n";
 	}
+	
 }
 
 // used when retrieving a multi select tpl var
@@ -337,12 +344,28 @@ static function InitFileTreeView($id=null, $root=0)
 	
 	if($id != null) {
 		$ajax_data = array('action'=>'tree', 'type'=>'browser', 'base' => intval($root));
+		$jss = md5($id);
 	?>
 <script type="text/javascript">
 //<![CDATA[
-jQuery(document).ready(function(){jQuery("#<?php echo $id ?>").treeview({url: "<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>",
+function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview({url: "<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>",
 ajax:{data:<?php echo json_encode($ajax_data); ?>,type:"post",complete:function(){if(typeof(wpfb_setupLinks)=='function')wpfb_setupLinks();}},
-animated: "medium"});});
+animated: "medium"});
+}
+jQuery(document).ready(function(){
+	var fel=jQuery("#<?php echo $id ?>");
+	if('function' != typeof fel.treeview) {
+		jQuery.when(
+<?php global $wp_scripts; $treeview_scripts = array('jquery-treeview','jquery-treeview-edit', 'jquery-treeview-async');
+foreach($treeview_scripts as $ts) { ?>
+			 jQuery.getScript('<?php echo esc_js($wp_scripts->registered[$ts]->src); ?>'),
+<?php } ?>
+			 jQuery.Deferred(function( deferred ){ jQuery( deferred.resolve ); })
+		).done(function(){ wpfb_initfb<?php echo $jss ?>(); });
+	} else {
+		wpfb_initfb<?php echo $jss ?>();
+	}
+});
 //]]>
 </script>
 <?php
@@ -452,35 +475,14 @@ static function RoleNames($roles, $fmt_string=false) {
 	return $fmt_string ? (empty($names) ? ("<i>".__('Everyone',WPFB)."</i>") : join(', ',$names)) : $names;
 }
 
-static function FileForm($prefix, $form_url, $vars, $secret_key=null, $extended=false) {
-	$category = $vars['cat'];
-	$nonce_action = "$prefix=";
-	if(!empty($secret_key)) $nonce_action .= $secret_key;
-	
+static function FileForm($prefix, $form_url, $vars, $secret_key=null ) {	
 	
 	unset($vars['adv_uploader']); // dont use adv_uploader arg for noncing! TODO
 	?>
 		<form enctype="multipart/form-data" name="<?php echo $prefix; ?>form" id="<?php echo $prefix; ?>form" method="post" action="<?php echo $form_url; ?>">
-		<?php 
-		foreach($vars as $n => $v) {
-			echo '<input type="hidden" name="'.esc_attr($n).'" value="'.esc_attr($v).'" id="'.$prefix.esc_attr($n).'" />';
-			$nonce_action .= "&$n=$v";
-		}
-		
-		wp_nonce_field($nonce_action, 'wpfb-file-nonce'); ?>
-			<input type="hidden" name="prefix" value="<?php echo $prefix ?>" />
-			<div>
-				
-	
-				<?php if($category == -1) { ?>
-				<div>
-				<label for="<?php echo $prefix ?>file_category"><?php _e('Category') ?></label>
-				<select name="file_category" id="<?php echo $prefix; ?>file_category"><?php wpfb_loadclass('Category'); echo WPFB_Output::CatSelTree(array('none_label' => __('Select'), 'check_add_perm'=>true)); ?></select>
-				</div>
-				<?php } else { ?>
-				<input type="hidden" name="file_category" value="<?php echo $category; ?>" id="<?php echo $prefix ?>file_category" />
-				<?php } ?>
-				
+			<div>				
+
+				<?php self::DisplayExtendedFormFields($prefix, $secret_key, $vars ); ?>
 				
 				<?php if(empty($adv_uploader)) { ?>
 					<label for="<?php echo $prefix ?>file_upload"><?php _e('Choose File', WPFB) ?></label>
@@ -490,10 +492,40 @@ static function FileForm($prefix, $form_url, $vars, $secret_key=null, $extended=
 				} ?>
 				<small><?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s.'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?></small>
 				
-				<?php if(empty($auto_submit)) { ?><div style="float: right; text-align:right;"><input type="submit" class="button-primary" name="submit-btn" value="<?php _ex('Add New', 'file'); ?>" /></div>
+				<?php if(empty($auto_submit)) { ?><div style="float: right; text-align:right;"><input type="submit" class="button-primary" name="submit-btn" value="<?php _e('Add New', WPFB); ?>" /></div>
 				<?php } ?>
-			</div>	
+			</div>
 		</form>	
+	<?php
+}
+
+static function DisplayExtendedFormFields($prefix, $secret_key, $hidden_vars=array() )
+{
+	$category = $hidden_vars['cat'];
+	$nonce_action = "$prefix=";
+	if(!empty($secret_key)) $nonce_action .= $secret_key;
+	
+	$hidden_vars = array_filter($hidden_vars, create_function('$v','return !(is_object($v) || is_array($v));')); 
+	
+	foreach($hidden_vars as $n => $v) {
+		echo '<input type="hidden" name="'.esc_attr($n).'" value="'.esc_attr($v).'" id="'.$prefix.esc_attr($n).'" />';
+		
+		if(!in_array($n, array('adv_uploader', 'frontend_upload', 'prefix')))
+			$nonce_action .= "&$n=$v";
+	}		
+	wp_nonce_field($nonce_action, 'wpfb-file-nonce'); ?>
+		<input type="hidden" name="prefix" value="<?php echo $prefix ?>" />
+		
+	<?php
+	
+	if($category == -1) { ?>
+	<div>
+	<label for="<?php echo $prefix ?>file_category"><?php _e('Category',WPFB) ?></label>
+	<select name="file_category" id="<?php echo $prefix; ?>file_category"><?php wpfb_loadclass('Category'); echo WPFB_Output::CatSelTree(array('none_label' => __('Select'), 'check_add_perm'=>true)); ?></select>
+	</div>
+	<?php } else { ?>
+	<input type="hidden" name="file_category" value="<?php echo $category; ?>" id="<?php echo $prefix ?>file_category" />
+	<?php } ?>
 	<?php
 }
 

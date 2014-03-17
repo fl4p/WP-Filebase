@@ -8,24 +8,26 @@ msgstr ""
 "Project-Id-Version: WP-Filebase 0.1.3.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
 "POT-Creation-Date: 2010-01-18 23:16+0000\n"
-"PO-Revision-Date: 2011-11-20 21:20+0100\n"
+"PO-Revision-Date: 2013-10-25 23:01+0100\n"
 "Last-Translator: Fabian Schlieper <fabian@fabi.me>\n"
 "Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.5.7\n"
 
-#: editor_plugin.php:37
-#: editor_plugin.php:256
+#: editor_plugin.php:37 editor_plugin.php:256
 msgid "Uncategorized Files"
 msgstr "Файлы без категории"
 
 #: editor_plugin.php:42
 #, php-format
-msgid "You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to add one.</a>"
-msgstr "Вы не загрузили файл.<a href=\"%s\" target=\"_parent\">Добавить файл.</a>"
+msgid ""
+"You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to "
+"add one.</a>"
+msgstr ""
+"Вы не загрузили файл.<a href=\"%s\" target=\"_parent\">Добавить файл.</a>"
 
 #: editor_plugin.php:219
 msgid "Enter link text:"
@@ -56,8 +58,12 @@ msgstr "Присоединенные файлы"
 
 #: editor_plugin.php:266
 #, php-format
-msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
-msgstr "Вы не создали категорию. <a href=\"%s\" target=\"_parent\">создать категорию.</a>"
+msgid ""
+"You did not create a category. <a href=\"%s\" target=\"_parent\">Click here "
+"to create one.</a>"
+msgstr ""
+"Вы не создали категорию. <a href=\"%s\" target=\"_parent\">создать категорию."
+"</a>"
 
 #: editor_plugin.php:273
 msgid "Select Template"
@@ -67,15 +73,20 @@ msgstr "Выберите шаблон"
 msgid "Default Template"
 msgstr "Стандартный шаблон"
 
-#: editor_plugin.php:281
-#: lib/wp-filebase_admin_gui_manage.lib.php:472
+#: editor_plugin.php:281 lib/wp-filebase_admin_gui_manage.lib.php:472
 #: lib/wp-filebase_admin_gui_manage.lib.php:481
 msgid "Add Template"
 msgstr "Добавить шаблон"
 
 #: lib/wp-filebase_admin.lib.php:9
-msgid "One entry per line. Seperate the title and a short tag (not longer than 8 characters) with '|'.<br />All lines beginning with '*' are selected by default."
-msgstr "По значению в строке. Разделяйте заголовок и короткий Tag (не более 8 символов) чертой '|'.<br />Все строки начинающиеся с  '*' выбраны по умолчанию."
+msgid ""
+"One entry per line. Seperate the title and a short tag (not longer than 8 "
+"characters) with '|'.<br />All lines beginning with '*' are selected by "
+"default."
+msgstr ""
+"По значению в строке. Разделяйте заголовок и короткий Tag (не более 8 "
+"символов) чертой '|'.<br />Все строки начинающиеся с  '*' выбраны по "
+"умолчанию."
 
 #: lib/wp-filebase_admin.lib.php:10
 msgid "One entry per line."
@@ -145,8 +156,12 @@ msgstr "Сообщение о перерасходе трафика."
 msgid "Daily user download limits"
 msgstr "Суточный лимит скачивания"
 
-msgid "If enabled, unregistered users cannot download any files. You can set different limits for each user role below."
-msgstr "Незарегистрированные пользователи не смогут скачивать файлы. Вы можете установить разные лимиты для разных групп пользователей."
+msgid ""
+"If enabled, unregistered users cannot download any files. You can set "
+"different limits for each user role below."
+msgstr ""
+"Незарегистрированные пользователи не смогут скачивать файлы. Вы можете "
+"установить разные лимиты для разных групп пользователей."
 
 msgid "downloads per day"
 msgstr "Закачек в день"
@@ -182,23 +197,33 @@ msgstr "Скачать список URL"
 
 #: lib/wp-filebase_admin.lib.php:31
 #, php-format
-msgid "The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
-msgstr "Префикс ссылок для файла списка URL. Пример:<code>%s</code>(только при включенных постоянных ссылках)"
+msgid ""
+"The url prefix for file download links. Example: <code>%s</code> (Only used "
+"when Permalinks are enabled.)"
+msgstr ""
+"Префикс ссылок для файла списка URL. Пример:<code>%s</code>(только при "
+"включенных постоянных ссылках)"
 
 #: lib/wp-filebase_admin.lib.php:33
 msgid "Post ID of the file browser"
 msgstr "ID записи"
 
 #: lib/wp-filebase_admin.lib.php:33
-msgid "Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank."
-msgstr "Номер записи, в которой файл будет размещен. если не хотите использовать, оставьте пустое поле."
+msgid ""
+"Specify the ID of the post or page where the file browser should be placed. "
+"If you want to disable this feature leave the field blank."
+msgstr ""
+"Номер записи, в которой файл будет размещен. если не хотите использовать, "
+"оставьте пустое поле."
 
 #: lib/wp-filebase_admin.lib.php:34
 msgid "Category drop down list"
 msgstr "Выпадающий список категорий."
 
 #: lib/wp-filebase_admin.lib.php:34
-msgid "Use category drop down list in the file browser instead of listing like files."
+msgid ""
+"Use category drop down list in the file browser instead of listing like "
+"files."
 msgstr "Используйте выпадающий список категорий вместо списка похожих файлов."
 
 #: lib/wp-filebase_admin.lib.php:36
@@ -206,8 +231,12 @@ msgid "Always force download"
 msgstr "Закрепить скачивание"
 
 #: lib/wp-filebase_admin.lib.php:36
-msgid "If enabled files that can be viewed in the browser (like images, PDF documents or videos) can only be downloaded (no streaming)."
-msgstr "При активации, пользователи смогуть только скачивать файлы( невозможно будет просмотреть такие как PDF Видео и т.д.)."
+msgid ""
+"If enabled files that can be viewed in the browser (like images, PDF "
+"documents or videos) can only be downloaded (no streaming)."
+msgstr ""
+"При активации, пользователи смогуть только скачивать файлы( невозможно будет "
+"просмотреть такие как PDF Видео и т.д.)."
 
 #: lib/wp-filebase_admin.lib.php:37
 msgid "Ignore downloads by admins"
@@ -218,8 +247,12 @@ msgid "Hide inaccessible files and categories"
 msgstr "Скрыть файлы"
 
 #: lib/wp-filebase_admin.lib.php:38
-msgid "If enabled files tagged <i>For members only</i> will not be listed for guests or users whith insufficient rights."
-msgstr "Файлы отмеченные \"только для зарегистрированных\" не будут отображаться для остальных групп."
+msgid ""
+"If enabled files tagged <i>For members only</i> will not be listed for "
+"guests or users whith insufficient rights."
+msgstr ""
+"Файлы отмеченные \"только для зарегистрированных\" не будут отображаться для "
+"остальных групп."
 
 #: lib/wp-filebase_admin.lib.php:39
 msgid "You are not allowed to access this file!"
@@ -230,7 +263,9 @@ msgid "Inaccessible file message"
 msgstr "Сообщение недоступности файла."
 
 #: lib/wp-filebase_admin.lib.php:39
-msgid "This message will be displayed if users try to download a file they cannot access"
+msgid ""
+"This message will be displayed if users try to download a file they cannot "
+"access"
 msgstr "Это сообщение будет отображено, при невозможности скачивания файла"
 
 #: lib/wp-filebase_admin.lib.php:40
@@ -238,7 +273,9 @@ msgid "Redirect to login"
 msgstr "Перенаправление "
 
 #: lib/wp-filebase_admin.lib.php:40
-msgid "Guests trying to download inaccessible files are redirected to the login page if this option is enabled."
+msgid ""
+"Guests trying to download inaccessible files are redirected to the login "
+"page if this option is enabled."
 msgstr "Включите для перенаправления пользователей на страницу входа."
 
 #: lib/wp-filebase_admin.lib.php:40
@@ -254,16 +291,26 @@ msgid "Allow script upload"
 msgstr "Разрешить скрипт загрузки"
 
 #: lib/wp-filebase_admin.lib.php:42
-msgid "If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!"
-msgstr "При включении, такие скрипты как PHP и CGI могут быть загружены.!!! РИСК БЕЗОПАСНОСТИ!!!"
+msgid ""
+"If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> "
+"Enabling script uploads is a <b>security risk</b>!"
+msgstr ""
+"При включении, такие скрипты как PHP и CGI могут быть загружены.!!! РИСК "
+"БЕЗОПАСНОСТИ!!!"
 
 #: lib/wp-filebase_admin.lib.php:44
 msgid "Accept empty referers"
 msgstr "Разрешить пустые строки реферов"
 
 #: lib/wp-filebase_admin.lib.php:44
-msgid "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
-msgstr "If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)"
+msgid ""
+"If enabled, direct-link-protected files can be downloaded when the referer "
+"is empty (i.e. user entered file url in address bar or browser does not send "
+"referers)"
+msgstr ""
+"If enabled, direct-link-protected files can be downloaded when the referer "
+"is empty (i.e. user entered file url in address bar or browser does not send "
+"referers)"
 
 #: lib/wp-filebase_admin.lib.php:45
 msgid "Allowed referers"
@@ -278,11 +325,14 @@ msgid "Decimal file size prefixes"
 msgstr "Десятичный размер файла"
 
 #: lib/wp-filebase_admin.lib.php:47
-msgid "Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
-msgstr "При включении (1 MB = 1000 KB = 1 000 000 B) вместо (1 MiB = 1024 KiB = 1 048 576 B)"
+msgid ""
+"Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) "
+"instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr ""
+"При включении (1 MB = 1000 KB = 1 000 000 B) вместо (1 MiB = 1024 KiB = 1 "
+"048 576 B)"
 
-#: lib/wp-filebase_admin.lib.php:50
-#: lib/wp-filebase_form_file.php:80
+#: lib/wp-filebase_admin.lib.php:50 lib/wp-filebase_form_file.php:80
 msgid "Platforms"
 msgstr "Платформы"
 
@@ -290,14 +340,17 @@ msgstr "Платформы"
 msgid "Licenses"
 msgstr "Лицензии"
 
-#: lib/wp-filebase_admin.lib.php:52
-#: lib/wp-filebase_form_file.php:84
+#: lib/wp-filebase_admin.lib.php:52 lib/wp-filebase_form_file.php:84
 msgid "Requirements"
 msgstr "Требования"
 
 #: lib/wp-filebase_admin.lib.php:52
-msgid "You can optionally add |<i>URL</i> to each line to link to the required software/file."
-msgstr "You can optionally add |<i>URL</i> to each line to link to the required software/file."
+msgid ""
+"You can optionally add |<i>URL</i> to each line to link to the required "
+"software/file."
+msgstr ""
+"You can optionally add |<i>URL</i> to each line to link to the required "
+"software/file."
 
 #: lib/wp-filebase_admin.lib.php:88
 msgid "Default File Template"
@@ -320,8 +373,14 @@ msgid "Download JavaScript"
 msgstr "Скрипт закачки"
 
 #: lib/wp-filebase_admin.lib.php:113
-msgid "Here you can enter JavaScript Code which is executed when a user clicks on file download link. The following variables can be used: <i>file_id</i>: the ID of the file, <i>file_url</i>: the clicked download url"
-msgstr "В это поле вы можете ввести JavaScript код, который будет выполнен при клике по ссылке на скачивание. можно использовать :<i>file_id</i> -ID файла,  <i>file_url</i>:сам URL скачивания."
+msgid ""
+"Here you can enter JavaScript Code which is executed when a user clicks on "
+"file download link. The following variables can be used: <i>file_id</i>: the "
+"ID of the file, <i>file_url</i>: the clicked download url"
+msgstr ""
+"В это поле вы можете ввести JavaScript код, который будет выполнен при клике "
+"по ссылке на скачивание. можно использовать :<i>file_id</i> -ID файла,  "
+"<i>file_url</i>:сам URL скачивания."
 
 #: lib/wp-filebase_admin.lib.php:129
 msgid "The category URL"
@@ -344,30 +403,29 @@ msgid "Number of files in the category"
 msgstr "Количество файлов в категории"
 
 #: lib/wp-filebase_admin.lib.php:136
-msgid "The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
-msgstr "Минимальный уровень посетителя для просмотра этой категории (-1=гость, 0=Подписчик ...)"
+msgid ""
+"The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr ""
+"Минимальный уровень посетителя для просмотра этой категории (-1=гость, "
+"0=Подписчик ...)"
 
 #: lib/wp-filebase_admin.lib.php:138
 msgid "The category ID"
 msgstr "ID категории"
 
-#: lib/wp-filebase_admin.lib.php:139
-#: lib/wp-filebase_admin.lib.php:174
+#: lib/wp-filebase_admin.lib.php:139 lib/wp-filebase_admin.lib.php:174
 msgid "A unique ID number to identify elements within a template"
 msgstr "A unique ID number to identify elements within a template"
 
-#: lib/wp-filebase_admin.lib.php:142
-#: lib/wp-filebase_admin.lib.php:181
+#: lib/wp-filebase_admin.lib.php:142 lib/wp-filebase_admin.lib.php:181
 msgid "Name of the file"
 msgstr "Имя файла"
 
-#: lib/wp-filebase_admin.lib.php:143
-#: lib/wp-filebase_admin.lib.php:182
+#: lib/wp-filebase_admin.lib.php:143 lib/wp-filebase_admin.lib.php:182
 msgid "Formatted file size"
 msgstr "Разммер файла"
 
-#: lib/wp-filebase_admin.lib.php:144
-#: lib/wp-filebase_admin.lib.php:183
+#: lib/wp-filebase_admin.lib.php:144 lib/wp-filebase_admin.lib.php:183
 msgid "Formatted file date"
 msgstr "Дата"
 
@@ -375,8 +433,7 @@ msgstr "Дата"
 msgid "Name of the thumbnail file"
 msgstr "Имя миниатюры"
 
-#: lib/wp-filebase_admin.lib.php:148
-#: lib/wp-filebase_admin.lib.php:186
+#: lib/wp-filebase_admin.lib.php:148 lib/wp-filebase_admin.lib.php:186
 msgid "File version"
 msgstr "Версия файла"
 
@@ -392,16 +449,17 @@ msgstr "Поддерживаемые платформы( ОС )"
 msgid "Requirements to use this file"
 msgstr "Минимальные требования"
 
-#: lib/wp-filebase_admin.lib.php:153
-#: lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_admin.lib.php:153 lib/wp-filebase_admin.lib.php:188
 #: lib/wp-filebase_form_file.php:66
 msgid "License"
 msgstr "Лицензия"
 
-#: lib/wp-filebase_admin.lib.php:154
-#: lib/wp-filebase_admin.lib.php:189
-msgid "The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
-msgstr "Минимальный уровень посетителя для скачивания файла  (-1=гость, 0=Подписчик ...)"
+#: lib/wp-filebase_admin.lib.php:154 lib/wp-filebase_admin.lib.php:189
+msgid ""
+"The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr ""
+"Минимальный уровень посетителя для скачивания файла  (-1=гость, "
+"0=Подписчик ...)"
 
 #: lib/wp-filebase_admin.lib.php:155
 msgid "1 if file is offline, otherwise 0"
@@ -415,18 +473,15 @@ msgstr "1 если прямая ссылка разрешена,в против�
 msgid "The category name"
 msgstr "Имя категории"
 
-#: lib/wp-filebase_admin.lib.php:159
-#: lib/wp-filebase_admin.lib.php:193
+#: lib/wp-filebase_admin.lib.php:159 lib/wp-filebase_admin.lib.php:193
 msgid "ID of the post/page this file belongs to"
 msgstr "ID страницы/записи к которой относиться файл"
 
-#: lib/wp-filebase_admin.lib.php:160
-#: lib/wp-filebase_admin.lib.php:194
+#: lib/wp-filebase_admin.lib.php:160 lib/wp-filebase_admin.lib.php:194
 msgid "User ID of the owner"
 msgstr "ID пользователя в закачке"
 
-#: lib/wp-filebase_admin.lib.php:161
-#: lib/wp-filebase_admin.lib.php:195
+#: lib/wp-filebase_admin.lib.php:161 lib/wp-filebase_admin.lib.php:195
 msgid "How many times this file has been downloaded."
 msgstr "Сколько раз файл был скачан"
 
@@ -434,8 +489,7 @@ msgstr "Сколько раз файл был скачан"
 msgid "IP Address of the last downloader"
 msgstr "IP последнего скачивания"
 
-#: lib/wp-filebase_admin.lib.php:165
-#: lib/wp-filebase_admin.lib.php:196
+#: lib/wp-filebase_admin.lib.php:165 lib/wp-filebase_admin.lib.php:196
 msgid "Time of the last download"
 msgstr "Время последнего скачиваня"
 
@@ -530,8 +584,13 @@ msgid "Files"
 msgstr "Файлы"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:146
-msgid "<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category."
-msgstr "<strong>Важно:</strong><br />Удаление категории не удалит файлов в категории. Файлы из удаленной категории , буду ассоциированны и родительской."
+msgid ""
+"<strong>Note:</strong><br />Deleting a category does not delete the files in "
+"that category. Instead, files that were assigned to the deleted category are "
+"set to the parent category."
+msgstr ""
+"<strong>Важно:</strong><br />Удаление категории не удалит файлов в "
+"категории. Файлы из удаленной категории , буду ассоциированны и родительской."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:185
 msgid "File updated."
@@ -590,8 +649,12 @@ msgid "Complete file sync"
 msgstr "Синхронизация фалов выполнена"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:377
-msgid "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
-msgstr "Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP."
+msgid ""
+"Checks files for changes, so more reliable but might take much longer. Do "
+"this if you uploaded/changed files with FTP."
+msgstr ""
+"Checks files for changes, so more reliable but might take much longer. Do "
+"this if you uploaded/changed files with FTP."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:390
 #, php-format
@@ -624,13 +687,25 @@ msgstr "Код Шаблона"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:497
 #, php-format
-msgid "The upload directory <code>%s</code> does not exists. It could not be created automatically because the directory <code>%s</code> is not writable. Please create <code>%s</code> and make it writable for the webserver by executing the following FTP command: <code>%s</code>"
-msgstr "Папка для загрузки <code>%s</code> не существует. Её не возможно создать автоматически т.к.  папка <code>%s</code> защищена от записи. Создайте <code>%s</code> и установите права на записть при помощи FTP команды: <code>%s</code>"
+msgid ""
+"The upload directory <code>%s</code> does not exists. It could not be "
+"created automatically because the directory <code>%s</code> is not writable. "
+"Please create <code>%s</code> and make it writable for the webserver by "
+"executing the following FTP command: <code>%s</code>"
+msgstr ""
+"Папка для загрузки <code>%s</code> не существует. Её не возможно создать "
+"автоматически т.к.  папка <code>%s</code> защищена от записи. Создайте <code>"
+"%s</code> и установите права на записть при помощи FTP команды: <code>%s</"
+"code>"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:499
 #, php-format
-msgid "The upload directory <code>%s</code> is not writable. Please make it writable for PHP by executing the follwing FTP command: <code>%s</code>"
-msgstr "Папка загрузки  <code>%s</code> защищена от записи. Измените права доступа через ФТП <code>%s</code>"
+msgid ""
+"The upload directory <code>%s</code> is not writable. Please make it "
+"writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr ""
+"Папка загрузки  <code>%s</code> защищена от записи. Измените права доступа "
+"через ФТП <code>%s</code>"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:506
 msgid "Manage Files"
@@ -653,8 +728,11 @@ msgid "Sync Filebase"
 msgstr "Синхронизация "
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:508
-msgid "Synchronises the database with the file system. Use this to add FTP-uploaded files."
-msgstr "Синхронизация БД и файловой системы. Используется при загрузке через FTP."
+msgid ""
+"Synchronises the database with the file system. Use this to add FTP-uploaded "
+"files."
+msgstr ""
+"Синхронизация БД и файловой системы. Используется при загрузке через FTP."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:509
 msgid "Edit Stylesheet"
@@ -677,7 +755,9 @@ msgid "Donate &amp; Feature Request"
 msgstr "Пожертвования"
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:511
-msgid "If you like this plugin and want to support my work, please donate. You can also post your ideas making the plugin better."
+msgid ""
+"If you like this plugin and want to support my work, please donate. You can "
+"also post your ideas making the plugin better."
 msgstr "Если вам нравиться плагин, пожертвуйте."
 
 #: lib/wp-filebase_admin_gui_manage.lib.php:520
@@ -735,13 +815,11 @@ msgstr "Папка категории"
 msgid "Category Icon"
 msgstr "Иконка категории"
 
-#: lib/wp-filebase_form_cat.php:59
-#: lib/wp-filebase_form_file.php:112
+#: lib/wp-filebase_form_cat.php:59 lib/wp-filebase_form_file.php:112
 msgid "For members only"
 msgstr "Только для подписчиков!"
 
-#: lib/wp-filebase_form_cat.php:62
-#: lib/wp-filebase_form_file.php:115
+#: lib/wp-filebase_form_cat.php:62 lib/wp-filebase_form_file.php:115
 #, php-format
 msgid "Minimum user level: (see %s)"
 msgstr "Минимальный уровень пользователя ( %s)"
@@ -772,8 +850,12 @@ msgid "Maximum file size: %s"
 msgstr "Допустимый размер файла: %s"
 
 #: lib/wp-filebase_form_file.php:32
-msgid "You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically."
-msgstr "Вы можете закачать миниатюру. Если это изображение, миниатюра сгенерируеться сама."
+msgid ""
+"You can optionally upload a thumbnail here. If the file is a valid image, a "
+"thumbnail is generated automatically."
+msgstr ""
+"Вы можете закачать миниатюру. Если это изображение, миниатюра сгенерируеться "
+"сама."
 
 #: lib/wp-filebase_form_file.php:38
 msgid "The following fields are optional."
@@ -783,8 +865,7 @@ msgstr "Обязательно заполните следующие поля."
 msgid "Download Counter"
 msgstr "Счетчик скачиваний"
 
-#: lib/wp-filebase_form_file.php:94
-#: lib/wp-filebase_form_file.php:96
+#: lib/wp-filebase_form_file.php:94 lib/wp-filebase_form_file.php:96
 msgid "Direct linking"
 msgstr "Прямые ссылки"
 
@@ -809,8 +890,12 @@ msgid "Template:"
 msgstr "Шаблон"
 
 #. Description of an extension
-msgid "A powerful download manager supporting file categories, thumbnails, traffic/bit rate limits and more."
-msgstr "Менеджер закаче поддерживает категории, миниатюры, трафик/скорость скачивания, лимиты и другое."
+msgid ""
+"A powerful download manager supporting file categories, thumbnails, traffic/"
+"bit rate limits and more."
+msgstr ""
+"Менеджер закаче поддерживает категории, миниатюры, трафик/скорость "
+"скачивания, лимиты и другое."
 
 #. Template
 msgid "Version"
@@ -862,9 +947,17 @@ msgstr "Список недавно добавленных и популярны
 msgid "Simple listing of file categories"
 msgstr "Простые списки категорий"
 
-msgid "Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings."
-msgstr "Перед использованием виджета, измените ID записи в  WP-Filebase настройках"
+msgid ""
+"Before you can use this widget, please set a Post ID for the file browser in "
+"WP-Filebase settings."
+msgstr ""
+"Перед использованием виджета, измените ID записи в  WP-Filebase настройках"
 
-msgid "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
-msgstr "If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!"
-
+msgid ""
+"If you like WP-Filebase I would appreciate a small donation to support my "
+"work. You can additionally add an idea to make WP-Filebase even better. Just "
+"click the button below. Thank you!"
+msgstr ""
+"If you like WP-Filebase I would appreciate a small donation to support my "
+"work. You can additionally add an idea to make WP-Filebase even better. Just "
+"click the button below. Thank you!"

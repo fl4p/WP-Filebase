@@ -89,7 +89,7 @@ static function IsValidImage($img, &$img_size = null) {
 
 static function FileHasImageExt($name) {	
 	$name = strtolower(substr($name, strrpos($name, '.') + 1));
-	return ($name == 'png' || $name == 'gif' || $name == 'jpg' || $name == 'jpeg' || $name == 'bmp' || $name == 'tif' || $name == 'tiff');
+	return ($name == 'png' || $name == 'gif' || $name == 'jpg' || $name == 'jpeg' || $name == 'bmp' || $name == 'tif' || $name == 'tiff' || $name == 'psd');
 }
 
 

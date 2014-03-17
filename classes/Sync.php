@@ -182,7 +182,7 @@ private static function SyncPase1($sync_data, $output)
 	self::PrintDebugTrace("post_get_thumbs");
 }
 
-static function Sync($hash_sync=false, $output=false)
+static function Sync($hash_sync=false, $output=false )
 {
 	self::PrintDebugTrace();
 	
@@ -310,7 +310,7 @@ static function CheckChangedFiles($sync_data)
 	sort($sync_data->known_filenames);
 }
 
-static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
+static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0 )
 {
 	self::PrintDebugTrace();
 	$keys = array_keys($sync_data->new_files);
@@ -331,7 +331,8 @@ static function AddNewFiles($sync_data, $progress_bar=null, $max_batch_size=0)
 		if(is_null($ex_file = WPFB_Item::GetByPath($rel_path)))
 		{
 			self::PrintDebugTrace("add_existing_file:$fn");
-			$res = WPFB_Admin::AddExistingFile($fn, empty($sync_data->thumbnails[$fn]) ? null : $sync_data->thumbnails[$fn]);
+			$res = WPFB_Admin::AddExistingFile($fn, empty($sync_data->thumbnails[$fn]) ? null : $sync_data->thumbnails[$fn] );
+
 			self::PrintDebugTrace("added_existing_file");
 			if(empty($res['error'])) {
 				$sync_data->log['added'][] = empty($res['file']) ? substr($fn, $upload_dir_len) : $res['file'];
@@ -449,7 +450,7 @@ static function GetThumbnails($sync_data)
 	}
 }
 
-static function SyncCats(&$cats = null)
+static function SyncCats($cats = null)
 {
 	$updated_cats = array();
 	

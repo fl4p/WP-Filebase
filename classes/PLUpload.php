@@ -2,7 +2,7 @@
 
 class WPFB_PLUpload extends WPFB_AdvUploader
 {	
-	function Scripts($prefix)
+	function Scripts()
 	{
 		$id = $this->id;
 		
@@ -81,7 +81,11 @@ wpUploaderInit = <?php echo json_encode($plupload_init); ?>;
 <?php do_action('pre-plupload-upload-ui'); // hook change, old name: 'pre-flash-upload-ui' ?>
 <div id="drag-drop-area">
 	<div class="drag-drop-inside">
-	<p class="drag-drop-info"><?php _e('Drop files here - or -',WPFB); ?> <span class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></span></p>
+	<p class="drag-drop-info">
+		<?php _e('Drop files here - or -',WPFB); ?>
+		<span class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></span>
+		<span class="drag-drop-info-spacer"></span>
+	</p>
 	</div>
 </div>
 	<p class="upload-flash-bypass">

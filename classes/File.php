@@ -72,9 +72,9 @@ class WPFB_File extends WPFB_Item {
 		return $files;
 	}
 	
-	public static function GetReadPermsWhere()
+	public static function GetReadPermsWhere($user=null)
 	{
-		return self::GetPermissionWhere('file_added_by', 'file_user_roles');
+		return self::GetPermissionWhere('file_added_by', 'file_user_roles', $user);
 	}
 	
 	static function GetSqlCatWhereStr($cat_id)
@@ -103,10 +103,14 @@ class WPFB_File extends WPFB_Item {
 		
 		if($check_permissions != false) {
 			if($check_permissions === 'edit') {
-				$edit_cond = ((current_user_can('edit_others_posts') && !WPFB_Core::$settings->private_files)||current_user_can('edit_files')) ? "1=1" : ("file_added_by = ".((int)$current_user->ID));
-				$where_str = "($where_str) AND ($edit_cond)";
+				
+				$can_edit_others = ((current_user_can('edit_others_posts') && !WPFB_Core::$settings->private_files)||current_user_can('manage_options'));
+				$edit_cond = $can_edit_others ? "1=1" : ("file_added_by = ".((int)$current_user->ID));
+				
+				
+				$where_str = "($where_str) AND (".self::GetReadPermsWhere().") AND ($edit_cond)";
 			} else
-				$where_str = "($where_str) AND (".self::GetReadPermsWhere().") AND file_offline = '0'";
+				$where_str = "($where_str) AND (".self::GetReadPermsWhere(is_object($check_permissions) ? $check_permissions : null).") AND file_offline = '0'";
 		}
 			
 		
@@ -160,6 +164,14 @@ class WPFB_File extends WPFB_Item {
 		return $files;
 	}
 	
+	/**
+	 * Get file by id
+	 *
+	 * @access public
+	 *
+	 * @param int $id ID 
+	 * @return WPFB_File
+	 */
 	static function GetFile($id)
 	{		
 		$id = (int)($id);		
@@ -184,10 +196,10 @@ class WPFB_File extends WPFB_Item {
 		return (int)$wpdb->get_var("SELECT COUNT(`{$wpdb->wpfilebase_files}`.`file_id`) FROM ".self::genSelectSql($where, $check_permissions));
 	}
 	
-	static function GetAttachedFiles($post_id)
+	static function GetAttachedFiles($post_id, $show_all=false)
 	{
 		$post_id = intval($post_id);
-		return WPFB_File::GetFiles2(array('file_post_id' => $post_id), WPFB_Core::$settings->hide_inaccessible, WPFB_Core::GetFileListSortSql(null, true));
+		return WPFB_File::GetFiles2(array('file_post_id' => $post_id), !$show_all && WPFB_Core::$settings->hide_inaccessible, WPFB_Core::GetFileListSortSql(null, true));
 	}
 	
 	static function GetByPost($post_id)
@@ -211,6 +223,7 @@ class WPFB_File extends WPFB_Item {
 		$this->file_direct_linking = (int)$this->file_direct_linking;
 		$this->file_force_download = (int)!empty($this->file_force_download);
 		if(empty($this->file_last_dl_time)) $this->file_last_dl_time = '0000-00-00 00:00:00';
+		$this->file_size = 0 + $this->file_size;
 		$r = parent::DBSave();
 		return $r;
 	}
@@ -295,6 +308,7 @@ class WPFB_File extends WPFB_Item {
 	function GetFormattedDate($f='file_date') { return (empty($this->$f) || $this->$f == '0000-01-00 00:00:00') ? null : mysql2date(WPFB_Core::$settings->file_date_format, $this->$f); }
 	function GetModifiedTime($gmt=false) { return $this->file_mtime + ($gmt ? ( get_option( 'gmt_offset' ) * 3600 ) : 0); }
 	
+	
 	// only deletes file/thumbnail on FS, keeping DB entry
 	function Delete()
 	{
@@ -305,7 +319,7 @@ class WPFB_File extends WPFB_Item {
 		if($this->IsLocal() && @unlink($this->GetLocalPath()))
 		{
 			$this->file_name = null;
-			$this->file_size = null;
+			$this->file_size = 0;
 			$this->file_date = null;		
 			return true;
 		}		
@@ -383,14 +397,15 @@ class WPFB_File extends WPFB_Item {
 			case 'file_url_rel':		return htmlspecialchars(WPFB_Core::$settings->download_base . '/' . str_replace('\\', '/', $this->GetLocalPathRel()));
 			case 'file_post_url':		return htmlspecialchars(!($url = $this->GetPostUrl()) ? $this->GetUrl() : $url);			
 			case 'file_icon_url':		return htmlspecialchars($this->GetIconUrl());
-			case 'file_small_icon':		return '<img src="'.esc_attr($this->GetIconUrl('small')).'" style="vertical-align:middle;'.((WPFB_Core::$settings->small_icon_size > 0) ? ('height:'.WPFB_Core::$settings->small_icon_size.'px;') : '').'" />';
+			case 'file_small_icon':		return '<img src="'.esc_attr($this->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s',WPFB),$this->file_display_name)).'" style="vertical-align:middle;width:auto;'.((WPFB_Core::$settings->small_icon_size > 0) ? ('height:'.WPFB_Core::$settings->small_icon_size.'px;') : '').'" />';
 			case 'file_size':			return $this->GetFormattedSize();
 			case 'file_path':			return htmlspecialchars($this->GetLocalPathRel());
 			
 			case 'file_category':		return htmlspecialchars(is_object($cat = $this->GetParent()) ? $cat->cat_name : '');
-			case 'cat_small_icon':		return is_null($cat = $this->GetParent()) ? '' : ('<img align="" src="'.htmlspecialchars($cat->GetIconUrl('small')).'" style="height:'.WPFB_Core::$settings->small_icon_size.'px;vertical-align:middle;" />');
+			case 'cat_small_icon':		return is_null($cat = $this->GetParent()) ? '' : ('<img src="'.htmlspecialchars($cat->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s',WPFB),$cat->cat_name)).'" style="width:auto;height:'.WPFB_Core::$settings->small_icon_size.'px;vertical-align:middle;" />');
 			case 'cat_icon_url':		return is_null($cat = $this->GetParent()) ? '' : htmlspecialchars($cat->GetIconUrl());
 			case 'cat_url':				return is_null($cat = $this->GetParent()) ? '' : htmlspecialchars($cat->GetUrl());
+			case 'cat_id':				return $this->file_category;
 			
 			case 'file_cat_folder': 	return htmlspecialchars(is_object($cat = $this->GetParent()) ? $cat->cat_folder : '');
 			
@@ -466,8 +481,8 @@ class WPFB_File extends WPFB_Item {
 		$downloader_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR']);
 		get_currentuserinfo();
 		$logged_in = (!empty($user_ID));
-		$user_role = $logged_in ? array_shift($current_user->roles) : null; // get user's highest role (like in user-eidt.php)
-		$is_admin = current_user_can('edit_files'); 
+		$user_role = $logged_in ? reset($current_user->roles) : null; // get user's highest role (like in user-eidt.php)
+		$is_admin = current_user_can('manage_options'); 
 		
 		// check user level
 		if(!$this->CurUserCanAccess())

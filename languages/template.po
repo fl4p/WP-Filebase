@@ -1136,54 +1136,474 @@ msgstr ""
 msgid "Limit category access by selecting one or more user roles."
 msgstr ""
 
-msgid "This will recursivly update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
+msgid "This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox."
 msgstr ""
 
 msgid "Owner"
+msgstr "Besitzer"
+
+msgid "Searching for new files..."
+msgstr "Suche nach neuen Datein"
+
+msgid "Category (ID %d) of file %s does not exist!"
 msgstr ""
 
-Searching for new files...
+msgid "Checking for file changes..."
+msgstr "Suche nach Datei Änderungen"
 
-Category (ID %d) of file %s does not exist!
+msgid "%d Files found, %d new."
+msgstr "%d Dateien gefunden, %d Neue"
 
-Checking for file changes...
+msgid "Frontend upload is disabled in security settings!"
+msgstr ""
 
-%d Files found, %d new.
+msgid "Enable file context menu"
+msgstr "Kontext Datei Menü einschalten"
 
-Frontend upload is disabled in security settings!
+msgid "Disable file context menu"
+msgstr "Kontext Datei Menü ausschalten"
 
-Enable file context menu
+msgid "Change Order"
+msgstr "Sortierung ändern"
 
-Disable file context menu
+msgid "Category order"
+msgstr "Sortierung nach Kategorie "
 
-Change Order
+msgid "None (order of IDs in shortcode)"
+msgstr "Nichts ()"
 
-Category order
+msgid "Never show this again."
+msgstr "Zeige diese Meldung nicht mehr."
 
-None (order of IDs in shortcode)
+msgid "Keywords used for search:"
+msgstr "Für die Suche benutzte Schlüsselwörter"
 
-Never show this again.
+msgid "The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code."
+msgstr "Die nachfolgenden Tags können in Templates genuzt werden. Wenn du zum Beispiel den Artist einer MP3 Datei anzeigen möchtest, schreibe %s in den Template code"
 
-Keywords used for search:
+msgid "Please enter a template tag."
+msgstr "Bitte gib ein Template Tag ein"
 
-The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code.
+msgid "This will reset all File, Category and List Templates! Are your sure?"
+msgstr "Dies wird alle Dateien, Kategorien und Templates zurücksetzen. Bist du dir sicher?"
 
-Please enter a template tag.
+msgid "Secondary Categories"
+msgstr "Sekundäre Kategorien"
 
-'This will reset all File, Category and List Templates! Are your sure?'
+msgid "Enable front end uploads"
+msgstr ""
 
-Secondary Categories
+msgid "Global option to allow file uploads from widgets and embedded file forms"
+msgstr ""
 
-Enable front end uploads
+msgid "Frontend upload is disabled in security settings!"
+msgstr ""
 
-Global option to allow file uploads from widgets and embedded file forms
+msgid "Attachments in post lists"
+msgstr ""
 
-Frontend upload is disabled in security settings!
+msgid "Attach files to posts in archives, index and search result."
+msgstr ""
 
-Attachments in post lists
+msgid "The maximum side of the image is scaled to this value."
+msgstr "Die maximale Seitenlänge des Bildes ist skaliert auf folgenden Wert"
 
-Attach files to posts in archives, index and search result.
+msgid "File Date Format"
+msgstr "Datums Format der Datei"
 
-The maximum side of the image is scaled to this value.
+msgid "How to get started with %s?"
+msgstr "Wie man mit %s startet"
 
-File Date Format
+msgid "Create a Category"
+msgstr "Erstelle Kategorie"
+
+msgid "Add a file. There are different ways:"
+msgstr "Datei hinzufügen. Hierzu gibt es verschiedene Möglichkeiten"
+
+msgid "<a href="%s">Use the normal File Upload Form.</a> You you can either upload a file from you local harddisk or you can provide a URL to a file that will be sideloaded to your blog."
+msgstr "<a href="%s">Nutze die normale Datei hochlade Form.</a> Du kannst entweder von deiner lokalen Festplatte hochladen oder du stellst die URL zu der Datei zur Verfügung ,,,,####################################################################################### "
+
+msgid "Use FTP: Use your favorite FTP Client to upload any directories/files to <code>%s</code>. Afterwards <a href="%s">sync the filebase</a> to add the newly uploaded files to the database."
+msgstr ""
+
+msgid "Goto <a href="%s">WP-Filebase Settings -> Filebrowser</a> and set the Page ID to get a nice AJAX Tree View of all your files."
+msgstr ""
+
+msgid "WP-Filebase adds a new button to the visual editor. When creating or editing posts/pages, use the Editor Plugin %s to insert single files, file lists and other stuff into your content."
+msgstr ""
+
+msgid "Take a look at the <a href="%s">Widgets</a>. WP-Filebase adds three widgets for file listing, category listing and user uploads."
+msgstr ""
+
+msgid "<a href="%s">Manage the Templates</a> (for advanced users): You can modify any file- or category template to fit your Wordpress theme."
+msgstr ""
+
+msgid "Never show this again."
+msgstr "Zeige diese Meldung nicht erneut"
+
+msgid "Cron sync is disabled (using WP´s internal cron system)."
+msgstr "Cron sync ist ausgeschaltet (benutze WP´s integriertes cron system)"
+
+msgid "<a href="%s">URL</a> for external cron service."
+msgstr "<a href="%s">URL</a> für einen externen Cron Service"
+
+msgid "Rescan Files"
+msgstr "Dateien erneut Scannen"
+
+msgid "Updates thumbnails, re-indexes PDFs. Use this after upgrading to WP-Filebase Pro."
+msgstr ""
+
+msgid "Reset Permissions"
+msgstr "Genehmigungen zurücksetzen"
+
+msgid "Sets all category and file permissions to <i>Everyone</i>. Also disables the <i>Private Files</i> option in security settings. Use this if files are not visible for non-admin users."
+msgstr ""
+
+msgid "Fix File Pages"
+msgstr ""
+
+msgid "Run this after a Database Import. Checks for missing File Pages and wrong post types."
+msgstr ""
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Batch Upload"
+msgstr ""
+
+msgid "Uploader: Drop files here - or - Select Files"
+msgstr "Uploader: Dateien hier rein ziehen - oder - Datei Aussuchen"
+
+msgid "You are using the multi-file uploader. Problems? Try the <a href="%1$s">browser uploader</a> instead."
+msgstr ""
+
+msgid "Secondary Categories"
+msgstr "Sekundäre Kategorien"
+
+msgid "Visual Editor"
+msgstr "Visueller Editor"
+
+msgid "File Password"
+msgstr "Datei Passwort"
+
+msgid "Custom Field 1|cf1\nCustom Field 2|cf2"
+msgstr ""
+
+msgid "Completely Uninstall WP-Filebase"
+msgstr ""
+
+msgid "Manage Custom Fields"
+msgstr ""
+
+msgid "Redirect to file page"
+msgstr ""
+
+msgid "Attach to Post"
+msgstr "An Beitrag anhängen"
+
+msgid "Redirect to file page"
+msgstr ""
+
+msgid "Upload Permission"
+msgstr "Genehmigung hochladen"
+
+msgid "Set which users are allowed to upload to this category."
+msgstr "Wähle hier, welche Nutzer in dieser Kategorie hochladen dürfen"
+
+msgid "Everyone who can upload"
+msgstr "Jeder, der hochladen kann"
+
+msgid "Search User Name"
+msgstr "Suche nach Nutzer Namen"
+
+msgid "Custom Sort Order"
+msgstr ""
+
+msgid "List is loaded dynamically using AJAX, so pagination is not required. Elements are automatically loaded when scrolling to the end of the list (like Facebook timeline)."
+msgstr ""
+
+msgid "Templates used for Filepages."
+msgstr ""
+
+msgid "Remote Syncs"
+msgstr ""
+
+msgid "New Remote Sync"
+msgstr ""
+
+msgid "Remote Sync Service:"
+msgstr ""
+
+msgid "An identifier or short description"
+msgstr ""
+
+msgid "Embeddable Forms"
+msgstr ""
+
+msgid "Front end upload disabled!"
+msgstr ""
+
+msgid "Embedded forms will not work unless you enable front end uploads in <a href=\"%s\">Security Settings</a>"
+msgstr ""
+
+msgid "Overwrite"
+msgstr "Überschreiben"
+
+msgid "Permissions"
+msgstr "Genehmigungen"
+
+msgid "Upload Approval"
+msgstr ""
+
+msgid "New Embedable Form"
+msgstr ""
+
+msgid "A single word to describe the form."
+msgstr "Einfaches Wort zur Formbeschreibung"
+
+msgid "Upload to category:"
+msgstr "Zur Kategorie hochladen"
+
+msgid "Overwrite existing files"
+msgstr "Überschreibe die existierenden Dateien"
+
+msgid "Attach uploaded files to post or page the form is embedded in"
+msgstr "Hänge hochgeladene Dateien an einen Beitrag oder Seite indem die Form eingebettet ist"
+
+msgid "Use advanced Drag & Drop Uploader"
+msgstr "Nutze den Verbesserten Drag & Drop Uploader"
+
+msgid "Show extended input fields like Title, Version, Description etc."
+msgstr ""
+
+msgid "Notify Admins whenever a file is uploaded"
+msgstr "Benachrichtige die Admins wenn eine Datei hochgeladen wurde"
+
+msgid "More email notifications"
+msgstr "Mehr E-Mail Benachrichtigungen"
+
+msgid "Enter additional email addresses that will be notified on upload. Seperate by comma <code>,</code> ."
+msgstr ""
+
+msgid "Make sure the roles checked here are also selected in <a href="%s">Frontend Upload Permissions</a>"
+msgstr ""
+
+msgid "Uploaded files must been approved"
+msgstr ""
+
+msgid "Path where all files are stored. Relative to WordPress\' root directory."
+msgstr ""
+
+msgid "File Date Format"
+msgstr ""
+
+msgid "Date/Time formatting for files."
+msgstr ""
+
+msgid "<a href="http://codex.wordpress.org/Formatting_Date_and_Time">Documentation on date and time formatting</a>."
+msgstr ""
+
+msgid "The maximum side of the image is scaled to this value."
+msgstr ""
+
+msgid "Attachments in post lists"
+msgstr ""
+
+msgid "Attach files to posts in archives, index and search result."
+msgstr ""
+
+msgid "Search Result Template"
+msgstr ""
+
+msgid "Set the List Template used for Search Results when using the Search Widget"
+msgstr ""
+
+msgid "Note that the selected page should <b>not have any sub-pages</b>!"
+msgstr ""
+
+msgid "Files before Categories"
+msgstr ""
+
+msgid "Files will appear above categories in the file browser."
+msgstr ""
+
+msgid "Late script loading"
+msgstr ""
+
+msgid "Scripts will be included in content, not in header. Enable if your AJAX tree view does not work properly."
+msgstr ""
+
+msgid "Small Icon Size"
+msgstr ""
+
+msgid "Icon size (height) for categories and files. Set to 0 to show icons in full size."
+msgstr ""
+
+msgid "Initially Expanded"
+msgstr ""
+
+msgid "The File Browser will be fully expanded when page is loaded. Do not enabled if you have many files!"
+msgstr ""
+
+msgid "Category ZIP Files"
+msgstr ""
+
+msgid "Allows users to download whole categories in a compressed zip file. Use template variable <code>%s</code>."
+msgstr ""
+
+msgid "Use fpassthru"
+msgstr ""
+
+msgid "Downloads will be serverd using the native PHP function fpassthru. Enable this when you are experiencing trouble with large files. Note that bandwidth throttle is not available for this method."
+msgstr ""
+
+msgid "File Page Proxy"
+msgstr ""
+
+msgid "Redirects users to a page with file details. See <a href="%s">Filepage Template</a>"
+msgstr ""
+
+msgid "File Page Download Countdown"
+msgstr ""
+
+msgid "Time the user has to wait until the download automatically starts on a file page. Use <code>%dl_countdown%</code> in Filepage Template to display the time. Set to 0 to disable this feature."
+msgstr ""
+
+msgid "File Page URL slug"
+msgstr ""
+
+msgid "The url prefix for Filepage links. Example: <code>%s</code> (Only used when Permalinks are enabled.)"
+msgstr ""
+
+msgid "Comments on File Page"
+msgstr ""
+
+msgid "If users are able to leave comments on Filepages. After changing you must run the <a href="%s">Rescan Files</a> tool."
+msgstr ""
+
+msgid "Content Keywords"
+msgstr ""
+
+msgid "Put keywords in File Pages content to make them searchable by plugins."
+msgstr ""
+
+msgid "Default Author"
+msgstr ""
+
+msgid "This author will be used as form default and when adding files with FTP"
+msgstr ""
+
+msgid "Default User Roles"
+msgstr ""
+
+msgid "These roles are selected by default and will be used for files added with FTP"
+msgstr ""
+
+msgid "Default Category"
+msgstr ""
+
+msgid "Preset Category in the file form"
+msgstr ""
+
+msgid "Default File Direct Linking"
+msgstr ""
+
+msgid "Private Files"
+msgstr "Private Dateien"
+
+msgid "Access to files is only permitted to owner and administrators."
+msgstr ""
+
+msgid "Upload Files"
+msgstr "Hochgeladene Dateien"
+
+msgid "Roles and Users allowed to upload files in Admin Dashboard"
+msgstr ""
+
+msgid "Edit File Details"
+msgstr ""
+
+msgid "Roles and Users allowed to edit file details of files uploaded by others"
+msgstr ""
+
+msgid "Delete Files"
+msgstr "Dateien Löschen"
+
+msgid "Roles and Users allowed to delete files uploaded by others"
+msgstr ""
+
+msgid "Create Categories"
+msgstr ""
+
+msgid "Delete Categories"
+msgstr ""
+
+msgid "Frontend Upload"
+msgstr ""
+
+msgid "Roles and Users allowed to upload files with the Upload Widget or Embedded Forms"
+msgstr ""
+
+msgid "Manage Remote Syncs"
+msgstr ""
+
+msgid "Manage Forms"
+msgstr ""
+
+msgid "Remove Missing Files"
+msgstr ""
+
+msgid "Missing files are removed from the database during sync"
+msgstr ""
+
+msgid "Upload Notifications"
+msgstr ""
+
+msgid "Notifies all blog admins whenever a file is uploaded by a non-admin user."
+msgstr ""
+
+msgid "Thumbnail Path"
+msgstr "Thumbnail Pfad"
+
+msgid "Thumbnails can be stored at a different path than the actual files. Leave empty to use the default upload path."
+msgstr ""
+
+msgid "Use path instead of ID in Shortcode"
+msgstr ""
+
+msgid "Files and Categories are identified by paths and not by their IDs in the generated Shortcodes"
+msgstr ""
+
+msgid "Disable Name Formatting"
+msgstr ""
+
+msgid "This will disable automatic formatting/uppercasing file names when they are used as title (e.g. when syncing)"
+msgstr ""
+
+msgid "Ghostscript Path"
+msgstr ""
+
+msgid "Path to Ghostscript executable used for PDF thumbnails. If ghostscript is not installed, PDF thumbnails will not be created."
+msgstr ""
+
+msgid "Generate PDF thumbnails"
+msgstr ""
+
+msgid "Thumbnail of first page"
+msgstr "Thumbnail der ersten Seite"
+
+msgid "Extract PDF Title"
+msgstr "Extrahiere den PDF Titel"
+
+msgid "Using the pattern below, Titles of PDF documents will be searched and used as file_display_name"
+msgstr ""
+
+msgid "PDF Title Pattern"
+msgstr ""
+
+msgid "Regular expression to find the title in the PDF Document."
+msgstr ""
+
+
+
+

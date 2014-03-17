@@ -3,7 +3,7 @@ class WPFB_Download {
 static function RefererCheck()
 {
 	// fix (FF?): avoid caching of redirections so the file cannot be downloaded anymore
-	if(!empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) || !empty($_COOKIE[WPFB_OPT_NAME]))
+	if(!empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) || !empty($_COOKIE))
 		return true;
 		
 	if(empty($_SERVER['HTTP_REFERER']))
@@ -244,7 +244,13 @@ static function GetFileType($name)
 			
 		case 'gadget': return 'application/x-windows-gadget';
 		
-		default:		return 'application/octet-stream';
+		default:
+			if(function_exists('wp_get_mime_types')) {
+				$res = wp_check_filetype(".$name", wp_get_mime_types());
+				if($res['type'])
+					return $res['type'];
+			}
+			return 'application/octet-stream';
 	}
 }
 
@@ -387,8 +393,10 @@ static function SendFile($file_path, $args=array())
 	header("Content-Type: " . $file_type . ((strpos($file_type, 'text/') !== false) ? '; charset=' : '')); 	// charset fix
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s", $no_cache ? time() : $time) . " GMT");
 	
-	if(!empty($md5_hash))
-		header("Content-MD5: ".base64_encode(pack('H32',$md5_hash)));
+	if(!empty($md5_hash) && $md5_hash{0} != '#') { // check if fake md5
+		$pmd5 = @pack('H32',$md5_hash);
+		if(!empty($pmd5)) header("Content-MD5: ".@base64_encode($pmd5));
+	}
 	
 	if(!$no_cache)
 	{
@@ -512,11 +520,24 @@ static function SendFile($file_path, $args=array())
 	return true;
 }
 
-static function SideloadFile($url, $dest_path, $progress_bar=null)
+static function getHttpStreamContentLength($s)
+{
+	$meta = stream_get_meta_data($s);
+	foreach($meta['wrapper_data'] as $header)
+	{
+		if(stripos($header,'Content-Length:') === 0)
+			return 0+trim(substr($header,15));
+	}
+	return -1;
+}
+static function SideloadFile($url, $dest_path, $progress_bar_or_callback=null)
 {
 	$rh = @fopen($url, 'rb'); // read binary
 	if($rh === false)
 		return array('error' => sprintf('Could not open URL %s!', $url). ' '.  print_r(error_get_last(), true));
+	
+	$total_size = self::getHttpStreamContentLength($rh);
+	
 	$fh = @fopen($dest_path, 'wb'); // write binary
 	if($fh === false) {
 		@fclose($rh);
@@ -525,13 +546,16 @@ static function SideloadFile($url, $dest_path, $progress_bar=null)
 	
 	$size = 0;
 	while (!feof($rh)) {
-	  if(($s=fwrite($fh, fread($rh, 524288))) === false) {
+	  if(($s=fwrite($fh, fread($rh, 65536))) === false) {
 		@fclose($rh);
 		@fclose($fh);
 		return array('error' => sprintf('Writing to file %s failed!', $dest_path));	
 	  }
 	  $size += $s;
-	  if($progress_bar!=null) $progress_bar->set($size);
+	  if(is_object($progress_bar_or_callback))
+			$progress_bar_or_callback->set($size);
+	  elseif(is_callable($progress_bar_or_callback))
+		  call_user_func($progress_bar_or_callback, $size, $total_size);
 	}
 	fclose($rh);
 	fclose($fh);
