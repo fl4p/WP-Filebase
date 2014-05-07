@@ -1,13 +1,18 @@
 <?php
+error_reporting(0);
+ini_set( 'display_errors', 0 );
 
 define('SUPPRESS_LOADING_OUTPUT', empty($_REQUEST['noob']));
+define('NGG_DISABLE_RESOURCE_MANAGER', true); // NexGen Gallery: ne resource manager
 
-error_reporting(0);
+if(defined('DOING_AJAX') && DOING_AJAX)
+	define('WP_DEBUG_DISPLAY', false);
+
 
 function wpfb_on_shutdown()
 {
 	 $error = error_get_last( );
-	 if( $error && $error['type'] != E_STRICT && $error['type'] != E_NOTICE && $error['type'] != E_WARNING  ) {
+	 if( $error && ($error['type'] == E_ERROR || $error['type'] == E_RECOVERABLE_ERROR || $error['type'] == E_PARSE) /*$error['type'] != E_STRICT && $error['type'] != E_NOTICE && $error['type'] != E_WARNING && $error['type'] != E_DEPRECATED*/ ) {
 		 $func = function_exists('wpfb_ajax_die') ? 'wpfb_ajax_die' : 'wp_die';
 		 $func(json_encode($error));
 	 } else { return true; }
@@ -18,7 +23,10 @@ if((!empty($_REQUEST['fastload']) || (defined('FASTLOAD'))) && !defined('WP_INST
 	define('WP_INSTALLING', true); // make wp load faster
 
 if(SUPPRESS_LOADING_OUTPUT)
+{
+	define('WPFB_OB_LEVEL_PL', @ob_get_level());
 	@ob_start();
+}
 
 if ( defined('ABSPATH') )
 	require_once(ABSPATH . 'wp-load.php');
@@ -26,6 +34,17 @@ else
 	require_once(dirname(__FILE__).'/../../../wp-load.php');
 
 error_reporting(0);
+ini_set( 'display_errors', 0 );
+
+// check if WP-Filebase is active
+/*
+require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+$wpfb_rpath = basename(untrailingslashit(dirname(__FILE__))).'/wp-filebase.php';
+if(!is_plugin_active($wpfb_rpath))
+	wp_die("WP-Filebase ($wpfb_rpath) not active.<!-- FATAL ERROR: WP-Filebase DISABLED -->");
+ * 
+ */
+
 
 if(defined('WP_ADMIN') && WP_ADMIN) {
 	require_once(ABSPATH.'wp-admin/admin.php');
@@ -39,8 +58,11 @@ if(defined('WP_ADMIN') && WP_ADMIN) {
 }
 
 
-if(SUPPRESS_LOADING_OUTPUT && ob_get_level() > 1)
-	@ob_end_clean();
+if(SUPPRESS_LOADING_OUTPUT) {
+	//@ob_flush(); @flush();
+	// restore ob_level
+	while( (@ob_get_level() > WPFB_OB_LEVEL_PL) &&  @ob_end_clean()){} // destroy all ob buffers
+}
 
 
 if(defined('WP_INSTALLING') && WP_INSTALLING) {
@@ -57,7 +79,5 @@ function wpfb_ajax_die($msg,$title='',$args='') {
 
 
 if(defined('DOING_AJAX') && DOING_AJAX) {
-	error_reporting(0);
 	add_filter('wp_die_ajax_handler', create_function('$v','return "wpfb_ajax_die";'));
 }
-

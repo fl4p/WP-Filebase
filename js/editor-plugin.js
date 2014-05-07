@@ -24,20 +24,27 @@ function tabclick(a)
 		currentTab = href;
 	}
 	
+	tabUpdateVisibility();
+	
+	return false;
+}
+
+function tabUpdateVisibility()
+{
 	var showEls = {
 		'fileselect': (currentTab == 'file' || currentTab == 'fileurl'),
 		'filetplselect': (currentTab == 'file'),
 		'catselect': (currentTab == 'list'  /* || currentTab == 'browser'*/),
 		'listtplselect': (currentTab == 'list'),
 		'catselect-filter': (currentTab == 'list'),
-			};
+				'filesort' : (currentTab == 'list' ),
+		'catsort':  ( (currentTab == 'list' && jQuery('#list-show-cats:checked').val()) ),
+	};
 
 	for(var id in showEls) {
 		if(showEls[id]) jQuery('#'+id).show();
 		else  jQuery('#'+id).hide();
 	}
-	
-	return false;
 }
 
 function selectCat(id, name)
@@ -127,6 +134,30 @@ function insAttachTag()
 	return false;
 }
 
+function getFileSorting(tag)
+{
+	var sortby = jQuery('#list-sort-by').val();	
+	if(sortby && sortby != '') {
+		var order = jQuery('#filesort input[name=list-sort-order]:checked').val();
+		if(order == 'desc') sortby = '&gt;'+sortby;
+		else if(order == 'asc') sortby = '&lt;'+sortby;
+		tag.sort = sortby;
+	}
+	return tag;
+}
+
+function getCatSorting(tag)
+{
+	var sortcatsby = jQuery('#list-cat-sort-by').val();	
+	if(sortcatsby && sortcatsby != '') {
+		var order = jQuery('#catsort input[name=list-cat-sort-order]:checked').val();
+		if(order == 'desc') sortcatsby = '&gt;'+sortcatsby;
+		else if(order == 'asc') sortcatsby = '&lt;'+sortcatsby;
+		tag.sortcats = sortcatsby;
+	}
+	return tag;
+}
+
 function insListTag() {
 	/*if(selectedCats.length == 0) {
 		alert('Please select at least one category!');
@@ -145,29 +176,16 @@ function insListTag() {
 	var tpl = jQuery('input[name=listtpl]:checked', '#listtplselect').val();
 	if(tpl && tpl != '' && tpl != 'default') tag.tpl = tpl;
 	
-	var sortby = jQuery('#list-sort-by').val();	
-	if(sortby && sortby != '') {
-		var order = jQuery('input[name=list-sort-order]:checked', '#list').val();
-		if(order == 'desc') sortby = '&gt;'+sortby;
-		else if(order == 'asc') sortby = '&lt;'+sortby;
-		tag.sort = sortby;
-	}
-	
 	var showcats = !!jQuery('#list-show-cats:checked').val();
 	if(showcats) tag.showcats = 1;
 	
 	tag.pagenav = jQuery('#list-pagenav:checked').val() ? '1' : '0';
-	
-	var sortcatsby = jQuery('#list-cat-sort-by').val();	
-	if(showcats && sortcatsby && sortcatsby != '') {
-		var order = jQuery('input[name=list-cat-sort-order]:checked', '#list').val();
-		if(order == 'desc') sortcatsby = '&gt;'+sortcatsby;
-		else if(order == 'asc') sortcatsby = '&lt;'+sortcatsby;
-		tag.sortcats = sortcatsby;
-	}
-	
+		
 	var num = parseInt(jQuery('#list-num').val());
 	if(num != 0) tag.num = num;
+	
+	getFileSorting(tag);
+	if(showcats) getCatSorting(tag);
 	
 	
 	return insertTag(tag);
@@ -228,13 +246,16 @@ function refreshTrees() {
 	}
 }
 
-jQuery(document).ready( function()
+function initEditorPlugin()
 {
 	jQuery(".media-item a").hide();
 	jQuery(".media-item").hover(
 		function(){jQuery("a",this).show();}, 
 		function(){jQuery("a",this).hide();}
 	);
+	
+	
+	var firstTabLink = jQuery("a", jQuery('#sidemenu')).get(0);
 	
 	if(!manageAttachments)
 	{
@@ -244,7 +265,7 @@ jQuery(document).ready( function()
 		else
 			theEditor = null;
 	
-		tabclick(jQuery("a", jQuery('#sidemenu')).get(0));
+		tabclick(firstTabLink);
 	
 		if (!autoAttachFiles && theEditor && theEditor.getContent().search(/\[wpfilebase\s+tag\s*=\s*['"]attachments['"]/) != -1)
 			jQuery('#no-auto-attach-note').hide(); 	// no notice if attachments tag is in	
@@ -252,8 +273,5 @@ jQuery(document).ready( function()
 	
 	refreshTrees();
 	
-	jQuery('#cat-sorting-wrap').hide();
-	jQuery('#list-show-cats').change(function(){
-		jQuery('#cat-sorting-wrap').toggle(!!jQuery('#list-show-cats:checked').val());
-	});
-});
+	jQuery('#list-show-cats').change(tabUpdateVisibility);
+}

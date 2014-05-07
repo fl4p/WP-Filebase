@@ -33,12 +33,12 @@ static function InsertCategory($catarr)
 	
 	// some validation
 	if (empty($cat_name) && empty($cat_folder)) return array( 'error' => __('You must enter a category name or a folder name.', WPFB) );
-	if(!$add_existing && !empty($cat_folder)) {
+	if(!$add_existing && !empty($cat_folder) && (!$update || $cat_folder != $cat->cat_folder) ) {
 		$cat_folder = preg_replace('/\s/', ' ', $cat_folder);
 		if(!preg_match('/^[0-9a-z-_.+,\'\s()]+$/i', $cat_folder)) return array( 'error' => __('The category folder name contains invalid characters.', WPFB) );	
 	}
 	wpfb_loadclass('Output');
-	if (empty($cat_name)) $cat_name = WPFB_Core::GetOpt('no_name_formatting') ? $cat_folder : WPFB_Output::Filename2Title($cat_folder, false);
+	if (empty($cat_name)) $cat_name = WPFB_Core::$settings->no_name_formatting ? $cat_folder : WPFB_Output::Filename2Title($cat_folder, false);
 	elseif(empty($cat_folder)) $cat_folder = strtolower(str_replace(' ', '_', $cat_name));
 	
 
@@ -149,7 +149,7 @@ private static function fileApplyMeta(&$file, &$data)
 	if(isset($data->file_post_id))
 		$file->SetPostId(intval($data->file_post_id));
 		
-	$file->file_author = isset($data->file_author) ? $data->file_author : WPFB_Core::GetOpt('default_author');
+	$file->file_author = isset($data->file_author) ? $data->file_author : WPFB_Core::$settings->default_author;
 	
 	$var_names = array('remote_uri', 'description', 'hits', 'license'
 	);
@@ -240,7 +240,7 @@ static function InsertFile($data, $in_gui =false)
 	
 	// do some simple file stuff
 	if($update && (!empty($data->file_delete_thumb) || $upload_thumb)) $file->DeleteThumbnail(); // delete thumbnail if user wants to	
-	if($update && ($upload||$remote_upload)) $file->Delete(); // if we update, delete the old file
+	if($update && ($upload||$remote_upload)) $file->Delete(true); // if we update, delete the old file (keep thumb!)
 	
 
 	// handle display name and version
@@ -392,7 +392,7 @@ static function ParseFileNameVersion($file_name, $file_version=null) {
 	} elseif(substr($fnwv, -strlen($file_version)) == $file_version) {		
 		$fnwv = trim(substr($fnwv, 0, -strlen($file_version)), '-');
 	}
-	$title = WPFB_Core::GetOpt('no_name_formatting') ? $fnwv : wpfb_call('Output', 'Filename2Title', array($fnwv, false), true);	
+	$title = WPFB_Core::$settings->no_name_formatting ? $fnwv : wpfb_call('Output', 'Filename2Title', array($fnwv, false), true);	
 	return array('title' => empty($title) ? $file_name : $title, 'version' => $file_version);
 }
 
@@ -589,7 +589,7 @@ static function IsAllowedFileExt($ext)
 {
 	static $srv_script_exts = array('php', 'php3', 'php4', 'php5', 'phtml', 'cgi', 'pl', 'asp', 'py', 'aspx', 'jsp', 'jhtml', 'jhtm');	
 	
-	if(WPFB_Core::GetOpt('allow_srv_script_upload'))
+	if(WPFB_Core::$settings->allow_srv_script_upload)
 		return true;
 	
 	$ext = strtolower($ext);	
@@ -624,7 +624,7 @@ function WPFB_formCategoryChanged()
 {
 	var catId = jQuery('#file_category,#cat_parent').val();
 	if(!catId || catId <= 0) {
-		jQuery('#<?php echo $name ?>_inherited_permissions_label').html('<?php echo WPFB_Output::RoleNames(WPFB_Core::GetOpt('default_roles'), true); ?>');
+		jQuery('#<?php echo $name ?>_inherited_permissions_label').html('<?php echo WPFB_Output::RoleNames(WPFB_Core::$settings->default_roles, true); ?>');
 	} else {
 		jQuery.ajax({
 			url: wpfbConf.ajurl,
@@ -658,8 +658,8 @@ static function ParseTpls() {
 	wpfb_loadclass('TplLib');
 	
 	// parse default
-	WPFB_Core::UpdateOption('template_file_parsed', WPFB_TplLib::Parse(WPFB_Core::GetOpt('template_file')));
-	WPFB_Core::UpdateOption('template_cat_parsed', WPFB_TplLib::Parse(WPFB_Core::GetOpt('template_cat')));
+	WPFB_Core::UpdateOption('template_file_parsed', WPFB_TplLib::Parse(WPFB_Core::$settings->template_file));
+	WPFB_Core::UpdateOption('template_cat_parsed', WPFB_TplLib::Parse(WPFB_Core::$settings->template_cat));
 		
 	// parse custom
 	update_option(WPFB_OPT_NAME.'_ptpls_file', WPFB_TplLib::Parse(WPFB_Core::GetFileTpls())); 
@@ -743,7 +743,7 @@ public static function ProcessWidgetUpload(){
 	$content = '';
 	$title = '';
 
-	if(!WPFB_Core::GetOpt('frontend_upload') && !current_user_can('upload_files'))
+	if(!WPFB_Core::$settings->frontend_upload && !current_user_can('upload_files'))
 		wp_die(__('Cheatin&#8217; uh?'). " (disabled)");
 
 	{

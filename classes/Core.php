@@ -303,13 +303,14 @@ static function GetPostUrl($id) { return isset(self::$post_url_cache[$id]) ? sel
 
 
 
-static function GetFileListSortSql($sort=null, $attach_order=false)
+static function GetSortSql($sort=null, $attach_order=false, $for_cat=false)
 {
 	global $wpdb;
 	wpfb_loadclass('Output');
-	list($sort, $sortdir) = WPFB_Output::ParseFileSorting($sort, $attach_order);	
+	list($sort, $sortdir) = WPFB_Output::ParseSorting($sort, $for_cat);	
 	$sort = esc_sql($sort);
-	return $attach_order ? "`file_attach_order` ASC, `$sort` $sortdir" : "`$sort` $sortdir";
+	$of = $for_cat ? 'cat_order' : 'file_attach_order';	
+	return $attach_order ? "`$of` ASC, `$sort` $sortdir" : "`$sort` $sortdir";
 }
 
 static function EnqueueScripts()

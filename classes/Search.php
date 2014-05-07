@@ -14,7 +14,7 @@ static function PostsJoin($join)
 {
 	global $wpdb;	
 	$join .= " LEFT JOIN $wpdb->wpfilebase_files ON ( $wpdb->wpfilebase_files.file_post_id = $wpdb->posts.ID OR $wpdb->wpfilebase_files.file_wpattach_id = $wpdb->posts.ID ) ";
-	if(WPFB_Core::GetOpt('search_id3')) 
+	if(WPFB_Core::$settings->search_id3) 
 		$join .= self::ID3Join();
 	return $join;
 }
@@ -94,7 +94,7 @@ static function PostsSearch($sql)
 	
 	$is_wp_search = !empty($_GET['s']) && empty($_GET['wpfb_s']);
 	
-	$search_id3 = WPFB_Core::GetOpt('search_id3');
+	$search_id3 = WPFB_Core::$settings->search_id3;
 	$no_matches = false;	
 	$where = self::SearchWhereSql($search_id3);	
 	
@@ -102,7 +102,7 @@ static function PostsSearch($sql)
 	
 	// check if there are matching files, if there are, include the filebrowser page/post in the resulst!
 	// if we have file pages, only include the file browser if file search widget was used!
-	$file_browser_id = intval(WPFB_Core::GetOpt('file_browser_post_id'));
+	$file_browser_id = intval(WPFB_Core::$settings->file_browser_post_id);
 	if($file_browser_id > 0 && WPFB_File::GetNumFiles2($where, true) > 0 ) {	
 		$where = "($where OR ({$wpdb->posts}.ID = $file_browser_id))"; // TODO!
 		wpfb_loadclass('Output');
@@ -142,7 +142,7 @@ static function FileSearchContent(&$ref_content)
 		$ref_content .= $tpl->Generate(null, array('page_limit' => WPFB_Core::$settings->filelist_num 
 			 ));
 	} else {
-		$files = WPFB_File::GetFiles2(self::SearchWhereSql(WPFB_Core::GetOpt('search_id3'), stripslashes($_GET['wpfb_s'])), WPFB_Core::GetOpt('hide_inaccessible'));
+		$files = WPFB_File::GetFiles2(self::SearchWhereSql(WPFB_Core::$settings->search_id3, stripslashes($_GET['wpfb_s'])), WPFB_Core::$settings->hide_inaccessible);
 		foreach($files as $file)
 			$ref_content .= $file->GenTpl2();
 	}

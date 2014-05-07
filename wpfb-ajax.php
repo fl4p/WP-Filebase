@@ -34,70 +34,17 @@ switch ( $action = $_REQUEST['action'] ) {
 		wpfb_loadclass('Core','File','Category','Output');
 		
 		// fixed exploit, thanks to Miroslav Stampar http://unconciousmind.blogspot.com/
-		$base_id = empty($_REQUEST['base']) ? 0 : intval($_REQUEST['base']);		
-				
-		if(empty($_REQUEST['root']) || $_REQUEST['root'] == 'source')
-			$parent_id = $base_id;
-		else {
-			$root = $_REQUEST['root'];
-			$parent_id = is_numeric($root) ? intval($root) : intval(substr(strrchr($root,'-'),1));
-		}
+		$root_id = (empty($_REQUEST['root']) || $_REQUEST['root'] == 'source') ? 0 : (is_numeric($_REQUEST['root']) ? intval($_REQUEST['root']) : intval(substr(strrchr($_REQUEST['root'],'-'),1)));
+		$parent_id = ($root_id == 0) ? intval($_REQUEST['base']) : $root_id;
 		
-		if($parent_id > 0) {
-			if(is_null($cat=WPFB_Category::GetCat($parent_id)) || !$cat->CurUserCanAccess()) {
-				wpfb_print_json(array(array('id' => 0, 'text' => WPFB_Core::GetOpt('cat_inaccessible_msg'))));
-				exit;
-			}
-		}
-			
-		$browser = ($type=='browser');
-		$filesel = (!$browser && $type=='fileselect');
-		$catsel = (!$filesel && $type=='catselect');
-		$cat_id_format = empty($_REQUEST['cat_id_fmt']) ? 'wpfb-cat-%d' : $_REQUEST['cat_id_fmt'];
-		$file_id_format = empty($_REQUEST['file_id_fmt']) ? 'wpfb-file-%d' : $_REQUEST['file_id_fmt'];
-		if($filesel || $catsel) $onselect = $_REQUEST['onselect'];
-		
-		$files_before_cats = $browser && WPFB_Core::GetOpt('file_browser_fbc');	
-		
-		$cats = $browser ? WPFB_Category::GetFileBrowserCats($parent_id) : WPFB_Category::GetCats("WHERE cat_parent = $parent_id ORDER BY cat_name ASC");	
-		if($parent_id == 0 && $catsel && count($cats) == 0) {
-			wpfb_print_json(array(array(
-				'id' => sprintf($cat_id_format, 0),
-				'text' => sprintf(__('You did not create a category. <a href="%s" target="_parent">Click here to create one.</a>', WPFB), admin_url('admin.php?page=wpfilebase_cats#addcat')),
-				'hasChildren'=>false
-			)));
-			exit;
-		}
-		
-		$cat_items = array();
-		$i = 0;
-		foreach($cats as $c)
-		{
-			if($c->CurUserCanAccess(true))
-				$cat_items[$i++] = array('id'=>sprintf($cat_id_format, $c->cat_id),
-					'text'=> $catsel ?
-									('<a href="javascript:'.sprintf($onselect,$c->cat_id,str_replace('\'','\\\'', htmlspecialchars(stripslashes($c->cat_name)))).'">'.esc_html($c->GetTitle(24)).'</a>')
-								   :($filesel ? (esc_html($c->cat_name)." ($c->cat_num_files / $c->cat_num_files_total)") : $c->GenTpl2('filebrowser', false)),
-					'hasChildren'=>$c->HasChildren($catsel),
-					'classes'=>($filesel||$catsel)?'folder':null);
-		}
-		
-		$file_items = array();
-		$i = 0;		
-		if((empty($_REQUEST['cats_only']) || $_REQUEST['cats_only'] == 'false') && !$catsel) {
-			$where = WPFB_File::GetSqlCatWhereStr($parent_id);
-			if(!empty($_REQUEST['exclude_attached']) && $_REQUEST['exclude_attached'] != 'false') $where .= " AND `file_post_id` = 0";
-			
-			$files = WPFB_File::GetFiles2(
-				$where,  (WPFB_Core::GetOpt('hide_inaccessible') && !($filesel && wpfb_call('Admin','CurUserCanUpload'))),
-				$browser ? WPFB_Core::GetFileListSortSql((WPFB_Core::GetOpt('file_browser_file_sort_dir')?'>':'<').WPFB_Core::GetOpt('file_browser_file_sort_by')) : 'file_name'
-			);
-			
-			foreach($files as $f)
-				$file_items[$i++] = array('id'=>sprintf($file_id_format, $f->file_id), 'text'=>$filesel?('<a href="javascript:'.sprintf($onselect,$f->file_id,str_replace('\'','\\\'',htmlspecialchars(stripslashes($f->file_display_name)))).'">'.esc_html($f->GetTitle(24)).'</a> <span style="font-size:75%;vertical-align:top;">'.esc_html($f->file_name).'</span>'):$f->GenTpl2('filebrowser', false), 'classes'=>$filesel?'file':null);
-		}
-		
-		wpfb_print_json($files_before_cats ? array_merge($file_items, $cat_items) : array_merge($cat_items, $file_items));
+		wpfb_print_json(WPFB_Output::GetTreeItems($parent_id, $type, array(
+			 'cats_only'	=> (!empty($_REQUEST['cats_only']) && $_REQUEST['cats_only'] != 'false'),
+			 'exclude_attached' => (!empty($_REQUEST['exclude_attached']) && $_REQUEST['exclude_attached'] != 'false'),
+			 
+			 'onselect'		=> (!empty($_REQUEST['onselect'])) ? $_REQUEST['onselect'] : null,
+			 'cat_id_fmt'	=> empty($_REQUEST['cat_id_fmt']) ? null : wp_strip_all_tags($_REQUEST['cat_id_fmt']),
+			 'file_id_fmt' => empty($_REQUEST['file_id_fmt']) ? null : wp_strip_all_tags($_REQUEST['file_id_fmt']),		 
+		)));		
 		exit;
 
 	
@@ -252,7 +199,7 @@ switch ( $action = $_REQUEST['action'] ) {
 		exit;
 	case 'toggle-context-menu':
 		if(!current_user_can('upload_files')) die('-1');
-		WPFB_Core::UpdateOption('file_context_menu', !WPFB_Core::GetOpt('file_context_menu'));
+		WPFB_Core::UpdateOption('file_context_menu', !WPFB_Core::$settings->file_context_menu);
 		die('1');
 		
 	case 'set-user-setting':

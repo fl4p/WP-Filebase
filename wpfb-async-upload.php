@@ -36,7 +36,7 @@ if($frontend_upload) {
 	if($file_add_now) {
 		wp_die('Unsupported upload!');
 	} else {
-		if(!WPFB_Core::GetOpt('frontend_upload') && !current_user_can('upload_files'))
+		if(!WPFB_Core::$settings->frontend_upload && !current_user_can('upload_files'))
 			wpfb_ajax_die(__('You do not have permission to upload files.'));
 	}
 } else {

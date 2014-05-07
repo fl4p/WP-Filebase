@@ -215,7 +215,7 @@ static function RemoveTpls() {
 
 static function ResetOptions()
 {
-	$traffic = WPFB_Core::GetOpt('traffic_stats'); 	// keep stats
+	$traffic = WPFB_Core::$settings->traffic_stats; 	// keep stats
 	self::RemoveOptions();
 	self::AddOptions();
 	WPFB_Core::UpdateOption('traffic_stats', $traffic);
@@ -247,7 +247,7 @@ static function SetupDBTables($old_ver=null)
   `cat_parent` int(8) unsigned NOT NULL default '0',
   `cat_num_files` int(8) unsigned NOT NULL default '0',
   `cat_num_files_total` int(8) unsigned NOT NULL default '0',
-  `cat_user_roles` varchar(2000) NOT NULL default '',
+  `cat_user_roles` text NOT NULL default '',
   `cat_owner` bigint(20) unsigned default NULL,
   `cat_icon` varchar(255) default NULL,
   `cat_exclude_browser` enum('0','1') NOT NULL default '0',
@@ -276,7 +276,7 @@ static function SetupDBTables($old_ver=null)
   `file_language` varchar(255) default NULL,
   `file_platform` varchar(255) default NULL,
   `file_license` varchar(255) NOT NULL default '',
-  `file_user_roles` varchar(2000) NOT NULL default '',
+  `file_user_roles` text NOT NULL default '',
   `file_offline` enum('0','1') NOT NULL default '0',
   `file_direct_linking` enum('0','1','2') NOT NULL default '0',
   `file_force_download` enum('0','1') NOT NULL default '0',
@@ -307,9 +307,8 @@ static function SetupDBTables($old_ver=null)
   FULLTEXT KEY `KEYWORDS` (`keywords`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8";
 
-	
-	
 
+	
 
 	// errors of queries starting with @ are supressed
 	
@@ -369,11 +368,9 @@ static function SetupDBTables($old_ver=null)
 	$queries[] = "ALTER TABLE  `$tbl_cats` CHANGE  `cat_folder`  `cat_folder` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
 	$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_name`  `file_name` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
 
-	// since 0.2.9.25
-	$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_user_roles`  `file_user_roles` VARCHAR( 2000 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
-	$queries[] = "ALTER TABLE  `$tbl_cats` CHANGE  `cat_user_roles`  `cat_user_roles` VARCHAR( 2000 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
 	
 	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_owner` bigint(20) unsigned NOT NULL default 0 AFTER `cat_user_roles`";
+
 	// add fulltext indices
 	if(!empty($old_ver) && version_compare($old_ver, '0.2.9.24') < 0) { 	// TODO: search fields fulltext index!
 		$queries[] = "@ALTER TABLE `$tbl_files` ADD FULLTEXT `USER_ROLES` (`file_user_roles`)";
@@ -391,6 +388,11 @@ static function SetupDBTables($old_ver=null)
 	// fix (0,1,3) => (0,1,2)
 	$queries[] = "@ALTER TABLE `$tbl_files` CHANGE  `file_direct_linking`  `file_direct_linking` ENUM(  '0',  '1',  '2' )  NOT NULL DEFAULT  '0'";
 	
+	// roles text
+	$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_user_roles`  `file_user_roles` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
+	$queries[] = "ALTER TABLE  `$tbl_cats` CHANGE  `cat_user_roles`  `cat_user_roles` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
+				
+				
 	$queries[] = "OPTIMIZE TABLE `$tbl_cats`";
 	$queries[] = "OPTIMIZE TABLE `$tbl_files`";
 
@@ -551,7 +553,7 @@ static function ProtectUploadPath()
 {
 	$htaccess = self::UnProtectUploadPath();
 	
-	if(WPFB_Core::GetOpt('protect_upload_path') && is_writable(WPFB_Core::UploadDir()) && ($fp = @fopen($htaccess, 'w')) )
+	if(WPFB_Core::$settings->protect_upload_path && is_writable(WPFB_Core::UploadDir()) && ($fp = @fopen($htaccess, 'w')) )
 	{
 		@fwrite($fp, "Order deny,allow\n");
 		@fwrite($fp, "Deny from all\n");
@@ -572,7 +574,7 @@ static function OnActivateOrVerChange($old_ver=null) {
 	WPFB_Admin::SettingsUpdated($old_options, $new_options);
 	self::ProtectUploadPath();
 	
-	WPFB_Admin::WPCacheRejectUri(WPFB_Core::GetOpt('download_base') . '/', $old_options['download_base'] . '/');
+	WPFB_Admin::WPCacheRejectUri(WPFB_Core::$settings->download_base . '/', $old_options['download_base'] . '/');
 		
 	$ncats = WPFB_Category::GetNumCats();
 	$nfiles = WPFB_File::GetNumFiles();
@@ -599,12 +601,16 @@ static function OnActivateOrVerChange($old_ver=null) {
 	}
 	
 	flush_rewrite_rules();
+	
+	delete_option('wpfilebase_dismiss_support_ending');
 }
 
 static function OnDeactivate() {
 	wp_clear_scheduled_hook(WPFB.'_cron');
 	
 	self::UnProtectUploadPath();
+	
+	delete_option('wpfilebase_dismiss_support_ending');
 	
 	if(get_option('wpfb_uninstall')) {
 		self::RemoveOptions();

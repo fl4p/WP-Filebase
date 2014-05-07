@@ -45,7 +45,7 @@ class WPFB_ListTpl {
 	}
 	
 	private function ParseHeaderFooter($str, $uid=null) {
-		$str = preg_replace('/%sort_?link:([a-z0-9_]+)%/ie', __CLASS__.'::GenSortlink(\'$1\')', $str);
+		$str = preg_replace_callback('/%sort_?link:([a-z0-9_]+)%/i', array(__CLASS__, 'GenSortlink'), $str);
 		
 		if(strpos($str, '%search_form%') !== false) {
 			wpfb_loadclass('Output');
@@ -64,7 +64,7 @@ class WPFB_ListTpl {
 		if($count > 0)
 		{
 			$dataTableOptions = array();
-			list($sort_field, $sort_dir) = wpfb_call('Output','ParseFileSorting', $this->current_list->file_order);			
+			list($sort_field, $sort_dir) = wpfb_call('Output','ParseSorting', $this->current_list->file_order);			
 			$file_tpl = WPFB_Core::GetTpls('file', $this->file_tpl_tag);
 			if(($p = strpos($file_tpl, "%{$sort_field}%")) > 0)
 			{
@@ -95,8 +95,9 @@ class WPFB_ListTpl {
 		return ob_get_clean();
 	}
 	
-	static function GenSortlink($by) {
+	static function GenSortlink($ms) {
 		static $link;
+		$by = $ms[1];
 		if(empty($link)) {
 			$link = remove_query_arg('wpfb_file_sort');
 			$link .= ((strpos($link, '?') > 0)?'&':'?').'wpfb_file_sort=&';	
@@ -112,8 +113,8 @@ class WPFB_ListTpl {
 			unset($list_args);
 		}
 		
-		$hia = WPFB_Core::GetOpt('hide_inaccessible');
-		$sort = WPFB_Core::GetFileListSortSql($this->current_list->file_order);
+		$hia = WPFB_Core::$settings->hide_inaccessible;
+		$sort = WPFB_Core::GetSortSql($this->current_list->file_order);
 		
 		if($this->current_list->page_limit > 0) { // pagination
 			$page = (empty($_REQUEST['wpfb_list_page']) || $_REQUEST['wpfb_list_page'] < 1) ? 1 : intval($_REQUEST['wpfb_list_page']);
@@ -124,7 +125,7 @@ class WPFB_ListTpl {
 		
 		if($search_term || WPFB_Core::$file_browser_search) { // search
 			wpfb_loadclass('Search');
-			$where = WPFB_Search::SearchWhereSql(WPFB_Core::GetOpt('search_id3'), $search_term);
+			$where = WPFB_Search::SearchWhereSql(WPFB_Core::$settings->search_id3, $search_term);
 		} else $where = '1=1';
 		
 		$num_total_files = 0;
@@ -215,7 +216,6 @@ class WPFB_ListTpl {
 		));
 		unset($args);
 		
-		// self::ParseFileSorting($sort, $attach_order);
 		
 		$uid = uniqid();
       

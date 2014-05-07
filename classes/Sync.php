@@ -117,7 +117,7 @@ private static function SyncPase1($sync_data, $output)
 	$num_new_files = 0;
 	
 	// 1ps filter	 (check extension, special file names, and filter existing file names and thumbnails)
-	$fext_blacklist = array_map('strtolower', array_map('trim', explode(',', WPFB_Core::GetOpt('fext_blacklist'))));
+	$fext_blacklist = array_map('strtolower', array_map('trim', explode(',', WPFB_Core::$settings->fext_blacklist)));
 	for($i = 0; $i < $sync_data->num_all_files; $i++)
 	{
 		// $fn = $upload_dir.implode('/',array_map('urlencode', explode('/', substr($all_files[$i], strlen($upload_dir)))));
@@ -163,7 +163,7 @@ private static function SyncPase1($sync_data, $output)
 	}
 	
 	foreach($sync_data->missing_files as $mf) {
-		if(WPFB_Core::GetOpt('remove_missing_files')) {
+		if(WPFB_Core::$settings->remove_missing_files) {
 			$mf->Remove();
 		} elseif(!$mf->file_offline) {
 			$mf->file_offline = true; 				// set offline if not found
@@ -251,7 +251,7 @@ static function UpdateItemsPath(&$files=null, &$cats=null) {
 
 static function CheckChangedFiles($sync_data)
 {
-	$sync_id3 = !WPFB_Core::GetOpt('disable_id3');
+	$sync_id3 = !WPFB_Core::$settings->disable_id3;
 	$upload_dir = self::cleanPath(WPFB_Core::UploadDir());	
 	foreach($sync_data->files as $id => $file)
 	{
@@ -413,7 +413,7 @@ static function GetThumbnails($sync_data)
 	}
 	
 
-	if(WPFB_Core::GetOpt('base_auto_thumb')) {
+	if(WPFB_Core::$settings->base_auto_thumb) {
 		for($i = 0; $i < $num_new_files; $i++)
 		{
 			$len = strrpos($sync_data->new_files[$i], '.');
@@ -559,10 +559,10 @@ static function PrintResult(&$result)
 			// first files should be deleted, then cats!
 			if(!empty($result['missing_files'])) {
 				echo '<p>' . sprintf(__('%d Files could not be found.', WPFB), count($result['missing_files'])) . ' '.
-				(WPFB_Core::GetOpt('remove_missing_files') ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;files='.join(',',array_keys($result['missing_files'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
+				(WPFB_Core::$settings->remove_missing_files ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;files='.join(',',array_keys($result['missing_files'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
 			} elseif(!empty($result['missing_folders'])) {
 				echo '<p>' . sprintf(__('%d Category Folders could not be found.', WPFB), count($result['missing_folders'])) . ' '.
-				(WPFB_Core::GetOpt('remove_missing_files') ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;cats='.join(',',array_keys($result['missing_folders'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
+				(WPFB_Core::$settings->remove_missing_files ? __('The corresponding entries have been removed from the database.',WPFB) : (' <a href="'.$clean_uri.'&amp;action=del&amp;cats='.join(',',array_keys($result['missing_folders'])).'" class="button" target="_top">'.__('Remove entries from database',WPFB).'</a>')).'</p>';
 			}
 }
 

@@ -1,6 +1,6 @@
 <?php class WPFB_WidgetForms {
 	public static function UploadWidget($obj, $instance ) {
-		if(!WPFB_Core::GetOpt('frontend_upload')) {
+		if(!WPFB_Core::$settings->frontend_upload) {
 			_e('Frontend upload is disabled in security settings!', WPFB);
 			return;
 		}
@@ -20,7 +20,7 @@
 	}	
 	
 	public static function CatListWidget( $obj, $instance ) {
-		if(WPFB_Core::GetOpt('file_browser_post_id') <= 0) {
+		if(WPFB_Core::$settings->file_browser_post_id <= 0) {
 			echo '<div>';
 			_e('Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings.', WPFB);
 			echo '<br /><a href="'.admin_url('admin.php?page=wpfilebase_sets#file-browser').'">';

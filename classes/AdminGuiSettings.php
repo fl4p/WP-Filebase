@@ -166,10 +166,10 @@ static function Display()
 		$option_fields = WPFB_Admin::SettingsSchema();
 	}
 	
-	if(WPFB_Core::GetOpt('allow_srv_script_upload'))
+	if(WPFB_Core::$settings->allow_srv_script_upload)
 		$messages[] = __('WARNING: Script upload enabled!', WPFB);
 		
-	$upload_path = WPFB_Core::GetOpt('upload_path');
+	$upload_path = WPFB_Core::$settings->upload_path;
 	if(!empty($old_options) && path_is_absolute($upload_path) && !path_is_absolute($old_options['upload_path']))
 	{
 		$rel_path  = str_replace('\\','/',$upload_path);

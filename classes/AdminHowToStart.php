@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 			<li><?php _e('Add a file. There are different ways:', WPFB); ?>
 				<ul>
 					<li><?php printf(__('<a href="%s">Use the normal File Upload Form.</a> You you can either upload a file from you local harddisk or you can provide a URL to a file that will be sideloaded to your blog.', WPFB), esc_attr(admin_url("admin.php?page=wpfilebase_files#addfile"))); ?></li>
-					<li><?php printf(__('Use FTP: Use your favorite FTP Client to upload any directories/files to <code>%s</code>. Afterwards <a href="%s">sync the filebase</a> to add the newly uploaded files to the database.', WPFB), esc_html(WPFB_Core::GetOpt('upload_path')), esc_attr(admin_url('admin.php?page=wpfilebase_manage&action=sync'))); ?></li>
+					<li><?php printf(__('Use FTP: Use your favorite FTP Client to upload any directories/files to <code>%s</code>. Afterwards <a href="%s">sync the filebase</a> to add the newly uploaded files to the database.', WPFB), esc_html(WPFB_Core::$settings->upload_path), esc_attr(admin_url('admin.php?page=wpfilebase_manage&action=sync'))); ?></li>
 				</ul>
 			</li>
 			<li><?php printf(__('Goto <a href="%s">WP-Filebase Settings -> Filebrowser</a> and set the Page ID to get a nice AJAX Tree View of all your files.', WPFB), esc_attr(admin_url('admin.php?page=wpfilebase_sets#'.sanitize_title(__('File Browser',WPFB))))); ?></li>

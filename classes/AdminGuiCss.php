@@ -24,7 +24,7 @@ static function Display()
 	<div class="wrap">
 	<?php
 	
-	$upload_path = WPFB_Core::GetOpt('upload_path');
+	$upload_path = WPFB_Core::$settings->upload_path;
 	if(path_is_absolute($upload_path))
 	{
 		echo '<div class="updated fade"><p>';

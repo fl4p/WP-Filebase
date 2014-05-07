@@ -23,23 +23,29 @@ if ( ! isset( $_GET['inline'] ) )
 define('WP_INSTALLING', true);
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/wp-load.php');
+
+/*
+require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+// check if WP-Filebase is active
+$wpfb_rpath = basename(untrailingslashit(dirname(__FILE__))).'/wp-filebase.php';
+if(!is_plugin_active($wpfb_rpath))
+	wp_die("WP-Filebase not active. ($wpfb_rpath not in [".implode(',',get_option('active_plugins'))."]) <!-- FATAL ERROR: WP-Filebase DISABLED -->");
+*/
+
 require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
 // load wpfilebase only!
 require_once('wp-filebase.php');
 
-if(!function_exists('get_current_screen')) {
-	function get_current_screen() { return null; }
-}
-if(!function_exists('add_meta_box')) {
-	function add_meta_box() { return null; }
-}
+if(!function_exists('get_current_screen')) {	function get_current_screen() { return null; } }
+if(!function_exists('add_meta_box')) {	function add_meta_box() { return null; } }
 
 auth_redirect(); 
 
 wpfb_loadclass('Core', 'File', 'Category', 'AdminLite', 'Admin', 'ListTpl', 'Output', 'Models');
 
 wp_enqueue_script( 'common' );
+wp_enqueue_script('jquery-ui-widget');
 wp_enqueue_script( 'jquery-color' ); 
 wp_enqueue_script('jquery-treeview-async');
 wp_enqueue_script('postbox');
@@ -193,10 +199,10 @@ wp_admin_css( 'colors-fresh', true );
 var userSettings = {'url':'<?php echo SITECOOKIEPATH; ?>','uid':'<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID; ?>','time':'<?php echo time(); ?>'};
 var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>', pagenow = 'wpfilebase-popup', adminpage = 'wpfilebase-popup', isRtl = <?php echo (int) is_rtl(); ?>;
 var wpfbAjax = '<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>';
-var usePathTags = <?php echo (int)WPFB_Core::GetOpt('use_path_tags') ?>;
+var usePathTags = <?php echo (int)WPFB_Core::$settings->use_path_tags ?>;
 var yesImgUrl = '<?php echo admin_url( 'images/yes.png' ) ?>';
 var manageAttachments = <?php echo (int)$manage_attachments ?>;
-var autoAttachFiles = <?php echo (int)WPFB_Core::GetOpt('auto_attach_files') ?>;
+var autoAttachFiles = <?php echo (int)WPFB_Core::$settings->auto_attach_files ?>;
 
 var theEditor;
 var currentTab = '';
@@ -205,7 +211,7 @@ var includeAllCats = false;
 
 function selectFile(id, name)
 {
-	var theTag = {"tag":currentTab, <?php echo WPFB_Core::GetOpt('use_path_tags') ? '"path": getFilePath(id)' : '"id":id'; ?>};
+	var theTag = {"tag":currentTab, <?php echo WPFB_Core::$settings->use_path_tags ? '"path": getFilePath(id)' : '"id":id'; ?>};
 	var el = jQuery('span.file','#wpfb-file-'+id).first();
 	
 	if(manageAttachments || currentTab == 'attach') {
@@ -238,7 +244,7 @@ function insBrowserTag()
 	var tag = {tag:currentTab};
 	var root = parseInt(jQuery('#browser-root').val());
 	if(root > 0)
-		<?php echo WPFB_Core::GetOpt('use_path_tags') ? 'tag.path = getCatPath(root);' : 'tag.id = root;'; ?>
+		<?php echo WPFB_Core::$settings->use_path_tags ? 'tag.path = getCatPath(root);' : 'tag.id = root;'; ?>
 				
 		
 	return insertTag(tag);
@@ -266,7 +272,7 @@ function insBrowserTag()
 
 <div id="attach" class="container">
 <?php
-if(!WPFB_Core::GetOpt('auto_attach_files')) {
+if(!WPFB_Core::$settings->auto_attach_files) {
 	echo '<div id="no-auto-attach-note" class="updated">';
 	printf(__('Note: Listing of attached files is disabled. You have to <a href="%s">insert the attachments tag</a> to show the files in the content.'),'javascript:insAttachTag();');
 	echo '</div>';
@@ -373,47 +379,26 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 		} ?>
 	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#list') ?>" target="_parent"><?php _e('Add Template', WPFB) ?></a></i>
 </form>
+
 <form id="list">
-	<h2><?php _e('Sort Order:'); ?></h2>
-	<p>
-	<label for="list-sort-by"><?php _e("Sort by:") ?></label>
-	<select name="list-sort-by" id="list-sort-by" style="width:100%">
-		<option value=""><?php _e('Default'); echo ' ('.WPFB_Core::GetOpt('filelist_sorting').')'; ?></option>
-		<?php $opts = WPFB_Models::FileSortFields();
-		foreach($opts as $tag => $name) echo '<option value="'.$tag.'">'.$tag.' - '.$name.'</option>'; ?>
-	</select>	
-	<input type="radio" checked="checked" name="list-sort-order" id="list-sort-order-asc" value="asc" />
-	<label for="list-sort-order-asc" class="radio"><?php _e('Ascending'); ?></label>
-	<input type="radio" name="list-sort-order" id="list-sort-order-desc" value="desc" />
-	<label for="list-sort-order-desc" class="radio"><?php _e('Descending'); ?></label>
-	</p>
 	<p>
 	<label for="list-num"><?php _e('Files per page:',WPFB) ?></label>
 	<input name="list-num" type="text" id="list-num" value="0" class="small-text" />
-	<?php printf(__('Set to 0 to use the default limit (%d), -1 will disable pagination.',WPFB), WPFB_Core::GetOpt('filelist_num')) ?>
+	<?php printf(__('Set to 0 to use the default limit (%d), -1 will disable pagination.',WPFB), WPFB_Core::$settings->filelist_num) ?>
 		
 	</p>
+	
+	<p id="list-pagenav-wrap">
+	<input type="checkbox" id="list-pagenav" name="list-pagenav" value="1" checked="checked" />
+	<label for="list-pagenav"><?php _e('Display Page Navigation',WPFB); ?></label>
+	</p>
+	
 	<p>
 	<input type="checkbox" id="list-show-cats" name="list-show-cats" value="1" />
 	<label for="list-show-cats"><?php _e('Group by Categories',WPFB); echo " / "; _e('List selected Categories',WPFB) ?></label>
 	</p>
-	<p id="cat-sorting-wrap">
-	<label for="list-cat-sort-by"><?php _e("Category order",WPFB) ?>:</label>
-	<select name="list-cat-sort-by" id="list-cat-sort-by" style="width:100%">
-		<option value=""><?php _e('None (order of IDs in shortcode)', WPFB); ?></option>
-		<?php $opts = WPFB_Models::CatSortFields();
-		foreach($opts as $tag => $name) echo '<option value="'.$tag.'">'.$tag.' - '.$name.'</option>'; ?>
-	</select>	
-	<input type="radio" checked="checked" name="list-cat-sort-order" id="list-cat-sort-order-asc" value="asc" />
-	<label for="list-cat-sort-order-asc" class="radio"><?php _e('Ascending'); ?></label>
-	<input type="radio" name="list-cat-sort-order" id="list-sort-order-desc" value="desc" />
-	<label for="list-cat-sort-order-desc" class="radio"><?php _e('Descending'); ?></label>
-	</p>	
-	<p id="list-pagenav-wrap">
-	<input type="checkbox" id="list-pagenav" name="list-pagenav" value="1" checked="checked" />
-	<label for="list-pagenav"><?php _e('Display Page Navigation',WPFB); ?></label>
-	</p>	
-	<p><a class="button-primary" style="float: right;" href="javascript:void(0)" onclick="return insListTag()"><?php echo _e('Insert') ?></a><br />
+	
+	<p><a class="button-primary" style="position: fixed; right: 8px; bottom: 8px;" href="javascript:void(0)" onclick="return insListTag()"><?php echo _e('Insert') ?></a><br />
 	 </p>
 </form>
 
@@ -424,33 +409,52 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	</p>
 	
 	
-	<p><a class="button" style="float: right;" href="javascript:void(0)" onclick="return insBrowserTag()"><?php echo _e('Insert') ?></a></p>
+	<p><a class="button-primary" style="position: fixed; right: 8px; bottom: 8px;" href="javascript:void(0)" onclick="return insBrowserTag()"><?php echo _e('Insert') ?></a></p>
 </form>
 
-
-
-
-<!-- 
-<form id="uploadform">
-	<p><?php _e('Category where uploaded files will be moved in:',WPFB); ?><br />	
-	<select name="uploadform-cat" id="uploadform-cat">
-		<option value="-1"  style="font-style:italic;"><?php _e('Selectable by Uploader',WPFB); ?></option>
-		<?php echo WPFB_Output::CatSelTree(array('none_label' => __('Upload to Root',WPFB))); ?>
-	</select>
+<form id="filesort">
+	<h2><?php _e('Sort Order:'); ?></h2>
+	<p>
+	<label for="list-sort-by"><?php _e("Sort by:") ?></label>
+	<select name="list-sort-by" id="list-sort-by" style="width:100%">
+		<option value=""><?php _e('Default'); echo ' ('.WPFB_Core::$settings->filelist_sorting.')'; ?></option>
+		<?php $opts = WPFB_Models::FileSortFields();
+		foreach($opts as $tag => $name) echo '<option value="'.$tag.'">'.$tag.' - '.$name.'</option>'; ?>
+	</select>	
+	<input type="radio" checked="checked" name="list-sort-order" id="list-sort-order-asc" value="asc" />
+	<label for="list-sort-order-asc" class="radio"><?php _e('Ascending'); ?></label>
+	<input type="radio" name="list-sort-order" id="list-sort-order-desc" value="desc" />
+	<label for="list-sort-order-desc" class="radio"><?php _e('Descending'); ?></label>
 	</p>
-
-	<p><input type="checkbox" id="uploadform-overwrite" name="uploadform-overwrite" value="1" /> <label for="uploadform-overwrite"><?php _e('Overwrite existing files', WPFB) ?></label></p>
-	
-	<p><a class="button" style="float: right;" href="javascript:void(0)" onclick="return insUploadFormTag()"><?php echo _e('Insert') ?></a></p>
 </form>
 
- -->
+<form id="catsort">
+	<p>
+	<label for="list-cat-sort-by"><?php _e("Category order",WPFB) ?>:</label>
+	<select name="list-cat-sort-by" id="list-cat-sort-by" style="width:100%">
+		<option value=""><?php _e('None (order of IDs in shortcode)', WPFB); ?></option>
+		<?php $opts = WPFB_Models::CatSortFields();
+		foreach($opts as $tag => $name) echo '<option value="'.$tag.'">'.$tag.' - '.$name.'</option>'; ?>
+	</select>	
+	<input type="radio" checked="checked" name="list-cat-sort-order" id="list-cat-sort-order-asc" value="asc" />
+	<label for="list-cat-sort-order-asc" class="radio"><?php _e('Ascending'); ?></label>
+	<input type="radio" name="list-cat-sort-order" id="list-cat-sort-order-desc" value="desc" />
+	<label for="list-cat-sort-order-desc" class="radio"><?php _e('Descending'); ?></label>
+	</p>
+</form>
+
+
+
+
 <?php } /*manage_attachments*/ ?>
 
 <?php
 do_action('admin_print_footer_scripts');
 ?>
-<script type="text/javascript">if(typeof wpOnload=='function')wpOnload();</script>
+<script type="text/javascript">
+	initEditorPlugin();
+	if(typeof wpOnload=='function')wpOnload();
+</script>
 <?php WPFB_Core::PrintJS(); /* only required for wpfbConf */ ?>
 </body>
 </html>

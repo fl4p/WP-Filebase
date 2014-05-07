@@ -19,7 +19,7 @@ if(!empty($post_id))
 $action = ($update ? 'updatefile' : 'addfile');
 $title = $update ? __('Edit File', WPFB) : __('Add File', WPFB);
 
-$default_roles = WPFB_Core::GetOpt('default_roles');
+$default_roles = WPFB_Core::$settings->default_roles;
 $user_roles = ($update || empty($default_roles)) ? $file->GetReadPermissions() : $default_roles;
 $file_members_only = !empty($user_roles);
 
@@ -38,7 +38,7 @@ if(empty($nonce_action)) {
 if($update)
 	$file_category = $file->file_category;
 else {
-	$cats = array_filter(array(@$_REQUEST['file_category'], $file->file_category, WPFB_Core::GetOpt('default_cat')));
+	$cats = array_filter(array(@$_REQUEST['file_category'], $file->file_category, WPFB_Core::$settings->default_cat));
 	$file_category = reset($cats); 
 }
 
@@ -259,7 +259,7 @@ function WPFB_addTag(tag)
 	</tr>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="file_author"><?php _e('Author') ?></label></th>
-		<td><input name="file_author" id="file_author" type="text" value="<?php echo esc_attr(!empty($file->file_author) ? $file->file_author : WPFB_Core::GetOpt('default_author')); ?>" size="<?php echo ($in_editor||$in_widget) ? 20 : 40 ?>" /></td>
+		<td><input name="file_author" id="file_author" type="text" value="<?php echo esc_attr(!empty($file->file_author) ? $file->file_author : WPFB_Core::$settings->default_author); ?>" size="<?php echo ($in_editor||$in_widget) ? 20 : 40 ?>" /></td>
 		<?php if($exform) { ?>
 		<th scope="row" valign="top"><label for="file_date"><?php _e('Date') ?></label></th>
 		<td><?php
@@ -297,17 +297,17 @@ function WPFB_addTag(tag)
 		<td><input type="text" name="file_hits" class="small-text" id="file_hits" value="<?php echo (int)$file->file_hits; ?>" /></td>
 	</tr>
 	<tr class="form-field">
-		<?php if(WPFB_Core::GetOpt('platforms')) { ?>
+		<?php if(WPFB_Core::$settings->platforms) { ?>
 		<th scope="row" valign="top"><label for="file_platforms[]"><?php _e('Platforms', WPFB) ?></label></th>
 		<td><select name="file_platforms[]" size="40" multiple="multiple" id="file_platforms[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('platforms', $file ? $file->file_platform : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php }
-		if(WPFB_Core::GetOpt('requirements')) { ?>
+		if(WPFB_Core::$settings->requirements) { ?>
 		<th scope="row" valign="top"><label for="file_requirements[]"><?php _e('Requirements', WPFB) ?></label></th>
 		<td><select name="file_requirements[]" size="40" multiple="multiple" id="file_requirements[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('requirements', $file ? $file->file_requirement : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php } ?>
 	</tr>
 	<tr>
-	<?php if(WPFB_Core::GetOpt('languages')) { ?>
+	<?php if(WPFB_Core::$settings->languages) { ?>
 		<th scope="row" valign="top"><label for="file_languages[]"><?php _e('Languages') ?></label></th>
 		<td  class="form-field"><select name="file_languages[]" size="40" multiple="multiple" id="file_languages[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('languages', $file ? $file->file_language : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php } ?>

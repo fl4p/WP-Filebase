@@ -7,12 +7,12 @@ static function RefererCheck()
 		return true;
 		
 	if(empty($_SERVER['HTTP_REFERER']))
-		return ((bool)WPFB_Core::GetOpt('accept_empty_referers'));
+		return ((bool)WPFB_Core::$settings->accept_empty_referers);
 		
 	$referer = @parse_url($_SERVER['HTTP_REFERER']);		
 	$referer = $referer['host'];
 	
-	$allowed_referers = explode("\n", WPFB_Core::GetOpt('allowed_referers'));
+	$allowed_referers = explode("\n", WPFB_Core::$settings->allowed_referers);
 	$allowed_referers[] = get_option('home');
 	
 	foreach($allowed_referers as $ar)
@@ -42,8 +42,8 @@ static function CheckTraffic($file_size)
 {
 	$traffic = wpfb_call('Misc','GetTraffic');
 	
-	$limit_month = (WPFB_Core::GetOpt('traffic_month') * 1073741824); //GiB
-	$limit_day = (WPFB_Core::GetOpt('traffic_day') * 1048576); // MiB
+	$limit_month = (WPFB_Core::$settings->traffic_month * 1073741824); //GiB
+	$limit_day = (WPFB_Core::$settings->traffic_day * 1048576); // MiB
 	
 	return ( ($limit_month == 0 || ($traffic['month'] + $file_size) < $limit_month) && ($limit_day == 0 || ($traffic['today'] + $file_size) < $limit_day) );
 }
@@ -296,7 +296,7 @@ static function FileType2Ext($type)
 // returns true if the download should not be streamed in the browser
 static function ShouldSendDLHeader($file_path, $file_type)
 {
-	if(WPFB_Core::GetOpt('force_download'))
+	if(WPFB_Core::$settings->force_download)
 		return true;
 	
 	$file_name = basename($file_path);
@@ -322,7 +322,7 @@ static function ShouldSendRangeHeader($file_path, $file_type)
 {
 	static $no_range_types = array('application/pdf', 'application/x-shockwave-flash');
 	
-	if(!WPFB_Core::GetOpt('range_download'))
+	if(!WPFB_Core::$settings->range_download)
 		return false;
 		
 	foreach($no_range_types as $t)
@@ -352,7 +352,7 @@ static function SendFile($file_path, $args=array())
 	@error_reporting(0);
 	while(@ob_end_clean()){}
 	
-	$no_cache = WPFB_Core::GetOpt('http_nocache') && ($cache_max_age <= 0);
+	$no_cache = WPFB_Core::$settings->http_nocache && ($cache_max_age <= 0);
 	
 	@ini_set("zlib.output_compression", "Off");
 	
@@ -473,7 +473,7 @@ static function SendFile($file_path, $args=array())
 	@ob_flush();
    @flush();
 	
-	//if(WPFB_Core::GetOpt('dl_destroy_session'))
+	//if(WPFB_Core::$settings->dl_destroy_session)
 //		@session_destroy();
 	
 	// ready to send the file!

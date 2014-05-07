@@ -31,7 +31,7 @@ class WPFB_UploadWidget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		if(!WPFB_Core::GetOpt('frontend_upload'))
+		if(!WPFB_Core::$settings->frontend_upload)
 			return;
 		wpfb_loadclass('File', 'Category', 'Output');
 		
@@ -132,7 +132,7 @@ class WPFB_SearchWidget extends WP_Widget {
 		
 		$prefix = "wpfb-search-widget-".$this->id_base;
 		
-		$fbp_id = WPFB_Core::GetOpt('file_browser_post_id');
+		$fbp_id = WPFB_Core::$settings->file_browser_post_id;
 		$action = WPFB_Core::GetPostUrl($fbp_id);
 		$p_in_query = (strpos($action,'?') !== false); // no permalinks?
 		$action = $p_in_query ? remove_query_arg(array('p','post_id','page_id','wpfb_s')) : $action;
@@ -166,7 +166,7 @@ class WPFB_CatListWidget extends WP_Widget {
 	function widget( $args, $instance ) {
 		
 		// if no filebrowser this widget doosnt work
-		if(WPFB_Core::GetOpt('file_browser_post_id') <= 0)
+		if(WPFB_Core::$settings->file_browser_post_id <= 0)
 			return;
 		
 		
@@ -241,7 +241,7 @@ class WPFB_FileListWidget extends WP_Widget {
 		
 		$files = WPFB_File::GetFiles2(
 			empty($instance['cat']) ? null : WPFB_File::GetSqlCatWhereStr($instance['cat']),
-			WPFB_Core::GetOpt('hide_inaccessible'),
+			WPFB_Core::$settings->hide_inaccessible,
 			array($instance['sort-by'] => ($instance['sort-asc'] ? 'ASC' : 'DESC')),
 		 	(int)$instance['limit']
 		);

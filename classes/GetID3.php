@@ -26,7 +26,7 @@ class WPFB_GetID3 {
 				
 		$filename = is_string($file) ? $file : $file->GetLocalPath();
 		
-		$info = WPFB_Core::GetOpt('disable_id3') ? array() : self::GetEngine()->analyze($filename);
+		$info = WPFB_Core::$settings->disable_id3 ? array() : self::GetEngine()->analyze($filename);
 		
 		if(!empty($_GET['debug'])) {
 			wpfb_loadclass('Sync');

@@ -199,7 +199,7 @@ class WPFB_File extends WPFB_Item {
 	static function GetAttachedFiles($post_id, $show_all=false)
 	{
 		$post_id = intval($post_id);
-		return WPFB_File::GetFiles2(array('file_post_id' => $post_id), !$show_all && WPFB_Core::$settings->hide_inaccessible, WPFB_Core::GetFileListSortSql(null, true));
+		return WPFB_File::GetFiles2(array('file_post_id' => $post_id), !$show_all && WPFB_Core::$settings->hide_inaccessible, WPFB_Core::GetSortSql(null, true));
 	}
 	
 	static function GetByPost($post_id)
@@ -310,9 +310,10 @@ class WPFB_File extends WPFB_Item {
 	
 	
 	// only deletes file/thumbnail on FS, keeping DB entry
-	function Delete()
+	function Delete($keep_thumb=false)
 	{
-		$this->DeleteThumbnail();
+		if(!$keep_thumb)
+			$this->DeleteThumbnail();
 		
 		$this->file_remote_uri = null;
 		
@@ -338,15 +339,16 @@ class WPFB_File extends WPFB_Item {
 	function Remove($bulk=false)
 	{	
 		global $wpdb;
-
+		
+		$id = (int)$this->file_id;	
+		
 		if($this->file_category > 0 && ($parent = $this->GetParent()) != null)
 			$parent->NotifyFileRemoved($this);
-		
+	
 		// remove file entry
-		$wpdb->query("DELETE FROM $wpdb->wpfilebase_files WHERE file_id = " . (int)$this->file_id);
+		$wpdb->query("DELETE FROM $wpdb->wpfilebase_files WHERE file_id = $id");
 		
-		$wpdb->query("DELETE FROM $wpdb->wpfilebase_files_id3 WHERE file_id = " . (int)$this->file_id);
-		
+		$wpdb->query("DELETE FROM $wpdb->wpfilebase_files_id3 WHERE file_id = $id");
 		
 			
 		if(!$bulk)

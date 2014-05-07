@@ -95,12 +95,23 @@ function wpfb_setupLinks() {
 	}
 }
 
-if(typeof(jQuery) != 'undefined') {
-	jQuery(document).ready(function() {
+if(typeof(jQuery) !== 'undefined')	jQuery(document).ready(wpfb_setupLinks);
+else if (window.addEventListener)  window.addEventListener('load', wpfb_setupLinks, false);
+else if (window.attachEvent) window.attachEvent('onload', wpfb_setupLinks);
+else setTimeout(wpfb_setupLinks, 500);
+
+/*
+var wpfb_setupLinksTimer = -1; 
+document.addEventListener("DOMSubtreeModified", function(e) {
+	if(wpfb_setupLinksTimer !== -1)
+		clearTimeout(wpfb_setupLinksTimer);
+	wpfb_setupLinksTimer = setTimeout(function() {
 		wpfb_setupLinks();
-		setInterval(wpfb_setupLinks, 300);
-	});	
-}
+		wpfb_setupLinksTimer = -1;
+	}, 300);
+}, false);
+*/
+setInterval(wpfb_setupLinks, 500);
 
 function wpfb_setupFormAutoSave(form)
 {

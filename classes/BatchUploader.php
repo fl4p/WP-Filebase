@@ -207,6 +207,7 @@ function batchUploaderSuccess(file, serverData)
 	static function DisplayUploadPresets($prefix, $cat_select=true)
 	{		
 		$defaults = array(
+			 'display_name' => '',
 			 'category' => 0,
 			 'tags' => '',
 			 'description' => '',
@@ -257,7 +258,7 @@ function batchUploaderSuccess(file, serverData)
 <?php } ?>
 
 <tr class="form-field">
-	<th scope="row"><label for="batch_post_id"><?php _e('Attach to Post',WPFB) ?></label></th>
+	<th scope="row"><label for="<?php echo $prefix; ?>_post_id"><?php _e('Attach to Post',WPFB) ?></label></th>
 	<td>ID: <input type="text" name="file_post_id" class="num" style="width:60px; text-align:right;" id="<?php echo $prefix; ?>_post_id" value="<?php echo esc_attr($defaults['post_id']); ?>" />
 	<span id="<?php echo $prefix; ?>_post_title" style="font-style:italic;"><?php if($defaults['post_id'] > 0) echo get_the_title($defaults['post_id']); ?></span>
 	<a href="javascript:;" class="button" onclick="WPFB_PostBrowser('batch_post_id', 'batch_post_title');"><?php _e('Select') ?></a></td>
@@ -266,7 +267,7 @@ function batchUploaderSuccess(file, serverData)
 <tr>
 	<td></td>
 	<td><input type="checkbox" name="file_offline" id="<?php echo $prefix; ?>_offline" value="1" <?php checked('1', $defaults['offline']); ?> />
-	<label for="batch_offline" style="display: inline;"><?php _e('Don\'t publish uploaded files (set offline)', WPFB) ?></label></td>
+	<label for="<?php echo $prefix; ?>_offline" style="display: inline;"><?php _e('Don\'t publish uploaded files (set offline)', WPFB) ?></label></td>
 </tr>
 
 <?php  /*ADV_BATCH_UPLOADER*/?>

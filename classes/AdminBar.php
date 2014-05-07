@@ -17,7 +17,7 @@ static function AdminBar() {
 	
 	$wp_admin_bar->add_menu(array('parent' => WPFB, 'id' => WPFB.'-add-file', 'title' => __('Sync Filebase', WPFB), 'href' => admin_url('admin.php?page=wpfilebase_manage&action=sync')));
 	
-	$wp_admin_bar->add_menu(array('parent' => WPFB, 'id' => WPFB.'-toggle-context-menu', 'title' => __(WPFB_Core::GetOpt('file_context_menu')?'Disable file context menu':'Enable file context menu', WPFB), 'href' => 'javascript:;',
+	$wp_admin_bar->add_menu(array('parent' => WPFB, 'id' => WPFB.'-toggle-context-menu', 'title' => __(!empty(WPFB_Core::$settings->file_context_menu)?'Disable file context menu':'Enable file context menu', WPFB), 'href' => 'javascript:;',
 	'meta' => array('onclick' => 'return wpfb_toggleContextMenu();')));
 	
 }

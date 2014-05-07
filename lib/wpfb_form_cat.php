@@ -12,7 +12,7 @@ $title = $update ? __('Edit Category') : __('Add Category',WPFB);/*def*/
 $form_name = $update ? 'editcat' : 'addcat';
 $nonce_action = WPFB . "-" . $action . ($update ? $file_category->cat_id : '');	
 
-$default_roles = WPFB_Core::GetOpt('default_roles');
+$default_roles = WPFB_Core::$settings->default_roles;
 $user_roles = ($update || empty($default_roles)) ? $file_category->GetReadPermissions() : $default_roles;
 $cat_members_only = !empty($user_roles);
 

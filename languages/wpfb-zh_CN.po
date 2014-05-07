@@ -1,0 +1,1249 @@
+# Translation of the WordPress plugin WP-Filebase 0.1.3.0 by Fabian Schlieper.
+# Copyright (C) 2010 Fabian Schlieper
+# This file is distributed under the same license as the WP-Filebase package.
+# Fabian Schlieper <fabian@fabi.me>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-Filebase 0.1.3.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-filebase\n"
+"POT-Creation-Date: 2010-01-18 23:16+0000\n"
+"PO-Revision-Date: 2014-04-29 23:59+0800\n"
+"Last-Translator: darlexlin <darlexlin@foxmail.com>\n"
+"Language-Team: Fabian Schlieper <fabian@fabi.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_Hans\n"
+
+#: editor_plugin.php:37 editor_plugin.php:256
+msgid "Uncategorized Files"
+msgstr "无标签文件"
+
+#: editor_plugin.php:42
+#, php-format
+msgid ""
+"You did not upload a file. <a href=\"%s\" target=\"_parent\">Click here to "
+"add one.</a>"
+msgstr "未上传任何文件.<a href=\"%s\" target=\"_parent\">点击增加.</a>"
+
+#: editor_plugin.php:219
+msgid "Enter link text:"
+msgstr "请输入链接地址"
+
+#: editor_plugin.php:244
+msgid "Single file"
+msgstr "单个文件"
+
+#: editor_plugin.php:245
+msgid "File URL"
+msgstr "文件路径"
+
+#: editor_plugin.php:246
+msgid "File list"
+msgstr "文件列表"
+
+msgid "Category list"
+msgstr "标签列表"
+
+#: editor_plugin.php:255
+msgid "All Categories"
+msgstr "所有标签"
+
+#: editor_plugin.php:257
+msgid "Attachments"
+msgstr "附件"
+
+#: editor_plugin.php:266
+#, php-format
+msgid ""
+"You did not create a category. <a href=\"%s\" target=\"_parent\">Click here "
+"to add one."
+msgstr "未创建任何类型。<a href=\"%s\" target=\"_parent\">点击增加."
+
+#: editor_plugin.php:273
+msgid "Select Template"
+msgstr "选择模板"
+
+#: editor_plugin.php:274
+msgid "Default Template"
+msgstr "默认模板"
+
+#: editor_plugin.php:281 lib/wp-filebase_admin_gui_manage.lib.php:472
+#: lib/wp-filebase_admin_gui_manage.lib.php:481
+msgid "Add Template"
+msgstr "增加模板"
+
+#: lib/wp-filebase_admin.lib.php:9
+msgid ""
+"One entry per line. Seperate the title and a short tag (not longer than 8 "
+"characters) with '|'.<br />All lines beginning with '*' are selected by "
+"default."
+msgstr ""
+"每行一个条目。标题和短码使用“|\"分开，并且不超过8个字符。\"*\"开头将使用默认"
+"配置"
+
+#: lib/wp-filebase_admin.lib.php:10
+msgid "One entry per line."
+msgstr "一行一个"
+
+#: lib/wp-filebase_admin.lib.php:11
+msgid "Limits the maximum tranfer rate for downloads. 0 = unlimited"
+msgstr "最大下载传输速度，0为不限制"
+
+#: lib/wp-filebase_admin.lib.php:12
+msgid "Limits the maximum data traffic. 0 = unlimited"
+msgstr "最大数据流量，0为不限制"
+
+#: lib/wp-filebase_admin.lib.php:15
+msgid "Upload Path"
+msgstr "上传路径"
+
+#: lib/wp-filebase_admin.lib.php:19
+#, fuzzy
+msgid "Show attached files"
+msgstr "显示附件文件"
+
+#: lib/wp-filebase_admin.lib.php:19
+msgid "If enabled, all associated files are listed below an article"
+msgstr "如果可以，所有相关文件都将列入文章"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "Default sorting"
+msgstr "默认排序"
+
+#: lib/wp-filebase_admin.lib.php:20
+msgid "The file property lists are sorted by"
+msgstr "文件属性列表将按下排序"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "Sorting direction"
+msgstr "排序方向"
+
+#: lib/wp-filebase_admin.lib.php:21
+msgid "The sorting direction of file lists"
+msgstr "文件排序方向"
+
+#: lib/wp-filebase_admin.lib.php:23
+msgid "Bit rate limit for guests"
+msgstr "游客的下载速度限制"
+
+#: lib/wp-filebase_admin.lib.php:24
+msgid "Bit rate limit for registered users"
+msgstr "注册用户的下载速度限制"
+
+#: lib/wp-filebase_admin.lib.php:25
+msgid "Daily traffic limit"
+msgstr "日流量限制"
+
+#: lib/wp-filebase_admin.lib.php:26
+msgid "Monthly traffic limit"
+msgstr "月流量限制"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic limit exceeded! Please try again later."
+msgstr "流量限制，请稍后再试！"
+
+#: lib/wp-filebase_admin.lib.php:27
+msgid "Traffic exceeded message"
+msgstr "流量限制信息"
+
+#. daily limits
+msgid "Daily user download limits"
+msgstr "每日用户下载数量限制"
+
+msgid ""
+"If enabled, unregistered users cannot download any files. You can set "
+"different limits for each user role below."
+msgstr "如果可以，未注册用户不能下载任何文件。你可以为任何用户进行不同的设置。"
+
+msgid "downloads per day"
+msgstr "日下载量"
+
+msgid "Daily limit for %s"
+msgstr "每日限制 %s"
+
+msgid "You can only download %d files per day."
+msgstr "你每天只能下载%d个文件"
+
+msgid "Daily limit exceeded message"
+msgstr "每天限制已到"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "This file is currently offline."
+msgstr "这个文件已下线"
+
+#: lib/wp-filebase_admin.lib.php:28
+msgid "File offline message"
+msgstr "文件下线信息"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Disable download permalinks"
+msgstr "禁用永久下载链接"
+
+#: lib/wp-filebase_admin.lib.php:30
+msgid "Enable this if you have problems with permalinks."
+msgstr "如果永久链接有问题，请选择此项。"
+
+#: lib/wp-filebase_admin.lib.php:31
+msgid "Download URL base"
+msgstr "远程下载链接"
+
+#: lib/wp-filebase_admin.lib.php:31
+#, php-format
+msgid ""
+"The url prefix for file download links. Example: <code>%s</code> (Only used "
+"when Permalinks are enabled.)"
+msgstr ""
+"文件下载链接的URL前缀。例如：<code>%s</code> （仅在永久链接开启时有效）"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid "Post ID of the file browser"
+msgstr "文件浏览器的文件ID"
+
+#: lib/wp-filebase_admin.lib.php:33
+msgid ""
+"Specify the ID of the post or page where the file browser should be placed. "
+"If you want to disable this feature leave the field blank."
+msgstr ""
+"请指定文章或者页面的ID，以便文件浏览器安装，如果你想禁用这个功能字段留空。"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid "Category drop down list"
+msgstr "类别下拉列表"
+
+#: lib/wp-filebase_admin.lib.php:34
+msgid ""
+"Use category drop down list in the file browser instead of listing like "
+"files."
+msgstr "使用类别下拉列表来替代文件列表"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid "Always force download"
+msgstr "总是强制下载"
+
+#: lib/wp-filebase_admin.lib.php:36
+msgid ""
+"If enabled files that can be viewed in the browser (like images, PDF "
+"documents or videos) can only be downloaded (no streaming)."
+msgstr ""
+"如果启用，浏览器中可查看的文件（如图像，PDF文件或视频）只能下载（不能在线播"
+"放）。"
+
+#: lib/wp-filebase_admin.lib.php:37
+msgid "Ignore downloads by admins"
+msgstr "忽略管理员下载"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid "Hide inaccessible files and categories"
+msgstr "隐藏无法访问的文件和类别"
+
+#: lib/wp-filebase_admin.lib.php:38
+msgid ""
+"If enabled files tagged <i>For members only</i> will not be listed for "
+"guests or users whith insufficient rights."
+msgstr ""
+"如果文件被标记为 <i>仅供注册用户下载</i> 将不会显示给游客和权限不足用户."
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "You are not allowed to access this file!"
+msgstr "您没有获得这个文件的权限"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid "Inaccessible file message"
+msgstr "无法访问的文件信息"
+
+#: lib/wp-filebase_admin.lib.php:39
+msgid ""
+"This message will be displayed if users try to download a file they cannot "
+"access"
+msgstr "这条信息将显示给尝试下载但是又不能下载的用户"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Redirect to login"
+msgstr "重定向到登陆界面"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid ""
+"Guests trying to download inaccessible files are redirected to the login "
+"page if this option is enabled."
+msgstr "如果启用这个选项，访客要下载的文件如果不可访问，将被重定向到登录页。"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "Parse template tags in RSS feeds"
+msgstr "RSS中解析模板标签"
+
+#: lib/wp-filebase_admin.lib.php:40
+msgid "If enabled WP-Filebase content tags are parsed in RSS feeds."
+msgstr "如开启，WP-FILEBASE标签内容将出现在RSS中"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid "Allow script upload"
+msgstr "允许脚本上传"
+
+#: lib/wp-filebase_admin.lib.php:42
+msgid ""
+"If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> "
+"Enabling script uploads is a <b>security risk</b>!"
+msgstr ""
+"如果你开启此项，PHP或者CGI脚本可以上传。<b>警告:</b> 开启脚本上传将有 <b>安全"
+"风险</b>!"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid "Accept empty referers"
+msgstr "接受空的引用"
+
+#: lib/wp-filebase_admin.lib.php:44
+msgid ""
+"If enabled, direct-link-protected files can be downloaded when the referer "
+"is empty (i.e. user entered file url in address bar or browser does not send "
+"referers)"
+msgstr ""
+"如果启用，当引用为空时，直链保护的文件可以下载（即用户输入文件的URL地址栏或浏"
+"览器不发送参考）"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Allowed referers"
+msgstr "允许引用"
+
+#: lib/wp-filebase_admin.lib.php:45
+msgid "Sites with matching URLs can link to files directly."
+msgstr "与之匹配的网址的网站可以直接链接到文件。"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid "Decimal file size prefixes"
+msgstr "十进制文件大小 前缀"
+
+#: lib/wp-filebase_admin.lib.php:47
+msgid ""
+"Enable this if you want decimal prefixes (1 MB = 1000 KB = 1 000 000 B) "
+"instead of binary (1 MiB = 1024 KiB = 1 048 576 B)"
+msgstr ""
+"如果您希望按照十进制标记文件大小 (1 MB = 1000 KB = 1 000 000 B)替代 (1 MiB = "
+"1024 KiB = 1 048 576 B)"
+
+#: lib/wp-filebase_admin.lib.php:50 lib/wp-filebase_form_file.php:80
+msgid "Platforms"
+msgstr "平台"
+
+#: lib/wp-filebase_admin.lib.php:51
+msgid "Licenses"
+msgstr "许可"
+
+#: lib/wp-filebase_admin.lib.php:52 lib/wp-filebase_form_file.php:84
+msgid "Requirements"
+msgstr "要求"
+
+#: lib/wp-filebase_admin.lib.php:52
+msgid ""
+"You can optionally add |<i>URL</i> to each line to link to the required "
+"software/file."
+msgstr "你可以选择增加 |<i>URL</i>到每行，来链接必要的文件."
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "Default File Template"
+msgstr "默认文件模板"
+
+#: lib/wp-filebase_admin.lib.php:88
+msgid "The template for attachments"
+msgstr "附件模板"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "Category Template"
+msgstr "类别模板"
+
+#: lib/wp-filebase_admin.lib.php:103
+msgid "The template for category lists (used in the file browser)"
+msgstr "类别列表模板（使用在文件浏览器中）"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid "Download JavaScript"
+msgstr "下载脚本"
+
+#: lib/wp-filebase_admin.lib.php:113
+msgid ""
+"Here you can enter JavaScript Code which is executed when a user clicks on "
+"file download link. The following variables can be used: <i>file_id</i>: the "
+"ID of the file, <i>file_url</i>: the clicked download url"
+msgstr ""
+"你可以在这里输入JavaScript 代码，当用户点击下载链接时将会执行。以下变量可用"
+"于：<i> file_id </i>：文件的ID，<i> file_url </i>：点击下载网址"
+
+#: lib/wp-filebase_admin.lib.php:129
+msgid "The category URL"
+msgstr "类别URL"
+
+#: lib/wp-filebase_admin.lib.php:130
+msgid "Category path (e.g cat1/cat2/)"
+msgstr "类别路径（例如 cat1/cat2/）"
+
+#: lib/wp-filebase_admin.lib.php:131
+msgid "Just the category folder name, not the path"
+msgstr "只是类别文件夹的名称，而不是路径"
+
+#: lib/wp-filebase_admin.lib.php:133
+msgid "Name of the parent categories (empty if none)"
+msgstr "母类别名称（没有将显示为空）"
+
+#: lib/wp-filebase_admin.lib.php:134
+msgid "Number of files in the category"
+msgstr "此类别的文件数量"
+
+#: lib/wp-filebase_admin.lib.php:136
+msgid ""
+"The minimum user level to view this category (-1 = guest, 0 = Subscriber ...)"
+msgstr "此类别的最低访问权限 (-1 = 游客, 0 = 用户 ...)"
+
+#: lib/wp-filebase_admin.lib.php:138
+msgid "The category ID"
+msgstr "类别ID"
+
+#: lib/wp-filebase_admin.lib.php:139 lib/wp-filebase_admin.lib.php:174
+msgid "A unique ID number to identify elements within a template"
+msgstr "模板内标识元素的唯一ID"
+
+#: lib/wp-filebase_admin.lib.php:142 lib/wp-filebase_admin.lib.php:181
+msgid "Name of the file"
+msgstr "文件名"
+
+#: lib/wp-filebase_admin.lib.php:143 lib/wp-filebase_admin.lib.php:182
+msgid "Formatted file size"
+msgstr "格式化文件的大小"
+
+#: lib/wp-filebase_admin.lib.php:144 lib/wp-filebase_admin.lib.php:183
+msgid "Formatted file date"
+msgstr "格式化文件的日期"
+
+#: lib/wp-filebase_admin.lib.php:145
+msgid "Name of the thumbnail file"
+msgstr "缩略图名称"
+
+#: lib/wp-filebase_admin.lib.php:148 lib/wp-filebase_admin.lib.php:186
+msgid "File version"
+msgstr "文件版本"
+
+#: lib/wp-filebase_admin.lib.php:150
+msgid "Supported languages"
+msgstr "支持的语言"
+
+#: lib/wp-filebase_admin.lib.php:151
+msgid "Supported platforms (operating systems)"
+msgstr "支持的平台（操作系统）"
+
+#: lib/wp-filebase_admin.lib.php:152
+msgid "Requirements to use this file"
+msgstr "使用此文件的要求"
+
+#: lib/wp-filebase_admin.lib.php:153 lib/wp-filebase_admin.lib.php:188
+#: lib/wp-filebase_form_file.php:66
+msgid "License"
+msgstr "许可"
+
+#: lib/wp-filebase_admin.lib.php:154 lib/wp-filebase_admin.lib.php:189
+msgid ""
+"The minimum user level to download this file (-1 = guest, 0 = Subscriber ...)"
+msgstr "下载这个文件的最小用户级（1 =游客，0 =用户……）"
+
+#: lib/wp-filebase_admin.lib.php:155
+msgid "1 if file is offline, otherwise 0"
+msgstr "下线则设置为1，否则设置为0 "
+
+#: lib/wp-filebase_admin.lib.php:156
+msgid "1 if direct linking is allowed, otherwise 0"
+msgstr "1为允许直链，否则为0"
+
+#: lib/wp-filebase_admin.lib.php:157
+msgid "The category name"
+msgstr "类别名称"
+
+#: lib/wp-filebase_admin.lib.php:159 lib/wp-filebase_admin.lib.php:193
+msgid "ID of the post/page this file belongs to"
+msgstr "这个文件所属的文章或者页面的ID"
+
+#: lib/wp-filebase_admin.lib.php:160 lib/wp-filebase_admin.lib.php:194
+msgid "User ID of the owner"
+msgstr "拥有者ID"
+
+#: lib/wp-filebase_admin.lib.php:161 lib/wp-filebase_admin.lib.php:195
+msgid "How many times this file has been downloaded."
+msgstr "这个文件可以被下载的次数"
+
+#: lib/wp-filebase_admin.lib.php:164
+msgid "IP Address of the last downloader"
+msgstr "最后一次下载的IP地址"
+
+#: lib/wp-filebase_admin.lib.php:165 lib/wp-filebase_admin.lib.php:196
+msgid "Time of the last download"
+msgstr "最后一次下载的时间"
+
+#: lib/wp-filebase_admin.lib.php:167
+msgid "Download URL"
+msgstr "下载链接"
+
+#: lib/wp-filebase_admin.lib.php:168
+msgid "URL of the post/page this file belongs to"
+msgstr "这个文件所属的文章或者页面的URL"
+
+#: lib/wp-filebase_admin.lib.php:169
+msgid "URL of the thumbnail or icon"
+msgstr "缩略图或者图标的URL"
+
+#: lib/wp-filebase_admin.lib.php:170
+msgid "Category path and file name (e.g cat1/cat2/file.ext)"
+msgstr "类别路径和文件名（例如 cat1/cat2/file.等等）"
+
+#: lib/wp-filebase_admin.lib.php:172
+msgid "The file ID"
+msgstr "文件ID"
+
+#: lib/wp-filebase_admin.lib.php:185
+msgid "Short description"
+msgstr "简短描述"
+
+#: lib/wp-filebase_admin.lib.php:190
+msgid "Offline > Online"
+msgstr "离线 > 在线"
+
+#: lib/wp-filebase_admin.lib.php:191
+msgid "Direct linking > redirect to post"
+msgstr "直链 > 重定向到文章"
+
+#: lib/wp-filebase_admin.lib.php:202
+msgid "Add template variable:"
+msgstr "添加模板变量："
+
+#: lib/wp-filebase_admin.lib.php:236
+msgid "You must enter a category name or a folder name."
+msgstr "您必须输入一个类别名称或文件夹名称。"
+
+#: lib/wp-filebase_admin.lib.php:245
+msgid "The category folder name contains invalid characters."
+msgstr "分类文件夹名称中包含无效字符。"
+
+#: lib/wp-filebase_admin.lib.php:290
+#, php-format
+msgid "The directory %s already exists!"
+msgstr "此目录 %s 已经存在!"
+
+#: lib/wp-filebase_admin.lib.php:313
+msgid "Unable to move category icon!"
+msgstr "无法移动类别图标！"
+
+#: lib/wp-filebase_admin.lib.php:352
+#, php-format
+msgid "The file extension of the file <b>%s</b> is forbidden!"
+msgstr "此文件扩展名 <b>%s</b> 是禁止的!"
+
+#: lib/wp-filebase_admin.lib.php:388
+#, php-format
+msgid "File %s already exists. You have to delete it first!"
+msgstr "文件 %s 已存在. 你必须先将它删除!"
+
+#: lib/wp-filebase_admin.lib.php:392
+#, php-format
+msgid "Unable to move file %s! Is the upload directory writeable?"
+msgstr "不能移动文件 %s! 请确认此文件目录是否可写?"
+
+#: lib/wp-filebase_admin.lib.php:394
+msgid "No file was uploaded."
+msgstr "没有上传任何文件"
+
+#: lib/wp-filebase_admin.lib.php:448
+msgid "Could not get user id!"
+msgstr "不能获得用户ID"
+
+#: lib/wp-filebase_admin.lib.php:549
+#, php-format
+msgid "File <b>%s</b> is not writable!"
+msgstr "文件 <b>%s</b> 是比可写的!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:62
+#, php-format
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr "管理类别 (<a href=\"%s\">增加</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:121
+msgid "Files"
+msgstr "文件"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:146
+msgid ""
+"<strong>Note:</strong><br />Deleting a category does not delete the files in "
+"that category. Instead, files that were assigned to the deleted category are "
+"set to the parent category."
+msgstr ""
+"<strong>注意:</strong><br />删除类别不会删除里面的文件. 被删除类别下的文件将"
+"被转移到母类别下."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File updated."
+msgstr "文件已更新"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:185
+msgid "File added."
+msgstr "文件已增加"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:201
+#, php-format
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr "管理文件 (<a href=\"%s\">新增</a>)"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:209
+#: lib/wp-filebase_admin_gui_manage.lib.php:211
+msgid "Search Files"
+msgstr "搜索文件"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:269
+msgid "Filename"
+msgstr "文件名"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:270
+msgid "Size"
+msgstr "大小"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:273
+msgid "Hits"
+msgstr "点击数"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:274
+msgid "Last download"
+msgstr "最后下载"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:362
+msgid "Nothing changed!"
+msgstr "没有任何更改"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:365
+#, php-format
+msgid "Changed %d items."
+msgstr "更改 %d 项目."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:369
+#, php-format
+msgid "Added %d files."
+msgstr "已增加 %d 个文件."
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:374
+msgid "Filebase successfully synced."
+msgstr "文件系统已成功同步。"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid "Complete file sync"
+msgstr "完成文件同步"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:377
+msgid ""
+"Checks files for changes, so more reliable but might take much longer. Do "
+"this if you uploaded/changed files with FTP."
+msgstr ""
+"检查文件更改，因此更可靠，但是可能需要更长的时间。如果你上传/文件的FTP改变。"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:390
+#, php-format
+msgid "%s is not writable!"
+msgstr "%s 不可写!"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:418
+msgid "Update File"
+msgstr "升级文件"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:419
+msgid "Restore Default"
+msgstr "重置默认"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:452
+msgid "Edit Templates"
+msgstr "编辑模板"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:466
+msgid "Submit Template Changes"
+msgstr "提交模板的更改"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:475
+msgid "Template Tag (a single word to describe the template):"
+msgstr "模板标签（一个词来描述模板）："
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:477
+msgid "Template Code:"
+msgstr "模板代码："
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:497
+#, php-format
+msgid ""
+"The upload directory <code>%s</code> does not exists. It could not be "
+"created automatically because the directory <code>%s</code> is not writable. "
+"Please create <code>%s</code> and make it writable for the webserver by "
+"executing the following FTP command: <code>%s</code>"
+msgstr ""
+"上传目录 <code>%s</code> 不存在. 目录没有自动增加是因为此目录 <code>%s</"
+"code> 不可写. 请手动增加 <code>%s</code> 并使其可写，FTP服务器通过执行以下命"
+"令： <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:499
+#, php-format
+msgid ""
+"The upload directory <code>%s</code> is not writable. Please make it "
+"writable for PHP by executing the follwing FTP command: <code>%s</code>"
+msgstr ""
+"上传目录 <code>%s</code> 比可写. 请执行以下FTP命令让它写: <code>%s</code>"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "Manage Files"
+msgstr "管理文件"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:506
+msgid "View uploaded files and edit them"
+msgstr "查看和编辑上传的文件"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage Categories"
+msgstr "管理类别"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:507
+msgid "Manage existing categories and add new ones."
+msgstr "管理现有的类别和添加新的。"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid "Sync Filebase"
+msgstr "同步FileBase"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:508
+msgid ""
+"Synchronises the database with the file system. Use this to add FTP-uploaded "
+"files."
+msgstr "同步数据库与文件系统。用它来添加FTP上传的文件。"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit Stylesheet"
+msgstr "编辑样式表"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:509
+msgid "Edit the CSS for the file template"
+msgstr "编辑文件模板中的CSS"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Manage Templates"
+msgstr "管理模板"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:510
+msgid "Edit custom file list templates"
+msgstr "编辑自定义文件列表模板"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid "Donate &amp; Feature Request"
+msgstr "捐献 &amp; 功能要求"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:511
+msgid ""
+"If you like this plugin and want to support my work, please donate. You can "
+"also post your ideas making the plugin better."
+msgstr ""
+"如果你喜欢这个插件，希望支持我的工作，请捐赠。如果您有更好的建议，请联系我。"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:520
+msgid "Traffic"
+msgstr "流量"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:528
+msgid "Today"
+msgstr "今天"
+
+#: lib/wp-filebase_admin_gui_manage.lib.php:537
+msgid "This Month"
+msgstr "这个月"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:25
+msgid "Settings reseted."
+msgstr "重置设置"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:49
+#, php-format
+msgid "/%s/ added to rejected URIs list of WP Super Cache."
+msgstr "/%s/ 添加到WP Super Cache URI拒绝列表."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:52
+msgid "WARNING: Script upload enabled!"
+msgstr "警告：脚本可使用！"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:64
+msgid "File template successfully parsed."
+msgstr "文件模板成功解析。"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:66
+#: lib/wp-filebase_admin_gui_options.lib.php:80
+#, php-format
+msgid "Could not parse template: error (%s) in line %s."
+msgstr "无法解析模板: error (%s) in line %s."
+
+#: lib/wp-filebase_admin_gui_options.lib.php:78
+msgid "Category template successfully parsed."
+msgstr "类别模板成功解析。"
+
+#: lib/wp-filebase_admin_gui_options.lib.php:109
+msgid "Settings updated."
+msgstr "设置已更新。"
+
+#: lib/wp-filebase_download.lib.php:298
+msgid "Could not read file!"
+msgstr "不能读取文件！"
+
+#: lib/wp-filebase_form_cat.php:34
+msgid "Category Folder"
+msgstr "类别文件夹"
+
+#: lib/wp-filebase_form_cat.php:50
+msgid "Category Icon"
+msgstr "类别图标"
+
+#: lib/wp-filebase_form_cat.php:59 lib/wp-filebase_form_file.php:112
+msgid "For members only"
+msgstr "仅供会员"
+
+#: lib/wp-filebase_form_cat.php:62 lib/wp-filebase_form_file.php:115
+#, php-format
+msgid "Minimum user level: (see %s)"
+msgstr "最低用户等级: (see %s)"
+
+#: lib/wp-filebase_form_cat.php:67
+msgid "Apply permission to all child files"
+msgstr "更改权限至所有子文件"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Edit File"
+msgstr "编辑附件"
+
+#: lib/wp-filebase_form_file.php:9
+msgid "Upload File"
+msgstr "上传附件"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Simple Form"
+msgstr "单一形式"
+
+#: lib/wp-filebase_form_file.php:15
+msgid "Extended Form"
+msgstr "扩展形式"
+
+#: lib/wp-filebase_form_file.php:22
+msgid "Choose File"
+msgstr "选择文件"
+
+#: lib/wp-filebase_form_file.php:24
+#, php-format
+msgid "Maximum file size: %s"
+msgstr "最大文件尺寸: %s"
+
+#: lib/wp-filebase_form_file.php:32
+msgid ""
+"You can optionally upload a thumbnail here. If the file is a valid image, a "
+"thumbnail is generated automatically."
+msgstr "你可以在这里上传缩略图。如果文件是一种有效的片，将会自动生成缩略图。"
+
+#: lib/wp-filebase_form_file.php:38
+msgid "The following fields are optional."
+msgstr "以下是可选的。"
+
+#: lib/wp-filebase_form_file.php:75
+msgid "Download Counter"
+msgstr "下载计数器"
+
+#: lib/wp-filebase_form_file.php:94 lib/wp-filebase_form_file.php:96
+msgid "Direct linking"
+msgstr "直接链接"
+
+#: lib/wp-filebase_form_file.php:97
+msgid "Allow direct linking"
+msgstr "允许直接链接"
+
+#: lib/wp-filebase_form_file.php:98
+msgid "Redirect to post"
+msgstr "重定向发布"
+
+#: lib/wp-filebase_form_file.php:109
+msgid "Offline"
+msgstr "下线"
+
+#: lib/wp-filebase_widget.lib.php:87
+msgid "Limit:"
+msgstr "限制"
+
+#: lib/wp-filebase_widget.lib.php:92
+msgid "Template:"
+msgstr "模板"
+
+#. Description of an extension
+msgid ""
+"A powerful download manager supporting file categories, thumbnails, traffic/"
+"bit rate limits and more."
+msgstr ""
+"一个强大的下载管理器，支持的文件分类，缩略图，下载速度和流量的限制等等。"
+
+#. Template
+msgid "Version"
+msgstr "版本"
+
+msgid "Languages"
+msgstr "语言"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Category"
+msgstr "类别"
+
+msgid "Category:"
+msgstr "类别："
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Details"
+msgstr "详细资料"
+
+#. Option Categories
+msgid "Common"
+msgstr "常见的"
+
+msgid "Display"
+msgstr "显示"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Form Presets"
+msgstr "形式预置"
+
+msgid "Limits"
+msgstr "限制"
+
+msgid "Security"
+msgstr "安全"
+
+msgid "Templates and Scripts"
+msgstr "模板和脚本"
+
+msgid "Lists the latest or most popular files"
+msgstr "列出了最新的和最受欢迎的文件"
+
+msgid "Simple listing of file categories"
+msgstr "简单文件类别列表"
+
+msgid ""
+"Before you can use this widget, please set a Post ID for the file browser in "
+"WP-Filebase settings."
+msgstr "在您使用这个插件前，请在WP FileBase设置中设定一个文件浏览器ID。"
+
+msgid ""
+"If you like WP-Filebase I would appreciate a small donation to support my "
+"work. You can additionally add an idea to make WP-Filebase even better. Just "
+"click the button below. Thank you!"
+msgstr ""
+"如果你喜欢的话，我会很感激您对WP FileBase的小额捐款来支持我的工作。你还可以添"
+"加一个想法使WP FileBase更好。点击下面的按钮。谢谢！"
+
+msgid "Custom field '%s' removed!"
+msgstr "自定义字段 '%s' 被移除!"
+
+msgid "Custom field '%s' added."
+msgstr "自定义字段 '%s' 已增加."
+
+msgid "Search Integration"
+msgstr "整合搜索"
+
+msgid ""
+"Searches in attached files and lists the associated posts and pages when "
+"searching the site."
+msgstr "在搜索网站的时候将会搜索附件和文件列表"
+
+msgid "Restore Default Settings"
+msgstr "恢复默认设置"
+
+msgid "Attachment Position"
+msgstr "安装位置"
+
+msgid "After the Content"
+msgstr "内容之后"
+
+msgid "Before the Content"
+msgstr "内容之前"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Category Name"
+msgstr "类别名称"
+
+msgid "Category ID"
+msgstr "类别ID"
+
+msgid "Number of files per page"
+msgstr "每页文件数"
+
+msgid "Relative path of the file"
+msgstr "文件的相对路径"
+
+msgid "Length of the file list per page. Set to 0 to disable the limit."
+msgstr "每一页的文件列表的长度。设置为0来禁用限制。"
+
+msgid "File browser category sorting"
+msgstr "文件浏览器类别分类"
+
+msgid "The category property categories in the file browser are sorted by"
+msgstr "按分类属性类别进行分类"
+
+msgid "Name of the Category folder"
+msgstr "类别文件夹的名称"
+
+msgid "Relative path of the category folder"
+msgstr "类别文件夹的相对路径"
+
+msgid "File browser file sorting"
+msgstr "文件浏览器文件排序"
+
+msgid "The file property files in the file browser are sorted by"
+msgstr "按文件属性的进行分类"
+
+msgid "Send HTTP-Range header"
+msgstr "发送HTTP-Range头部"
+
+msgid ""
+"Allows users to pause downloads and continue later. In addition download "
+"managers can use multiple connections at the same time."
+msgstr "允许用户暂停和继续下载。另外，下载管理器可以同时使用多个连接。"
+
+msgid "Disable HTTP Caching"
+msgstr "禁用HTTP缓存"
+
+msgid ""
+"Enable this if you have problems with downloads while using Wordpress with a "
+"cache plugin."
+msgstr "如果您在wordpress中使用缓存插件出现下载问题，请开启此项。"
+
+msgid "With custom fields you can add even more file properties."
+msgstr "自定义域可以添加更多的文件属性。"
+
+msgid "Redirect to referring page after login"
+msgstr "重定向到相关页面后登陆"
+
+msgid ""
+"Users are redirected to the page where they clicked on the download link "
+"after logging in."
+msgstr "当用户登陆后，将被重定向到初始页面。"
+
+msgid "Protect upload path"
+msgstr "保护上传路径"
+
+msgid "This prevents direct access to files in the upload directory."
+msgstr "防止直接访问文件的上传目录。"
+
+msgid "Hide download links"
+msgstr "隐藏下载链接"
+
+msgid ""
+"File download links wont be displayed in the browser's status bar. You "
+"should enable '%s' to make it even harder to find out the URL."
+msgstr ""
+"文件下载链接将不会在浏览器的状态栏中显示。你必须使用 '%s' 来让它的URL更难被发"
+"现。"
+
+msgid "Auto-detect thumbnails"
+msgstr "自动检测缩略图"
+
+msgid ""
+"Images are considered as thumbnails for files with the same name when "
+"syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)"
+msgstr ""
+"同步时，如果存在同名文件，图像被视为缩略图。 (例如 `file.jpg` &lt;=&gt; "
+"`file.zip`)"
+
+msgid "Automatic Sync"
+msgstr "自动同步"
+
+msgid ""
+"Schedules a cronjob to hourly synchronize the filesystem and the database."
+msgstr "安排一个文件系统和数据库的定时任务"
+
+msgid "Extension Blacklist"
+msgstr "扩展的黑名单"
+
+msgid ""
+"Files with an extension in this list are skipped while synchronisation. "
+"(seperate with comma)"
+msgstr "同步时带有扩展名的文件将被忽略。（用逗号分隔）"
+
+msgid "Disable ID3 tag detection"
+msgstr "禁用的ID3标签的检测"
+
+msgid ""
+"This disables all meta file info reading. Use this option if you have issues "
+"adding large files."
+msgstr "禁用文件信息读取。如果你添加大文件出现问题，请开启此项。"
+
+msgid "Search ID3 Tags"
+msgstr "搜索ID3标签"
+
+msgid ""
+"Search in file meta data, like ID3 for MP3 files, EXIF for JPEG... (this "
+"option does not increase significantly server load since all data is cached "
+"in a MySQL table)"
+msgstr ""
+"搜索文件媒体信息，例如mp3文件的ID3信息，JPEG的EXIF信息等等（这个选项并不显著"
+"增加服务器的负载，因为所有的数据被缓存在一个MySQL表）"
+
+msgid "Add WP-Filebase to admin menu bar"
+msgstr "增加文件下载器到管理员面板"
+
+msgid "Display some quick actions for file management in the admin menu bar."
+msgstr "在管理员面板显示快捷方式"
+
+msgid "Statistics"
+msgstr "统计"
+
+msgid "Number of Files"
+msgstr "文件数量"
+
+msgid "Number of Categories"
+msgstr "类别数量"
+
+msgid "Total Downloads"
+msgstr "总下载次数"
+
+msgid "Total File Size"
+msgstr "总文件大小"
+
+msgid "Convert old Tags"
+msgstr "转换旧标签"
+
+msgid "Convert tags from versions earlier than 0.2.0"
+msgstr "从0.2.0版本钱转换标签"
+
+msgid "Add File"
+msgstr "增加文件"
+
+msgid "Redirect download to URL"
+msgstr "重定向下载到URL"
+
+msgid "Copy file into Filebase (sideload)"
+msgstr "复制文件到FileBase (sideload)"
+
+msgid "Limit file access by selecting one or more user roles."
+msgstr "选取一个或者多个用户来设定文件权限"
+
+msgid "Select multiple roles by holding the CTRL/COMMAND key."
+msgstr "按住CTRL键选取多个角色。"
+
+msgid "Access Permission"
+msgstr "访问许可"
+
+msgid "Everyone"
+msgstr "任何人"
+
+msgid "Add Category"
+msgstr "增加类别"
+
+msgid "Exclude from file browser"
+msgstr "排除在文件浏览器之外"
+
+msgid "Templates used for single embedded files or file lists."
+msgstr "单一的嵌入式文件或者文件列表的模板"
+
+msgid ""
+"For some files there are more tags available. You find a list of all tags "
+"below the form when editing a file."
+msgstr "某些文件有多个标签可用。你在编辑一个文件的时候能发现一个标签列表"
+
+msgid "Reset all Templates to default"
+msgstr "重置所有模板为默认"
+
+msgid "These templates can be used for categories."
+msgstr "这些模板可以用于类别。"
+
+msgid ""
+"A list-template consists of header, footer and file template. It can "
+"optionally have a category template to list sub-categories."
+msgstr "列表模板包括页眉，页脚和文件模板。它可以有一个类别的子类别模板列表。"
+
+msgid "Header"
+msgstr "头部"
+
+msgid "Footer"
+msgstr "底部"
+
+msgid "File Template"
+msgstr "文件模板"
+
+msgid "Parent Category ID"
+msgstr "母类别ID"
+
+msgid "Number of files directly in the category"
+msgstr "类别中的文件数"
+
+msgid "Number of all files in the category and all sub-categories"
+msgstr "类别和母类别中的文件数"
+
+msgid "Attach existing file"
+msgstr "附件已存在"
+
+msgid "Select File"
+msgstr "选择文件"
+
+msgid "Select the categories containing the files you would like to list."
+msgstr "选择包含文件您需要列出的类别。"
+
+msgid "Include all Categories"
+msgstr "包括所有类别"
+
+msgid "Files per page:"
+msgstr "每页文件数"
+
+msgid "Set to 0 to use the default limit (%d), -1 will disable pagination."
+msgstr "设置 0 来使用默认限制 (%d), -1 将禁用分页。"
+
+msgid "File Tree View"
+msgstr "文件树视图"
+
+msgid "List selected Categories"
+msgstr "列出所选的分类"
+
+msgid "Select the root category of the tree view file browser:"
+msgstr "选择树视图文件浏览器根类别："
+
+msgid "The File has been uploaded successfully."
+msgstr "文件已经上传成功。"
+
+msgid "New Category created."
+msgstr "新类别创建成功。"
+
+msgid "Selectable by Uploader"
+msgstr "可由上传选择"
+
+msgid "Upload to Root"
+msgstr "上传到根目录"
+
+msgid "You can enter a URL to redirect users."
+msgstr "你可以输入一个URL重定向到用户。"
+
+msgid "Ask your webhoster to increase this limit, it is set in %s."
+msgstr "要求你的服务器管理员提高这一限值，它设置在 %s。"
+
+msgid "Inherit Permissions"
+msgstr "继承权限"
+
+msgid "Explicitly set permissions"
+msgstr "明确的设置权限"
+
+msgid "Limit category access by selecting one or more user roles."
+msgstr "为一个或多个角色制定类别访问权限"
+
+msgid ""
+"This will recursively update permissions of all existing child categories "
+"and files. Note that permissions of new files in this category are inherited "
+"automatically, without having checked this checkbox."
+msgstr ""
+"这将递归地更新现有的所有子类别和文件权限。请注意，在这一类新的文件自动继承权"
+"限，without having checked this checkbox."
+
+msgid "Owner"
+msgstr "拥有者"

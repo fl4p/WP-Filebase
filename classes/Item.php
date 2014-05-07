@@ -96,7 +96,7 @@ class WPFB_Item {
 	
 	// Sorts an array of Items by SQL ORDER Clause ( or shortcode order clause (<file_name)
 	static function Sort(&$items, $order_sql) {
-		$order_sql = str_replace(array('&gt;','&lt;'), array('>','<'), $order_sql);
+		$order_sql = strtr($order_sql, array('&gt;'=>'>','&lt;'=>'<'));
 		if(($desc = ($order_sql{0} == '>')) || $order_sql{0} == '<')
 			$on = substr($order_sql,1);
 		else {
@@ -206,9 +206,9 @@ class WPFB_Item {
 		$user = is_null($user) ? wp_get_current_user() : (empty($user->roles) ? new WP_User($user) : $user);
 		$user->get_role_caps();
 		
-		if( ($for_tpl && !WPFB_Core::GetOpt('hide_inaccessible')) || in_array('administrator',$user->roles) || ($this->is_file && $this->CurUserIsOwner($user)) )
+		if( ($for_tpl && !WPFB_Core::$settings->hide_inaccessible) || in_array('administrator',$user->roles) || ($this->is_file && $this->CurUserIsOwner($user)) )
 			return true;
-		if(WPFB_Core::GetOpt('private_files') && $this->GetOwnerId() != 0 && !$this->CurUserIsOwner($user)) // check private files
+		if(WPFB_Core::$settings->private_files && $this->GetOwnerId() != 0 && !$this->CurUserIsOwner($user)) // check private files
 			return false;
 		$frs = $this->GetReadPermissions();
 		if(empty($frs)) return true; // item is for everyone!
@@ -223,19 +223,20 @@ class WPFB_Item {
 	{
 		if(is_null($user)) $user = wp_get_current_user ();
 		// current_user_can('manage_options') checks if user is admin!
-		return $this->CurUserIsOwner($user) || user_can($user, 'manage_options') || (!WPFB_Core::GetOpt('private_files') && user_can($user, $this->is_file ? 'edit_others_posts' : 'manage_categories'));
+		return $this->CurUserIsOwner($user) || user_can($user, 'manage_options') || (!WPFB_Core::$settings->private_files && user_can($user, $this->is_file ? 'edit_others_posts' : 'manage_categories'));
 	}
 	
 	function GetUrl($rel=false, $to_file_page=false)
 	{ // TODO: rawurlencode??
-		$ps = WPFB_Core::GetOpt('disable_permalinks') ? null : get_option('permalink_structure');
+		$ps = WPFB_Core::$settings->disable_permalinks ? null : get_option('permalink_structure');
 		if($this->is_category || $to_file_page) {
-			$url = get_permalink(WPFB_Core::GetOpt('file_browser_post_id'));	
-			if(!empty($ps)) $url .= str_replace('#','%23',$this->GetLocalPathRel()).'/';
+			$url = get_permalink(WPFB_Core::$settings->file_browser_post_id);	
+			// todo: rawurlencode here?
+			if(!empty($ps)) $url .= strtr($this->GetLocalPathRel(), array('#'=>'%23',' '=>'%20')).'/';
 			elseif($this->GetId() > 0) $url = add_query_arg(array(($this->is_file?"wpfb_file":"wpfb_cat") => $this->GetId()), $url);
 			if($this->is_category) $url .= "#wpfb-cat-$this->cat_id";	
 		} else {
-			if(!empty($ps)) $url = home_url(str_replace('#','%23',WPFB_Core::GetOpt('download_base').'/'.$this->GetLocalPathRel()));
+			if(!empty($ps)) $url = home_url(strtr(WPFB_Core::$settings->download_base.'/'.$this->GetLocalPathRel(), array('#'=>'%23',' '=>'%20')));
 			else $url = home_url('?wpfb_dl='.$this->file_id);			
 		}
 		if($rel) {
@@ -436,7 +437,7 @@ class WPFB_Item {
 		
 		// inherit user roles
 		if(count($this->GetReadPermissions()) == 0) 
-			$this->SetReadPermissions(($new_cat_id != 0) ? $new_cat->GetReadPermissions() : WPFB_Core::GetOpt('default_roles'));
+			$this->SetReadPermissions(($new_cat_id != 0) ? $new_cat->GetReadPermissions() : WPFB_Core::$settings->default_roles);
 		
 		// flush cache
 		$this->last_parent_id = -1; 
@@ -544,7 +545,7 @@ class WPFB_Item {
 		static $permission_sql = '';
 		if(empty($permission_sql)) { // only generate once per request
 			if(in_array('administrator',$user->roles)) $permission_sql = '1=1'; // administrator can access everything!
-			elseif(WPFB_Core::GetOpt('private_files')) {
+			elseif(WPFB_Core::$settings->private_files) {
 				$permission_sql = "$owner_field = 0 OR $owner_field = " . (int)$user->ID;
 			} else {
 				$permission_sql = "$permissions_field = ''";

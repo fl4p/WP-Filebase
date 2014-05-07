@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../../wp-load.php');
-if(!current_user_can('edit_posts'))
+if(!defined('WPFB') || !current_user_can('edit_posts'))
 	wp_die(__('Cheatin&#8217; uh?'));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
