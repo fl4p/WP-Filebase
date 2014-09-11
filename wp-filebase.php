@@ -16,11 +16,7 @@ if(!defined('WPFB'))
 	if(!defined('ABSPATH')) {
 		define('ABSPATH', dirname(dirname(dirname(dirname(__FILE__)))));
 	} else {
-		//define('WPFB_PLUGIN_URI', plugins_url('/',__FILE__));
-		$wpfb_uri = str_replace(str_replace('\\','/',ABSPATH),get_option('siteurl').'/',WPFB_PLUGIN_ROOT);
-		$wpfb_uri = is_ssl() ? str_replace('http://', 'https://', $wpfb_uri) : str_replace('https://', 'http://', $wpfb_uri);
-		define('WPFB_PLUGIN_URI', $wpfb_uri);
-		unset($wpfb_uri);
+		define('WPFB_PLUGIN_URI', plugin_dir_url(__FILE__));
 	}
 	if(!defined('WPFB_PERM_FILE')) define('WPFB_PERM_FILE', 666);
 	if(!defined('WPFB_PERM_DIR')) define('WPFB_PERM_DIR', 777);
