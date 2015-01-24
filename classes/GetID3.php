@@ -35,7 +35,7 @@ class WPFB_GetID3 {
 		return $info;
 	}
 	
-	static function StoreFileInfo($file_id, $info)
+	static function StoreFileInfo($file, $info)
 	{
 		global $wpdb;
 		
@@ -65,19 +65,21 @@ class WPFB_GetID3 {
 		$data = empty($info) ? '0' : base64_encode(serialize($info));
 		
 		$res = $wpdb->replace($wpdb->wpfilebase_files_id3, array(
-			'file_id' => (int)$file_id,
+			'file_id' => (int)$file->GetId(),
 			'analyzetime' => time(),
 			'value' => &$data,
 			'keywords' => &$keywords
 		));		
 		unset($data, $keywords);
+		
+		
 		return $res;
 	}
 	
 	static function UpdateCachedFileInfo($file)
 	{
 		$info = self::AnalyzeFile($file);
-		self::StoreFileInfo($file->GetId(), $info);
+		self::StoreFileInfo($file, $info);
 		return $info;
 	}
 	

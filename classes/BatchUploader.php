@@ -24,7 +24,7 @@ class WPFB_BatchUploader {
 		WPFB_Core::PrintJS();
 		wp_print_scripts('utils'); // setUserSetting
 		?>
-		<style type="text/css" media="screen">@import url(<?php echo WPFB_PLUGIN_URI.'batch-uploader.css' ?>);</style>
+		<style type="text/css" media="screen">@import url(<?php echo WPFB_PLUGIN_URI.'css/batch-uploader.css' ?>);</style>
 		
 <div id="<?php echo $this->prefix; ?>-uploader-wrap">	
 	<div id="<?php echo $this->prefix; ?>-uploader-interface" class="wpfb-batch-uploader-interface">	
@@ -84,8 +84,8 @@ jQuery(document).ready( function() {
 	jQuery('#<?php echo $this->prefix; ?>-uploader-presets-more-toggle').click(function() {
 		var pm = morePresets; pm++; pm %= 3;
 		batchUploaderSetPresetsMore(pm);
-	});
-	batchUploaderSetPresetsMore(getUserSetting('wpfb_batch_presets_more') ? parseInt(getUserSetting('wpfb_batch_presets_more')) : 0);
+	});	
+	batchUploaderSetPresetsMore(typeof(getUserSetting) !== 'function' || getUserSetting('wpfb_batch_presets_more') || 0);
 });
 
 function batchUploaderSetPresetsMore(m)
@@ -102,15 +102,8 @@ function batchUploaderSetPresetsMore(m)
 	
 	//form.find('tr.more').toggle(morePresets > 0);
 	//form.find('tr.more-more').toggle(morePresets > 1);
-	setUserSetting('wpfb_batch_presets_more',''+morePresets);
+	if(typeof(setUserSetting) !== 'undefined') setUserSetting('wpfb_batch_presets_more',''+morePresets);
 	jQuery('#<?php echo $this->prefix; ?>-uploader-presets-more-toggle td span').html(m==2?'<?php _e('less'); ?>':'<?php _e('more'); ?>');
-}
-
-function batchUploaderFileError(message,file)
-{
-	var item = jQuery('#<?php echo $this->prefix; ?>-uploader-file-' + file.id);
-	
-	jQuery('.error', item).show().html(message);
 }
 
 function batchUploaderFilesQueued(up, files)
@@ -141,12 +134,12 @@ function batchUploaderFileQueued(up, file)
 
 	jQuery('#<?php echo $this->prefix; ?>-uploader-files').prepend('<div id="<?php echo $this->prefix; ?>-uploader-file-'+file.id+'-spacer" class="batch-uploader-file-spacer"></div>');
 
-	jQuery('#<?php echo $this->prefix; ?>-uploader-files').prepend('<div id="<?php echo $this->prefix; ?>-uploader-file-'+file.id+'" class="media-item batch-uploader-file">'+
+	jQuery('#<?php echo $this->prefix; ?>-uploader-files').prepend('<div id="'+file.dom_id+'" class="media-item batch-uploader-file">'+
 	'<div class="progress"><div class="percent">0%</div><div class="bar"></div></div>'+
-	'<img src="<?php echo site_url(WPINC . '/images/crystal/default.png'); ?>" alt="Loading..." style="background-image:url(<?php echo admin_url('images/loading.gif');?>);"/><span class="filename">'+file.name+'</span><span class="error"></span></div>');
+	'<img src="<?php echo site_url(WPINC . '/images/crystal/default.png'); ?>" alt="Loading..." /><span class="filename">'+file.name+'</span><span class="error"></span></div>');
 	
 	
-	var fileEl = jQuery('#<?php echo $this->prefix; ?>-uploader-file-'+file.id);
+	var fileEl = jQuery('#'+file.dom_id);
 	var spacerEl = jQuery('#<?php echo $this->prefix; ?>-uploader-file-'+file.id+'-spacer');
 	var dest = fileEl.offset();
 	var ppos = fileEl.parent().offset();
@@ -171,17 +164,9 @@ function batchUploaderFileQueued(up, file)
 	jQuery('.error', fileEl).hide();
 }
 
-function batchUploaderProgress(file)
-{
-	var item = jQuery('#<?php echo $this->prefix; ?>-uploader-file-' + file.id);
-
-	jQuery('.bar', item).width( (200 * file.loaded) / file.size );
-	jQuery('.percent', item).html( file.percent + '%' );	
-}
-
 function batchUploaderSuccess(file, serverData)
 {
-	var item = jQuery('#<?php echo $this->prefix; ?>-uploader-file-' + file.id);	
+	var item = jQuery('#'+file.dom_id);	
 	var url = serverData.file_cur_user_can_edit ? serverData.file_edit_url : serverData.file_download_url;
 	jQuery('.filename', item).html('<a href="'+url+'" target="_blank">'+serverData.file_display_name+'</a>');
 	jQuery('img', item).attr('src', serverData.file_thumbnail_url);
@@ -189,11 +174,9 @@ function batchUploaderSuccess(file, serverData)
 </script>
 <?php
 	wpfb_loadclass('PLUploader');
-			$uploader = new WPFB_PLUploader(true);			
-			$uploader->js_file_error = 'batchUploaderFileError';
+			$uploader = new WPFB_PLUploader();			
 			$uploader->js_file_queued = 'batchUploaderFileQueued';
 			$uploader->js_files_queued = 'batchUploaderFilesQueued';
-			$uploader->js_upload_progress = 'batchUploaderProgress';
 			$uploader->js_upload_success = 'batchUploaderSuccess';
 			
 			$uploader->post_params['file_add_now'] = true;
@@ -201,7 +184,7 @@ function batchUploaderSuccess(file, serverData)
 			if(!empty($this->hidden_vars))
 				$uploader->post_params = array_merge($uploader->post_params, $this->hidden_vars);
 			
-			$uploader->Init($this->prefix.'-drag-drop-area', $this->prefix.'-browse-button', $this->prefix.'-drag-drop-area', $this->prefix.'-uploader-errors');
+			$uploader->Init($this->prefix.'-drag-drop-area', $this->prefix.'-browse-button', $this->prefix.'-uploader-errors');
 	}
 	
 	static function DisplayUploadPresets($prefix, $cat_select=true)
@@ -228,8 +211,8 @@ function batchUploaderSuccess(file, serverData)
 <?php if($cat_select) { ?>
 <tr class="form-field">
 	<th scope="row"><label for="batch_category"><?php _e('Category') ?></label></th>
-	<td><select name="file_category" id="<?php echo $prefix; ?>_category" onchange="WPFB_formCategoryChanged()">
-		<?php	echo WPFB_Output::CatSelTree(array('selected' => $defaults['category'] )) ?>
+	<td><select name="file_category" id="<?php echo $prefix; ?>_category" class="wpfb-cat-select">
+		<?php	echo WPFB_Output::CatSelTree(array('selected' => $defaults['category'] , 'add_cats' => true)) ?>
 	</select>
 	</td>
 </tr>
@@ -261,7 +244,7 @@ function batchUploaderSuccess(file, serverData)
 	<th scope="row"><label for="<?php echo $prefix; ?>_post_id"><?php _e('Attach to Post',WPFB) ?></label></th>
 	<td>ID: <input type="text" name="file_post_id" class="num" style="width:60px; text-align:right;" id="<?php echo $prefix; ?>_post_id" value="<?php echo esc_attr($defaults['post_id']); ?>" />
 	<span id="<?php echo $prefix; ?>_post_title" style="font-style:italic;"><?php if($defaults['post_id'] > 0) echo get_the_title($defaults['post_id']); ?></span>
-	<a href="javascript:;" class="button" onclick="WPFB_PostBrowser('batch_post_id', 'batch_post_title');"><?php _e('Select') ?></a></td>
+	<a href="javascript:;" class="button" onclick="WPFB_PostBrowser('<?php echo $prefix; ?>_post_id', '<?php echo $prefix; ?>_post_title');"><?php _e('Select') ?></a></td>
 </tr>
 
 <tr>

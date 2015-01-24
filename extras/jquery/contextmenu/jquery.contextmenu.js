@@ -108,7 +108,7 @@
 		createMenu: function(menu,cmenu) {
 			var className = cmenu.className;
 			$.each(cmenu.theme.split(","),function(i,n){className+=' '+cmenu.themePrefix+n});
-			var $t = $('<table cellspacing=0 cellpadding=0></table>').click(function(){cmenu.hide(); return false;}); // We wrap a table around it so width can be flexible
+			var $t = $('<table cellspacing=0 cellpadding=0 class="context-menu-table"></table>').click(function(){cmenu.hide(); return false;}); // We wrap a table around it so width can be flexible
 			var $tr = $('<tr></tr>');
 			var $td = $('<td></td>');
 			var $div = $('<div class="'+className+'"></div>');

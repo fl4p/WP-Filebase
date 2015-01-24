@@ -14,7 +14,6 @@ class WPFB_FileListTable extends WP_List_Table {
             'plural'    => 'files',    //plural name of the listed records
             'ajax'      => false        //does this table support ajax?
         ) );
-        
     }
     
     function get_columns(){
@@ -80,12 +79,15 @@ class WPFB_FileListTable extends WP_List_Table {
 		 {
 			 unset($actions['delete']);
 		 }
+
+		$cloud_sync_slug = '';
         
         $col = '<a class="row-title" href="'.$edit_url.'" title="'.esc_attr(sprintf(__('Edit &#8220;%s&#8221;'),$file->GetTitle())).'">';
        // if(!empty($file->file_thumbnail))
         	$col .= '<img src="'.esc_attr($file->GetIconUrl()).'" alt="Icon" height="32" />';
+			$col .= '<div class="file-icon-overlay '.$cloud_sync_slug.'"></div>';
         $col .= '<span>'.($file->IsRemote()?'*':'').esc_html($file->GetTitle(32)).'</span>';
-        $col .= '</a>';							
+        $col .= '</a>';
         $col .= $this->row_actions($actions);
         return $col;
     }
@@ -114,7 +116,9 @@ class WPFB_FileListTable extends WP_List_Table {
     
     function column_perms($file)
     {
-		return WPFB_Output::RoleNames($file->GetReadPermissions(), true);
+		return WPFB_Output::RoleNames($file->GetReadPermissions(), true)
+				.($file->file_offline ? ' <span class="offline">'.__('offline').'</span>' : '')
+						 ;
     }
     
     function column_owner($file)
@@ -134,13 +138,14 @@ class WPFB_FileListTable extends WP_List_Table {
     
     function column_last_dl_time($file)
     {
-    	return ( (!empty($file->file_last_dl_time) && $file->file_last_dl_time > 0) ? mysql2date(get_option('date_format'), $file->file_last_dl_time) : '-') .
-				($file->file_offline ? '<br /><span class="offline">'.__('offline').'</span>' : '');
+    	return ( (!empty($file->file_last_dl_time) && $file->file_last_dl_time > 0) ? mysql2date(get_option('date_format'), $file->file_last_dl_time) : '-');
     }
     
     function get_bulk_actions() {
         $actions = array(
-            'delete'    => 'Delete',
+				'edit' => __('Edit'),
+            'delete'    => __('Delete'),
+#		
 				//'change_cat' => 'Change Category',
 				'set_off' => 'Set Offline',
 				'set_on' => 'Set Online',
@@ -150,10 +155,13 @@ class WPFB_FileListTable extends WP_List_Table {
 	 
 	function get_views(){
 		$current = ( !empty($_REQUEST['view']) ? $_REQUEST['view'] : 'all');
-		$views = array('all' => 'All', 'own' => 'Own Files', 'offline' => 'Offline', 'notattached' => 'Not Attached');
+		$views = array('all' => 'All', 'own' => 'Own Files', 'offline' => 'Offline', 'notattached' => 'Not Attached',
+			 'local' => 'Local Files'
+			 , 'cloud' => 'Cloud Files'
+			 );
 		foreach($views as $tag => $label) {
 			$class = ($current == $tag ? ' class="current"' :'');
-			$url = ($tag=='all') ? remove_query_arg('view') : add_query_arg('view',$tag);
+			$url = add_query_arg(array('view' => ($tag=='all')?null:$tag, 'paged' => null));
 			$count =  WPFB_File::GetNumFiles2($this->get_file_where_cond($tag), 'edit');
 			$views[$tag] = "<a href='{$url}' {$class} >{$label} <span class='count'>($count)</span></a>";
 		}
@@ -162,13 +170,13 @@ class WPFB_FileListTable extends WP_List_Table {
     
     function process_bulk_action() {
 		 
-		 if(!$this->current_action() || empty($_REQUEST['file']))
+		 if(!$this->current_action() || (empty($_REQUEST['file']) && empty($_REQUEST['action2'])))
 			 return;
 		 
 		 // filter files current user can edit
-		 $files = array_filter(array_map(array('WPFB_File','GetFile'), $_REQUEST['file']),
+		 $files = isset($_REQUEST['file']) ? array_filter(array_map(array('WPFB_File','GetFile'), $_REQUEST['file']),
 					create_function('$file',
-							  'return ($file && $file->CurUserCan'.'Edit'.'());'));
+							  'return ($file && $file->CurUserCan'.'Edit'.'());')): array();
 		 
 			$message = null;
 			switch($this->current_action())
@@ -182,6 +190,15 @@ class WPFB_FileListTable extends WP_List_Table {
 					
 					break;
 				
+				
+				case 'edit':
+					if(isset($_REQUEST['action2']) && $_REQUEST['action2'] == 'apply') {
+						$message = wpfb_call('AdminGuiBulkEdit','Process');
+					} else {
+						wpfb_call('AdminGuiBulkEdit','Display');
+						exit;
+					}
+					break;
 				
 				case 'set_off':
 					foreach($files as $file) {
@@ -224,6 +241,12 @@ class WPFB_FileListTable extends WP_List_Table {
 						break;
 					case 'notattached':
 						$view_cond = "file_post_id = 0";
+						break;
+					case 'local':
+						$view_cond = "file_remote_uri = ''";
+						break;
+					case 'cloud':
+						$view_cond = "file_remote_uri <> ''";
 						break;
 				}
 				$where = (empty($where) ? '' : ("($where) AND ")) . $view_cond;

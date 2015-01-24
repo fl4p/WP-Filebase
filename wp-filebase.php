@@ -4,14 +4,14 @@ Plugin Name: WP-Filebase
 Plugin URI: http://fabi.me/wordpress-plugins/wp-filebase-file-download-manager/
 Description: Adds a powerful downloads manager supporting file categories, download counter, widgets, sorted file lists and more to your WordPress blog.
 Author: Fabian Schlieper
-Version: 0.3.0.06
+Version: 3.1.00
 Author URI: http://wpfilebase.com/
 */
 
 if(!defined('WPFB'))
 {
 	define('WPFB', 'wpfb');
-	define('WPFB_VERSION', '0.3.0.06');
+	define('WPFB_VERSION', '3.1.00');
 	define('WPFB_PLUGIN_ROOT', str_replace('\\','/',dirname(__FILE__)).'/');
 	if(!defined('ABSPATH')) {
 		define('ABSPATH', dirname(dirname(dirname(dirname(__FILE__)))));
@@ -73,6 +73,10 @@ if(!defined('WPFB'))
 		return (class_exists($cln) || wpfb_loadclass($cl)) ? ($is_args_array ? call_user_func_array($fnc, $params) : call_user_func($fnc, $params)) : null;
 	}
 	
+	function wpfb_callback($cl,$fnc) {
+		return create_function('', '$p=func_get_args();return wpfb_call("'.$cl.'","'.$fnc.'",$p);');
+	}
+	
 	function wpfilebase_init()
 	{
 		wpfb_loadclass('Core');
@@ -86,7 +90,7 @@ if(!defined('WPFB'))
 	function wpfilebase_activate() {
 		define('WPFB_NO_CORE_INIT',true);
 		wpfb_loadclass('Core','Admin', 'Setup');
-		WPFB_Setup::OnActivateOrVerChange(WPFB_Core::$settings->version);
+		WPFB_Setup::OnActivateOrVerChange(empty(WPFB_Core::$settings->version) ? null : WPFB_Core::$settings->version);
 	}
 	
 	function wpfilebase_deactivate() {

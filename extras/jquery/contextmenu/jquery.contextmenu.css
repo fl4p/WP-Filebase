@@ -240,3 +240,6 @@
 	background-color:#30f;
 }
 
+table.context-menu-table {
+	width: auto;
+}

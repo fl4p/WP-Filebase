@@ -1590,10 +1590,10 @@ msgid "Generate PDF thumbnails"
 msgstr ""
 
 msgid "Thumbnail of first page"
-msgstr "Thumbnail der ersten Seite"
+msgstr ""
 
 msgid "Extract PDF Title"
-msgstr "Extrahiere den PDF Titel"
+msgstr ""
 
 msgid "Using the pattern below, Titles of PDF documents will be searched and used as file_display_name"
 msgstr ""
@@ -1604,6 +1604,538 @@ msgstr ""
 msgid "Regular expression to find the title in the PDF Document."
 msgstr ""
 
+msgid "You are not allowd to add files to the category <b>%s</b>!"
+msgstr ""
 
+msgid "Thumbnail is not a valid image!."
+msgstr ""
+
+msgid "Could not get file information from %s!"
+msgstr ""
+
+msgid "Only HTTP links are supported."
+msgstr ""
+
+msgid "Category added."
+msgstr ""
+
+msgid "Could not move thumnail %s to %s."
+msgstr ""
+
+msgid "%d Thumbnails moved."
+msgstr ""
+
+msgid "Ghostscript executable detected at <code>%s</code>"
+msgstr ""
+
+msgid "Ghostscript executable not detected! Please ask your hosting provider about ghostscript installation."
+msgstr ""
+
+msgid "Ghostscript executable not found at <code>%s</code>."
+msgstr ""
+
+msgid "Ghostscript at <code>%s</code> does not work properly!"
+msgstr ""
+
+msgid "Ghostscript version %s is installed, which is too old to work correctly. Please upgrade to a more recent version (at least %s) or ask your hosting provider to do so. <strong>This is only required for PDF Indexing, please ignore this warning if you do not use this feature!</strong>"
+msgstr ""
+
+msgid "File Page Settings changed. You have to run the Rescan Tool now!"
+msgstr ""
+
+msgid "Manage attachments"
+msgstr ""
+
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr ""
+
+msgid "Custom CSS does only work if upload path is relative to WordPress path. It is currently set to <code>%s</code>, so <b>custom CSS will not work!</b>"
+msgstr ""
+
+msgid "Form Tag:"
+msgstr ""
+
+msgid "Use advanced Drag &amp; Drop Uploader"
+msgstr ""
+
+msgid "Embedded forms will not work unless you enable front end uploads in <a href=\"%s\">Security Settings</a>"
+msgstr ""
+
+msgid "You do not have the permission to edit this file!"
+msgstr ""
+
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr ""
+
+msgid "WP-Filebase content tags must be converted"
+msgstr ""
+
+msgid "File Browser post or page not set! Some features like search will not work. <a href=\"%s\">Click here to set the File Browser Post ID.</a>"
+msgstr ""
+
+msgid "File Browser"
+msgstr ""
+
+msgid "The config file %s is not writable or could not be created. Please create the file and make it writable for the webserver."
+msgstr ""
+
+msgid "Like WP-Filebase?"
+msgstr ""
+
+msgid "Downloads"
+msgstr ""
+
+msgid "Last cron sync on %1$s at %2$s."
+msgstr ""
+
+msgid "Cron sync is disabled (using WP´s internal cron system)."
+msgstr ""
+
+msgid "Cron sync is disabled."
+msgstr ""
+
+msgid "Preset Sync"
+msgstr ""
+
+msgid "Same as sync but with additional meta data presets applied to each file that is added during sync."
+msgstr ""
+
+msgid "This will reset all file/category permissions. Protected files will be available for EVERYONE. Continue?"
+msgstr ""
+
+msgid "Convert tags from versions earlier than %s."
+msgstr ""
+
+msgid "Add multiple URLs"
+msgstr ""
+
+msgid "Add multiple remote files at once."
+msgstr ""
+
+msgid "Forced thumbnail update"
+msgstr ""
+
+msgid "Sync Now"
+msgstr ""
+
+msgid "Select the service you would like to sync with."
+msgstr ""
+
+msgid "Sync"
+msgstr ""
+
+msgid "Warning: The Filebrowser page <b>%s</b> has at least one subpage <b>%s</b>. This will cause unexpected behavior, since all requests to the subpages are redirected to the File Browser Page. Please choose a Page that does not have any subpages for File Browser."
+msgstr ""
+
+msgid "File Pages"
+msgstr ""
+
+msgid "PDF"
+msgstr ""
+
+msgid "All settings (except default file and category template) will be set to default values. Continue?"
+msgstr ""
+
+msgid "Type missing!"
+msgstr ""
+
+msgid "Templates"
+msgstr ""
+
+msgid "File List"
+msgstr ""
+
+msgid "File Page"
+msgstr ""
+
+msgid "Notification E-Mails"
+msgstr ""
+
+msgid "AJAX List"
+msgstr ""
+
+msgid "AJAX loader CSS class"
+msgstr ""
+
+msgid "DEPRECATED"
+msgstr ""
+
+msgid "Menu Root Category"
+msgstr ""
+
+msgid "Upload Presets"
+msgstr ""
+
+msgid "Don't publish uploaded files (set offline)"
+msgstr ""
+
+msgid "Inherit from Cat."
+msgstr ""
+
+msgid "Direct Linking"
+msgstr ""
+
+msgid "File Version"
+msgstr ""
+
+msgid "Icon of %s"
+msgstr ""
+
+msgid "<a href=\"%s\" title=\"Wordpress Download Manager Plugin\" style=\"color:inherit;font-size:inherit;\">Downloads served by WP-Filebase</a>"
+msgstr ""
+
+msgid "Link to Dropbox File Preview Page"
+msgstr ""
+
+msgid "You are not allowed to upload to this category!"
+msgstr ""
+
+msgid "New file upload"
+msgstr ""
+
+msgid "This file is password protected. To download it please enter your password below:"
+msgstr ""
+
+msgid "%d File(s) deleted."
+msgstr ""
+
+msgid "%d File(s) rescanned."
+msgstr ""
+
+msgid "%d File(s) were set offline."
+msgstr ""
+
+msgid "%d File(s) were set online."
+msgstr ""
+
+msgid "FTP Host"
+msgstr ""
+
+msgid "FTP Port"
+msgstr ""
+
+msgid "FTP User"
+msgstr ""
+
+msgid "FTP Password"
+msgstr ""
+
+msgid "Secure SSL FTP"
+msgstr ""
+
+msgid "FTP Passive Mode"
+msgstr ""
+
+msgid "HTTP Url (optional)"
+msgstr ""
+
+msgid "Number of files in the category and all child categories"
+msgstr ""
+
+msgid "Variable to check if the %s is accessible (boolean 0/1)"
+msgstr ""
+
+msgid "Download URL encoded for use in query strings"
+msgstr ""
+
+msgid "URL to Details Page (see template '%s')"
+msgstr ""
+
+msgid "List of secondary categories"
+msgstr ""
+
+msgid "URL of the category icon (if any)"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "User Name of the owner"
+msgstr ""
+
+msgid "Lowercase file extension (e.g. '%s')"
+msgstr ""
+
+msgid "File content type (e.g. '%s')"
+msgstr ""
+
+msgid "ID of the current post or page"
+msgstr ""
+
+msgid "Plugin root URL (%s)"
+msgstr ""
+
+msgid "Offline &gt; Online"
+msgstr ""
+
+msgid "Direct linking &gt; redirect to post"
+msgstr ""
+
+msgid "Custom Category Order"
+msgstr ""
+
+msgid "The minimum user level to access (-1 = guest, 0 = Subscriber ...)"
+msgstr ""
+
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr ""
+
+msgid "Add New"
+msgstr ""
+
+msgid "File %s uploaded."
+msgstr ""
+
+msgid "Drop files here - or -"
+msgstr ""
+
+msgid "%d files <i>%s</i>"
+msgstr ""
+
+msgid "You license key is expired. Please <a href=\"%s\">contact support</a>"
+msgstr ""
+
+msgid "Your license key is already used. Please free a license slot by <a href=\"%s\">disabling another site</a>. Note: If you have changed the site domain please switch back to the old domain and disable WP-Filebase Pro, then re-enable it on the new domain."
+msgstr ""
+
+msgid "Something went wrong with activation. Please <a href=\"%s\">contact support</a>. (%s)"
+msgstr ""
+
+msgid "Activate WP-Filebase"
+msgstr ""
+
+msgid "The license key you entered is invalid!"
+msgstr ""
+
+msgid "Remote Sync <b>%s</b> on service <b>%s</b> with account <b>%s</b>."
+msgstr ""
+
+msgid "Updating URIs..."
+msgstr ""
+
+msgid "Removing local files that have been remotely deleted..."
+msgstr ""
+
+msgid "Remote Sync Settings"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Don't generate thumbnails and scan files for ID3 tags. This will make sync much faster, since files are not temporarily downloaded."
+msgstr ""
+
+msgid "Remote Path"
+msgstr ""
+
+msgid "AWS access Key"
+msgstr ""
+
+msgid "AWS access Secret"
+msgstr ""
+
+msgid "Secure HTTPS Downloads"
+msgstr ""
+
+msgid "Strip AWSAccessKeyId query parameter"
+msgstr ""
+
+msgid "Link Lifetime"
+msgstr ""
+
+msgid "Virtual-hosted-style URIs"
+msgstr ""
+
+msgid "CloudFront Domain"
+msgstr ""
+
+msgid "Path where all files are stored. Relative to WordPress' root directory."
+msgstr ""
+
+msgid "Thumbnails can be stored at a different path than the actual files. Leave empty to use the default upload path. The directory specified here CANNOT be inside the upload path!"
+msgstr ""
+
+msgid "Disable wp-filebase.css"
+msgstr ""
+
+msgid "If you don't need default WP-Filebase styling. Improves site performance."
+msgstr ""
+
+msgid "File Page Permalink with Front Base"
+msgstr ""
+
+msgid "Should the permastruct be prepended with the front base. (enabled-> /%s/, disabled->/blog/%s/)</a>"
+msgstr ""
+
+msgid "No files available."
+msgstr ""
+
+msgid "Empty Message"
+msgstr ""
+
+msgid "Message that will be displayed if file browser is empty."
+msgstr ""
+
+msgid "Folder Icon"
+msgstr ""
+
+msgid "Choose the default category icon and file browser icon. You can put custom icons in <code>%s</code>."
+msgstr ""
+
+msgid "Small Icon Size'), 'desc' => __('Icon size (height) for categories and files. Set to 0 to show icons in full size."
+msgstr ""
+
+msgid "Access to category denied!"
+msgstr ""
+
+msgid "Inaccessible category message"
+msgstr ""
+
+msgid "This message will be displayed if users try to access a category without permission."
+msgstr ""
+
+msgid "Destroy session when downloading"
+msgstr ""
+
+msgid "Should be enabled to allow users to download multiple files at the same time. This does not interfere WordPress user sessions, but can cause trouble with other plugins using the global $_SESSION."
+msgstr ""
+
+msgid "Notifies all blog users whenever a file they can access is uploaded."
+msgstr ""
+
+msgid "Search Result File List Template"
+msgstr ""
+
+msgid "Search Results Type"
+msgstr ""
+
+msgid "The way search results are displayed when using the WordPress Search"
+msgstr ""
+
+msgid "Show File Pages"
+msgstr ""
+
+msgid "Scan Files via RPC Calls"
+msgstr ""
+
+msgid "EXPERIMENTAL. This can improve stability of sync but requires more time for each file beeing scanned."
+msgstr ""
+
+msgid "Fake MD5 Hashes"
+msgstr ""
+
+msgid "This dramatically speeds up sync, since no real MD5 checksum of the files is calculated but only a hash of modification time and file size."
+msgstr ""
+
+msgid "Remove WP-Filebase Footer credits"
+msgstr ""
+
+msgid "This disables the footer credits only displayed on <a href=\"%s\">File Browser Page</a>. Why should you keep the credits? Every backlink helps WP-Filebase to get more popular, popularity motivates the developer to continue work on the plugin."
+msgstr ""
+
+msgid "Footer credits Style"
+msgstr ""
+
+msgid "Set custom CSS style for WP-Filebase footer credits"
+msgstr ""
+
+msgid "Default File Direct Linking'), 'type' => 'select', 'desc' => __('"
+msgstr ""
+
+msgid "Append another %s to set the default value."
+msgstr ""
+
+msgid "Maximum downloads"
+msgstr ""
+
+msgid "Archive lister"
+msgstr ""
+
+msgid "Uploaded files are scanned for archives"
+msgstr ""
+
+msgid "Starting sync. Memory usage: %s - Limit: %s"
+msgstr ""
+
+msgid "A Batch sync is already in progress. Continuing..."
+msgstr ""
+
+msgid "Batch progress invalid. Aborted. Please try again."
+msgstr ""
+
+msgid "Sync Time: %01.2f s, Memory Peak: %s"
+msgstr ""
+
+msgid "%d Files could not be found."
+msgstr ""
+
+msgid "The corresponding entries have been removed from the database."
+msgstr ""
+
+msgid "Remove entries from database"
+msgstr ""
+
+msgid "%d Category Folders could not be found."
+msgstr ""
+
+msgid "WebDAV URL"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Allows users to create file categories from the front end."
+msgstr ""
+
+msgid "Add File Category"
+msgstr ""
+
+msgid "File Categories"
+msgstr ""
+
+msgid "Listing of files with custom sorting"
+msgstr ""
+
+msgid "Attach file to current post/page"
+msgstr ""
+
+msgid "Enter link text. Prepend * to open link in a new tab."
+msgstr ""
+
+msgid "Embed Upload Form"
+msgstr ""
+
+msgid "Files attached to <i>%s</i>"
+msgstr ""
+
+msgid "Filter files by search keyword/tag:"
+msgstr ""
+
+msgid "For AJAX lists this is the number of preloaded items."
+msgstr ""
+
+msgid "Display Page Navigation"
+msgstr ""
+
+msgid "Group by Categories"
+msgstr ""
+
+msgid "Private Browser: Only display files owned by the logged in User."
+msgstr ""
+
+msgid "Expanded Browser: All Category are initially opened so all files are displayed."
+msgstr ""
+
+msgid "Scan remote file (disable for large files)"
+msgstr ""
+
+msgid "File Info Tags (ID3 Tags)"
+msgstr ""
+
+msgid "No sync in progress. Done!"
+msgstr ""
 
 

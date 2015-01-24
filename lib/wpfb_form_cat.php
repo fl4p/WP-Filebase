@@ -39,7 +39,7 @@ $form_action = add_query_arg('page', 'wpfilebase_cats', remove_query_arg(array('
 		<tr class="form-field">
 			<th scope="row" valign="top"><label for="cat_parent"><?php _e('Parent Category'/*def*/) ?></label></th>
 			<td>
-	  			<select name="cat_parent" id="cat_parent" class="postform" onchange="WPFB_formCategoryChanged();"><?php echo WPFB_Output::CatSelTree(array('selected'=>($update?$file_category->cat_parent:0),'exclude'=>$update?$file_category->cat_id:0)) ?></select><br />
+	  			<select name="cat_parent" id="cat_parent" class="postform wpfb-cat-select" onchange="WPFB_formCategoryChanged();"><?php echo WPFB_Output::CatSelTree(array('selected'=>($update?$file_category->cat_parent:0),'exclude'=>$update?$file_category->cat_id:0,'add_cats'=>true)) ?></select><br />
                 <?php _e('Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.'/*def*/); ?>
 	  		</td>
 		</tr>

@@ -87,7 +87,7 @@ case 'delfile':
 	break;
 	
 case 'addfile':
-	if ( !WPFB_Admin::CurUserCanUpload() ) wp_die(__('Cheatin&#8217; uh?'));
+	if ( !WPFB_Core::CurUserCanUpload() ) wp_die(__('Cheatin&#8217; uh?'));
 	break;
 	
 case 'updatefile':
@@ -209,10 +209,13 @@ var currentTab = '';
 var selectedCats = [];
 var includeAllCats = false;
 
-function selectFile(id, name)
+function selectFile(id, a)
 {
+	a = jQuery(a);
+	var name = a.text();
+	var el = a.parent('span.file');
 	var theTag = {"tag":currentTab, <?php echo WPFB_Core::$settings->use_path_tags ? '"path": getFilePath(id)' : '"id":id'; ?>};
-	var el = jQuery('span.file','#wpfb-file-'+id).first();
+	
 	
 	if(manageAttachments || currentTab == 'attach') {
 		jQuery.ajax({
@@ -223,7 +226,7 @@ function selectFile(id, name)
 				file_id:id
 			},
 			async: false});
-		//delayedReload();
+		//delayedReload(); stupid :/
 		el.css('background-image', 'url('+yesImgUrl+')');
 		return;
 	} else if(currentTab == 'fileurl') {
@@ -333,16 +336,19 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	// switch simple/extended form
 	if(isset($_GET['exform'])) {
 		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform_ep', $exform); 
+		update_user_option($user_ID, WPFB_OPT_NAME . '_exform_ep', $exform, true); 
 	} else {
 		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform_ep');
 	}
 	
-//if( (WPFB_Admin::CurUserCanUpload()&&empty($file))) TODO
+//if( (WPFB_Core::CurUserCanUpload()&&empty($file))) TODO
 	WPFB_Admin::PrintForm('file', $file, array('exform'=>$exform, 'in_editor'=>true, 'post_id'=>$post_id));
 ?>
 <h3 class="media-title"><?php _e('Attach existing file', WPFB) ?></h3>
 <ul id="attachbrowser" class="filetree"></ul>
+<?php wpfb_loadclass('TreeviewAdmin');
+		WPFB_TreeviewAdmin::RenderHTML("attachbrowser");
+?>
 </div> <!-- attach -->
 	
 <?php if(!$manage_attachments) {?>
@@ -359,6 +365,9 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 <div id="fileselect" class="container">
 	<h2><?php _e('Select File', WPFB); ?></h2>
 	<ul id="filebrowser" class="filetree"></ul>
+	<?php wpfb_loadclass('TreeviewAdmin');
+		WPFB_TreeviewAdmin::RenderHTML("filebrowser");
+	?>
 </div>
 <div id="catselect" class="container">
 	<h2><?php _e('Select Category'/*def*/); ?></h2>
@@ -369,6 +378,9 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	</div>
 	
 	<ul id="catbrowser" class="filetree"></ul>
+	<?php wpfb_loadclass('TreeviewAdmin');
+		WPFB_TreeviewAdmin::RenderHTML("catbrowser");
+	?>
 </div>
 <form id="listtplselect">
 	<h2><?php _e('Select Template', WPFB) ?></h2>

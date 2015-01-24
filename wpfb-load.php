@@ -13,8 +13,8 @@ function wpfb_on_shutdown()
 {
 	 $error = error_get_last( );
 	 if( $error && ($error['type'] == E_ERROR || $error['type'] == E_RECOVERABLE_ERROR || $error['type'] == E_PARSE) /*$error['type'] != E_STRICT && $error['type'] != E_NOTICE && $error['type'] != E_WARNING && $error['type'] != E_DEPRECATED*/ ) {
-		 $func = function_exists('wpfb_ajax_die') ? 'wpfb_ajax_die' : 'wp_die';
-		 $func(json_encode($error));
+		 //$func = function_exists('wpfb_ajax_die') ? 'wpfb_ajax_die' : 'wp_die';
+		 wp_die(json_encode($error)); // this will choose handler based on wp_die_ajax_handler filter!
 	 } else { return true; }
 }
 register_shutdown_function('wpfb_on_shutdown');

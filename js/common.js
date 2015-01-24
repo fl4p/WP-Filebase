@@ -68,7 +68,7 @@ function wpfb_processimg(index, el)
 
 function wpfb_setupLinks() {
 	var i,els,h,rePl,reQs,reHs;
-	if(!wpfbConf.ql) return;
+	if(('undefined' === typeof wpfbConf) || !wpfbConf.ql) return;
 
 	reQs = /\?wpfb_dl=([0-9]+)$/;
 	reHs = /#wpfb-file-([0-9]+)$/;

@@ -52,9 +52,8 @@ class WPFB_ListTpl {
 			$str = str_replace('%search_form%', WPFB_Output::GetSearchForm("", $_GET), $str);
 		}
 		
-		$str = preg_replace('/%print_?script:([a-z0-9_-]+)%/ie', __CLASS__.'::PrintScriptOrStyle(\'$1\', false)', $str);
-		$str = preg_replace('/%print_?style:([a-z0-9_-]+)%/ie', __CLASS__.'::PrintScriptOrStyle(\'$1\', true)', $str);
-	
+		$str = preg_replace_callback('/%print_?(script|style):([a-z0-9_-]+)%/i', array(__CLASS__, 'PrintScriptCallback'), $str);
+
 		if(empty($uid)) $uid = uniqid();
 		$str = str_replace('%uid%', $uid, $str);
 		
@@ -87,11 +86,11 @@ class WPFB_ListTpl {
 		return $str;
 	}
 	
-	static function PrintScriptOrStyle($script, $style=false)
+	static function PrintScriptCallback($ms)
 	{
 		ob_start();
-		if($style) wp_print_styles($script);
-		else  wp_print_scripts($script);
+		if($ms[1] == 'style') wp_print_styles($ms[2]);
+		else  wp_print_scripts($ms[2]);
 		return ob_get_clean();
 	}
 	
@@ -235,10 +234,11 @@ class WPFB_ListTpl {
 		
 		if($page_break && !$this->current_list->hide_pagenav) {
 			$pagenav = paginate_links( array(
-				'base' => add_query_arg( 'wpfb_list_page', '%#%' ),
-				'format' => '',
+				'base' => add_query_arg( 'wpfb_list_page', '%_%'),
+				'format' => '%#%',
 				'total' => ceil($num_total_files / $this->current_list->page_limit),
-				'current' => empty($_GET['wpfb_list_page']) ? 1 : absint($_GET['wpfb_list_page'])
+				'current' => empty($_GET['wpfb_list_page']) ? 1 : absint($_GET['wpfb_list_page']),
+				 'add_args' => array() // necessary!
 			));
 
 			if(strpos($footer, '%page_nav%') === false)

@@ -49,6 +49,10 @@ static function Display()
 	$action = (!empty($_POST['action']) ? $_POST['action'] : (!empty($_GET['action']) ? $_GET['action'] : ''));
 	$clean_uri = remove_query_arg(array('message', 'action', 'file_id', 'cat_id', 'deltpl', 'hash_sync' /* , 's'*/)); // keep search keyword
 	
+	// security	nonce
+	if(!empty($action) && $action != 'edit' && !check_admin_referer($action.'-'.$_REQUEST['type'],'wpfb-tpl-nonce'))
+		wp_die(__('Cheatin&#8217; uh?'));		
+
 	if($action == 'add' || $action == 'update')
 	{
 		if(empty($_POST['type'])) wp_die(__('Type missing!', WPFB));		
@@ -183,7 +187,12 @@ jQuery(document).ready( function() {
 		default:
 ?>
 <div class="wrap">
-<h2><?php _e('Templates',WPFB); ?> <a href="<?php echo add_query_arg('iframe-preview',(int)empty($_GET['iframe-preview'])); ?>" class="add-new-h2">iframe preview</a></h2>
+<h2><?php _e('Templates',WPFB); ?>
+<?php if(empty(WPFB_Core::$settings->disable_css) && current_user_can('edit_themes')) { ?>
+	<a href="<?php echo admin_url('admin.php?page=wpfilebase_css'); ?>" class="add-new-h2"><?php _e('Edit Stylesheet',WPFB); ?></a>
+<?php } ?>	
+	<a href="<?php echo add_query_arg('iframe-preview',(int)empty($_GET['iframe-preview'])); ?>" class="add-new-h2">iframe preview</a>
+</h2>
 <div id="wpfb-tabs">
 	<ul class="wpfb-tab-menu">
 		<li><a href="#file"><?php _e('Files', WPFB) ?></a></li>
@@ -262,7 +271,7 @@ static function TplsTable($type, $exclude=array(), $include=array()) {
 			<strong><a class="row-title" href="<?php echo $edit_link ?>" title="<?php printf(__('Edit &#8220;%s&#8221;'), $tpl_tag) ?>"><?php echo self::TplTitle($tpl_tag); ?></a></strong><br />
 			<code>tpl=<?php echo $tpl_tag; ?></code>
 			<div class="row-actions"><span class='edit'><a href="<?php echo $edit_link ?>" title="<?php _e('Edit this item') ?>"><?php _e('Edit') ?></a></span>
-			<?php if(!in_array($tpl_tag, self::$protected_tags)){ ?><span class='trash'>| <a class='submitdelete' title='<?php _e('Delete this item permanently') ?>' href='<?php echo add_query_arg(array('action'=>'del','type'=>$type,'tpl'=>$tpl_tag)).'#'.$type ?>'><?php _e('Delete') ?></a></span><?php } ?>
+			<?php if(!in_array($tpl_tag, self::$protected_tags)){ ?><span class='trash'>| <a class='submitdelete' title='<?php _e('Delete this item permanently') ?>' href='<?php echo wp_nonce_url(add_query_arg(array('action'=>'del','type'=>$type,'tpl'=>$tpl_tag)),'del-'.$type,'wpfb-tpl-nonce').'#'.$type; ?>'><?php _e('Delete') ?></a></span><?php } ?>
 			</div>
 		</td>
 		<td>
@@ -316,6 +325,7 @@ static function TplForm($type, $tpl_tag=null)
 <h2><?php _e($new?'Add Template' : 'Edit Template', WPFB);
 		if(!empty($tpl_tag)) echo ' '.self::TplTitle($tpl_tag);  ?></h2>
 <form action="<?php echo remove_query_arg(array('action','type','tpl')).'#'.$type ?>" method="post">
+	<?php wp_nonce_field(($new?'add':'update').'-'.$type, 'wpfb-tpl-nonce'); ?>
 	<input type="hidden" name="action" value="<?php echo $new?'add':'update'; ?>" />	
 	<input type="hidden" name="type" value="<?php echo $type; ?>" />	
 	<?php if($new) {?>

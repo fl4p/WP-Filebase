@@ -28,26 +28,26 @@ $_GET = stripslashes_deep($_GET);
 
 switch ( $action = $_REQUEST['action'] ) {
 	
-	case 'tree':
-		$type = $_REQUEST['type'];
-		
+	case 'tree':		
 		wpfb_loadclass('Core','File','Category','Output');
 		
 		// fixed exploit, thanks to Miroslav Stampar http://unconciousmind.blogspot.com/
 		$root_id = (empty($_REQUEST['root']) || $_REQUEST['root'] == 'source') ? 0 : (is_numeric($_REQUEST['root']) ? intval($_REQUEST['root']) : intval(substr(strrchr($_REQUEST['root'],'-'),1)));
 		$parent_id = ($root_id == 0) ? intval($_REQUEST['base']) : $root_id;
 		
-		wpfb_print_json(WPFB_Output::GetTreeItems($parent_id, $type, array(
-			 'cats_only'	=> (!empty($_REQUEST['cats_only']) && $_REQUEST['cats_only'] != 'false'),
-			 'exclude_attached' => (!empty($_REQUEST['exclude_attached']) && $_REQUEST['exclude_attached'] != 'false'),
-			 
-			 'onselect'		=> (!empty($_REQUEST['onselect'])) ? $_REQUEST['onselect'] : null,
-			 'cat_id_fmt'	=> empty($_REQUEST['cat_id_fmt']) ? null : wp_strip_all_tags($_REQUEST['cat_id_fmt']),
-			 'file_id_fmt' => empty($_REQUEST['file_id_fmt']) ? null : wp_strip_all_tags($_REQUEST['file_id_fmt']),		 
-		)));		
+		$args = wp_parse_args($_REQUEST, array(
+			 'sort' => array(),
+			 			 'onselect' => null,
+			 'idp' => null,
+		));
+		
+		$args['cats_only'] === 'false' && $args['cats_only'] = false;
+		$args['exclude_attached'] === 'false' && $args['exclude_attached'] = false;
+				
+		wpfb_print_json(WPFB_Output::GetTreeItems($parent_id, $args));		
 		exit;
 
-	
+		
 	case 'delete':
 		wpfb_loadclass('File','Category');
 		$file_id = intval($_REQUEST['file_id']);		
@@ -199,13 +199,12 @@ switch ( $action = $_REQUEST['action'] ) {
 		exit;
 	case 'toggle-context-menu':
 		if(!current_user_can('upload_files')) die('-1');
-		WPFB_Core::UpdateOption('file_context_menu', !WPFB_Core::$settings->file_context_menu);
+		WPFB_Core::UpdateOption('file_context_menu', empty(WPFB_Core::$settings->file_context_menu));
 		die('1');
 		
 	case 'set-user-setting':
 		if(!current_user_can('manage_categories') || empty($_REQUEST['name'])) die('0');
-		update_user_option(get_current_user_id(), 'wpfb_set_'.$_REQUEST['name'], stripslashes($_REQUEST['value']));
-		echo '1';
+		echo update_user_option(get_current_user_id(), 'wpfb_set_'.$_REQUEST['name'], stripslashes($_REQUEST['value']), true);
 		exit;
 		
 	case 'get-user-setting':
@@ -240,4 +239,40 @@ switch ( $action = $_REQUEST['action'] ) {
 		exit;
 		
 		
+		
+	case 'new-cat':
+		if(!WPFB_Core::CurUserCanCreateCat())
+			die('-1');
+		wpfb_loadclass('Admin');
+		$result = WPFB_Admin::InsertCategory($_POST);
+		if(isset($result['error']) && $result['error']) {
+			wpfb_print_json(array('error' => $result['error']));
+			exit;
+		}
+		
+		$cat = $result['cat'];
+		$args = WPFB_Output::fileBrowserArgs($_POST['args']);
+		$filesel = ($args['type']==='fileselect');
+		$catsel = ($args['type']==='catselect');	
+			
+		wpfb_print_json(array(
+						'error' => 0,
+						'id' => $cat->GetId(),
+						'name' => $cat->GetTitle(),
+						'id_str' => $args['idp'].'cat-'.$cat->cat_id,
+						'url' => $cat->GetUrl(),
+						'text' => WPFB_Output::fileBrowserCatItemText($catsel,$filesel,$cat,$args['onselect'],empty($_REQUEST['is_admin'])?'filebrowser':'filebrowser_admin'),
+						'classes' => ($filesel||$catsel)?'folder':null
+				));
+		exit;
+		
+	case 'change-category':
+		wpfb_loadclass('File','Admin');
+		$item = WPFB_Item::GetById($_POST['id'],$_POST['type']);
+		if($item && $item->CurUserCanEdit()) {
+			$res = $item->ChangeCategoryOrName($_POST['new_cat_id']);
+			wpfb_print_json($res);
+		} else
+			die('-1');
+		exit;
 }

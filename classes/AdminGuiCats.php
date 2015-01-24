@@ -32,7 +32,7 @@ static function Display()
 {
 	global $wpdb, $user_ID;
 	
-	if ( !WPFB_Admin::CurUserCanCreateCat() )
+	if ( !WPFB_Core::CurUserCanCreateCat() )
 		wp_die(__('Cheatin&#8217; uh?'));
 	
 	wpfb_loadclass('Category', 'File', 'Admin', 'Output');
@@ -46,7 +46,7 @@ static function Display()
 	// switch simple/extended form
 	if(isset($_GET['exform'])) {
 		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform); 
+		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true); 
 	} else {
 		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform');
 	}
@@ -74,6 +74,9 @@ static function Display()
 			
 		case 'addcat':
 			$update = !empty($update);
+			
+			if(!$update && !WPFB_Core::CurUserCanCreateCat())
+				wp_die(__('Cheatin&#8217; uh?'));
 			
 			$result = WPFB_Admin::InsertCategory(array_merge(stripslashes_deep($_POST), $_FILES));
 			if(isset($result['error']) && $result['error']) {
@@ -178,7 +181,7 @@ static function Display()
 	</form>
 	<br class="clear" />
 	
-	<?php if ( WPFB_Admin::CurUserCanCreateCat() ) : ?>
+	<?php if ( WPFB_Core::CurUserCanCreateCat() ) : ?>
 		<p><?php _e('<strong>Note:</strong><br />Deleting a category does not delete the files in that category. Instead, files that were assigned to the deleted category are set to the parent category.', WPFB) ?></p><?php
 		WPFB_Admin::PrintForm('cat');
 		endif;

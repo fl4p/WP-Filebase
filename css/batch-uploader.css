@@ -15,7 +15,6 @@
 }
 */
 
-
 .wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets label {
 	width: 85px;
 	display: inline-block;
@@ -148,4 +147,8 @@
 .wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets select,
 .wpfb-embedded-form .wpfb-batch-uploader-interface .uploader-presets textarea {
 	width: 220px !important;	
+}
+
+.wpfb-batch-uploader-interface .uploader-presets select {
+	max-width: 300px;
 }

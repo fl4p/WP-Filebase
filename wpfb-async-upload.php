@@ -40,8 +40,7 @@ if($frontend_upload) {
 			wpfb_ajax_die(__('You do not have permission to upload files.'));
 	}
 } else {
-	wpfb_loadclass('Admin');
-	if ( !WPFB_Admin::CurUserCanUpload()  )
+	if ( !WPFB_Core::CurUserCanUpload()  )
 		wpfb_ajax_die(__('You do not have permission to upload files.'));
 		
 	check_admin_referer(WPFB.'-async-upload');
@@ -90,17 +89,26 @@ if($file_add_now) {
 	
 	$result = WPFB_Admin::InsertFile($file_data, false);
 	if(empty($result['error'])) {
-		$json = json_encode(array_merge((array)$result['file'], array(
+		$resp = array_merge((array)$result['file'], array(
 			 'file_thumbnail_url' => $result['file']->GetIconUrl(),
 			 'file_edit_url' => $result['file']->GetEditUrl(),
 			 'file_cur_user_can_edit' => $result['file']->CurUserCanEdit(),
 			 'file_download_url' => $result['file']->GetUrl(),
 			 'nonce' => wp_create_nonce(WPFB.'-updatefile'.$result['file_id'])
-		)));
+		));
+		
+		if(isset($_REQUEST['tpl_tag'])) {
+			$tpl_tag = $_REQUEST['tpl_tag'];
+			if($tpl_tag === 'false') $tpl_tag = null;
+			$resp['tpl'] = $result['file']->GenTpl2($tpl_tag);
+		}
 	} else {
 		wpfb_ajax_die($result['error']);
 	}
+	
+	$json = json_encode($resp);
 }
+
 
 @header('Content-Type: application/json; charset=' . get_option('blog_charset'));
 @header('Content-Length: '.strlen($json));

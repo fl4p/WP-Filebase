@@ -3,8 +3,8 @@ Contributors: fabifott
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfilebase%40fabi%2eme&item_name=WP-Filebase&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
-Tested up to: 3.9
-Stable tag: 0.3.0.06
+Tested up to: 4.1
+Stable tag: 3.1.00
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -68,9 +68,12 @@ For support, please [leave a message on my blog](http://fabi.me/wordpress-plugin
 
 == Installation ==
 
+The usual way:
 1. Upload the `wp-filebase` folder with all it's files to `wp-content/plugins`
-2. Create the directory `/wp-content/uploads/filebase` and make it writable (FTP command: `CHMOD 777 wp-content/uploads/filebase`)
-3. Activate the Plugin and customize the settings under *Settings->WP-Filebase*
+2. Activate the Plugin
+
+If you get an error message saying that the upload directory is not writable create the directory `/wp-content/uploads/filebase` and make it writable (FTP command: `CHMOD 777 wp-content/uploads/filebase`) for the webserver.
+
 
 Read more in [WP-Filebase documentation](http://wpfilebase.com/documentation/setup/).
 
@@ -116,6 +119,30 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 
 == Changelog ==
+
+= 3.1.00 =
+* New Feature: Treeview: Drag & Drop Files, Move Categories and Files by dragging
+* New Feature: Bulk actions
+* Added permissions check when creating categories
+* Improved security (thanks to Venkateswara Reddy)
+* Back-end filebrowser
+* Made some user options global on Site Networks
+* New Option: Disable WP-Filebse Stylesheet (wpfilebase.css)
+* Batch Uploader fixes
+* New template variable `%cat_edit_url%`
+* New feature: Sort files by multiple fields
+* Fixed conflcit with WP SEO where jQuery was not loading
+* `%'` chars are escaped in download urls (see Github issue)
+* Fixed performance issue when changing a file's category
+* Fixed `preg_replace(): The /e modifier is deprecated`
+* Fixed file list pagination links
+* FB: add cat/add file
+* Inline Add Cat
+* Fixed search form (remove post type)
+* Fixed context menu appearence
+* Improved mobile responsive appearence on front and back-end
+* Fixed Drag&Drop uploader issue when uploading file updates
+* Fixed broken thumbnails of cloud files after changing the category
 
 = 0.3.0.06 =
 * New Feature: File URL: Prepend asterisk (*) to linktext to open in new tab

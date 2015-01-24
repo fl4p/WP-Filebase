@@ -1,6 +1,6 @@
 /* #################### DEFAULT FILE TEMPLATE #################### */
 .wpfilebase-file-default {
-	width: 420px;
+	max-width: 420px;
 	padding: 5px;
 	margin: 10px auto 25px auto;	
 	/* border: 1px solid #999; twenty14 adjust*/

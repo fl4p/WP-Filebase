@@ -17,7 +17,7 @@ static function Display()
 	// switch simple/extended form
 	if(isset($_GET['exform'])) {
 		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform); 
+		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true); 
 	} else
 		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform');
 		
@@ -78,7 +78,7 @@ static function Display()
 				
 				if(!empty($error_msg)) echo '<div class="error default-password-nag"><p>'.$error_msg.'</p></div>';				
 				
-					if(WPFB_Core::$settings->tag_conv_req) {
+					if(!empty(WPFB_Core::$settings->tag_conv_req)) {
 					echo '<div class="updated"><p><a href="'.add_query_arg('action', 'convert-tags').'">';
 					_e('WP-Filebase content tags must be converted',WPFB);
 					echo '</a></p></div><div style="clear:both;"></div>';
@@ -207,6 +207,7 @@ $tools = array(
 
 ?>
 <div id="wpfb-tools">
+	<h2><?php _e('Tools'); ?></h2>
 <ul>
 <?php foreach($tools as $id => $tool) {
 	?>
@@ -219,24 +220,24 @@ $tools = array(
 </div>
 <?php } ?>
 <script>
-jQuery('#wpfb-tools li').mouseenter(function(e) {
-	jQuery('#wpfb-tools .tool-desc').hide();
-	jQuery('#wpfb-tool-desc-'+this.id.substr(10)).show();
-});
+if(!jQuery(document.body).hasClass('mobile')) {
+	jQuery('#wpfb-tools li').mouseenter(function(e) {
+		jQuery('#wpfb-tools .tool-desc').hide();
+		jQuery('#wpfb-tool-desc-'+this.id.substr(10)).show();
+	});
+}
 </script>
-
-
-				
-<?php if(WPFB_Core::$settings->tag_conv_req) { ?><p><a href="<?php echo add_query_arg('action', 'convert-tags') ?>" class="button"><?php _e('Convert old Tags',WPFB)?></a> &nbsp; <?php printf(__('Convert tags from versions earlier than %s.',WPFB), '0.2.0') ?></p> <?php } ?>
+		
+<?php if(!empty(WPFB_Core::$settings->tag_conv_req)) { ?><p><a href="<?php echo add_query_arg('action', 'convert-tags') ?>" class="button"><?php _e('Convert old Tags',WPFB)?></a> &nbsp; <?php printf(__('Convert tags from versions earlier than %s.',WPFB), '0.2.0') ?></p> <?php } ?>
 <!--  <p><a href="<?php echo add_query_arg('action', 'add-urls') ?>" class="button"><?php _e('Add multiple URLs',WPFB)?></a> &nbsp; <?php _e('Add multiple remote files at once.', WPFB); ?></p>
 -->
 </div>
+	
+	<div style="clear: both;"></div>
 
 <?php
-	if(WPFB_admin::CurUserCanUpload()) {		
-		WPFB_Admin::PrintForm('file', null, array('exform' => $exform));	
-
-		
+	if(WPFB_Core::CurUserCanUpload()) {		
+		WPFB_Admin::PrintForm('file', null, array('exform' => $exform));
 	}
 ?>
 			
@@ -296,7 +297,7 @@ jQuery('#wpfb-tools li').mouseenter(function(e) {
 		
 		
 		case 'del':
-				if(!empty($_REQUEST['files']) && WPFB_Admin::CurUserCanUpload()) {
+				if(!empty($_REQUEST['files']) && WPFB_Core::CurUserCanUpload()) {
 				$ids = explode(',', $_REQUEST['files']);
 				$nd = 0;
 				foreach($ids as $id) {
@@ -310,7 +311,7 @@ jQuery('#wpfb-tools li').mouseenter(function(e) {
 				
 				echo '<div id="message" class="updated fade"><p>'.sprintf(__('%d Files removed'), $nd).'</p></div>';
 			}
-			if(!empty($_REQUEST['cats']) && WPFB_Admin::CurUserCanCreateCat()) {
+			if(!empty($_REQUEST['cats']) && WPFB_Core::CurUserCanCreateCat()) {
 				$ids = explode(',', $_REQUEST['cats']);
 				$nd = 0;
 				foreach($ids as $id) {

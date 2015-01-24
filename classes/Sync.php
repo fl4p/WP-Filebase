@@ -12,9 +12,20 @@ static function InitClass()
 	
 	@ini_set('max_execution_time', '0');
 	@set_time_limit(0);
+	
+	if(!empty($_GET['output']) || !empty($_GET['debug'])) {
+		@ini_set( 'display_errors', 1 );
+		@error_reporting(E_ERROR | E_WARNING | E_PARSE);
+	
+		set_error_handler( array( __CLASS__, 'CaptureError' ) );
+		set_exception_handler( array( __CLASS__, 'CaptureException' ) );
+		register_shutdown_function( array(__CLASS__, 'CaptureShutdown' ) );
+	}	
+	
 	self::$error_log_file = WPFB_Core::UploadDir().'/_wpfb_sync_errors_'.md5(WPFB_Core::UploadDir()).'.log';
 	if(is_file(self::$error_log_file) && is_writable(self::$error_log_file)) {
-		@file_put_contents(self::$error_log_file, "\n".str_repeat('=',20)."\nINIT SYNC\n", FILE_APPEND);
+		// don't append to big files (4MiB)
+		@file_put_contents(self::$error_log_file, "\n".str_repeat('=',20)."\nINIT SYNC\n", (filesize(self::$error_log_file) > 4194304) ? 0 : FILE_APPEND );
 	}
 	@ini_set ("error_log", self::$error_log_file);
 	

@@ -7,6 +7,8 @@
 	
 	var $files = array();
 	
+	var $last_field_id = null;
+	
 	function WPFB_ProgressReporter($suppress_output = false)
 	{
 		$this->quiet = !!$suppress_output;
@@ -58,6 +60,17 @@
 	{
 		if(!$this->quiet && !is_null($this->progress_bar))
 			$this->progress_bar->set(100*($this->progress_cur+$sub_progress)/$this->progress_end);
+	}
+	
+	function InitProgressField($format='Value = %#%', $val = 0) {
+		$this->last_field_id = $id = md5(uniqid());
+		$this->Log(str_replace('%#%',"<span id='$id'>$val</span>", $format));
+		return $id;
+	}
+	
+	function SetField($val,$id=false) {
+		if(!$id) $id = $this->last_field_id;
+		if($id && !$this->quiet) self::DEcho("<script> document.getElementById('$id').innerHTML = '$val'; </script>");
 	}
 	
 	function FileChanged($file, $action)

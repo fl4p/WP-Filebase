@@ -12,7 +12,7 @@ static $post_url_cache = array();
  *
  * @since 3.0.14
  * @access public
- * @var WPFB_Settings
+ * @var WPFB_Options
  */
 static $settings;
 
@@ -57,20 +57,23 @@ static function InitClass()
 
 	wp_register_script(WPFB, WPFB_PLUGIN_URI.'js/common.js', array('jquery'), WPFB_VERSION); // cond loading (see Footer)
 	
-	$wpfb_css = get_option('wpfb_css');
-	if($wpfb_css) { // static file?
-		wp_enqueue_style(WPFB, $wpfb_css, array(), WPFB_VERSION, 'all');
-	} else {
-		$upload_path = path_is_absolute(WPFB_Core::$settings->upload_path) ? '' : WPFB_Core::$settings->upload_path;
-		wp_enqueue_style(WPFB, WPFB_PLUGIN_URI."wp-filebase_css.php?rp=$upload_path", array(), WPFB_VERSION, 'all');
+	if(empty(WPFB_Core::$settings->disable_css)) {
+		$wpfb_css = get_option('wpfb_css');
+		if($wpfb_css) { // static file?
+			wp_enqueue_style(WPFB, $wpfb_css, array(), WPFB_VERSION, 'all');
+		} else {
+			$upload_path = path_is_absolute(WPFB_Core::$settings->upload_path) ? '' : WPFB_Core::$settings->upload_path;
+			wp_enqueue_style(WPFB, WPFB_PLUGIN_URI."wp-filebase_css.php?rp=$upload_path", array(), WPFB_VERSION, 'all');
+		}
 	}
 
 	
-	if((is_admin() && !empty($_GET['page']) && strpos($_GET['page'], 'wpfilebase_') !== false) || defined('WPFB_EDITOR_PLUGIN'))
+	$wpfb_admin_page = (is_admin() && !empty($_GET['page']) && strpos($_GET['page'], 'wpfilebase_') !== false) || defined('WPFB_EDITOR_PLUGIN');
+	if($wpfb_admin_page)
 		wpfb_loadclass('Admin');
 	
 	// live admin
-	if(current_user_can('upload_files') && !is_admin()) {
+	if(($wpfb_admin_page && @$_GET['page'] == 'wpfilebase_filebrowser') || ((WPFB_Core::CurUserCanCreateCat() || WPFB_Core::CurUserCanUpload()) && !is_admin())) {
 		wp_enqueue_script(WPFB.'-live-admin', WPFB_PLUGIN_URI.'js/live-admin.js', array('jquery'), WPFB_VERSION);
 		if(self::GetOpt('admin_bar'))
 			add_action( 'admin_bar_menu', array(__CLASS__, 'AdminBar'), 80 );
@@ -78,6 +81,7 @@ static function InitClass()
 			wp_enqueue_script('jquery-contextmenu', WPFB_PLUGIN_URI.'extras/jquery/contextmenu/jquery.contextmenu.js', array('jquery'));
 			wp_enqueue_style('jquery-contextmenu', WPFB_PLUGIN_URI.'extras/jquery/contextmenu/jquery.contextmenu.css', array(), WPFB_VERSION);
 		}
+		wp_enqueue_style('wpfb-live-admin', WPFB_PLUGIN_URI.'css/live-admin.css', array(), WPFB_VERSION);
 	}
 
 	// for admin
@@ -96,6 +100,7 @@ static function AdminInit() {
 	wpfb_loadclass('AdminLite');
 	if(!empty($_GET['page']) && strpos($_GET['page'], 'wpfilebase_') !== false)
 		wpfb_loadclass('Admin');
+	WPFB_AdminLite::Init();
 }
 static function AdminMenu() {wpfb_call('AdminLite', 'SetupMenu');}
 static function AdminBar() { wpfb_call('AdminBar','AdminBar'); }
@@ -111,7 +116,7 @@ static function GetPostId($query = null)
 	
 	if(empty($query)) $query =& $wp_query;	
 	
-	return (!empty($query->post->ID) ? $wp_query->post->ID :
+	return ((!empty($query->post)&&$query->post->ID>0) ? $query->post->ID :
 			(!empty($query->queried_object_id) ? $query->queried_object_id : 
 			(!empty($query->query['post_id']) ? $query->query['post_id'] : 
 			(!empty($query->query['page_id'])? $query->query['page_id'] :
@@ -227,7 +232,8 @@ static function ContentFilter($content)
 		} else { // do not hanlde attachments when searching
 			$single = is_single() || is_page();
 			
-			if($single && $post->ID == WPFB_Core::$settings->file_browser_post_id) {
+			// the did_action check prevents JS beeing printed into the post during a pre-render (e.g. WP SEO)
+			if($single && $post->ID == WPFB_Core::$settings->file_browser_post_id && did_action('wp_print_scripts')) {
 				$wpfb_fb = true;
 				wpfb_loadclass('Output', 'File', 'Category');
 				WPFB_Output::FileBrowser($content, 0, empty($_GET['wpfb_cat']) ? 0 : intval($_GET['wpfb_cat']));
@@ -301,16 +307,15 @@ static function UploadDir() {
 
 static function GetPostUrl($id) { return isset(self::$post_url_cache[$id]) ? self::$post_url_cache[$id] : (self::$post_url_cache[$id] = get_permalink($id)); }
 
-
-
 static function GetSortSql($sort=null, $attach_order=false, $for_cat=false)
 {
-	global $wpdb;
 	wpfb_loadclass('Output');
-	list($sort, $sortdir) = WPFB_Output::ParseSorting($sort, $for_cat);	
-	$sort = esc_sql($sort);
-	$of = $for_cat ? 'cat_order' : 'file_attach_order';	
-	return $attach_order ? "`$of` ASC, `$sort` $sortdir" : "`$sort` $sortdir";
+	$sql =  $attach_order ? ("`".($for_cat ? 'cat_order' : 'file_attach_order')."` ASC, ") : "";
+	foreach(explode(',', $sort) as $s) {
+		list($sf, $sd) = WPFB_Output::ParseSorting($s, $for_cat);
+		$sql .= "`".esc_sql($sf)."` $sd, ";
+	}
+	return substr($sql, 0,-2);
 }
 
 static function EnqueueScripts()
@@ -374,13 +379,13 @@ static function PrintJS() {
 static function GetFileTpls($tag=null) {
 	if($tag == 'default') return self::GetOpt('template_file');
 	$tpls = get_option(WPFB_OPT_NAME.'_tpls_file');
-	return empty($tag) ? $tpls : $tpls[$tag];
+	return empty($tag) ? $tpls : @$tpls[$tag];
 }
 
 static function GetCatTpls($tag=null) {
 	if($tag == 'default') return self::GetOpt('template_cat');
 	$tpls = get_option(WPFB_OPT_NAME.'_tpls_cat');
-	return empty($tag) ? $tpls : $tpls[$tag];
+	return empty($tag) ? $tpls : @$tpls[$tag];
 }
 
 static function GetTpls($type, $tag=null) { return ($type == 'cat') ? self::GetCatTpls($tag) : self::GetFileTpls($tag);}
@@ -432,6 +437,15 @@ static function GetOldCustomCssPath($path=null) {
 
 static function CreateTplFunc($parsed_tpl) {	return create_function('$f', "return ($parsed_tpl);"); }
 
+
+static function CurUserCanCreateCat()
+{
+	return  current_user_can('manage_categories');
 }
 
- 
+static function CurUserCanUpload()
+{
+	return (current_user_can('upload_files'));
+}
+
+}

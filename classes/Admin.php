@@ -128,7 +128,7 @@ static function InsertCategory($catarr)
 		return $result;		
 	$cat_id = (int)$result['cat_id'];	
 	
-	return array( 'error' => false, 'cat_id' => $cat_id);
+	return array( 'error' => false, 'cat_id' => $cat_id, 'cat' => $cat);
 }
 
 private static function fileApplyMeta(&$file, &$data)
@@ -260,6 +260,7 @@ static function InsertFile($data, $in_gui =false)
 	$result = $file->ChangeCategoryOrName($file_category, empty($data->file_rename) ? $file_name : $data->file_rename, $add_existing, !empty($data->overwrite));
 	if(is_array($result) && !empty($result['error'])) return $result;
 	
+	$prev_read_perms = $file->file_offline ? array('administrator') : $file->GetReadPermissions();
 	// explicitly set permissions:
 	if(!empty($data->file_perm_explicit) && isset($data->file_user_roles))
 		$file->SetReadPermissions((empty($data->file_user_roles) || count(array_filter($data->file_user_roles)) == 0) ? array() : $data->file_user_roles);	
@@ -750,7 +751,7 @@ public static function ProcessWidgetUpload(){
 		$form = null;
 		$nonce_action = $_POST['prefix']."=&cat=".((int)$_POST['cat'])."&overwrite=".((int)$_POST['overwrite'])."&file_post_id=".((int)$_POST['file_post_id']);
 		// nonce/referer check (security)
-		if(!wp_verify_nonce($_POST['wpfb-file-nonce'],$nonce_action) || !check_admin_referer($nonce_action,'wpfb-file-nonce'))
+		if(!check_admin_referer($nonce_action,'wpfb-file-nonce'))
 			wp_die(__('Cheatin&#8217; uh?') . ' (security)');
 	}
 		
@@ -779,7 +780,7 @@ public static function ProcessWidgetAddCat() {
 	
 	// nonce/referer check (security)
 	$nonce_action = $_POST['prefix'];
-	if(!wp_verify_nonce($_POST['wpfb-cat-nonce'],$nonce_action) || !check_admin_referer($nonce_action,'wpfb-cat-nonce'))
+	if(!check_admin_referer($nonce_action,'wpfb-cat-nonce'))
 		wp_die(__('Cheatin&#8217; uh?'));
 	
 	$result = WPFB_Admin::InsertCategory(array_merge(stripslashes_deep($_POST), $_FILES));
@@ -928,7 +929,7 @@ static function GetTmpPath($name) {
 static function LockUploadDir($lock=true)
 {
 	$f = WPFB_Core::UploadDir().'/.lock';
-	return $lock ? touch($f) : unlink($f);
+	return $lock ? touch($f) : @unlink($f);
 }
 
 static function UploadDirIsLocked()
@@ -954,15 +955,6 @@ static function GetFileHash($filename)
 	return $hash;
 }
 
-static function CurUserCanUpload()
-{
-	return (current_user_can('upload_files'));
-}
-
-static function CurUserCanCreateCat()
-{
-	return  current_user_can('manage_categories');
-}
 
 
 static function TplDropDown($type, $selected=null) {

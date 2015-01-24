@@ -22,12 +22,29 @@
 	
 	var $prefix;
 	
-	function WPFB_PLUploader($multi=false, $images_only=false)
+	function WPFB_PLUploader($multi=true, $images_only=false)
 	{
+		static $footer_added = false;
+		
 		$this->prefix = uniqid();
 		$this->multi = $multi;
 		$this->images_only = $images_only;
 		$this->post_params = array();
+		
+
+		if(!is_admin() && !$footer_added) {
+			add_action('wp_footer', array(__CLASS__, 'PrintScripts'));
+			$footer_added = true;
+		}
+	}
+	
+	static function PrintScripts()
+	{
+		echo "<!-- plupload script START -->";
+		wp_print_scripts('plupload'); 
+		wp_print_scripts('plupload-all'); 
+		wp_print_scripts('wp-plupload');
+		echo "<!-- plupload END -->";		
 	}
 	
 	private function GetAjaxAuthData()
@@ -55,13 +72,24 @@ public function Display()
 <?php
 }
 
-public function Init($cotainer_id, $browser_btn_id, $drop_el_id, $error_el_id)
+public function InitReturn($cotainer_id, $browser_btn_id=null, $error_el_id=null, $drop_el_id=null)
 {
+	ob_start();
+	$this->Init($cotainer_id, $browser_btn_id, $error_el_id, $drop_el_id);
+	return ob_get_clean();
+}
+
+public function Init($cotainer_id, $browser_btn_id='', $error_el_id=null, $drop_el_id=null )
+{
+	if(empty($drop_el_id)) $drop_el_id = $cotainer_id;
+	if(empty($browser_btn_id)) {
+		$browser_btn_id = $cotainer_id.'-btn';
+		echo '<input type="button" value="Select Files" id="'.$browser_btn_id.'" style="display:none;" />';
+	}
 	$max_upload_size = WPFB_Core::GetMaxUlSize();
 	
-	wp_print_scripts('plupload-all'); 
-	wp_print_scripts('wp-plupload');
-	
+	if(is_admin())
+		self::PrintScripts();
 	
 $plupload_init = array(
 	'runtimes' => 'html5,gears,silverlight,flash,html4',
@@ -81,25 +109,30 @@ $plupload_init = array(
 	 
 	 // resize :{width : 320, height : 240, quality : 90}
 );
+	$jss = md5(uniqid());
 	?>
 <script type="text/javascript">
-	(function() {
+	init_<?php echo $jss; ?> = (function() {
+		if('undefined' == typeof plupload) {
+			setTimeout(init_<?php echo $jss; ?>, 100);
+			return;
+		}
 		var uploader = new plupload.Uploader(<?php echo json_encode($plupload_init); ?>);
 		
 		uploader.bind('Init', function(up) {
-			//var uploaddiv = jQuery('#<?php echo $cotainer_id; ?>');
+			var uploaddiv = jQuery('#<?php echo $cotainer_id; ?>');
 			var dropdiv = jQuery('#<?php echo $drop_el_id; ?>');
+			
+			uploaddiv.data('uploader', up);
 
 			if ( !jQuery(document.body).hasClass('mobile') ) {
 				dropdiv.addClass('drag-drop');
-				dropdiv.bind('dragover', function(e){
-					dropdiv.addClass('drag-over');
-				}).bind('dragleave, drop', function(){
-					dropdiv.removeClass('drag-over');
-				});
+				dropdiv.bind('dragover', function(e){ dropdiv.addClass('drag-over'); })
+						  .bind('dragleave', function(e){ dropdiv.removeClass('drag-over'); })
+						  .bind('drop', function(e){	dropdiv.removeClass('drag-over'); });
 			} else {
 				dropdiv.removeClass('drag-drop');
-				dropdiv.hide();
+				//dropdiv.hide();
 			}
 
 //			if ( up.runtime == 'html4' )
@@ -154,15 +187,17 @@ $plupload_init = array(
 		uploader.bind('FilesAdded', function(up, files) {
 			var hundredmb = 100 * 1024 * 1024, max = parseInt(up.settings.max_file_size, 10);
 
-			jQuery('#<?php echo $error_el_id; ?>').html('');
+			<?php if (!empty($error_el_id)) { ?> jQuery('#<?php echo $error_el_id; ?>').html('');<?php } ?>
 			
 			<?php if(!empty($this->js_files_queued)) echo $this->js_files_queued.'(up, files)'; ?>
 
 			plupload.each(files, function(file){
 				if ( max > hundredmb && file.size > hundredmb && up.runtime != 'html5' )
 					wpfbPlUploadSizeError( up, file, true );
-				else
+				else {
+					file.dom_id = '<?php echo $cotainer_id; ?>-ul'+file.id;
 					<?php echo $this->js_file_queued; ?>(up, file);
+				}
 			});
 
 			up.refresh();
@@ -178,7 +213,10 @@ $plupload_init = array(
 		});
 
 		uploader.bind('UploadProgress', function(up, file) {
-			<?php echo $this->js_upload_progress; ?>(file);
+			var item = jQuery('#'+file.dom_id);
+			jQuery('.bar', item).width( (200 * file.loaded) / file.size );
+			jQuery('.percent', item).html( file.percent + '%' );
+			<?php if(!empty($this->js_upload_progress)) echo $this->js_upload_progress.'(file);'; ?>
 		});
 
 		uploader.bind('Error', function(up, err) {
@@ -205,40 +243,15 @@ $plupload_init = array(
 		}); 
 		
 		
-	})();
-	
-// EXTERNAL
-/*
-function fileQueued(fileObj) {
 	
 	
-	// Create a progress bar containing the filename
-	jQuery('#<?php echo $this->prefix; ?>files').append('<div id="<?php echo $this->prefix; ?>file-' + fileObj.id + '" class="media-item child-of-' + postid + '"><div class="progress"><div class="percent">0%</div><div class="bar"></div></div><div class="filename original"> ' + fileObj.name + '</div></div>');
 	
 	
-	jQuery('#file-upload-progress').show().html('<div class="progress"><div class="percent">0%</div><div class="bar" style="width: 30px"></div></div><div class="filename original"> ' + fileObj.name + '</div>');
+	
 
-	jQuery('.progress', '#file-upload-progress').show();
-	jQuery('.filename', '#file-upload-progress').show();
 
-	jQuery("#media-upload-error").empty();
-	jQuery('.upload-flash-bypass').hide();
 	
-	jQuery('#file-submit').prop('disabled', true);
-	jQuery('#cancel-upload').show().prop('disabled', false);
 
-	 // delete already uploaded temp file	
-	if(jQuery('#file_flash_upload').val() != '0') {
-		var postdata = <?php echo json_encode($this->GetAjaxAuthData()); ?>;
-		postdata.delupload = jQuery('#file_flash_upload').val();
-		jQuery.ajax({type: 'POST', async: true, url:"<?php echo esc_attr( WPFB_PLUGIN_URI.'wpfb-async-upload.php' ); ?>",
-		data: postdata,
-		success: (function(data){})
-		});
-		jQuery('#file_flash_upload').val(0);
-	}
-}
-*/
 
 function wpfbPlFileUploading(up, file) {
 	var hundredmb = 100 * 1024 * 1024, max = parseInt(up.settings.max_file_size, 10);
@@ -331,38 +344,27 @@ function wpfbPlUploadError(fileObj, errorCode, message, uploader) {
 	}
 }
 
-/*
-function uploadSuccess(fileObj, serverData) {
-	var item = jQuery('#media-item-' + fileObj.id);
 
-	// on success serverData should be numeric, fix bug in html4 runtime returning the serverData wrapped in a <pre> tag
-	serverData = serverData.replace(/^<pre>(\d+)<\/pre>$/, '$1');
 
-	// if async-upload returned an error message, place it in the media item div and return
-	if ( serverData.match(/media-upload-error|error-div/) ) {
-		item.html(serverData);
-		return;
-	} else {
-		jQuery('.percent', item).html( pluploadL10n.crunching );
-	}
 
-	prepareMediaItem(fileObj, serverData);
-	updateMediaForm();
 
-	// Increment the counter.
-	if ( post_id && item.hasClass('child-of-' + post_id) )
-		jQuery('#attachments-count').text(1 * jQuery('#attachments-count').text() + 1);
-}
-*/
 
 function wpfbPlFileError(fileObj, message) {
-	<?php echo $this->js_file_error; ?> (message,fileObj);
+	var item = jQuery('#' + fileObj.dom_id);
+	jQuery('.error', item).show().html(message);
+	<?php if (!empty($this->js_file_error)) { ?> <?php echo $this->js_file_error; ?> (message,fileObj); <?php } ?>
 }
 
 // generic error message
 function wpfbPlQueueError(message) {
-	jQuery('#<?php echo $error_el_id; ?>').show().html( '<div class="error"><p>' + message + '</p></div>' );
+	<?php if (!empty($error_el_id)) { ?>
+			jQuery('#<?php echo $error_el_id; ?>').show().html( '<div class="error"><p>' + message + '</p></div>' ); 
+	<?php } else { ?>
+			alert(message);
+	<?php } ?>
 }
+	});
+	init_<?php echo $jss; ?>();
 </script>
 <?php
 }

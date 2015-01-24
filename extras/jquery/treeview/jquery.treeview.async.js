@@ -95,7 +95,7 @@ $.fn.treeview = function(settings) {
 		toggle: function() {
 			var $this = $(this);
 			if ($this.hasClass("hasChildren")) {
-				var childList = $this.removeClass("hasChildren").find("ul");
+				var childList = $this.removeClass("hasChildren").find("ul").first();
 				load(settings, this.id, childList, container);
 			}
 			if (userToggle) {

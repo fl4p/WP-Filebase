@@ -139,11 +139,11 @@ class WPFB_File extends WPFB_Item {
  * Queries Files
  *
  * @param array|string $where Associative Where Array or SQL Expression
- * @param bool $check_permissions Whether to check permissions
+ * @param bool|string $check_permissions Whether to check permissions ('edit' to check edit permissions for current user)
  * @param array|string $order File Sorting Array or SQL Expression
  * @param int $limit Description
  * @param int $offset Description
- * @return array Array of File Objects.
+ * @return WPFB_File[] Array of File Objects.
  */
 	static function GetFiles2($where = null, $check_permissions = false, $order = null, $limit = -1, $offset = -1)
 	{
@@ -432,6 +432,8 @@ class WPFB_File extends WPFB_Item {
 			
 			case 'file_added_by':		return (empty($this->file_added_by) || !($usr = get_userdata($this->file_added_by))) ? '' : esc_html($usr->display_name);
 			
+			case 'file_edit_url':		return $this->GetEditUrl();
+				
 			case 'uid':					return self::$tpl_uid;
 			
 		}

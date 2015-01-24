@@ -67,12 +67,12 @@ if(!$in_widget) {
 	if($in_editor) {
 		?><div style="float: right;"><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')); ?>"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a></div><h3 class="media-title"><?php echo $title ?></h3><?php
 	} else {
-		echo "<h2>".$title;
-		if(!$update) { ?><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a><?php
+		echo "<h2>".$title.' ';
+		if(!$update) { ?><a style="font-style:normal; white-space: nowrap;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a> <?php
 		}
 		
 		if(!$update) {
-			echo '<a href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload',WPFB).'</a>';
+			echo ' <a style="font-style:normal; white-space: nowrap;" href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload',WPFB).'</a>';
 		}
 		
 		echo "</h2>";
@@ -275,7 +275,8 @@ function WPFB_addTag(tag)
 	<tr class="form-field">
 		<?php } ?>
 		<th scope="row" valign="top"><label for="file_category"><?php _e('Category') ?></label></th>
-		<td><select name="file_category" id="file_category" class="postform" onchange="WPFB_formCategoryChanged();"><?php echo WPFB_Output::CatSelTree(array('selected'=>$file_category
+		<td><select name="file_category" id="file_category" class="postform wpfb-cat-select" onchange="WPFB_formCategoryChanged();"><?php echo WPFB_Output::CatSelTree(array('selected'=>$file_category
+			 , 'add_cats' => true
 )) ?></select></td>
 		<?php if($exform && !empty(WPFB_Core::$settings->licenses)) { ?>
 		<th scope="row" valign="top"><label for="file_license"><?php _e('License', WPFB) ?></label></th>
@@ -367,7 +368,7 @@ function WPFB_addTag(tag)
 	?>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="<?php echo $hid; ?>"><?php echo esc_html($cn) ?></label></th>
-		<td colspan="3"><textarea name="<?php echo $hid; ?>" id="<?php echo $hid; ?>" rows="2" cols="50" style="width: 97%;"><?php echo empty($file->$hid) ? $custom_defaults[$ct] : esc_html($file->$hid); ?></textarea></td>
+		<td colspan="3"><textarea name="<?php echo $hid; ?>" id="<?php echo $hid; ?>" rows="2" cols="50" style="width: 97%;"><?php echo (!$update && empty($file->$hid)) ? $custom_defaults[$ct] : esc_html($file->$hid); ?></textarea></td>
 	</tr> <?php
 	} 
 	if(!empty($custom_fields)) { ?>

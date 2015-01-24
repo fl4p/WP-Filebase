@@ -20,6 +20,9 @@ static function Display()
 	$action = (!empty($_POST['action']) ? $_POST['action'] : (!empty($_GET['action']) ? $_GET['action'] : ''));
 	$clean_uri = remove_query_arg(array('message', 'action', 'file_id', 'cat_id', 'deltpl', 'hash_sync' /* , 's'*/)); // keep search keyword
 	
+	// security	nonce
+	if(!empty($action) && !check_admin_referer($action,'wpfb-css-nonce'))
+		wp_die(__('Cheatin&#8217; uh?'));	
 	?>
 	<div class="wrap">
 	<?php
@@ -74,6 +77,7 @@ static function Display()
 			$content = esc_html(file_get_contents($fpath));
 			?>
 <form name="csseditor" id="csseditor" action="<?php echo $clean_uri ?>&amp;action=edit_css" method="post">
+	<?php wp_nonce_field('edit_css', 'wpfb-css-nonce'); ?>
 		 <div><textarea cols="70" rows="25" name="newcontent" id="newcontent" tabindex="1" class="codepress css" style="width: 98%;"><?php echo $content ?></textarea>
 		 <input type="hidden" name="action" value="edit_css" />
 		<p class="submit">

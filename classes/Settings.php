@@ -60,8 +60,9 @@ static function Schema()
 	'filelist_sorting_dir'	=> array('default' => 0, 'title' => __('Sort Order:'/*def*/), 'type' => 'select', 'desc' => __('The sorting direction of file lists', WPFB), 'options' => array(0 => __('Ascending'), 1 => __('Descending'))),
 	'filelist_num'			=> array('default' => 0, 'title' => __('Number of files per page', WPFB), 'type' => 'number', 'desc' => __('Length of the file list per page. Set to 0 to disable the limit.', WPFB)),
 	
-	'file_date_format'		=> array('default' => get_option('date_format'), 'title' => __('File Date Format', WPFB), 'desc' => __('Date/Time formatting for files.',WPFB).' '.__('<a href="http://codex.wordpress.org/Formatting_Date_and_Time">Documentation on date and time formatting</a>.'), 'type' => 'text', 'class' => 'small-text'),
+	'file_date_format'	=> array('default' => get_option('date_format'), 'title' => __('File Date Format', WPFB), 'desc' => __('Date/Time formatting for files.',WPFB).' '.__('<a href="http://codex.wordpress.org/Formatting_Date_and_Time">Documentation on date and time formatting</a>.'), 'type' => 'text', 'class' => 'small-text'),
 	
+	'disable_css'			=> array('default' => false, 'title' => __('Disable wp-filebase.css',WPFB), 'type' => 'checkbox', 'desc' => __('If you don\'t need default WP-Filebase styling. Improves site performance.', WPFB)),
 	
 	
 	// limits
@@ -85,7 +86,7 @@ static function Schema()
 	'disable_permalinks'	=> array('default' => false, 'title' => __('Disable download permalinks', WPFB), 'type' => 'checkbox', 'desc' => __('Enable this if you have problems with permalinks.', WPFB)),
 	'download_base'			=> array('default' => 'download', 'title' => __('Download URL base', WPFB), 'type' => 'text', 'desc' => sprintf(__('The url prefix for file download links. Example: <code>%s</code> (Only used when Permalinks are enabled.)', WPFB), get_option('home').'/%value%/category/file.zip')),
 	
-	'file_browser_post_id'		=> array('default' => '', 'title' => __('Post ID of the file browser', WPFB), 'type' => 'number', 'unit' => '<span id="file_browser_post_title">'.(($fbid=WPFB_Core::$settings->file_browser_post_id)?('<a href="'.get_permalink($fbid).'">'.get_the_title($fbid).'</a>'):'').'</span> <a href="javascript:;" class="button" onclick="WPFB_PostBrowser(\'file_browser_post_id\',\'file_browser_post_title\')">' . __('Select') . '</a>', 'desc' => __('Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank.', WPFB).' '.__('Note that the selected page should <b>not have any sub-pages</b>!')),
+	'file_browser_post_id'		=> array('default' => '', 'title' => __('Post ID of the file browser', WPFB), 'type' => 'number', 'unit' => '<span id="file_browser_post_title">'.(($fbid=@WPFB_Core::$settings->file_browser_post_id)?('<a href="'.get_permalink($fbid).'">'.get_the_title($fbid).'</a>'):'').'</span> <a href="javascript:;" class="button" onclick="WPFB_PostBrowser(\'file_browser_post_id\',\'file_browser_post_title\')">' . __('Select') . '</a>', 'desc' => __('Specify the ID of the post or page where the file browser should be placed. If you want to disable this feature leave the field blank.', WPFB).' '.__('Note that the selected page should <b>not have any sub-pages</b>!')),
 	
 	'file_browser_cat_sort_by'		=> array('default' => 'cat_name', 'title' => __('File browser category sorting', WPFB), 'type' => 'select', 'desc' => __('The category property categories in the file browser are sorted by', WPFB), 'options' => WPFB_Models::CatSortFields()),
 	'file_browser_cat_sort_dir'	=> array('default' => 0, 'title' => __('Sort Order:'/*def*/), 'type' => 'select', 'desc' => '', 'options' => array(0 => __('Ascending'), 1 => __('Descending'))),
@@ -122,10 +123,11 @@ static function Schema()
 	'protect_upload_path'	=> array('default' => true, 'title' => __('Protect upload path', WPFB), 'type' => 'checkbox', 'desc' => __('This prevents direct access to files in the upload directory.', WPFB)),
 
 		 
-	'private_files'			=> array('default' => false, 'title' => __('Private Files', WPFB), 'type' => 'checkbox', 'desc' => __('Access to files is only permitted to owner and administrators.', WPFB)),
+	'private_files'			=> array('default' => false, 'title' => __('Private Files', WPFB), 'type' => 'checkbox', 'desc' => __('Access to files is only permitted to owner and administrators.', WPFB).' '.__('This completely overrides access permissions.', WPFB)),
 	
 	'frontend_upload'  		=> array('default' => false, 'title' => __('Enable front end uploads', WPFB), 'type' => 'checkbox', 'desc' => __('Global option to allow file uploads from widgets and embedded file forms', WPFB)), //  (Pro only)
-	
+
+		 
 	
 	'accept_empty_referers'	=> array('default' => false, 'title' => __('Accept empty referers', WPFB), 'type' => 'checkbox', 'desc' => __('If enabled, direct-link-protected files can be downloaded when the referer is empty (i.e. user entered file url in address bar or browser does not send referers)', WPFB)),	
 	'allowed_referers' 		=> array('default' => '', 'title' => __('Allowed referers', WPFB), 'type' => 'textarea', 'desc' => __('Sites with matching URLs can link to files directly.', WPFB).'<br />'.$multiple_line_desc),
@@ -159,7 +161,7 @@ static function Schema()
 
 	
 	// file browser
-	'disable_footer_credits'  => array('default' => true, 'title' => __('Remove WP-Filebase Footer credits', WPFB), 'type' => 'checkbox', 'desc' => sprintf(__('This disables the footer credits only displayed on <a href="%s">File Browser Page</a>. Why should you keep the credits? Every backlink helps WP-Filebase to get more popular, popularity motivates the developer to continue work on the plugin.', WPFB), get_permalink(WPFB_Core::$settings->file_browser_post_id).'#wpfb-credits')),
+	'disable_footer_credits'  => array('default' => true, 'title' => __('Remove WP-Filebase Footer credits', WPFB), 'type' => 'checkbox', 'desc' => sprintf(__('This disables the footer credits only displayed on <a href="%s">File Browser Page</a>. Why should you keep the credits? Every backlink helps WP-Filebase to get more popular, popularity motivates the developer to continue work on the plugin.', WPFB), get_permalink(@WPFB_Core::$settings->file_browser_post_id).'#wpfb-credits')),
 	'footer_credits_style'  => array('default' => 'margin:0 auto 2px auto; text-align:center; font-size:11px;', 'title' => __('Footer credits Style', WPFB), 'type' => 'text', 'class' => 'code', 'desc' => __('Set custom CSS style for WP-Filebase footer credits',WPFB),'size'=>80),
 	'late_script_loading'	=> array('default' => false, 'title' => __('Late script loading', WPFB), 'type' => 'checkbox', 'desc' => __('Scripts will be included in content, not in header. Enable if your AJAX tree view does not work properly.', WPFB)),
 	
@@ -255,3 +257,7 @@ JS
 }
 
 }
+
+
+
+ 

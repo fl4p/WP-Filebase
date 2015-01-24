@@ -215,10 +215,11 @@ static function RemoveTpls() {
 
 static function ResetOptions()
 {
-	$traffic = WPFB_Core::$settings->traffic_stats; 	// keep stats
+	$traffic = isset(WPFB_Core::$settings->traffic_stats) ? WPFB_Core::$settings->traffic_stats : null; 	// keep stats
 	self::RemoveOptions();
 	self::AddOptions();
-	WPFB_Core::UpdateOption('traffic_stats', $traffic);
+	if(!is_null($traffic))
+		WPFB_Core::UpdateOption('traffic_stats', $traffic);
 	WPFB_Admin::ParseTpls();
 }
 
@@ -371,6 +372,7 @@ static function SetupDBTables($old_ver=null)
 	
 	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_owner` bigint(20) unsigned NOT NULL default 0 AFTER `cat_user_roles`";
 
+	
 	// add fulltext indices
 	if(!empty($old_ver) && version_compare($old_ver, '0.2.9.24') < 0) { 	// TODO: search fields fulltext index!
 		$queries[] = "@ALTER TABLE `$tbl_files` ADD FULLTEXT `USER_ROLES` (`file_user_roles`)";

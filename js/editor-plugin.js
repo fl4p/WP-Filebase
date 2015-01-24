@@ -47,10 +47,12 @@ function tabUpdateVisibility()
 	}
 }
 
-function selectCat(id, name)
+function selectCat(id, a)
 {
+	a = jQuery(a);
+	var name = a.text();
+	var el = a.parent('span.folder');
 	var selected = false;
-	var el = jQuery('span.folder','#catsel-cat-'+id).first();
 	for(var i=0; i<selectedCats.length; i++) {
 		if (selectedCats[i] == id) {
 			selected = true;
@@ -235,14 +237,16 @@ function insUploadFormTag()
 }
 
 function refreshTrees() {
-	var model = getTreeViewModel({type:"fileselect",onselect:"selectFile(%d,'%s')",exclude_attached:true});
-	jQuery("#attachbrowser").empty().treeview(model);
+	var model = getTreeViewModel({type:"fileselect",onselect:"selectFile(%d,this)",exclude_attached:true, idp:'attachbrowser'});
+	jQuery("#attachbrowser").empty().treeview(model).data("settings",model);
 	
 	if(!manageAttachments) {
+		model = jQuery.extend(true, {},model);
 		model.ajax.data.exclude_attached = false;
-		jQuery("#filebrowser").empty().treeview(model);
-		model = getTreeViewModel({type:"catselect",onselect:"selectCat(%d,'%s')", cat_id_fmt:'catsel-cat-%d'});
-		jQuery("#catbrowser").empty().treeview(model);
+		model.ajax.data.idp = 'filebrowser';
+		jQuery("#filebrowser").empty().treeview(model).data("settings",model);
+		model = getTreeViewModel({type:"catselect",onselect:"selectCat(%d,this)", idp:'catbrowser'});
+		jQuery("#catbrowser").empty().treeview(model).data("settings",model);
 	}
 }
 

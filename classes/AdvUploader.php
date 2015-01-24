@@ -1,5 +1,8 @@
 <?php abstract class WPFB_AdvUploader {
 	
+	/**
+	 * @var PLUpload
+	 */
 	var $uploader;
 	var $form_url;
 	var $id;

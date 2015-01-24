@@ -18,19 +18,16 @@ static function Display()
 	if($action == 'updatefile' || $action == 'addfile') {
 		$nonce_action = WPFB."-".$action;
 		if($action == 'updatefile') $nonce_action .= $_POST['file_id'];
-		if(!wp_verify_nonce($_POST['wpfb-file-nonce'],$nonce_action) || !check_admin_referer($nonce_action,'wpfb-file-nonce'))
+		if(!check_admin_referer($nonce_action,'wpfb-file-nonce'))
 			wp_die(__('Cheatin&#8217; uh?'));		
 	}
 	
 	// switch simple/extended form
 	if(isset($_GET['exform'])) {
 		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform); 
+		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true); 
 	} else
 		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform');
-	
-	if(!empty($_REQUEST['redirect']) && !empty($_REQUEST['redirect_to'])) WPFB_AdminLite::JsRedirect($_REQUEST['redirect_to']);
-	
 	?>
 	<div class="wrap">
 	<?php
@@ -69,7 +66,7 @@ static function Display()
 		case 'addfile':
 			$update = !empty($update);
 		
-			if ( !WPFB_Admin::CurUserCanUpload() )
+			if ( !WPFB_Core::CurUserCanUpload() )
 				wp_die(__('Cheatin&#8217; uh?'));
 			
 			extract($_POST);
@@ -93,6 +90,10 @@ static function Display()
 			if(!current_user_can('upload_files'))
 				wp_die(__('Cheatin&#8217; uh?'));
 				
+			if(!empty($_REQUEST['redirect']) && !empty($_REQUEST['redirect_to'])) {
+				WPFB_AdminLite::JsRedirect($_REQUEST['redirect_to']);
+				exit;
+			}
 			
 			if(!empty($_POST['deleteit'])) {
 				foreach ( (array)$_POST['delete'] as $file_id ) {					
@@ -110,7 +111,7 @@ static function Display()
 		printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;'/*def*/) . '</span>', esc_html(stripslashes($_GET['s'])));
 	?></h2>
 	<?php if ( !empty($message) ) : ?><div id="message" class="updated fade"><p><?php echo $message; ?></p></div><?php endif; 
-	if(WPFB_Admin::CurUserCanUpload() && ($action == 'addfile' || $action == 'updatefile'))
+	if(WPFB_Core::CurUserCanUpload() && ($action == 'addfile' || $action == 'updatefile'))
 	{
 		unset($file);
 		WPFB_Admin::PrintForm('file', null, array('exform' => $exform, 'item' => new WPFB_File((isset($result['error']) && $result['error']) ? $_POST : null)));
@@ -136,7 +137,7 @@ $file_table->prepare_items();
 
 <?php
 
-	if($action != 'addfile' && $action != 'updatefile' && WPFB_Admin::CurUserCanUpload())
+	if($action != 'addfile' && $action != 'updatefile' && WPFB_Core::CurUserCanUpload())
 	{
 		unset($file);
 		WPFB_Admin::PrintForm('file', null, array('exform' => $exform));

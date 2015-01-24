@@ -17,7 +17,7 @@ static function Parse($tpl)
 	// remove cat anchors
 	$tpl = str_replace('%cat_url%#wpfb-cat-%cat_id%','%cat_url%',$tpl);
 	
-	// remote slash after wpfb_url
+	// remove slash after wpfb_url
 	$tpl = str_replace("%wpfb_url%/", "%wpfb_url%", $tpl);
 	
 	// since 0.2.0 the onclick is set via jQuery!
@@ -28,9 +28,9 @@ static function Parse($tpl)
 	$tpl = str_replace("'", "\\'", $tpl);
 	
 	// parse if's
-	$tpl = preg_replace(
-	'/<!-- IF (.+?) -->([\s\S]+?)<!-- ENDIF -->/e',
-	"'\\'.(('.". __CLASS__ ."::ParseTplExp('$1').')?(\\''.". __CLASS__ ."::ParseTplIfBlock('$2').'\\')).\\''", $tpl);
+	$tpl = preg_replace_callback(
+	'/<!-- IF (.+?) -->([\s\S]+?)<!-- ENDIF -->/',
+			  array(__CLASS__,'ParseTplIf'), $tpl);
 	
 	// parse translation texts
 	$tpl = preg_replace('/([^\w])%\\\\\'(.+?)\\\\\'%([^\w])/', '$1\'.__(__(\'$2\', WPFB)).\'$3', $tpl);
@@ -73,10 +73,15 @@ static function ParseTplExp($exp)
 	return $exp;
 }
 
+static function ParseTplIf($ms) {
+	return "'.((".self::ParseTplExp($ms[1]).")?('".self::ParseTplIfBlock($ms[2])."')).'";
+}
+
 static function ParseTplIfBlock($block)
 {
 	static $s = '<!-- ELSE -->';
 	static $r = '\'):(\'';
+	
 	if(strpos($block, $s) === false)
 		$block .= $r;
 	else
