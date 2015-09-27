@@ -59,7 +59,7 @@ class WPFB_FileListTable extends WP_List_Table {
    
     function column_cb($item){
         return sprintf(
-            '<input type="checkbox" name="%1$s[]" value="%2$s" /><br /><span'.(($item->GetId()>999)?' style="font-size:10px;"':'').'>%2$s</span>', // 
+            '<input type="checkbox" name="%1$s[]" value="%2$s" /><div'.(($item->GetId()>999)?' class="k-plus"':'').'>%2$s</span>', // 
             /*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("movie")
             /*$2%s*/ $item->GetId()                //The value of the checkbox should be the record's id
         );
@@ -73,6 +73,7 @@ class WPFB_FileListTable extends WP_List_Table {
             'edit'      => '<a href="'.$edit_url.'">'.__('Edit').'</a>',
 				'delete'    => '<a class="submitdelete" href="'.add_query_arg(array('action' => 'delete', 'file[]' => $file->GetId())).'" onclick="return confirm(\''.__("Are you sure you want to do this?").'\')">'.__('Delete').'</a>',
 				'download'    => '<a href="'.esc_attr($file->GetUrl(false, false)).'">'.__('Download').'</a>',
+			  // TODO duplicate
         );
 		 
 		 if(!$file->CurUserCanEdit())

@@ -9,7 +9,13 @@ define('TMP_FILE_MAX_AGE', 3600*3);
 define('FRONTEND_UPLOAD', !empty($_REQUEST['frontend_upload']) && $_REQUEST['frontend_upload'] !== "false");
 define('WP_ADMIN', !FRONTEND_UPLOAD);
 
+
 require_once('wpfb-load.php');
+
+// compat fix with https://wordpress.org/plugins/wordpress-https/ : if exclusive HTTPS is enabled
+// requests to this script will be redirected
+//function wpfb_force_ssl($force_ssl, $post, $url) {	return is_ssl(); }
+//add_filter('force_ssl', 'wpfb_force_ssl', 1000, 3);
 
 // global vars like this have to be set after wp-load.php, because they sometimes get unset?!
 $frontend_upload = FRONTEND_UPLOAD;

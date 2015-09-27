@@ -248,7 +248,9 @@ class getid3_flv extends getid3_handler {
 							/* end schouwerwouØgmail*com */
 
 						}
-						$info['video']['pixel_aspect_ratio'] = $info['video']['resolution_x'] / $info['video']['resolution_y'];
+						if (!empty($info['video']['resolution_x']) && !empty($info['video']['resolution_y'])) {
+							$info['video']['pixel_aspect_ratio'] = $info['video']['resolution_x'] / $info['video']['resolution_y'];
+						}
 					}
 					break;
 
@@ -539,7 +541,7 @@ class AMFReader {
 			// Long string
 			default:
 				$value = '(unknown or unsupported data type)';
-			break;
+				break;
 		}
 
 		return $value;

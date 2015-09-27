@@ -22,7 +22,7 @@
 	
 	var $prefix;
 	
-	function WPFB_PLUploader($multi=true, $images_only=false)
+	function __construct($multi=true, $images_only=false)
 	{
 		static $footer_added = false;
 		
@@ -99,7 +99,7 @@ $plupload_init = array(
 	'file_data_name' => 'async-upload',
 	'multiple_queues' => $this->multi,
 	'max_file_size' => $max_upload_size.'b',
-	'url' => WPFB_PLUGIN_URI.'wpfb-async-upload.php',
+	'url' => WPFB_Core::PluginUrl('wpfb-async-upload.php'),
 	'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
 	'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
 	'filters' => array( array('title' => $this->images_only ? __('Images') : __( 'Allowed Files' ), 'extensions' => $this->images_only ? 'jpg,gif,png,bmp' : '*') ),
@@ -214,7 +214,7 @@ $plupload_init = array(
 
 		uploader.bind('UploadProgress', function(up, file) {
 			var item = jQuery('#'+file.dom_id);
-			jQuery('.bar', item).width( (200 * file.loaded) / file.size );
+			jQuery('.bar', item).width( ''+((100 * file.loaded) / file.size)+'%' );
 			jQuery('.percent', item).html( file.percent + '%' );
 			<?php if(!empty($this->js_upload_progress)) echo $this->js_upload_progress.'(file);'; ?>
 		});

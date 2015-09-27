@@ -293,28 +293,16 @@ static function FileType2Ext($type)
 	}
 }
 
-// returns true if the download should not be streamed in the browser
-static function ShouldSendDLHeader($file_path, $file_type)
+private static function isInlineViewable($file_type)
 {
-	if(WPFB_Core::$settings->force_download)
-		return true;
-	
-	$file_name = basename($file_path);
-	$request_path = parse_url($_SERVER['REQUEST_URI']);
-	$request_path = urldecode($request_path['path']);
-	$request_file_name = basename($request_path);
-	if($file_name == $request_file_name)
-		return false;
-		
 	// types that can be viewed in the browser
 	static $media = array('audio', 'image', 'text', 'video', 'application/pdf', 'application/x-shockwave-flash');	
 	foreach($media as $m)
 	{
-		$p = strpos($file_type, $m);
-		if($p !== false && $p == 0)
-			return false;
+		if(strpos($file_type, $m) === 0)
+			return true;
 	}	
-	return true;
+	return false;	
 }
 
 // returns true if range download should be supported for the specified file/file type
@@ -334,13 +322,12 @@ static function ShouldSendRangeHeader($file_path, $file_type)
 	return true;
 }
 
-// this is the cool function which sends the file!
 static function SendFile($file_path, $args=array())
 {
 	$defaults = array(
 		'bandwidth' => 0,
 		'etag' => null,
-		'force_download' => false,
+		'force_download' => WPFB_Core::$settings->force_download,
 		'cache_max_age' => 0,
 		'md5_hash' => null,
 		'filename' => null
@@ -352,7 +339,7 @@ static function SendFile($file_path, $args=array())
 	@error_reporting(0);
 	while(@ob_end_clean()){}
 	
-	$no_cache = WPFB_Core::$settings->http_nocache && ($cache_max_age <= 0);
+	$no_cache = WPFB_Core::$settings->http_nocache && ($cache_max_age != 0);
 	
 	@ini_set("zlib.output_compression", "Off");
 	
@@ -383,8 +370,11 @@ static function SendFile($file_path, $args=array())
 		header("Cache-Control: no-cache, must-revalidate, max-age=0");
 		header("Pragma: no-cache");
 		header("Expires: Wed, 11 Jan 1984 05:00:00 GMT");
-	} elseif($cache_max_age > 0)	
-		header("Cache-Control: must-revalidate, max-age=$cache_max_age");	
+	} elseif($cache_max_age > 0) {	
+		header("Cache-Control: must-revalidate, max-age=$cache_max_age");
+	} elseif($cache_max_age == -1) {	
+		header("Cache-Control: public");
+	}
 		
 	//header("Connection: close");
 	//header("Keep-Alive: timeout=5, max=100");
@@ -453,10 +443,18 @@ static function SendFile($file_path, $args=array())
 	if(WPFB_Download::ShouldSendRangeHeader($file_path, $file_type))
 		header("Accept-Ranges: bytes");
 	
+	$request_file_name = basename(urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));	
+	
+	$filename_set = !empty($filename);
+	if(!$filename_set)
+		$filename = basename($file_path);
+	
 	// content headers
-	if(!empty($force_download) || WPFB_Download::ShouldSendDLHeader($file_path, $file_type) || !empty($filename)) {
-		header("Content-Disposition: attachment; filename=\"" . (empty($filename) ? basename($file_path) : $filename) . "\"");
+	if($force_download) {
+		header("Content-Disposition: attachment; filename=\"$filename\"");
 		header("Content-Description: File Transfer");
+	} elseif($filename != $request_file_name) {
+		header("Content-Disposition: inline; filename=\"$filename\"");
 	}
 	header("Content-Length: " . $length);
 	if(!empty($http_range))
@@ -473,8 +471,6 @@ static function SendFile($file_path, $args=array())
 	@ob_flush();
    @flush();
 	
-	//if(WPFB_Core::$settings->dl_destroy_session)
-//		@session_destroy();
 	
 	// ready to send the file!
 	
@@ -532,11 +528,14 @@ static function getHttpStreamContentLength($s)
 }
 static function SideloadFile($url, $dest_path, $progress_bar_or_callback=null)
 {
+	if(WP_DEBUG_LOG) error_log("WPFB: SideloadFile $url to $dest_path");
+	
+	$is_local = parse_url($url,PHP_URL_SCHEME) === 'file' && is_readable($url);	
 	$rh = @fopen($url, 'rb'); // read binary
 	if($rh === false)
 		return array('error' => sprintf('Could not open URL %s!', $url). ' '.  print_r(error_get_last(), true));
 	
-	$total_size = self::getHttpStreamContentLength($rh);
+	$total_size = $is_local ? filesize($url) : self::getHttpStreamContentLength($rh);
 	
 	$fh = @fopen($dest_path, 'wb'); // write binary
 	if($fh === false) {

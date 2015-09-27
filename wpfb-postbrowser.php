@@ -28,7 +28,7 @@ do_action('admin_head');
 
 jQuery(document).ready(function(){
 	jQuery("#wpfilebase-post-browser").treeview({
-		url: "<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>",
+		url: "<?php echo WPFB_Core::$ajax_url ?>",
 		ajax: {
 			data: { action: "postbrowser", onclick: "selectPost(%d,'%s')" },
 			type: "post", complete: browserAjaxComplete

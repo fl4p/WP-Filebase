@@ -1,7 +1,7 @@
 .wpfb-attach-uploader {
 	border: 4px dashed #222;
-	height: 4em;
 	padding-top: 2em;
+	padding-bottom: 2em;
 	text-align: center;
 	text-transform: uppercase;
 	opacity: 0.5;

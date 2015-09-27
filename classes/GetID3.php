@@ -18,7 +18,18 @@ class WPFB_GetID3 {
 		return self::$engine;
 	}
 	
-	static function AnalyzeFile($file)
+	private static function xml2Text($content) {
+		return trim(esc_html(preg_replace('! +!', ' ',strip_tags(str_replace('<',' <',$content)))));
+	}
+	
+	
+	/**
+	 * Intesive analysis of file contents. Does _not_ make changes to the file or store anything in the DB!
+	 * 
+	 * @param type $file
+	 * @return type
+	 */
+	private static function AnalyzeFile($file)
 	{
 		@ini_set('max_execution_time', '0');
 		@set_time_limit(0);
@@ -28,6 +39,8 @@ class WPFB_GetID3 {
 		
 		$info = WPFB_Core::$settings->disable_id3 ? array() : self::GetEngine()->analyze($filename);
 		
+		getid3_lib::CopyTagsToComments($info);
+		
 		if(!empty($_GET['debug'])) {
 			wpfb_loadclass('Sync');
 			WPFB_Sync::PrintDebugTrace("file_analyzed_".$file->GetLocalPathRel());
@@ -35,12 +48,38 @@ class WPFB_GetID3 {
 		return $info;
 	}
 	
+	/**
+	 * 
+	 * @global type $wpdb
+	 * @param WPFB_File $file
+	 * @param type $info
+	 * @return type
+	 */
 	static function StoreFileInfo($file, $info)
 	{
 		global $wpdb;
-		
-		self::cleanInfoByRef($info);
-		
+
+		if(empty($file->file_thumbnail)) {	
+			if(!empty($info['comments']['picture'][0]['data']))
+				$cover_img =& $info['comments']['picture'][0]['data'];
+			elseif(!empty($info['id3v2']['APIC'][0]['data']))
+				$cover_img =& $info['id3v2']['APIC'][0]['data'];
+			else $cover_img = null;
+
+			// TODO unset pic in info?
+
+			if(!empty($cover_img))
+			{
+				$cover = $file->GetLocalPath();
+				$cover = substr($cover,0,strrpos($cover,'.')).'.jpg';
+				file_put_contents($cover, $cover_img);
+				$file->CreateThumbnail($cover, true);
+				@unlink($cover);
+				$cf_changed = true;
+			}
+		}
+
+		self::cleanInfoByRef($info);		
 		
 		// set encoding to utf8 (required for getKeywords)
 		if(function_exists('mb_internal_encoding')) {
@@ -72,6 +111,25 @@ class WPFB_GetID3 {
 		));		
 		unset($data, $keywords);
 		
+		$cf_changed = false;
+		
+		
+
+		
+		
+		// TODO: move this cleanup into a callback / should NOT be HERE!
+		if($file->file_rescan_pending) {
+			$file->file_rescan_pending = 0;
+			$cf_changed = true;
+		}
+		
+		// delete local temp file
+		if($file->IsRemote() && file_exists($file->GetLocalPath()))
+			@unlink($file->GetLocalPath());
+		// TODO END;
+		
+		if($cf_changed && !$file->locked)
+			$file->DbSave();
 		
 		return $res;
 	}
@@ -83,7 +141,14 @@ class WPFB_GetID3 {
 		return $info;
 	}
 	
-	// gets file info out of the cache or analyzes the file if not cached
+	/**
+	 *  gets file info out of the cache or analyzes the file if not cached
+	 *  used in file edit form to display the details
+	 * @global type $wpdb
+	 * @param type $file
+	 * @param type $get_keywords
+	 * @return type
+	 */
 	static function GetFileInfo($file, $get_keywords=false)
 	{
 		global $wpdb;
@@ -153,8 +218,8 @@ class WPFB_GetID3 {
 				self::getKeywords($val, $keywords);
 				self::getKeywords(array_keys($val), $keywords); // this is for archive files, where file names are array keys
 			} else if(is_string($val)) {
-				$val = explode(' ', strtolower(preg_replace('/\W+/u',' ',$val)));
-				foreach($val as $v) {
+				$val_a = explode(' ', strtolower(preg_replace('/\W+/',' ',$val).' '.preg_replace('/\W+/u',' ',$val)));
+				foreach($val_a as $v) {
 					if(!in_array($v, $keywords))
 						array_push($keywords, $v);
 				}

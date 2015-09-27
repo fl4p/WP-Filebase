@@ -18,7 +18,7 @@ class WPFB_Category extends WPFB_Item {
 	var $cat_order;
 	
 	static $cache = array();
-	static $cache_complete = false;
+	static $cache_complete = false; // for GetCats(null) and GetChildCats(...)
 
 	/**
 	 * Get category objects
@@ -91,8 +91,8 @@ class WPFB_Category extends WPFB_Item {
 	
 	static function CompareName($a, $b) { return $a->cat_name > $b->cat_name; }
 	
-	function WPFB_Category($db_row=null) {		
-		parent::WPFB_Item($db_row);
+	function __construct($db_row=null) {		
+		parent::__construct($db_row);
 		$this->is_category = true;
 	}
 	
@@ -174,6 +174,7 @@ class WPFB_Category extends WPFB_Item {
 		
 		// delete the category
 		@unlink($this->GetLocalPath());
+		@rmdir($this->GetLocalPath());
 		$wpdb->query("DELETE FROM $wpdb->wpfilebase_cats WHERE cat_id = " . (int)$this->GetId());
 		
 		return array('error' => false);
@@ -194,16 +195,39 @@ class WPFB_Category extends WPFB_Item {
 			case 'cat_num_files_total':	return $this->cat_num_files_total;
 			//case 'cat_required_level':	return ($this->cat_required_level - 1);
 			case 'cat_user_can_access': return $this->CurUserCanAccess();
+			case 'cat_user_can_edit': return $this->CurUserCanEdit();
 			case 'cat_edit_url':			return $this->GetEditUrl();
 			case 'uid':					return self::$tpl_uid;				
 		}
+		
+		// string length limit:
+		if(!isset($this->$name) && ($p=strpos($name, ':')) > 0) {
+			$maxlen = (int)substr($name, $p+1);
+			$name = substr($name, 0, $p);
+			$str = $this->get_tpl_var($name);			
+			if($maxlen > 3 && strlen($str) > $maxlen) $str = (function_exists('mb_substr') ? mb_substr($str, 0, $maxlen-3,'utf8') : mb_substr($str, 0, $maxlen-3)).'...';
+			return $str;
+		}
+		
 		return isset($this->$name) ? $this->$name : '';
     }
 	
-	function get_tpl_var($name) {
+	function get_tpl_var($name, $extra_data=null) {
+		if(isset($extra_data->$name)) return $extra_data->$name;
 		$esc = true;
 		$v = $this->_get_tpl_var($name, $esc);
 		return $esc?esc_html($v):$v;
+	}
+	
+
+	function CurUserCanAddFiles($user = null)
+	{
+		return $this->CurUserIsOwner($user) || ($user !== null && user_can($user, 'manage_options')) ;	
+	}
+	
+	function CurUserCanEdit($user = null)
+	{
+		return parent::CurUserCanEdit($user) && $this->CurUserCanAddFiles($user);
 	}
 	
 }

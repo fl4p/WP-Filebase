@@ -28,6 +28,8 @@ if(empty($form_url))
 
 if(!empty($_GET['redirect_to']))
 	$form_url = add_query_arg(array('redirect' => 1, 'redirect_to' => urlencode($_GET['redirect_to'])), $form_url);
+elseif(!empty($_GET['redirect_referer']))
+	$form_url = add_query_arg(array('redirect' => 1, 'redirect_to' => urlencode($_SERVER['HTTP_REFERER'])), $form_url);
 
 if(empty($nonce_action)) {
 	$nonce_action = WPFB."-".$action;
@@ -357,10 +359,12 @@ function WPFB_addTag(tag)
 			</div>
 		</td>
 		
+		
 		<th scope="row" valign="top"></th>
 		<td><input type="checkbox" name="file_offline" id="file_offline" value="1" <?php checked('1', $file->file_offline); ?>/> <label for="file_offline"><?php _e('Offline', WPFB) ?></label></td>
 		
 	</tr>
+	<!-- TODO owner -->
 	<?php }
 	$custom_fields = WPFB_Core::GetCustomFields(false, $custom_defaults);
 	foreach($custom_fields as $ct => $cn) {
@@ -389,7 +393,7 @@ if($update)
 		<div id="dashboard-widgets-wrap">
 			<div id="dashboard-widgets" class="metabox-holder">
 				<div id="post-body">
-					<div id="dashboard-widgets-main-content" class="postbox-container">
+					<div id="dashboard-widgets-main-content" class="postbox-container" style="width: 100%">
 						<?php do_meta_boxes('wpfb_file_form', 'normal', $info); ?>
 					</div>
 				</div>

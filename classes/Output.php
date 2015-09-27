@@ -5,7 +5,7 @@ static $page_content = '';
 
 static $sort_fields_file = null;
 static $sort_fields_cat = null;
-		
+
 
 static function ProcessShortCode($args, $content = null, $tag = null)
 {
@@ -167,6 +167,7 @@ static function FileBrowser(&$content, $root_cat_id=0, $cur_cat_id=0 )
 		self::FileBrowserList($content, $root_cat, array_merge($args, array(
 			 'open_cats' => $parents
 			  			 		)));
+		
 			
 		$content .= '</ul><div style="clear:both;"></div>';
 		
@@ -202,6 +203,7 @@ static function GetTreeItems($parent_id, $args=array())
  * priv
  * idp => 
  * onselect
+ * inline_add
  * );
  */				
 		$parent_id = is_object($parent_id) ? $parent_id->cat_id : intval($parent_id);		
@@ -215,7 +217,7 @@ static function GetTreeItems($parent_id, $args=array())
 		$idp_cat = $args['idp'].'cat-';
 		$idp_file = $args['idp'].'file-';
 		
-		$file_tpl = $cat_tpl = ($is_admin = !empty($args['is_admin'])) ? 'filebrowser_admin' : 'filebrowser';
+		$file_tpl = $cat_tpl = !empty($args['tpl']) ? $args['tpl'] : (($is_admin = !empty($args['is_admin'])) ? 'filebrowser_admin' : 'filebrowser');
 		
 		
 		if($parent_id > 0 && (is_null($cat=WPFB_Category::GetCat($parent_id)) || !$cat->CurUserCanAccess())) {
@@ -236,7 +238,7 @@ static function GetTreeItems($parent_id, $args=array())
 		
 		$files_before_cats = $browser && WPFB_Core::$settings->file_browser_fbc;	
 		
-		$inline_add_cat = /*($cat && $cat->CurUserCanAddFiles()) ||*/  WPFB_Core::CurUserCanCreateCat();
+		$inline_add_cat = /*($cat && $cat->CurUserCanAddFiles()) ||*/  WPFB_Core::CurUserCanCreateCat() && (!isset($args['inline_add']) || $args['inline_add']);
 	
 		$where = " cat_parent = $parent_id ";
 		if($browser) $where .= " AND cat_exclude_browser <> '1' ";
@@ -246,18 +248,19 @@ static function GetTreeItems($parent_id, $args=array())
 		
 		$cat_items = array();
 		$i = 0;
-		$folder_class = ($filesel||$catsel)?'folder':'';
+		$folder_class = ($filesel||$catsel)?'cat folder':'cat';
 		foreach($cats as $c)
 		{
 			if($c->CurUserCanAccess(true))
 				$cat_items[$i++] = (object)array(
 					'id'=>$idp_cat.$c->cat_id, 'cat_id' => $c->cat_id,
 					'text'=> self::fileBrowserCatItemText($catsel,$filesel,$c,$args['onselect'],$cat_tpl),
-					'hasChildren'=>($inline_add_cat||$c->HasChildren($catsel)),
+					'hasChildren'=>(($inline_add_cat&&$c->CurUserCanAddFiles())||$c->HasChildren($catsel)),
+					'type' => 'cat',
 					'classes'=>$folder_class 				);
 		}
 		
-		if( $inline_add_cat ) {
+		if( $inline_add_cat && ($parent_id <= 0 || $cat->CurUserCanAddFiles()) ) {
 			$is = WPFB_Core::$settings->small_icon_size > 0 ? WPFB_Core::$settings->small_icon_size : 32;
 				$cat_items[$i++] = (object)array('id'=>$idp_cat.'0', 'cat_id' => 0,
 					'text'=> '<form action="" style="display:none;"><input type="text" placeholder="'.__('Category Name',WPFB).'" name="cat_name" /></form> '
@@ -267,6 +270,7 @@ static function GetTreeItems($parent_id, $args=array())
 					 . '<a href="#" style="text-decoration:none;" class="add-file"><span style="'
 					 . ($browser ? ('font-size:'.$is.'px;width:'.$is.'px'):'font-size:200%').';line-height:0;vertical-align:sub;display:inline-block;text-align:center;">+</span>'.__('Add File',WPFB).'</a>'					 ,
 					'hasChildren'=>false,
+					 'classes'=>'add-item'
 				);
 		} elseif($parent_id == 0 && $catsel && $i == 0) {
 			return array((object)array(
@@ -296,9 +300,10 @@ static function GetTreeItems($parent_id, $args=array())
 			
 			foreach($files as $f)
 				$file_items[$i++] = (object)array(
-					 'id'=>$idp_file.$f->file_id,
-					 'text'=>$filesel?('<a href="javascript:;" onclick="'.sprintf($args['onselect'],$f->file_id).'">'.esc_html($f->GetTitle(24)).'</a> <span style="font-size:75%;vertical-align:top;">'.esc_html($f->file_name).'</span>'):$f->GenTpl2($file_tpl, false),
+					 'id'=>$idp_file.$f->file_id, 'file_id' => $f->file_id,
+					 'text'=>$filesel?('<a href="javascript:;" onclick="'.sprintf($args['onselect'],$f->file_id).'">'.$f->get_tpl_var ('file_small_icon').' '.esc_html($f->GetTitle(24)).'</a> <span style="font-size:75%;vertical-align:top;">'.esc_html($f->file_name).'</span>'):$f->GenTpl2($file_tpl, false),
 					 'classes'=>$filesel?'file':null,
+					 'type' => 'file',
 					 'hasChildren'=>false
 				);
 		}
@@ -398,6 +403,7 @@ static function Filename2Title($ft, $remove_ext=true)
 	}
 	$ft = preg_replace('/\.([^0-9])/', ' $1', $ft);
 	$ft = str_replace('_', ' ', $ft);
+	$ft = str_replace('%20',' ',$ft);
 	$ft = ucwords($ft);
 	return trim($ft);
 }
@@ -407,7 +413,7 @@ static function CatSelTree($args=null, $root_cat_id = 0, $depth = 0)
 {
 	static $s_sel, $s_ex, $s_nol, $s_count, $s_add_cats;
 	
-	if(!empty($args)) {
+	if(!is_null($args)) {
 		if(is_array($args)) {
 			$s_sel = empty($args['selected']) ? 0 : intval($args['selected']);
 			$s_ex = empty($args['exclude']) ? 0 : intval($args['exclude']);
@@ -481,7 +487,7 @@ private static function initFileTreeView($id=null, $base=0)
 	?>
 <script type="text/javascript">
 //<![CDATA[
-function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?>={url: "<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>",
+function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?>={url: "<?php echo WPFB_Core::$ajax_url ?>",
 ajax:{data:<?php echo json_encode($ajax_data); ?>,type:"post",error:function(x,status,error){if(error) alert(error);},complete:function(x,status){if(typeof(wpfb_setupLinks)=='function')wpfb_setupLinks();}},
 animated: "medium"}).data("settings",wpfb_fbsets<?php echo $jss ?>);
 }
@@ -585,7 +591,7 @@ static function RoleNames($roles, $fmt_string=false) {
 	if(!empty($roles)) {
 		foreach($roles as $role)
 		{
-				$names[$role] = translate_user_role($wp_roles->roles[$role]['name']);
+				$names[$role] = empty($wp_roles->roles[$role]['name']) ? $role : translate_user_role($wp_roles->roles[$role]['name']);
 		}
 	}
 	return $fmt_string ? (empty($names) ? ("<i>".__('Everyone',WPFB)."</i>") : join(', ',$names)) : $names;

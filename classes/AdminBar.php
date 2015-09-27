@@ -12,7 +12,7 @@ static function AdminBar() {
 	$is_filebrowser = false;
 	if ( !empty($current_object) && !empty($current_object->post_type) && $current_object->ID > 0) {
 		$is_filebrowser = ($current_object->ID == WPFB_Core::$settings->file_browser_post_id);
-		$link = WPFB_PLUGIN_URI.'editor_plugin.php?manage_attachments=1&amp;post_id='.$current_object->ID;
+		$link = esc_attr(WPFB_Core::PluginUrl('editor_plugin.php?manage_attachments=1&post_id='.$current_object->ID));
 		$wp_admin_bar->add_menu( array( 'parent' => WPFB, 'id' => WPFB.'-attachments', 'title' => __('Manage attachments', WPFB), 'href' => $link,
 		'meta' => array('onclick' => 'window.open("'.$link.'", "wpfb-manage-attachments", "width=680,height=400,menubar=no,location=no,resizable=no,status=no,toolbar=no,scrollbars=yes");return false;')));
 	}

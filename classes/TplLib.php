@@ -40,7 +40,7 @@ static function Parse($tpl)
 	$tpl = str_replace('%wpfb_url%', '\'.(WPFB_PLUGIN_URI).\'', $tpl);
 	
 	// parse variables
-	$tpl = preg_replace('/%([a-z0-9_\/:]+?)%/i', '\'.$f->get_tpl_var(\'$1\').\'', $tpl);
+	$tpl = preg_replace('/%([a-z0-9_\/:]+?)%/i', '\'.$f->get_tpl_var(\'$1\',$e).\'', $tpl);
 	
 	// remove html comments (no multiline comments!)
 	$tpl = preg_replace('/\s<\!\-\-[^\n]+?\-\->\s/', ' ', $tpl);
@@ -62,7 +62,7 @@ static function ParseTplExp($exp)
 	// remove critical functions TODO: still a bit unsecure, only allow some functions
 	$exp = str_replace(array('eval','mysql_query', 'mysql', '$wpdb', 'fopen', 'readfile', 'include(','include_once','require(','require_once','file_get_contents','file_put_contents','copy(','unlink','rename('), '', $exp);
 	
-	$exp = preg_replace('/%([a-z0-9_\/]+?)%/i', '($f->get_tpl_var(\'$1\'))', $exp);
+	$exp = preg_replace('/%([a-z0-9_\/]+?)%/i', '($f->get_tpl_var(\'$1\',$e))', $exp);
 	$exp = preg_replace('/([^\w])AND([^\w])/', '$1&&$2', $exp);
 	$exp = preg_replace('/([^\w])OR([^\w])/', '$1||$2', $exp);
 	$exp = preg_replace('/([^\w])NOT([^\w])/', '$1!$2', $exp);
@@ -100,6 +100,7 @@ static function Check($tpl)
 	
 	wpfb_loadclass('File');
 	$f = new WPFB_File();
+	$e = null;
 	$tpl = 'return (' . $tpl . ');';
 	
 	if(!@eval($tpl))

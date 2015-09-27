@@ -4,7 +4,6 @@ if(empty($_REQUEST['type']) || empty( $_REQUEST['tag']))
 	exit;
 
 require_once('wpfb-load.php');
-wpfb_loadclass('Core');
 
 $type = $_REQUEST['type'];
 $tag = $_REQUEST['tag'];

@@ -10,16 +10,20 @@
 		if(true || !isset($file_tpls['filebrowser_admin'])) {
 			$file_tpls['filebrowser_admin'] = 
 				'%file_small_icon% '.
-				'%file_display_name% (%file_size%) <a href="%file_edit_url%" class="edit" onclick="wpfbFBEditFile(event)">Edit</a>'
+				'%file_display_name% (%file_size%) '.
+				'<!-- IF %file_user_can_edit% --><a href="%file_edit_url%" class="edit" onclick="wpfbFBEditFile(event)">%\'Edit\'%</a><!-- ENDIF -->'.
+				'<!-- IF %file_user_can_edit% --><a href="#" class="delete" onclick="return confirm(\'Sure?\') && wpfbFBDelete(event) && false;">%\'Delete\'%</a><!-- ENDIF -->'
 			;
 			WPFB_Core::SetFileTpls($file_tpls);
-			WPFB_Admin::ParseTpls();
+			//WPFB_Admin::ParseTpls();
 		}
 		
 		if(true || !isset($cat_tpls['filebrowser_admin'])) {
 			$cat_tpls['filebrowser_admin'] = 
-				'<span class="cat-icon" style="background-image:url(%cat_icon_url%);"><span class="cat-icon-overlay"></span></span>'.
-				'%cat_name% <a href="%cat_edit_url%" class="edit" onclick="wpfbFBEditCat(event)">Edit</a> '
+				'<span class="cat-icon" style="background-image:url(\'%cat_icon_url%\');"><span class="cat-icon-overlay"></span></span>'.
+				'%cat_name% '.
+				'<!-- IF %cat_user_can_edit% --><a href="%cat_edit_url%" class="edit" onclick="wpfbFBEditCat(event)">%\'Edit\'%</a><!-- ENDIF -->'.
+				'<!-- IF %cat_user_can_edit% --><a href="#" class="delete" onclick="return confirm(\'Sure?\') && wpfbFBDelete(event) && false;">%\'Delete\'%</a><!-- ENDIF -->'
 			;			
 			WPFB_Core::SetCatTpls($cat_tpls);
 			WPFB_Admin::ParseTpls();
@@ -39,12 +43,30 @@
 ?>
 	 </div>
 <script>
-	function wpfbFBEditFile(e) {
+	function wpfbFBEditCat(e) {
 		e.stopPropagation();
 	}
 	
 	function wpfbFBEditFile(e) {
 		e.stopPropagation();
+	}	
+	
+	function wpfbFBDelete(e) {
+		e.stopPropagation();
+		var t = jQuery(e.currentTarget).parents('li').first();		
+		var d = {action: 'delete'};
+		var tid = t.attr('id').split('-');
+		d[tid[tid.length-2]+'_id'] = +tid[tid.length-1];
+		jQuery.ajax({type: 'POST', url: wpfbConf.ajurl, data: d,
+			//async: false,
+			success: (function (data) {
+				if (data == '1') {
+					t.fadeOut(300, function() { t.remove(); });
+				}
+			})
+		});
+	
+		return false;
 	}	
 </script>
 	

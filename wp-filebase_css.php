@@ -16,6 +16,7 @@ if(empty($_GET['rp'])) // if rel path not set, need to load whole WP stuff to ge
 
 require_once(dirname(__FILE__).'/wp-filebase.php'); // this only loads some wp-filebase stuff, NOT WP!
 wpfb_loadclass('Core');
+WPFB_Core::InitDirectScriptAccess();
 
 $file = WPFB_Core::GetOldCustomCssPath(stripslashes(@$_GET['rp']));
 //echo $file;

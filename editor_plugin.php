@@ -20,7 +20,7 @@ if ( ! isset( $_GET['inline'] ) )
 	define( 'IFRAME_REQUEST' , true );
 
 // prevent other plugins from loading
-define('WP_INSTALLING', true);
+//define('WP_INSTALLING', true);
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/wp-load.php');
 
@@ -32,10 +32,13 @@ if(!is_plugin_active($wpfb_rpath))
 	wp_die("WP-Filebase not active. ($wpfb_rpath not in [".implode(',',get_option('active_plugins'))."]) <!-- FATAL ERROR: WP-Filebase DISABLED -->");
 */
 
-require_once(ABSPATH . 'wp-admin/includes/admin.php');
-
 // load wpfilebase only!
 require_once('wp-filebase.php');
+wpfb_loadclass('Core');
+WPFB_Core::InitDirectScriptAccess();
+
+require_once(ABSPATH . 'wp-admin/includes/admin.php');
+
 
 if(!function_exists('get_current_screen')) {	function get_current_screen() { return null; } }
 if(!function_exists('add_meta_box')) {	function add_meta_box() { return null; } }
@@ -58,7 +61,7 @@ wp_enqueue_style( 'media' );
 wp_enqueue_style( 'ie' );
 wp_enqueue_style('jquery-treeview');
 
-do_action('admin_init');
+//do_action('admin_init');
 
 if(!current_user_can('publish_posts') && !current_user_can('edit_posts') && !current_user_can('edit_pages'))
 	wp_die(__('Cheatin&#8217; uh?'));
@@ -117,15 +120,19 @@ case 'change-order':
 
 <?php
 //do_action('admin_enqueue_scripts', 'media-upload-popup'); // this caused fatal errors with other plugins
-do_action('admin_print_styles-media-upload-popup');
-do_action('admin_print_styles');
-do_action('admin_print_scripts-media-upload-popup');
-do_action('admin_print_scripts');
-do_action('admin_head-media-upload-popup');
-do_action('admin_head');
+//do_action('admin_print_styles-media-upload-popup');
+//do_action('admin_print_styles');
+//do_action('admin_print_scripts-media-upload-popup');
+//do_action('admin_print_scripts');
+//do_action('admin_head-media-upload-popup');
+//do_action('admin_head');
 
 wp_admin_css( 'wp-admin', true );
 wp_admin_css( 'colors-fresh', true );
+
+wp_print_scripts();
+wp_print_styles();
+
 ?>
 
 <style type="text/css">
@@ -190,6 +197,9 @@ wp_admin_css( 'colors-fresh', true );
 		width: 100% !important;
 	}
 	
+	#attachbrowser.filetree li span.file {
+		background-image: none;
+	}
 -->
 </style>
 
@@ -198,7 +208,7 @@ wp_admin_css( 'colors-fresh', true );
 
 var userSettings = {'url':'<?php echo SITECOOKIEPATH; ?>','uid':'<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID; ?>','time':'<?php echo time(); ?>'};
 var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>', pagenow = 'wpfilebase-popup', adminpage = 'wpfilebase-popup', isRtl = <?php echo (int) is_rtl(); ?>;
-var wpfbAjax = '<?php echo WPFB_PLUGIN_URI."wpfb-ajax.php" ?>';
+var wpfbAjax = '<?php echo WPFB_Core::$ajax_url ?>';
 var usePathTags = <?php echo (int)WPFB_Core::$settings->use_path_tags ?>;
 var yesImgUrl = '<?php echo admin_url( 'images/yes.png' ) ?>';
 var manageAttachments = <?php echo (int)$manage_attachments ?>;
@@ -261,14 +271,22 @@ function insBrowserTag()
 <body id="media-upload" class="wp-core-ui" style="background:none;">
 
 <div id="media-upload-header">
-<?php if(!$manage_attachments) {?>
-	<ul id='sidemenu'>
-		<li><a href="#attach" onclick="return tabclick(this)"><?php _e('Attachments', WPFB) ?></a></li>
-		<li><a href="#file" onclick="return tabclick(this)"><?php _e('Single file', WPFB) ?></a></li>
-		<li><a href="#fileurl" onclick="return tabclick(this)"><?php _e('File URL', WPFB) ?></a></li>
-		<li><a href="#list" onclick="return tabclick(this)"><?php _e('File list', WPFB) ?></a></li>
-		<li><a href="#browser" onclick="return tabclick(this)"><?php _e('File Tree View', WPFB) ?></a></li>
+<?php if(!$manage_attachments) {
 
+$tabs = array(
+	 'attach' => __('Attachments', WPFB),
+	 'file' => __('Single file', WPFB),
+	 'fileurl' => __('File URL', WPFB),
+	 'list' => __('File list', WPFB),
+	 'browser' => __('File Tree View', WPFB),
+);
+	
+$tabs = apply_filters('wpfilebase_editor_plugin_tabmenu', $tabs);
+?>
+	<ul id='sidemenu'>
+	<?php foreach($tabs as $id => $title) { ?>
+		<li><a href="#<?php echo $id; ?>" onclick="return tabclick(this)"><?php echo $title; ?></a></li>
+	<?php } ?>
 	</ul>
 <?php } ?>
 </div>
@@ -352,7 +370,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 </div> <!-- attach -->
 	
 <?php if(!$manage_attachments) {?>
-<form id="filetplselect">
+<form id="filetplselect" class="insert">
 	<h2><?php _e('Select Template', WPFB) ?></h2>
 	<label><input type="radio" name="filetpl" value="" checked="checked" /><i><?php _e('Default Template', WPFB) ?></i></label><br />
 	<?php $tpls = WPFB_Core::GetFileTpls();
@@ -382,7 +400,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 		WPFB_TreeviewAdmin::RenderHTML("catbrowser");
 	?>
 </div>
-<form id="listtplselect">
+<form id="listtplselect" class="insert">
 	<h2><?php _e('Select Template', WPFB) ?></h2>
 	<?php $tpls = WPFB_ListTpl::GetAll();
 		if(!empty($tpls)) {
@@ -392,7 +410,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#list') ?>" target="_parent"><?php _e('Add Template', WPFB) ?></a></i>
 </form>
 
-<form id="list">
+<form id="list" class="insert">
 	<p>
 	<label for="list-num"><?php _e('Files per page:',WPFB) ?></label>
 	<input name="list-num" type="text" id="list-num" value="0" class="small-text" />
@@ -415,7 +433,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 </form>
 
 
-<form id="browser">
+<form id="browser" class="insert">
 	<p><?php _e('Select the root category of the tree view file browser:',WPFB); ?><br />	
 	<select name="browser-root" id="browser-root"><?php echo WPFB_Output::CatSelTree(array('none_label' => __('All'))); ?></select>
 	</p>
@@ -424,7 +442,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	<p><a class="button-primary" style="position: fixed; right: 8px; bottom: 8px;" href="javascript:void(0)" onclick="return insBrowserTag()"><?php echo _e('Insert') ?></a></p>
 </form>
 
-<form id="filesort">
+<form id="filesort" class="insert">
 	<h2><?php _e('Sort Order:'); ?></h2>
 	<p>
 	<label for="list-sort-by"><?php _e("Sort by:") ?></label>
@@ -440,7 +458,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	</p>
 </form>
 
-<form id="catsort">
+<form id="catsort" class="insert">
 	<p>
 	<label for="list-cat-sort-by"><?php _e("Category order",WPFB) ?>:</label>
 	<select name="list-cat-sort-by" id="list-cat-sort-by" style="width:100%">
@@ -457,7 +475,10 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 
 
 
+<?php
+do_action('wpfilebase_editor_plugin_tabs');
 
+?>
 <?php } /*manage_attachments*/ ?>
 
 <?php

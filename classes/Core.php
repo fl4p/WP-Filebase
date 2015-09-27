@@ -6,6 +6,8 @@ static $load_js = false;
 static $file_browser_search = false;
 static $file_browser_item = null;
 static $post_url_cache = array();
+static $ajax_url = '';
+
 
 /**
  * WP-Filebase Settings Object
@@ -16,8 +18,13 @@ static $post_url_cache = array();
  */
 static $settings;
 
+static function PluginUrl($url) {
+	return is_multisite() ? add_query_arg('blog_id', get_current_blog_id(), WPFB_PLUGIN_URI.$url) : (WPFB_PLUGIN_URI.$url);
+}
+
 static function InitClass()
 {	
+	self::$ajax_url = WPFB_Core::PluginUrl('wpfb-ajax.php');	
 	if(defined('WPFB_NO_CORE_INIT')) return;	// used with CSS proxy
 	
 	//Load settings
@@ -40,6 +47,8 @@ static function InitClass()
 	add_filter('the_content',	array(__CLASS__, 'ContentFilter'), 10); // must be lower than 11 (before do_shortcode) and after wpautop (>9)
 	add_filter('ext2type', array(__CLASS__, 'Ext2TypeFilter'));
 
+	add_filter('pre_set_site_transient_update_plugins', array(__CLASS__,'PreSetPluginsTransientFilter'));
+	add_filter('plugins_api', array(__CLASS__,'PluginsApiFilter'), 10, 3);
 	
 	
 	// register treeview stuff
@@ -48,7 +57,7 @@ static function InitClass()
 	wp_register_script('jquery-treeview-edit', WPFB_PLUGIN_URI.'extras/jquery/treeview/jquery.treeview.edit.js', array('jquery-treeview'), WPFB_VERSION);
 	wp_register_script('jquery-treeview-async', WPFB_PLUGIN_URI.'extras/jquery/treeview/jquery.treeview.async.js', array('jquery-treeview-edit'), WPFB_VERSION);
 	wp_register_style('jquery-treeview', WPFB_PLUGIN_URI.'extras/jquery/treeview/jquery.treeview.css', array(), WPFB_VERSION);
-	
+
 	// DataTables
 	wp_register_script('jquery-dataTables', WPFB_PLUGIN_URI.'extras/jquery/dataTables/js/jquery.dataTables.min.js', array('jquery'), WPFB_VERSION);
 	wp_register_style('jquery-dataTables', WPFB_PLUGIN_URI.'extras/jquery/dataTables/css/jquery.dataTables.css', array(), WPFB_VERSION);
@@ -60,10 +69,10 @@ static function InitClass()
 	if(empty(WPFB_Core::$settings->disable_css)) {
 		$wpfb_css = get_option('wpfb_css');
 		if($wpfb_css) { // static file?
-			wp_enqueue_style(WPFB, $wpfb_css, array(), WPFB_VERSION, 'all');
+			wp_enqueue_style(WPFB, strstr($wpfb_css,'//'), array(), WPFB_VERSION, 'all');
 		} else {
 			$upload_path = path_is_absolute(WPFB_Core::$settings->upload_path) ? '' : WPFB_Core::$settings->upload_path;
-			wp_enqueue_style(WPFB, WPFB_PLUGIN_URI."wp-filebase_css.php?rp=$upload_path", array(), WPFB_VERSION, 'all');
+			wp_enqueue_style(WPFB, WPFB_Core::PluginUrl("wp-filebase_css.php?rp=$upload_path"), array(), WPFB_VERSION, 'all');
 		}
 	}
 
@@ -92,6 +101,16 @@ static function InitClass()
 	
 	if( (WPFB_Core::$settings->frontend_upload || current_user_can('upload_files')) && (!empty($_GET['wpfb_upload_file']) || !empty($_GET['wpfb_add_cat'])))
 		wpfb_call('Admin', empty($_GET['wpfb_upload_file'])?'ProcessWidgetAddCat':'ProcessWidgetUpload');
+}
+
+static function InitDirectScriptAccess()
+{
+	if(is_multisite() && !empty($_REQUEST['blog_id']) && get_current_blog_id() != $_REQUEST['blog_id'] ) {
+		$blog_id = (int)$_REQUEST['blog_id'];
+		if(!get_blog_details($blog_id, false))
+			die('Blog does not exists!');
+		switch_to_blog( $blog_id);
+	}	
 }
 
 static function GetOpt($name = null) {	return empty($name) ? (array)WPFB_Core::$settings : (isset(WPFB_Core::$settings->$name) ? WPFB_Core::$settings->$name : null); }
@@ -281,7 +300,7 @@ static function Footer() {
 	
 	if(!empty($wpfb_fb) && !WPFB_Core::$settings->disable_footer_credits) {
 		echo '<div id="wpfb-credits" name="wpfb-credits" style="'.esc_attr(WPFB_Core::$settings->footer_credits_style).'">';
-		printf(__('<a href="%s" title="Wordpress Download Manager Plugin" style="color:inherit;font-size:inherit;">Downloads served by WP-Filebase</a>',WPFB),'http://wpfilebase.com/');
+		printf(__('<a href="%s" title="Wordpress Download Manager Plugin" style="color:inherit;font-size:inherit;">Downloads served by WP-Filebase</a>',WPFB),'https://wpfilebase.com/');
 		echo '</div>';
 	}
 }
@@ -347,7 +366,7 @@ static function PrintJS() {
 		'db'=> self::GetOpt('download_base'),// urlbase
 		'fb'=> self::GetPostUrl(self::GetOpt('file_browser_post_id')),
 		'cm'=>(int)$context_menu,
-		'ajurl'=>WPFB_PLUGIN_URI.'wpfb-ajax.php'
+		'ajurl'=>WPFB_Core::$ajax_url
 	);
 	
 	if($context_menu) {
@@ -435,7 +454,26 @@ static function GetOldCustomCssPath($path=null) {
 	return @is_dir($path) ? "$path/_wp-filebase.css" : null;
 }
 
-static function CreateTplFunc($parsed_tpl) {	return create_function('$f', "return ($parsed_tpl);"); }
+static function CreateTplFunc($parsed_tpl) {	return create_function('$f,$e=null', "return ($parsed_tpl);"); }
+
+
+static function PreSetPluginsTransientFilter($value)
+{
+	if(!isset($value->response) || !is_array($value->response))
+		return $value;
+	$wpfb_dir = basename(WPFB_PLUGIN_ROOT);
+	$lvi = wpfb_call('ExtensionLib','GetLatestVersionInfoExt');
+	if(!empty($lvi)) $value->response = array_merge($value->response, $lvi);
+	return $value;
+}
+
+static function PluginsApiFilter($value, $action=null, $args=null)
+{
+	if(!is_object($args)) $args = (object)$args;
+	return ($action === 'plugin_information' && ( strncmp($args->slug, "wpfb-", 5) === 0))
+			  ? wpfb_call('ExtensionLib','GetApiPluginInfo', $args->slug)
+			  : $value;
+}
 
 
 static function CurUserCanCreateCat()

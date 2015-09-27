@@ -26,8 +26,8 @@ function CatTree(&$root_cat)
 
 class WPFB_UploadWidget extends WP_Widget {
 
-	function WPFB_UploadWidget() {
-		parent::WP_Widget( false, WPFB_PLUGIN_NAME .' '.__('File Upload'), array('description' => __('Allows users to upload files from the front end.',WPFB)) );
+	function __construct() {
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File Upload'), array('description' => __('Allows users to upload files from the front end.',WPFB)) );
 	}
 
 	function widget( $args, $instance ) {
@@ -66,8 +66,8 @@ class WPFB_UploadWidget extends WP_Widget {
 
 class WPFB_AddCategoryWidget extends WP_Widget {
 
-	function WPFB_AddCategoryWidget() {
-		parent::WP_Widget( false, WPFB_PLUGIN_NAME .' '.__('Add Category',WPFB), array('description' => __('Allows users to create file categories from the front end.',WPFB)) );
+	function __construct() {
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Add Category',WPFB), array('description' => __('Allows users to create file categories from the front end.',WPFB)) );
 	}
 
 	function widget( $args, $instance ) {			
@@ -119,8 +119,8 @@ class WPFB_AddCategoryWidget extends WP_Widget {
 
 class WPFB_SearchWidget extends WP_Widget {
 
-	function WPFB_SearchWidget() {
-		parent::WP_Widget( false, WPFB_PLUGIN_NAME .' '.__('Search'), array('description' => __('Widget for searching files.',WPFB)) );
+	function __construct() {
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Search'), array('description' => __('Widget for searching files.',WPFB)) );
 	}
 
 	function widget( $args, $instance ) {
@@ -159,8 +159,8 @@ class WPFB_SearchWidget extends WP_Widget {
 
 class WPFB_CatListWidget extends WP_Widget {
 
-	function WPFB_CatListWidget() {
-		parent::WP_Widget( false, WPFB_PLUGIN_NAME .' '.__('Category list', WPFB), array('description' => __('Simple listing of file categories', WPFB)) );
+	function __construct() {
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Category list', WPFB), array('description' => __('Simple listing of file categories', WPFB)) );
 	}
 
 	function widget( $args, $instance ) {
@@ -213,8 +213,8 @@ class WPFB_CatListWidget extends WP_Widget {
 
 class WPFB_FileListWidget extends WP_Widget {
 
-	function WPFB_FileListWidget() {
-		parent::WP_Widget( false, WPFB_PLUGIN_NAME .' '.__('File list', WPFB), array('description' => __('Listing of files with custom sorting', WPFB)) );
+	function __construct() {
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File list', WPFB), array('description' => __('Listing of files with custom sorting', WPFB)) );
 	}
 	
 	static function limitStrLen($str, $maxlen)

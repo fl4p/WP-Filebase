@@ -28,11 +28,11 @@ $temp_dir = ini_get('upload_tmp_dir');
 if ($temp_dir && (!is_dir($temp_dir) || !is_readable($temp_dir))) {
 	$temp_dir = '';
 }
-if (!$temp_dir) {
+if (!$temp_dir && function_exists('sys_get_temp_dir')) { // sys_get_temp_dir added in PHP v5.2.1
 	// sys_get_temp_dir() may give inaccessible temp dir, e.g. with open_basedir on virtual hosts
 	$temp_dir = sys_get_temp_dir();
 }
-$temp_dir = @realpath($temp_dir);
+$temp_dir = @realpath($temp_dir); // see https://github.com/JamesHeinrich/getID3/pull/10
 $open_basedir = ini_get('open_basedir');
 if ($open_basedir) {
 	// e.g. "/var/www/vhosts/getid3.org/httpdocs/:/tmp/"
@@ -109,7 +109,7 @@ class getID3
 	protected $startup_error   = '';
 	protected $startup_warning = '';
 
-	const VERSION           = '1.10.0-20140221';
+	const VERSION           = '1.9.10-20150914';
 	const FREAD_BUFFER_SIZE = 32768;
 
 	const ATTACHMENTS_NONE   = false;
@@ -243,7 +243,7 @@ class getID3
 	}
 
 
-	public function openfile($filename) {
+	public function openfile($filename, $filesize=null) {
 		try {
 			if (!empty($this->startup_error)) {
 				throw new getid3_exception($this->startup_error);
@@ -256,7 +256,7 @@ class getID3
 			$this->filename = $filename;
 			$this->info = array();
 			$this->info['GETID3_VERSION']   = $this->version();
-			$this->info['php_memory_limit'] = $this->memory_limit;
+			$this->info['php_memory_limit'] = (($this->memory_limit > 0) ? $this->memory_limit : false);
 
 			// remote files not supported
 			if (preg_match('/^(ht|f)tp:\/\//', $filename)) {
@@ -287,7 +287,7 @@ class getID3
 				throw new getid3_exception('Could not open "'.$filename.'" ('.implode('; ', $errormessagelist).')');
 			}
 
-			$this->info['filesize'] = filesize($filename);
+			$this->info['filesize'] = (!is_null($filesize) ? $filesize : filesize($filename));
 			// set redundant parameters - might be needed in some include file
 			// filenames / filepaths in getID3 are always expressed with forward slashes (unix-style) for both Windows and other to try and minimize confusion
 			$filename = str_replace('\\', '/', $filename);
@@ -342,9 +342,9 @@ class getID3
 	}
 
 	// public: analyze file
-	public function analyze($filename) {
+	public function analyze($filename, $filesize=null, $original_filename='') {
 		try {
-			if (!$this->openfile($filename)) {
+			if (!$this->openfile($filename, $filesize)) {
 				return $this->info;
 			}
 
@@ -389,7 +389,7 @@ class getID3
 			$formattest = fread($this->fp, 32774);
 
 			// determine format
-			$determined_format = $this->GetFileFormat($formattest, $filename);
+			$determined_format = $this->GetFileFormat($formattest, ($original_filename ? $original_filename : $filename));
 
 			// unable to determine file format
 			if (!$determined_format) {
@@ -1191,6 +1191,7 @@ class getID3
 				'matroska'  => array('matroska'      , 'UTF-8'),
 				'flac'      => array('vorbiscomment' , 'UTF-8'),
 				'divxtag'   => array('divx'          , 'ISO-8859-1'),
+				'iptc'      => array('iptc'          , 'ISO-8859-1'),
 			);
 		}
 
@@ -1230,16 +1231,32 @@ class getID3
 
 				if ($this->option_tags_html) {
 					foreach ($this->info['tags'][$tag_name] as $tag_key => $valuearray) {
-						foreach ($valuearray as $key => $value) {
-							if (is_string($value)) {
-								//$this->info['tags_html'][$tag_name][$tag_key][$key] = getid3_lib::MultiByteCharString2HTML($value, $encoding);
-								$this->info['tags_html'][$tag_name][$tag_key][$key] = str_replace('&#0;', '', trim(getid3_lib::MultiByteCharString2HTML($value, $encoding)));
-							} else {
-								$this->info['tags_html'][$tag_name][$tag_key][$key] = $value;
+						$this->info['tags_html'][$tag_name][$tag_key] = getid3_lib::recursiveMultiByteCharString2HTML($valuearray, $encoding);
+					}
+				}
+
+				// ID3v1 encoding detection hack start
+				// ID3v1 is defined as always using ISO-8859-1 encoding, but it is not uncommon to find files tagged with ID3v1 using Windows-1251 or other character sets
+				// Since ID3v1 has no concept of character sets there is no certain way to know we have the correct non-ISO-8859-1 character set, but we can guess
+				if ($comment_name == 'id3v1') {
+					if ($encoding == 'ISO-8859-1') {
+						if (function_exists('iconv')) {
+							foreach ($this->info['tags'][$tag_name] as $tag_key => $valuearray) {
+								foreach ($valuearray as $key => $value) {
+									if (preg_match('#^[\\x80-\\xFF]+$#', $value)) {
+										foreach (array('windows-1251', 'KOI8-R') as $id3v1_bad_encoding) {
+											if (@iconv($id3v1_bad_encoding, $id3v1_bad_encoding, $value) === $value) {
+												$encoding = $id3v1_bad_encoding;
+												break 3;
+											}
+										}
+									}
+								}
 							}
 						}
 					}
 				}
+				// ID3v1 encoding detection hack end
 
 				$this->CharConvert($this->info['tags'][$tag_name], $encoding);           // only copy gets converted!
 			}
@@ -1292,7 +1309,6 @@ class getID3
 		}
 		return true;
 	}
-
 
 	public function getHashdata($algorithm) {
 		switch ($algorithm) {
@@ -1803,9 +1819,10 @@ abstract class getid3_handler {
 
 }
 
+
 if(!class_exists('getid3_exception')) {
-	class getid3_exception extends Exception
-	{
-	    public $message;
-	}
+    class getid3_exception extends Exception
+    {
+        public $message;
+    }
 }

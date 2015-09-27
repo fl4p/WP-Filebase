@@ -237,7 +237,7 @@ jQuery(document).ready( function() {
 		__('Form Presets', WPFB)			=> array('default_author','default_roles', 'default_cat', 'default_direct_linking','languages', 'platforms', 'licenses', 'requirements', 'custom_fields'),
 		__('Limits', WPFB)					=> $limits,
 		__('Security', WPFB)				=> array('allow_srv_script_upload', 'fext_blacklist', 'frontend_upload', 'hide_inaccessible', 'inaccessible_msg', 'inaccessible_redirect', 'cat_inaccessible_msg', 'login_redirect_src', 'protect_upload_path', 'private_files'),
-		__('Templates and Scripts', WPFB)	=> array('template_file', 'template_cat', 'dlclick_js'),
+		__('Templates and Scripts', WPFB)	=> array('template_file', 'template_cat', 'dlclick_js' ),
 		__('Sync',WPFB)						=> array('cron_sync', 'base_auto_thumb', 'remove_missing_files','fake_md5' ),
 		__('Misc')							=> $misc_tags,
 	);
@@ -290,7 +290,7 @@ jQuery(document).ready( function() {
 					$nowrap = !empty($field_data['nowrap']);
 					echo '<textarea name="' . $opt_tag . '" id="' . $opt_tag . '"';
 					if($nowrap || $code_edit) {
-						echo ' cols="100" wrap="off" style="width: 100%;' . ($code_edit ?  'font-size: 9px;' : '') . '"';
+						echo ' cols="100" wrap="off" style="width: 100%;' . ($code_edit ?  'font-size: 10px;' : '') . '"';
 					} else
 						echo ' cols="50"';
 					echo ' rows="' . ($code_edit ? 20 : 5) . '"';

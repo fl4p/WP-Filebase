@@ -25,7 +25,7 @@ class WPFB_ListTpl {
 		return $tpls;
 	}
 	
-	function WPFB_ListTpl($tag=null, $data=null) {
+	function __construct($tag=null, $data=null) {
 		if(!empty($data)) {
 			$vars = array_keys(get_class_vars(get_class($this)));
 			foreach($vars as $var)
@@ -56,6 +56,9 @@ class WPFB_ListTpl {
 
 		if(empty($uid)) $uid = uniqid();
 		$str = str_replace('%uid%', $uid, $str);
+		
+		// TODO: add doc
+		$str = str_replace('%search_term%', empty($_GET['wpfb_s']) ? '' : esc_html(stripslashes($_GET['wpfb_s'])), $str);
 		
 		
 		$count = 0;
@@ -234,8 +237,8 @@ class WPFB_ListTpl {
 		
 		if($page_break && !$this->current_list->hide_pagenav) {
 			$pagenav = paginate_links( array(
-				'base' => add_query_arg( 'wpfb_list_page', '%_%'),
-				'format' => '%#%',
+				'base' => add_query_arg( 'wpfb_list_page', '%#%'),
+				'format' => '',
 				'total' => ceil($num_total_files / $this->current_list->page_limit),
 				'current' => empty($_GET['wpfb_list_page']) ? 1 : absint($_GET['wpfb_list_page']),
 				 'add_args' => array() // necessary!

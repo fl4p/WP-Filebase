@@ -1,5 +1,21 @@
 <?php
 class WPFB_AdminGuiManage {
+	
+static function NewExtensionsAvailable() {
+	$last_gui_time = get_user_option('wpfb_ext_tagtime');
+	if(!$last_gui_time) return true;
+	$tag_time = get_transient('wpfb_ext_tagtime');
+	if(!$tag_time) {
+		wpfb_loadclass('ExtensionLib');
+		$res = WPFB_ExtensionLib::QueryAvailableExtensions();
+		if(!$res) return false;
+		$tag_time = $res->info['tag_time'];
+		set_transient('wpfb_ext_tagtime', $tag_time, 3600);
+	}
+	
+	return (!$last_gui_time || $last_gui_time != $tag_time);
+}
+
 static function Display()
 {
 	global $wpdb, $user_ID;
@@ -100,21 +116,27 @@ static function Display()
 				*/
 		?>
 	<?php
-	if(self::PluginHasBeenUsedAWhile()) { ?>		
+if(self::PluginHasBeenUsedAWhile(true))
+	self::ProUpgradeNag();
+
+if(self::PluginHasBeenUsedAWhile()) { ?>	
 <div id="wpfb-support-col">
 <div id="wpfb-liking-toggle"></div>
 <h3><?php _e('Like WP-Filebase?',WPFB) ?></h3>
 <div id="wpfb-liking">
-	<div style="text-align: center;"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fwp-filebase%2F&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:21px; display:inline-block; text-align:center;" <?php echo ' allowTransparency="true"'; ?>></iframe></div>
+	<!-- <div style="text-align: center;"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwordpress.org%2Fextend%2Fplugins%2Fwp-filebase%2F&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:21px; display:inline-block; text-align:center;" <?php echo ' allowTransparency="true"'; ?>></iframe></div> -->
 	
 	<div style="text-align: center;" ><a href="https://twitter.com/wpfilebase" class="twitter-follow-button" data-show-count="false">Follow @wpfilebase</a>
 			<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
 	
-	<p>Please <a href="http://wordpress.org/support/view/plugin-reviews/wp-filebase">give it a good rating</a>, or even consider a donation using PayPal or Flattr to support development of WP-Filebase.<br /><span style="text-align:right;float:right;font-style:italic;">Thanks, Fabian</p> 
-	<div style="text-align: center;">	
-	<?php WPFB_Admin::PrintPayPalButton() ?>
-	<?php WPFB_Admin::PrintFlattrButton() ?>
-	</div>
+	<p>Please <a href="http://wordpress.org/support/view/plugin-reviews/wp-filebase">give it a good rating</a>.</p>
+	<p>For Cloud support and lots of other advanced features consider an</p>
+	<p style="text-align: center;"><a href="https://wpfilebase.com/?ref=dblike" class="button-primary">Upgrade to Pro</a></p>
+	<p style="text-align:right;float:right;font-style:italic;">Thanks, Fabian</p> 
+	<!-- <div style="text-align: center;">
+	<?php //WPFB_Admin::PrintPayPalButton() ?>
+	<?php //WPFB_Admin::PrintFlattrButton() ?>
+	</div> -->
 </div>
 </div>
 <?php }
@@ -204,6 +226,19 @@ $tools = array(
 		  'desc' => __('Synchronises the database with the file system. Use this to add FTP-uploaded files.',WPFB).'<br />'.$cron_sync_desc		  
 	)
 );
+
+
+
+
+if(current_user_can('install_plugins')) { // is admin?
+	$new_tag = self::NewExtensionsAvailable() ? '<span class="wp-ui-notification new-exts">new</span>' : '';
+	$tools[] = array(
+			  'url' => add_query_arg(array('action' => 'install-extensions')),
+			  'icon' => 'plug',
+			  'label' => __('Extensions',WPFB).$new_tag,
+			  'desc' => __('Install Extensions to extend functionality of WP-Filebase',WPFB)	 
+	);
+}
 
 ?>
 <div id="wpfb-tools">
@@ -336,6 +371,9 @@ if(!jQuery(document.body).hasClass('mobile')) {
 			if(empty($_GET['hash_sync']))
 				echo '<p><a href="' . add_query_arg('hash_sync',1) . '" class="button">' . __('Complete file sync', WPFB) . '</a> ' . __('Checks files for changes, so more reliable but might take much longer. Do this if you uploaded/changed files with FTP.', WPFB) . '</p>';			
 			
+			if(empty($_GET['debug']))
+				echo '<p><a href="' . add_query_arg('debug',1) . '" class="button">' . __('Debug Sync', WPFB) . '</a> ' . __('Run to get more Debug Info in case Sync crashes', WPFB) . '</p>';			
+			
 		break; // sync
 		
 		
@@ -358,6 +396,10 @@ if(!jQuery(document.body).hasClass('mobile')) {
 		echo "</p>";
 		break;
 		
+			
+	case 'install-extensions':
+		wpfb_call('AdmInstallExt','Display');
+		break;
 		
 	} // switch	
 	?>
@@ -371,11 +413,36 @@ static function ProgressBar($progress, $label)
 	echo "<div class='wpfilebase-progress'><div class='progress'><div class='bar' style='width: $progress%'></div></div><div class='label'><strong>$progress %</strong> ($label)</div></div>";
 }
 
-static function PluginHasBeenUsedAWhile()
+static function PluginHasBeenUsedAWhile($long_while=false)
 {
 	global $wpdb;
-	if(WPFB_File::GetNumFiles() < 5) return false;
-	$first_file_time = mysql2date('U',$wpdb->get_var("SELECT file_date FROM $wpdb->wpfilebase_files ORDER BY file_date ASC LIMIT 1"));
-	return ($first_file_time > 1 && (time()-$first_file_time) > (86400 * 4)); // 4 days	
+	static $n = -1, $first_file_time = -1;
+	if($n === -1) {
+		$n = WPFB_File::GetNumFiles();
+		$first_file_time = mysql2date('U',$wpdb->get_var("SELECT file_date FROM $wpdb->wpfilebase_files ORDER BY file_date ASC LIMIT 1"));
+	}	
+	if($n < ($long_while?20:5)) return false;	
+	return ($first_file_time > 1 && (time()-$first_file_time) > (86400 * ($long_while?20:4))); // 4 days	
+}
+
+static function ProUpgradeNag() {
+	global $user_ID;
+	
+	if(!current_user_can('install_plugins') || (time()-get_user_option('wpfb_dismiss_pro_nag', $user_ID)) < (86400*30*5))
+		return;
+	
+	if(!empty($_REQUEST['wpfb_dismiss_pro_nag'])) {
+		update_user_option($user_ID, 'wpfb_dismiss_pro_nag', time());
+		return;
+	}
+	?>
+<div class="notice notice-info"><p>
+		<?php _e('Upgrade to WP-Filebase Pro for cloud support, advanced permissions handling and much more.',WPFB); ?>
+		<a href="https://wpfilebase.com/?ref=dbnote" target="_blank" class="button-primary">Lean More</a>
+		<a href="http://demo.wpfilebase.com/?ref=dbnote" target="_blank" class="button-primary">Live Pro Demo</a>
+		<a href="<?php echo esc_attr(add_query_arg('wpfb_dismiss_pro_nag',1)); ?>" class="dismiss" style="display:block;float:right;margin:0 10px 0 15px;"><?php _e('Dismiss'); ?></a>
+	</p>
+</div>
+<?php
 }
 }

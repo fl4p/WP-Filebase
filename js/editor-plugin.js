@@ -101,9 +101,10 @@ function editorInsert(str, close)
 	return false;
 }
 
-function insertTag(tagObj)
+function insertTag(tagObj, tagName)
 {
-	var str = '[wpfilebase';
+	if(!tagName) tagName = 'wpfilebase';
+	var str = '['+tagName;
 	var q, v, content;
 	
 	if(typeof(tagObj.content) == 'string' && tagObj.content) {
@@ -273,6 +274,15 @@ function initEditorPlugin()
 	
 		if (!autoAttachFiles && theEditor && theEditor.getContent().search(/\[wpfilebase\s+tag\s*=\s*['"]attachments['"]/) != -1)
 			jQuery('#no-auto-attach-note').hide(); 	// no notice if attachments tag is in	
+		
+		jQuery('form.insert').on('submit', function(e){
+			var sb = jQuery("a.button-primary").filter(":visible").first();
+			if(sb.length) {
+				sb.click();
+				return false;
+			}
+			return true;
+		});
 	}
 	
 	refreshTrees();

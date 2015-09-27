@@ -30,7 +30,7 @@
 		return $json ? trim(json_encode($dat),'{}') : $dat;
 	}
 	
-	function WPFB_AdvUploader($form_url, $is_edit=false)
+	function __construct($form_url, $is_edit=false)
 	{
 		$this->form_url = $form_url;
 		$this->id = uniqid();
@@ -62,7 +62,7 @@ function fileQueued(fileObj) {
 
 	 /* delete already uploaded temp file */
 	if(jQuery('#file_flash_upload').val() != '0') {
-		jQuery.ajax({type: 'POST', async: true, url:"<?php echo esc_attr( WPFB_PLUGIN_URI.'wpfb-async-upload.php' ); ?>",
+		jQuery.ajax({type: 'POST', async: true, url:"<?php echo esc_attr( WPFB_Core::PluginUrl('wpfb-async-upload.php') ); ?>",
 		data: {<?php echo $this->GetAjaxAuthData(true) ?> , "delupload": jQuery('#file_flash_upload').val()},
 		success: (function(data){})
 		});

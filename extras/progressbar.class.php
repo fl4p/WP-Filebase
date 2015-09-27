@@ -25,7 +25,7 @@ class progressbar
 		
 	private $id=0, $value=0, $steps=0, $width=0, $height=0, $color='', $bgcolor='', $inner_styleclass='', $outer_styleclass='', $show_digits=true;
 
-	public function progressbar( $value = 0, $steps = 100, $width = 100, $height = 20, $color = '#0C0', $bgcolor = '#FFF', $inner_styleclass = 'wpfb-progress-bar-in', $outer_styleclass = '')
+	public function __construct( $value = 0, $steps = 100, $width = 100, $height = 20, $color = '#0C0', $bgcolor = '#FFF', $inner_styleclass = 'wpfb-progress-bar-in', $outer_styleclass = '')
 	{
 		static $progress_bars;		
 		if(empty($progress_bars))

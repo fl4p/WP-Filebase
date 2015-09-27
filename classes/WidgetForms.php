@@ -86,7 +86,7 @@
 		<p><label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?>
 			<input type="text" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label>
 		</p>
-		
+		<!-- TODO multi cat -->
 		<p><label for="<?php echo $obj->get_field_id('cat'); ?>"><?php _e('Category:', WPFB); ?>
 			<select name="<?php echo $obj->get_field_name('cat'); ?>" id="<?php echo $obj->get_field_id('cat'); ?>">
 			<?php echo WPFB_Output::CatSelTree(array('selected'=>empty($instance['cat']) ? 0 : $instance['cat'], 'none_label'=>__('All'))) ?>

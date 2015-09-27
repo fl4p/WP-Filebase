@@ -95,6 +95,11 @@ static function Display()
 						$cat->Delete();
 				}
 			}
+			
+			if(!empty($_REQUEST['redirect']) && !empty($_REQUEST['redirect_to'])) {
+				WPFB_AdminLite::JsRedirect($_REQUEST['redirect_to']);
+				exit;
+			}
 ?>
 	<h2><?php
 	echo str_replace(array('(<','>)'),array('<','>'), sprintf(__('Manage Categories (<a href="%s">add new</a>)', WPFB), '#addcat" class="add-new-h2'));
@@ -137,7 +142,8 @@ static function Display()
 				'base' => add_query_arg( 'pagenum', '%#%' ),
 				'format' => '',
 				'total' => ceil(count(WPFB_Category::GetCats($extra_sql)) / $catsperpage),
-				'current' => $pagenum
+				'current' => $pagenum,
+				'add_args' => array() // necessary!
 			));
 
 			if ( $page_links )

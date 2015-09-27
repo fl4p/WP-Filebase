@@ -17,6 +17,11 @@ $user_roles = ($update || empty($default_roles)) ? $file_category->GetReadPermis
 $cat_members_only = !empty($user_roles);
 
 $form_action = add_query_arg('page', 'wpfilebase_cats', remove_query_arg(array('cat_id', 'page', 'action')));
+
+if(!empty($_GET['redirect_to']))
+	$form_action = add_query_arg(array('redirect' => 1, 'redirect_to' => urlencode($_GET['redirect_to'])), $form_action);
+elseif(!empty($_GET['redirect_referer']))
+	$form_action = add_query_arg(array('redirect' => 1, 'redirect_to' => urlencode($_SERVER['HTTP_REFERER'])), $form_action);
 ?>
 
 <div class="wrap">

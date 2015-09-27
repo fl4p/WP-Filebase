@@ -1,5 +1,8 @@
 <?php class WPFB_ProgressReporter {
+	const FIELD_UPDATE_INTERVAL = 0.3; //s
+	
 	var $quiet;
+	var $debug;
 	
 	var $progress_cur;
 	var $progress_end;
@@ -9,7 +12,9 @@
 	
 	var $last_field_id = null;
 	
-	function WPFB_ProgressReporter($suppress_output = false)
+	var $field_update_times = array();
+	
+	function __construct($suppress_output = false)
 	{
 		$this->quiet = !!$suppress_output;
 		$this->debug = !empty($_REQUEST['debug']);
@@ -33,6 +38,17 @@
 		if($this->debug)  {
 			var_dump ($e);
 			self::DEcho("<br />");
+		}
+	}
+	
+	function Debug()
+	{
+		if($this->debug) {
+			$args = func_get_args();
+			$format  = array_shift($args);			
+			$callers = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+			$caller = isset($callers[1]['class']) ? ($callers[1]['class'].'::'.$callers[1]['function']) : $callers[1]['function'];
+			$this->Log("[$caller] ".vsprintf($format, $args));
 		}
 	}
 	
@@ -62,15 +78,21 @@
 			$this->progress_bar->set(100*($this->progress_cur+$sub_progress)/$this->progress_end);
 	}
 	
-	function InitProgressField($format='Value = %#%', $val = 0) {
+	function InitProgressField($format='Value = %#%', $val = 0, $obey_upd_interval=false) {
 		$this->last_field_id = $id = md5(uniqid());
 		$this->Log(str_replace('%#%',"<span id='$id'>$val</span>", $format));
+		if($obey_upd_interval && !$this->debug) $this->field_update_times[$id] = 1;
 		return $id;
 	}
 	
 	function SetField($val,$id=false) {
 		if(!$id) $id = $this->last_field_id;
-		if($id && !$this->quiet) self::DEcho("<script> document.getElementById('$id').innerHTML = '$val'; </script>");
+		if($id && !$this->quiet && (!isset($this->field_update_times[$id]) || (($t=microtime(true)) - $this->field_update_times[$id]) >= self::FIELD_UPDATE_INTERVAL) ) {
+			$val = str_replace('\\','/', $val);
+			self::DEcho("<script> document.getElementById('$id').innerHTML = '$val'; </script>");
+			if(isset($t)) $this->field_update_times[$id] = $t;
+			return true;
+		}
 	}
 	
 	function FileChanged($file, $action)

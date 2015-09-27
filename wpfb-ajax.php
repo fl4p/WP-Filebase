@@ -39,6 +39,8 @@ switch ( $action = $_REQUEST['action'] ) {
 			 'sort' => array(),
 			 			 'onselect' => null,
 			 'idp' => null,
+			 'tpl' => null,
+			 'inline_add' => true,
 		));
 		
 		$args['cats_only'] === 'false' && $args['cats_only'] = false;
@@ -50,12 +52,21 @@ switch ( $action = $_REQUEST['action'] ) {
 		
 	case 'delete':
 		wpfb_loadclass('File','Category');
-		$file_id = intval($_REQUEST['file_id']);		
-		if(!current_user_can('upload_files') || $file_id <= 0 || ($file = WPFB_File::GetFile($file_id)) == null)
+		if(isset($_REQUEST['file_id'])) {
+			$file_id = intval($_REQUEST['file_id']);		
+			if($file_id <= 0 || ($file = WPFB_File::GetFile($file_id)) == null  || !current_user_can('upload_files'))
+				die('-1');
+			$file->Remove();
+			die('1');
+		} elseif(isset($_REQUEST['cat_id'])) {
+			$cat_id = intval($_REQUEST['cat_id']);		
+			if($cat_id <= 0 || ($cat = WPFB_Category::GetCat($cat_id)) == null  || !current_user_can('upload_files'))
+				die('-1');
+			$cat->Delete();			
+			die('1');
+		} else
 			die('-1');
-
-		$file->Remove();
-		die('1');
+		break;
 		
 	case 'tpl-sample':
 		global $current_user;
@@ -254,14 +265,16 @@ switch ( $action = $_REQUEST['action'] ) {
 		$args = WPFB_Output::fileBrowserArgs($_POST['args']);
 		$filesel = ($args['type']==='fileselect');
 		$catsel = ($args['type']==='catselect');	
-			
+		
+		$tpl = empty($_REQUEST['tpl']) ? (empty($_REQUEST['is_admin'])?'filebrowser':'filebrowser_admin') : $_REQUEST['tpl'];
+		
 		wpfb_print_json(array(
 						'error' => 0,
 						'id' => $cat->GetId(),
 						'name' => $cat->GetTitle(),
 						'id_str' => $args['idp'].'cat-'.$cat->cat_id,
 						'url' => $cat->GetUrl(),
-						'text' => WPFB_Output::fileBrowserCatItemText($catsel,$filesel,$cat,$args['onselect'],empty($_REQUEST['is_admin'])?'filebrowser':'filebrowser_admin'),
+						'text' => WPFB_Output::fileBrowserCatItemText($catsel,$filesel,$cat,$args['onselect'],$tpl),
 						'classes' => ($filesel||$catsel)?'folder':null
 				));
 		exit;

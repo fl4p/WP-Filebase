@@ -7,6 +7,7 @@ class WPFB_File extends WPFB_Item {
 
 	var $file_id = 0;
 	var $file_name;
+	var $file_name_original;
 	var $file_path;
 	var $file_size = 0;
 	var $file_date;
@@ -40,6 +41,7 @@ class WPFB_File extends WPFB_Item {
 	var $file_last_dl_ip;
 	var $file_last_dl_time;
 	
+	var $file_rescan_pending = 0;
 	
 	//var $file_edited_time;
 	
@@ -193,7 +195,8 @@ class WPFB_File extends WPFB_Item {
 	static function GetNumFiles2($where, $check_permissions = true)
 	{
 		global $wpdb;
-		return (int)$wpdb->get_var("SELECT COUNT(`{$wpdb->wpfilebase_files}`.`file_id`) FROM ".self::genSelectSql($where, $check_permissions));
+		$n = $wpdb->get_var("SELECT COUNT(`{$wpdb->wpfilebase_files}`.`file_id`) FROM ".self::genSelectSql($where, $check_permissions));
+		return (int)$n;
 	}
 	
 	static function GetAttachedFiles($post_id, $show_all=false)
@@ -209,8 +212,8 @@ class WPFB_File extends WPFB_Item {
 		return empty($row) ? null : new WPFB_File($row);
 	}
 	
-	function WPFB_File($db_row=null) {		
-		parent::WPFB_Item($db_row);
+	function __construct($db_row=null) {		
+		parent::__construct($db_row);
 		$this->is_file = true;
 	}
 	
@@ -250,7 +253,6 @@ class WPFB_File extends WPFB_Item {
 				$src_image = $this->GetLocalPath();
 			elseif($this->IsRemote()) {
 				// if remote file, download it and use as source
-				require_once(ABSPATH . 'wp-admin/includes/file.php');
 				$res = wpfb_call('Admin', 'SideloadFile', $this->GetRemoteUri());
 				$src_image = $res['file'];
 				$tmp_src = true;
@@ -392,7 +394,7 @@ class WPFB_File extends WPFB_Item {
 		return $val;
 	}
     
-    public function get_tpl_var($name)
+    public function get_tpl_var($name,$extra=null)
     {		
 		switch($name) {
 			case 'file_url':			return htmlspecialchars($this->GetUrl());
@@ -418,6 +420,7 @@ class WPFB_File extends WPFB_Item {
 			
 			//case 'file_required_level':	return ($this->file_required_level - 1);
 			case 'file_user_can_access': return $this->CurUserCanAccess();
+			case 'file_user_can_edit': return $this->CurUserCanEdit();
 			
 			case 'file_description':	return nl2br($this->file_description);
 			case 'file_tags':			return esc_html(str_replace(',',', ',trim($this->file_tags,',')));
@@ -453,6 +456,8 @@ class WPFB_File extends WPFB_Item {
 			if($maxlen > 3 && strlen($str) > $maxlen) $str = (function_exists('mb_substr') ? mb_substr($str, 0, $maxlen-3,'utf8') : mb_substr($str, 0, $maxlen-3)).'...';
 			return $str;
 		}
+		
+		if(isset($extra->$name)) return $extra->$name;
 		
 		return isset($this->$name) ? esc_html($this->$name) : '';
     }
@@ -545,21 +550,25 @@ class WPFB_File extends WPFB_Item {
 		// external hooks
 		do_action( 'wpfilebase_file_downloaded', $this->file_id );
 		
-		// download or redirect
-		$bw = 'bitrate_' . ($logged_in?'registered':'unregistered');
-		if($this->IsLocal())
-			WPFB_Download::SendFile($this->GetLocalPath(), array(
+		$url = $this->GetRemoteUri();
+		$is_local_remote = !empty($url) && parse_url($url,PHP_URL_SCHEME) === 'file' && is_readable($url);	
+		
+		// download or redirect		
+		if($this->IsLocal() || $is_local_remote) {
+			$bw = 'bitrate_' . ($logged_in?'registered':'unregistered');
+			WPFB_Download::SendFile($is_local_remote ? $url : $this->GetLocalPath(), array(
 				'bandwidth' => WPFB_Core::$settings->$bw,
 				'etag' => $this->file_hash,
 				'md5_hash' => WPFB_Core::$settings->fake_md5 ? null : $this->file_hash, // only send real md5
-				'force_download' => $this->file_force_download,
-				'cache_max_age' => 10
+				'force_download' => (WPFB_Core::$settings->force_download || $this->file_force_download),
+				'cache_max_age' => 10,
+				'filename' => empty($this->file_name_original) ? $this->file_name : $this->file_name_original
 			));
-		else {
+		} else {
 			//header('HTTP/1.1 301 Moved Permanently');
 			header('Cache-Control: no-store, no-cache, must-revalidate');
 			header('Expires: Thu, 01 Jan 1970 00:00:00 GMT');
-			header('Location: '.$this->GetRemoteUri());
+			header('Location: '.$url);
 		}
 		
 		exit;

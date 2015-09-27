@@ -117,6 +117,10 @@ class WPFB_AdminGuiBulkEdit {
 
 <div style="clear:both;"></div>
 
+<!--
+
+-->
+
 
 
 <p class="submit"><input type="submit" name="submit" class="button-primary" value="<?php _e("Submit") ?>" /></p>

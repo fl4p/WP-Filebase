@@ -12,7 +12,7 @@ class WPFB_BatchUploader {
 	
 	var $hidden_vars = array();
 	
-	public function WPFB_BatchUploader($prefix = 'batch', $presets = array())
+	public function __construct($prefix = 'batch', $presets = array())
 	{
 		$this->prefix = $prefix;
 		$this->presets = $presets; //TODO
@@ -20,7 +20,7 @@ class WPFB_BatchUploader {
 	
 	
 	public function Display()
-	{		
+	{	
 		WPFB_Core::PrintJS();
 		wp_print_scripts('utils'); // setUserSetting
 		?>
@@ -32,7 +32,10 @@ class WPFB_BatchUploader {
 		<form method="POST" action="" class="validate" name="batch_presets">
 			 <h2><?php _e('Upload Presets',WPFB); ?></h2> 
 			<?php
-									self::DisplayUploadPresets($this->prefix);				
+				 {
+					self::DisplayUploadPresets($this->prefix);
+					//wp_nonce_field('batch-presets'); // TODO validate this!
+				}
 			?>
 		</form>
 		</div>
@@ -168,7 +171,7 @@ function batchUploaderSuccess(file, serverData)
 {
 	var item = jQuery('#'+file.dom_id);	
 	var url = serverData.file_cur_user_can_edit ? serverData.file_edit_url : serverData.file_download_url;
-	jQuery('.filename', item).html('<a href="'+url+'" target="_blank">'+serverData.file_display_name+'</a>');
+	jQuery('.filename', item).html('<a href="'+url+'" target="_blank">'+serverData.file_display_name+'</a> <span class="ok"><?php _e('Upload OK!','wp-filebase') ?></span>');
 	jQuery('img', item).attr('src', serverData.file_thumbnail_url);
 }
 </script>

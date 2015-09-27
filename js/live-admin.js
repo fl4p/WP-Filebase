@@ -83,7 +83,7 @@ function wpfb_newCatInput(el,pid) {
 				var lip = el.closest('li').prev('li');
 				var tv =  el.parents('.treeview').first(); var set = tv.data("settings");
 				jQuery.ajax({url: wpfbConf.ajurl, type:"POST",dataType:'json',
-					data:{action:'new-cat', cat_name:cat_name, cat_parent:pid, args:set.ajax.data, is_admin:(typeof(adminpage) !== 'undefined')},
+					data:{action:'new-cat', cat_name:cat_name, cat_parent:pid, args:set.ajax.data, is_admin:(typeof(adminpage) !== 'undefined')?1:0},
 					success: (function(data){
 						if(data.error) {
 							alert(data.error);
@@ -137,7 +137,7 @@ function wpfb_treeviewAddFile(ev,pid)
 function wpfb_fileBrowserTargetId(e,cat_or_file)
 {
 	var t = ('object' === typeof(e.target)) ? jQuery(e.target) : jQuery(e);
-	var idp = wpfb_getFileBrowserIDP(jQuery(t).parents('ul.treeview').first().prop('id'));
+	var idp = wpfb_getFileBrowserIDP(jQuery(t).parents('ul.treeview,ul.filebrowser,ul').first());
 	var tid = t.prop("id");
 	var pl = idp.length+cat_or_file.length;
 	if(t.prop('tagName') === 'LI' && tid.substr(0,pl+1) === (idp+cat_or_file+"-")) return parseInt(tid.substr(pl+1));
@@ -147,6 +147,9 @@ function wpfb_fileBrowserTargetId(e,cat_or_file)
 }
 
 function wpfb_getFileBrowserIDP(id) {
-	var set =jQuery('#'+id).data("settings");
-	return (set && set.ajax && set.ajax.data.idp) ? set.ajax.data.idp : 'wpfb-';
+	var set = (('object' === typeof(id)) ? id : jQuery('#'+id)).data("settings");
+	//return (set && set.ajax && set.ajax.data.idp) ? set.ajax.data.idp : 'wpfb-';
+	if(set && set.ajax && set.ajax.data.idp) return set.ajax.data.idp;
+	if(set && set.id_prefix) return set.id_prefix;
+	return 'wpfb-';
 }
