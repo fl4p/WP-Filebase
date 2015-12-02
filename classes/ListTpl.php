@@ -277,5 +277,5 @@ class WPFB_ListTpl {
 		update_option(WPFB_OPT_NAME.'_list_tpls', $tpls);
 	}
 	
-	function GetTitle() { return __(__(esc_html(WPFB_Output::Filename2Title($this->tag))), WPFB); }
+	function GetTitle() { return __(__(esc_html(WPFB_Output::Filename2Title($this->tag))),'wp-filebase'); }
 }

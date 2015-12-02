@@ -241,7 +241,7 @@ function selectFile(id, a)
 		return;
 	} else if(currentTab == 'fileurl') {
 <?php if(empty($_GET['content'])) {?>
-		var linkText = prompt("<?php echo esc_attr(__('Enter link text. Prepend * to open link in a new tab.', WPFB)); ?>", name);
+		var linkText = prompt("<?php echo esc_attr(__('Enter link text. Prepend * to open link in a new tab.','wp-filebase')); ?>", name);
 		if(!linkText || linkText == null || linkText == '')	return;
 <?php } else echo " var linkText = '".$_GET['content']."'; "; ?>
 		theTag.linktext = linkText;
@@ -274,11 +274,11 @@ function insBrowserTag()
 <?php if(!$manage_attachments) {
 
 $tabs = array(
-	 'attach' => __('Attachments', WPFB),
-	 'file' => __('Single file', WPFB),
-	 'fileurl' => __('File URL', WPFB),
-	 'list' => __('File list', WPFB),
-	 'browser' => __('File Tree View', WPFB),
+	 'attach' => __('Attachments','wp-filebase'),
+	 'file' => __('Single file','wp-filebase'),
+	 'fileurl' => __('File URL','wp-filebase'),
+	 'list' => __('File list','wp-filebase'),
+	 'browser' => __('File Tree View','wp-filebase'),
 );
 	
 $tabs = apply_filters('wpfilebase_editor_plugin_tabmenu', $tabs);
@@ -327,7 +327,7 @@ $post_attachments = ($post_id > 0) ? WPFB_File::GetAttachedFiles($post_id, true)
 if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) {
 	?>
 	<form action="<?php echo add_query_arg(array('action'=>'change-order')) ?>" method="post">	
-	<h3 class="media-title"><?php echo $post_title ? sprintf(__('Files attached to <i>%s</i>',WPFB), $post_title) : __('Files', WPFB) ?></h3>
+	<h3 class="media-title"><?php echo $post_title ? sprintf(__('Files attached to <i>%s</i>','wp-filebase'), $post_title) : __('Files','wp-filebase') ?></h3>
 	<div id="media-items">
 	<?php 
 	if(empty($post_attachments)) echo "<div class='media-item'>",__('No items found.'),"</div>";
@@ -347,7 +347,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 		</div>
 	<?php }	?>
 	</div>
-	<input type="submit" name="change-order" value="<?php _e('Change Order', WPFB) ?>" />
+	<input type="submit" name="change-order" value="<?php _e('Change Order','wp-filebase') ?>" />
 	</form>
 	<?php
 }
@@ -362,7 +362,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 //if( (WPFB_Core::CurUserCanUpload()&&empty($file))) TODO
 	WPFB_Admin::PrintForm('file', $file, array('exform'=>$exform, 'in_editor'=>true, 'post_id'=>$post_id));
 ?>
-<h3 class="media-title"><?php _e('Attach existing file', WPFB) ?></h3>
+<h3 class="media-title"><?php _e('Attach existing file','wp-filebase') ?></h3>
 <ul id="attachbrowser" class="filetree"></ul>
 <?php wpfb_loadclass('TreeviewAdmin');
 		WPFB_TreeviewAdmin::RenderHTML("attachbrowser");
@@ -371,17 +371,17 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	
 <?php if(!$manage_attachments) {?>
 <form id="filetplselect" class="insert">
-	<h2><?php _e('Select Template', WPFB) ?></h2>
-	<label><input type="radio" name="filetpl" value="" checked="checked" /><i><?php _e('Default Template', WPFB) ?></i></label><br />
+	<h2><?php _e('Select Template','wp-filebase') ?></h2>
+	<label><input type="radio" name="filetpl" value="" checked="checked" /><i><?php _e('Default Template','wp-filebase') ?></i></label><br />
 	<?php $tpls = WPFB_Core::GetFileTpls();
 		if(!empty($tpls)) {
 			foreach($tpls as $tpl_tag => $tpl_src)
 				echo '<label><input type="radio" name="filetpl" value="' . esc_attr($tpl_tag) . '" />' . esc_html($tpl_tag) . '</label><br />';
 		} ?>
-	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#file') ?>" target="_parent"><?php _e('Add Template', WPFB) ?></a></i>
+	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#file') ?>" target="_parent"><?php _e('Add Template','wp-filebase') ?></a></i>
 </form>
 <div id="fileselect" class="container">
-	<h2><?php _e('Select File', WPFB); ?></h2>
+	<h2><?php _e('Select File','wp-filebase'); ?></h2>
 	<ul id="filebrowser" class="filetree"></ul>
 	<?php wpfb_loadclass('TreeviewAdmin');
 		WPFB_TreeviewAdmin::RenderHTML("filebrowser");
@@ -390,8 +390,8 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 <div id="catselect" class="container">
 	<h2><?php _e('Select Category'/*def*/); ?></h2>
 	<div id="catselect-filter">
-		<p><?php _e('Select the categories containing the files you would like to list.',WPFB); ?></p>
-		<p><input type="checkbox" id="list-all-files" name="list-all-files" value="1" onchange="incAllCatsChanged(this.checked)"/> <label for="list-all-files"><?php _e('Include all Categories',WPFB); ?></label></p>
+		<p><?php _e('Select the categories containing the files you would like to list.','wp-filebase'); ?></p>
+		<p><input type="checkbox" id="list-all-files" name="list-all-files" value="1" onchange="incAllCatsChanged(this.checked)"/> <label for="list-all-files"><?php _e('Include all Categories','wp-filebase'); ?></label></p>
 	
 	</div>
 	
@@ -401,31 +401,31 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 	?>
 </div>
 <form id="listtplselect" class="insert">
-	<h2><?php _e('Select Template', WPFB) ?></h2>
+	<h2><?php _e('Select Template','wp-filebase') ?></h2>
 	<?php $tpls = WPFB_ListTpl::GetAll();
 		if(!empty($tpls)) {
 			foreach($tpls as $tpl)
 				echo '<label><input type="radio" name="listtpl" value="'.$tpl->tag.'" />'.$tpl->GetTitle().'</label><br />';
 		} ?>
-	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#list') ?>" target="_parent"><?php _e('Add Template', WPFB) ?></a></i>
+	<i><a href="<?php echo admin_url('admin.php?page=wpfilebase_tpls#list') ?>" target="_parent"><?php _e('Add Template','wp-filebase') ?></a></i>
 </form>
 
 <form id="list" class="insert">
 	<p>
-	<label for="list-num"><?php _e('Files per page:',WPFB) ?></label>
+	<label for="list-num"><?php _e('Files per page:','wp-filebase') ?></label>
 	<input name="list-num" type="text" id="list-num" value="0" class="small-text" />
-	<?php printf(__('Set to 0 to use the default limit (%d), -1 will disable pagination.',WPFB), WPFB_Core::$settings->filelist_num) ?>
+	<?php printf(__('Set to 0 to use the default limit (%d), -1 will disable pagination.','wp-filebase'), WPFB_Core::$settings->filelist_num) ?>
 		
 	</p>
 	
 	<p id="list-pagenav-wrap">
 	<input type="checkbox" id="list-pagenav" name="list-pagenav" value="1" checked="checked" />
-	<label for="list-pagenav"><?php _e('Display Page Navigation',WPFB); ?></label>
+	<label for="list-pagenav"><?php _e('Display Page Navigation','wp-filebase'); ?></label>
 	</p>
 	
 	<p>
 	<input type="checkbox" id="list-show-cats" name="list-show-cats" value="1" />
-	<label for="list-show-cats"><?php _e('Group by Categories',WPFB); echo " / "; _e('List selected Categories',WPFB) ?></label>
+	<label for="list-show-cats"><?php _e('Group by Categories','wp-filebase'); echo " / "; _e('List selected Categories','wp-filebase') ?></label>
 	</p>
 	
 	<p><a class="button-primary" style="position: fixed; right: 8px; bottom: 8px;" href="javascript:void(0)" onclick="return insListTag()"><?php echo _e('Insert') ?></a><br />
@@ -434,7 +434,7 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 
 
 <form id="browser" class="insert">
-	<p><?php _e('Select the root category of the tree view file browser:',WPFB); ?><br />	
+	<p><?php _e('Select the root category of the tree view file browser:','wp-filebase'); ?><br />	
 	<select name="browser-root" id="browser-root"><?php echo WPFB_Output::CatSelTree(array('none_label' => __('All'))); ?></select>
 	</p>
 	
@@ -460,9 +460,9 @@ if($action != 'editfile' && (!empty($post_attachments) || $manage_attachments)) 
 
 <form id="catsort" class="insert">
 	<p>
-	<label for="list-cat-sort-by"><?php _e("Category order",WPFB) ?>:</label>
+	<label for="list-cat-sort-by"><?php _e('Category order','wp-filebase') ?>:</label>
 	<select name="list-cat-sort-by" id="list-cat-sort-by" style="width:100%">
-		<option value=""><?php _e('None (order of IDs in shortcode)', WPFB); ?></option>
+		<option value=""><?php _e('None (order of IDs in shortcode)','wp-filebase'); ?></option>
 		<?php $opts = WPFB_Models::CatSortFields();
 		foreach($opts as $tag => $name) echo '<option value="'.$tag.'">'.$tag.' - '.$name.'</option>'; ?>
 	</select>	

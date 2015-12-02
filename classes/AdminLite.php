@@ -20,7 +20,7 @@ static function InitClass()
 	
 	add_action('wp_dashboard_setup', array(__CLASS__, 'AdminDashboardSetup'));	
 	
-	//wp_register_widget_control(WPFB_PLUGIN_NAME, "[DEPRECATED]".WPFB_PLUGIN_NAME .' '. __('File list',WPFB), array(__CLASS__, 'WidgetFileListControl'), array('description' => __('DEPRECATED', WPFB)));
+	//wp_register_widget_control(WPFB_PLUGIN_NAME, "[DEPRECATED]".WPFB_PLUGIN_NAME .' '. __('File list','wp-filebase'), array(__CLASS__, 'WidgetFileListControl'), array('description' => __('DEPRECATED','wp-filebase')));
 	
 	add_action('admin_print_scripts', array('WPFB_AdminLite', 'AdminPrintScripts'));
 
@@ -35,7 +35,7 @@ static function InitClass()
 		if(get_option('wpfb_uninstall')) {
 			function wpfb_uninstall_warning() {
 				echo "
-				<div id='wpfb-warning' class='updated fade'><p><strong>".__('WP-Filebase will be uninstalled completely when deactivating the Plugin! All settings and File/Category Info will be deleted. Actual files in the upload directory will not be removed.').' <a href="'.add_query_arg('wpfb-uninstall', '0').'">'.__('Cancel')."</a></strong></p></div>
+				<div id='wpfb-warning' class='updated fade'><p><strong>".__('WP-Filebase will be uninstalled completely when deactivating the Plugin! All settings and File/Category Info will be deleted. Actual files in the upload directory will not be removed.','wp-filebase').' <a href="'.add_query_arg('wpfb-uninstall', '0').'">'.__('Cancel')."</a></strong></p></div>
 				";
 			}
 			add_action('admin_notices', 'wpfb_uninstall_warning');
@@ -88,7 +88,7 @@ static function SetupMenu()
 	foreach($menu_entries as $me)
 	{
 		$callback = is_callable($me['fnc']) ? $me['fnc'] : array(__CLASS__, $me['fnc']);
-		add_submenu_page($pm_tag, WPFB_PLUGIN_NAME.' - '.__($me['tit'], WPFB), empty($me['hide'])?__($me['tit'], WPFB):null, empty($me['cap'])?'read':$me['cap'], WPFB_OPT_NAME.'_'.$me['tag'], $callback);
+		add_submenu_page($pm_tag, WPFB_PLUGIN_NAME.' - '.__($me['tit'],'wp-filebase'), empty($me['hide'])?__($me['tit'],'wp-filebase'):null, empty($me['cap'])?'read':$me['cap'], WPFB_OPT_NAME.'_'.$me['tag'], $callback);
 	}
 }
 
@@ -133,7 +133,10 @@ private static function CheckChangedVer()
 	}
 }
 
-static function JsRedirect($url) {
+static function JsRedirect($url, $unsafe=false) {
+        $url = wp_sanitize_redirect($url);
+        if(!$unsafe)
+            $url = wp_validate_redirect($url, apply_filters( 'wp_safe_redirect_fallback', admin_url(), 302 ) );
 	echo '<script type="text/javascript"> window.location = "',str_replace('"','\\"',$url),'"; </script><h1><a href="',esc_attr($url),'">',esc_html($url),'</a></h1>'; 
 	// NO exit/die here!
 }
@@ -160,7 +163,7 @@ static function AdminPrintScripts() {
 
 static function AdminDashboardSetup() {	
 	if(WPFB_Core::CurUserCanUpload())
-		wp_add_dashboard_widget('wpfb-add-file-widget', WPFB_PLUGIN_NAME.': '.__('Add File', WPFB), wpfb_callback('Admin', 'AddFileWidget'));
+		wp_add_dashboard_widget('wpfb-add-file-widget', WPFB_PLUGIN_NAME.': '.__('Add File','wp-filebase'), wpfb_callback('Admin', 'AddFileWidget'));
 }
 
 

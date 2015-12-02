@@ -118,7 +118,7 @@
 		{
 			$n = count($group);
 			echo '<p>';
-			printf(__('%d files <i>%s</i>',WPFB), $n, $t);
+			printf(__('%d files <i>%s</i>','wp-filebase'), $n, $t);
 			echo '</p>';
 		}
 	}

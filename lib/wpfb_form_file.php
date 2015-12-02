@@ -17,7 +17,7 @@ if(!empty($post_id))
 	$file->file_post_id = $post_id;
 
 $action = ($update ? 'updatefile' : 'addfile');
-$title = $update ? __('Edit File', WPFB) : __('Add File', WPFB);
+$title = $update ? __('Edit File','wp-filebase') : __('Add File','wp-filebase');
 
 $default_roles = WPFB_Core::$settings->default_roles;
 $user_roles = ($update || empty($default_roles)) ? $file->GetReadPermissions() : $default_roles;
@@ -67,14 +67,14 @@ $visual_editor = get_user_option(WPFB.'_visual_editor') && !$in_widget && !$in_e
 <?php
 if(!$in_widget) {
 	if($in_editor) {
-		?><div style="float: right;"><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')); ?>"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a></div><h3 class="media-title"><?php echo $title ?></h3><?php
+		?><div style="float: right;"><a style="font-style:normal;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')); ?>"><?php _e($exform ? 'Simple Form' : 'Extended Form','wp-filebase') ?></a></div><h3 class="media-title"><?php echo $title ?></h3><?php
 	} else {
 		echo "<h2>".$title.' ';
-		if(!$update) { ?><a style="font-style:normal; white-space: nowrap;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form', WPFB) ?></a> <?php
+		if(!$update) { ?><a style="font-style:normal; white-space: nowrap;" href="<?php echo add_query_arg('exform', ($exform ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($exform ? 'Simple Form' : 'Extended Form','wp-filebase') ?></a> <?php
 		}
 		
 		if(!$update) {
-			echo ' <a style="font-style:normal; white-space: nowrap;" href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload',WPFB).'</a>';
+			echo ' <a style="font-style:normal; white-space: nowrap;" href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload','wp-filebase').'</a>';
 		}
 		
 		echo "</h2>";
@@ -214,9 +214,9 @@ function WPFB_addTag(tag)
 			<div id="wpfilebase-upload-tabs">
 				<div id="file-upload-wrap" <?php echo ($file->IsRemote() ? 'class="hidden"' : ''); ?>>
 					<div id="html-upload-ui">
-						<label for="file_upload"><?php _e('Choose File', WPFB) ?></label>
+						<label for="file_upload"><?php _e('Choose File','wp-filebase') ?></label>
 						<input type="file" name="file_upload" id="file_upload" /><br />
-						<?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.',WPFB), 'php.ini'); ?>">?</a></b>
+						<?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.','wp-filebase'), 'php.ini'); ?>">?</a></b>
 						<p class="upload-html-bypass hide-if-no-js"><?php _e('You are using the Browser uploader.'); 
 						printf( __('Try the <a href="%s">Flash uploader</a> instead.'), esc_url(add_query_arg('flash', 1)) );
 						?>
@@ -230,9 +230,9 @@ function WPFB_addTag(tag)
 					<label for="file_remote_uri"><?php _e('File URL') ?></label>
 					<input name="file_remote_uri" id="file_remote_uri" type="text" value="<?php echo esc_attr($file->file_remote_uri); ?>" style="width:98%" /><br />
 					<fieldset><legend class="hidden"></legend>
-						<label><input type="radio" name="file_remote_redirect" value="1" <?php checked($file->IsRemote()); ?> onchange="jQuery('#wpfilebase-remote-scan-wrap').show();" /><?php _e('Redirect download to URL', WPFB) ?></label>
-						<label><input type="radio" name="file_remote_redirect" value="0" <?php checked($file->IsLocal()); ?>  onchange="jQuery('#wpfilebase-remote-scan-wrap').hide();" /><?php _e('Copy file into Filebase (sideload)', WPFB) ?></label>
-						<span id="wpfilebase-remote-scan-wrap" class="hidden"><br /><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)', WPFB) ?></label></span>
+						<label><input type="radio" name="file_remote_redirect" value="1" <?php checked($file->IsRemote()); ?> onchange="jQuery('#wpfilebase-remote-scan-wrap').show();" /><?php _e('Redirect download to URL','wp-filebase') ?></label>
+						<label><input type="radio" name="file_remote_redirect" value="0" <?php checked($file->IsLocal()); ?>  onchange="jQuery('#wpfilebase-remote-scan-wrap').hide();" /><?php _e('Copy file into Filebase (sideload)','wp-filebase') ?></label>
+						<span id="wpfilebase-remote-scan-wrap" class="hidden"><br /><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)','wp-filebase') ?></label></span>
 					</fieldset>
 				</div>
 			</div>
@@ -242,7 +242,7 @@ function WPFB_addTag(tag)
 		<?php if($exform) { ?>		
 		<th scope="row" valign="top"><label for="file_upload_thumb"><?php _e('Thumbnail'/*def*/) ?></label></th>
 		<td class="form-field" colspan="3"><input type="file" name="file_upload_thumb" id="file_upload_thumb" />
-		<br /><?php _e('You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically.', WPFB); ?>
+		<br /><?php _e('You can optionally upload a thumbnail here. If the file is a valid image, a thumbnail is generated automatically.','wp-filebase'); ?>
 		<div style="<?php if(empty($file->file_thumbnail)) echo "display:none;"; ?>" id="file_thumbnail_wrap">
 			<br /><img src="<?php echo esc_attr($file->GetIconUrl()); ?>" alt="Icon" /><br />
 			<b id="file_thumbnail_name"><?php echo $file->file_thumbnail; ?></b><br />
@@ -250,7 +250,7 @@ function WPFB_addTag(tag)
 			<?php } ?>
 		</div>
 		</td>
-		<?php } else { ?><th scope="row"></th><td colspan="3"><?php _e('The following fields are optional.', WPFB) ?></td><?php } ?>
+		<?php } else { ?><th scope="row"></th><td colspan="3"><?php _e('The following fields are optional.','wp-filebase') ?></td><?php } ?>
 	</tr>
 <?php } /*multi_edit*/ ?>
 	<tr class="form-field">
@@ -276,12 +276,12 @@ function WPFB_addTag(tag)
 	</tr>
 	<tr class="form-field">
 		<?php } ?>
-		<th scope="row" valign="top"><label for="file_category"><?php _e('Category') ?></label></th>
+		<th scope="row" valign="top"><label for="file_category"><?php _e('Category','wp-filebase') ?></label></th>
 		<td><select name="file_category" id="file_category" class="postform wpfb-cat-select" onchange="WPFB_formCategoryChanged();"><?php echo WPFB_Output::CatSelTree(array('selected'=>$file_category
 			 , 'add_cats' => true
 )) ?></select></td>
 		<?php if($exform && !empty(WPFB_Core::$settings->licenses)) { ?>
-		<th scope="row" valign="top"><label for="file_license"><?php _e('License', WPFB) ?></label></th>
+		<th scope="row" valign="top"><label for="file_license"><?php _e('License','wp-filebase') ?></label></th>
 		<td><select name="file_license" id="file_license" class="postform"><?php echo  WPFB_Admin::MakeFormOptsList('licenses', $file ? $file->file_license : null, true) ?></select></td>
 		<?php } ?>
 	</tr>
@@ -296,16 +296,16 @@ function WPFB_addTag(tag)
 		<td><input type="hidden" name="file_post_id" id="file_post_id" value="<?php echo esc_attr($file->file_post_id); ?>" /></td>
 		<?php } ?>
 		<?php if($exform) { ?>
-		<th scope="row" valign="top"><label for="file_hits"><?php _e('Download Counter', WPFB) ?></label></th>
+		<th scope="row" valign="top"><label for="file_hits"><?php _e('Download Counter','wp-filebase') ?></label></th>
 		<td><input type="text" name="file_hits" class="small-text" id="file_hits" value="<?php echo (int)$file->file_hits; ?>" /></td>
 	</tr>
 	<tr class="form-field">
 		<?php if(WPFB_Core::$settings->platforms) { ?>
-		<th scope="row" valign="top"><label for="file_platforms[]"><?php _e('Platforms', WPFB) ?></label></th>
+		<th scope="row" valign="top"><label for="file_platforms[]"><?php _e('Platforms','wp-filebase') ?></label></th>
 		<td><select name="file_platforms[]" size="40" multiple="multiple" id="file_platforms[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('platforms', $file ? $file->file_platform : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php }
 		if(WPFB_Core::$settings->requirements) { ?>
-		<th scope="row" valign="top"><label for="file_requirements[]"><?php _e('Requirements', WPFB) ?></label></th>
+		<th scope="row" valign="top"><label for="file_requirements[]"><?php _e('Requirements','wp-filebase') ?></label></th>
 		<td><select name="file_requirements[]" size="40" multiple="multiple" id="file_requirements[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('requirements', $file ? $file->file_requirement : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php } ?>
 	</tr>
@@ -315,11 +315,11 @@ function WPFB_addTag(tag)
 		<td  class="form-field"><select name="file_languages[]" size="40" multiple="multiple" id="file_languages[]" style="height: 80px;"><?php echo  WPFB_Admin::MakeFormOptsList('languages', $file ? $file->file_language : null, true) ?></select></td>
 		<?php } else { ?><th></th><td></td><?php } ?>
 		
-		<th scope="row" valign="top"><label for="file_direct_linking"><?php _e('Direct linking', WPFB) ?></label></th>
+		<th scope="row" valign="top"><label for="file_direct_linking"><?php _e('Direct linking','wp-filebase') ?></label></th>
 		<td>
 			<fieldset><legend class="hidden"><?php _e('Direct linking') ?></legend>
-				<label title="<?php _e('Yes') ?>"><input type="radio" name="file_direct_linking" value="1" <?php checked('1', $file->file_direct_linking); ?>/> <?php _e('Allow direct linking', WPFB) ?></label><br />
-				<label title="<?php _e('No') ?>"><input type="radio" name="file_direct_linking" value="0" <?php checked('0', $file->file_direct_linking); ?>/> <?php _e('Redirect to post', WPFB) ?></label>
+				<label title="<?php _e('Yes') ?>"><input type="radio" name="file_direct_linking" value="1" <?php checked('1', $file->file_direct_linking); ?>/> <?php _e('Allow direct linking','wp-filebase') ?></label><br />
+				<label title="<?php _e('No') ?>"><input type="radio" name="file_direct_linking" value="0" <?php checked('0', $file->file_direct_linking); ?>/> <?php _e('Redirect to post','wp-filebase') ?></label>
 
 			</fieldset>
 		</td>
@@ -328,7 +328,7 @@ function WPFB_addTag(tag)
 	<tr <?php if(!$visual_editor) { ?>class="form-field"<?php } ?>>
 		<th scope="row" valign="top"><label for="file_description"><?php _e('Description') ?></label>
 		<?php if(!$in_widget && !$in_editor) { ?><br /><br />
-		<a style="font-style:normal; font-size:9px; padding:3px; margin:0;" href="<?php echo add_query_arg('visual_editor', ($visual_editor ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($visual_editor ? 'Simple Editor' : 'Visual Editor', WPFB) ?></a>
+		<a style="font-style:normal; font-size:9px; padding:3px; margin:0;" href="<?php echo add_query_arg('visual_editor', ($visual_editor ? '0' : '1')).'#'.$action; ?>" class="add-new-h2"><?php _e($visual_editor ? 'Simple Editor' : 'Visual Editor','wp-filebase') ?></a>
 		<?php } ?>
 		</th>
 		<td colspan="3">
@@ -345,13 +345,13 @@ function WPFB_addTag(tag)
 	</tr>
 	<?php if($exform) { ?>
 	<tr>
-		<th scope="row" valign="top"><?php _e('Access Permission',WPFB) ?></th>
+		<th scope="row" valign="top"><?php _e('Access Permission','wp-filebase') ?></th>
 		<td>
 		<?php if($update) { ?><input type="hidden" name="file_perm_explicit" value="1" />
 		<?php } else { ?>		
-			<label><input type="radio" name="file_perm_explicit" value="0" <?php checked(true); ?> onchange="jQuery('#file_perm_wrap').hide()" /><?php _e('Inherit Permissions', WPFB) ?> (<span id="file_inherited_permissions_label"></span>)</label>
+			<label><input type="radio" name="file_perm_explicit" value="0" <?php checked(true); ?> onchange="jQuery('#file_perm_wrap').hide()" /><?php _e('Inherit Permissions','wp-filebase') ?> (<span id="file_inherited_permissions_label"></span>)</label>
 			<br />
-			<label><input type="radio" name="file_perm_explicit" value="1" onchange="jQuery('#file_perm_wrap').show()" /><?php _e('Explicitly set permissions', WPFB) ?></label>
+			<label><input type="radio" name="file_perm_explicit" value="1" onchange="jQuery('#file_perm_wrap').show()" /><?php _e('Explicitly set permissions','wp-filebase') ?></label>
 		<?php } ?>
 			<div id="file_perm_wrap" <?php if(!$update) { echo 'class="hidden"'; } ?>>
 				<?php _e('Limit file access by selecting one or more user roles.')?>
@@ -361,7 +361,7 @@ function WPFB_addTag(tag)
 		
 		
 		<th scope="row" valign="top"></th>
-		<td><input type="checkbox" name="file_offline" id="file_offline" value="1" <?php checked('1', $file->file_offline); ?>/> <label for="file_offline"><?php _e('Offline', WPFB) ?></label></td>
+		<td><input type="checkbox" name="file_offline" id="file_offline" value="1" <?php checked('1', $file->file_offline); ?>/> <label for="file_offline"><?php _e('Offline','wp-filebase') ?></label></td>
 		
 	</tr>
 	<!-- TODO owner -->
@@ -376,7 +376,7 @@ function WPFB_addTag(tag)
 	</tr> <?php
 	} 
 	if(!empty($custom_fields)) { ?>
-	<tr><td colspan="4" style="text-align:right;margin:0;padding:0;"><a href="<?php echo admin_url('admin.php?page=wpfilebase_sets#'.sanitize_title(__('Form Presets', WPFB))); ?>"><?php _e('Manage Custom Fields',WPFB) ?></a></td></tr>
+	<tr><td colspan="4" style="text-align:right;margin:0;padding:0;"><a href="<?php echo admin_url('admin.php?page=wpfilebase_sets#'.sanitize_title(__('Form Presets','wp-filebase'))); ?>"><?php _e('Manage Custom Fields','wp-filebase') ?></a></td></tr>
 	<?php } ?>
 </table>
 <p class="submit"><input type="submit" class="button-primary" id="file-submit" name="submit-btn" value="<?php echo $update?__('Update'):$title; ?>" <?php if(false && !$in_editor) { ?>onclick="this.form.submit(); return false;"<?php } ?>/></p>
@@ -388,7 +388,7 @@ if($update)
 	$info = WPFB_GetID3::GetFileInfo($file, true);
 	if(!empty($info->value)) {		
 		wpfb_loadclass('AdminGuiFiles');
-		add_meta_box('wpfb_file_info_paths', __('File Info Tags (ID3 Tags)', WPFB), array('WPFB_AdminGuiFiles','FileInfoPathsBox'), 'wpfb_file_form', 'normal', 'core');
+		add_meta_box('wpfb_file_info_paths', __('File Info Tags (ID3 Tags)','wp-filebase'), array('WPFB_AdminGuiFiles','FileInfoPathsBox'), 'wpfb_file_form', 'normal', 'core');
 	?>
 		<div id="dashboard-widgets-wrap">
 			<div id="dashboard-widgets" class="metabox-holder">

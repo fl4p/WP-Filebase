@@ -19,7 +19,7 @@ function uploadProgress(fileObj, bytesDone, bytesTotal) {
 	jQuery('.percent', item).html( Math.ceil(bytesDone / bytesTotal * 100) + '%' );
 
 	if ( bytesDone == bytesTotal ) {
-		jQuery('.bar', item).html('<strong class="crunching">' + '<?php _e('File %s uploaded.', WPFB) ?>'.replace(/%s/g, fileObj.name) + '</strong>');
+		jQuery('.bar', item).html('<strong class="crunching">' + '<?php _e('File %s uploaded.','wp-filebase') ?>'.replace(/%s/g, fileObj.name) + '</strong>');
 		jQuery('.filename', '#file-upload-progress').hide();
 	}
 }

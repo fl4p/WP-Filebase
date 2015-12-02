@@ -413,7 +413,7 @@ static function SendFile($file_path, $args=array())
 	}
 	
 	if(!($fh = @fopen($file_path, 'rb')))
-		wp_die(__('Could not read file!', WPFB));
+		wp_die(__('Could not read file!','wp-filebase'));
 		
 	$begin = 0;
 	$end = $size-1;
@@ -440,7 +440,7 @@ static function SendFile($file_path, $args=array())
 	WPFB_Download::AddTraffic($length);
 	
 	
-	if(WPFB_Download::ShouldSendRangeHeader($file_path, $file_type))
+	if(self::ShouldSendRangeHeader($file_path, $file_type))
 		header("Accept-Ranges: bytes");
 	
 	$request_file_name = basename(urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));	

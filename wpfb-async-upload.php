@@ -71,7 +71,7 @@ if(!empty($_REQUEST['delupload']))
 }
 
 if(empty($_FILES['async-upload']))
-	wp_die(__('No file was uploaded.', WPFB).' (ASYNC)');	
+	wp_die(__('No file was uploaded.','wp-filebase').' (ASYNC)');	
 
 
 if(!@is_uploaded_file($_FILES['async-upload']['tmp_name'])

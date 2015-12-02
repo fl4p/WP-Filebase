@@ -21,7 +21,7 @@ static function Display()
 
 ?>
 <div id="wpfilebase-donate">
-<p><?php _e('If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!', WPFB) ?></p>
+<p><?php _e('If you like WP-Filebase I would appreciate a small donation to support my work. You can additionally add an idea to make WP-Filebase even better. Just click the button below. Thank you!','wp-filebase') ?></p>
 <?php WPFB_Admin::PrintPayPalButton() ?>
 <?php WPFB_Admin::PrintFlattrButton() ?>
 </div>

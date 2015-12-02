@@ -35,9 +35,9 @@
 		
 ?>
     <div class="wrap filebrowser-admin"> 
-    <h2><?php _e('File Browser', WPFB) ?></h2>    
+    <h2><?php _e('File Browser','wp-filebase') ?></h2>    
 <?php
-		echo '<div>'.__('You can Drag &amp; Drop (multiple) files directly on Categories to upload them. Dragging a category or an existing file to another category is also possible.',WPFB).'</div>';
+		echo '<div>'.__('You can Drag &amp; Drop (multiple) files directly on Categories to upload them. Dragging a category or an existing file to another category is also possible.','wp-filebase').'</div>';
 		
 		echo $content;
 ?>

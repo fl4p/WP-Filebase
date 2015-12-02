@@ -401,12 +401,12 @@ class WPFB_File extends WPFB_Item {
 			case 'file_url_rel':		return htmlspecialchars(WPFB_Core::$settings->download_base . '/' . str_replace('\\', '/', $this->GetLocalPathRel()));
 			case 'file_post_url':		return htmlspecialchars(!($url = $this->GetPostUrl()) ? $this->GetUrl() : $url);			
 			case 'file_icon_url':		return htmlspecialchars($this->GetIconUrl());
-			case 'file_small_icon':		return '<img src="'.esc_attr($this->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s',WPFB),$this->file_display_name)).'" style="vertical-align:middle;width:auto;'.((WPFB_Core::$settings->small_icon_size > 0) ? ('height:'.WPFB_Core::$settings->small_icon_size.'px;') : '').'" />';
+			case 'file_small_icon':		return '<img src="'.esc_attr($this->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s','wp-filebase'),$this->file_display_name)).'" style="vertical-align:middle;width:auto;'.((WPFB_Core::$settings->small_icon_size > 0) ? ('height:'.WPFB_Core::$settings->small_icon_size.'px;') : '').'" />';
 			case 'file_size':			return $this->GetFormattedSize();
 			case 'file_path':			return htmlspecialchars($this->GetLocalPathRel());
 			
 			case 'file_category':		return htmlspecialchars(is_object($cat = $this->GetParent()) ? $cat->cat_name : '');
-			case 'cat_small_icon':		return is_null($cat = $this->GetParent()) ? '' : ('<img src="'.htmlspecialchars($cat->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s',WPFB),$cat->cat_name)).'" style="width:auto;height:'.WPFB_Core::$settings->small_icon_size.'px;vertical-align:middle;" />');
+			case 'cat_small_icon':		return is_null($cat = $this->GetParent()) ? '' : ('<img src="'.htmlspecialchars($cat->GetIconUrl('small')).'" alt="'.esc_attr(sprintf(__('Icon of %s','wp-filebase'),$cat->cat_name)).'" style="width:auto;height:'.WPFB_Core::$settings->small_icon_size.'px;vertical-align:middle;" />');
 			case 'cat_icon_url':		return is_null($cat = $this->GetParent()) ? '' : htmlspecialchars($cat->GetIconUrl());
 			case 'cat_url':				return is_null($cat = $this->GetParent()) ? '' : htmlspecialchars($cat->GetUrl());
 			case 'cat_id':				return $this->file_category;

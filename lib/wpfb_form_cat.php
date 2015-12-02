@@ -8,7 +8,7 @@ if($update) {
 	$file_category = new WPFB_Category();
 	
 $action = $update ? 'updatecat' : 'addcat';
-$title = $update ? __('Edit Category') : __('Add Category',WPFB);/*def*/
+$title = $update ? __('Edit Category') : __('Add Category','wp-filebase');/*def*/
 $form_name = $update ? 'editcat' : 'addcat';
 $nonce_action = WPFB . "-" . $action . ($update ? $file_category->cat_id : '');	
 
@@ -37,7 +37,7 @@ elseif(!empty($_GET['redirect_referer']))
 			<td><input name="cat_name" id="cat_name" type="text" value="<?php echo esc_attr($file_category->cat_name); ?>" size="40" aria-required="true" /></td>
 		</tr>
 		<tr class="form-field">
-			<th scope="row" valign="top"><label for="cat_folder"><?php _e('Category Folder', WPFB) ?></label></th>
+			<th scope="row" valign="top"><label for="cat_folder"><?php _e('Category Folder','wp-filebase') ?></label></th>
 			<td><input name="cat_folder" id="cat_folder" type="text" value="<?php echo esc_attr($file_category->cat_folder); ?>" size="40" /><br />
             <?php _e('The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.'/*def*/); ?></td>
 		</tr>
@@ -53,7 +53,7 @@ elseif(!empty($_GET['redirect_referer']))
 			<td><textarea name="cat_description" id="cat_description" rows="5" cols="50" style="width: 97%;"><?php echo esc_html($file_category->cat_description); ?></textarea></td>
 		</tr>
 		<tr>
-			<th scope="row" valign="top" class="form-field"><label for="cat_icon"><?php _e('Category Icon', WPFB) ?></label></th>
+			<th scope="row" valign="top" class="form-field"><label for="cat_icon"><?php _e('Category Icon','wp-filebase') ?></label></th>
 			<td><input type="file" name="cat_icon" id="cat_icon" />
 			<?php if(!empty($file_category->cat_icon)) { ?>
 				<br /><img src="<?php echo $file_category->GetIconUrl(); ?>" alt="Icon" /><br />
@@ -62,16 +62,16 @@ elseif(!empty($_GET['redirect_referer']))
 			</td>
 		</tr>		 
 		<tr>
-			<th scope="row" valign="top"><?php _e('Access Permission',WPFB) ?></th>
+			<th scope="row" valign="top"><?php _e('Access Permission','wp-filebase') ?></th>
 			<td>
 			<?php if($update) { ?><input type="hidden" name="cat_perm_explicit" value="1" />
 			<?php } else { ?>		
-				<label><input type="radio" name="cat_perm_explicit" value="0" <?php checked(true); ?> onchange="jQuery('#cat_perm_wrap').hide()" /><?php _e('Inherit Permissions', WPFB) ?> (<span id="cat_inherited_permissions_label"></span>)</label>
+				<label><input type="radio" name="cat_perm_explicit" value="0" <?php checked(true); ?> onchange="jQuery('#cat_perm_wrap').hide()" /><?php _e('Inherit Permissions','wp-filebase') ?> (<span id="cat_inherited_permissions_label"></span>)</label>
 				<br />
-				<label><input type="radio" name="cat_perm_explicit" value="1" onchange="jQuery('#cat_perm_wrap').show()" /><?php _e('Explicitly set permissions', WPFB) ?></label>
+				<label><input type="radio" name="cat_perm_explicit" value="1" onchange="jQuery('#cat_perm_wrap').show()" /><?php _e('Explicitly set permissions','wp-filebase') ?></label>
 			<?php } ?>
 				<div id="cat_perm_wrap" <?php if(!$update) { echo 'class="hidden"'; } ?>>
-					<?php _e('Limit category access by selecting one or more user roles.',WPFB)?>
+					<?php _e('Limit category access by selecting one or more user roles.','wp-filebase')?>
 					<div id="cat_user_roles"><?php WPFB_Admin::RolesCheckList('cat_user_roles', $user_roles) ?></div>
 				</div>
 			</td>
@@ -80,16 +80,16 @@ elseif(!empty($_GET['redirect_referer']))
 		
 		<?php if($update) { ?>
 		<tr>
-			<th scope="row" valign="top"><label for="cat_child_apply_perm"><?php _e('Apply permission to all child files', WPFB) ?></label></th>
-			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.',WPFB); ?></td>
+			<th scope="row" valign="top"><label for="cat_child_apply_perm"><?php _e('Apply permission to all child files','wp-filebase') ?></label></th>
+			<td><input type="checkbox" name="cat_child_apply_perm" value="1" /> <?php _e('This will recursively update permissions of all existing child categories and files. Note that permissions of new files in this category are inherited automatically, without having checked this checkbox.','wp-filebase'); ?></td>
 		</tr>
 		<?php } ?>
 		<tr>
-			<th scope="row" valign="top"><label for="cat_exclude_browser"><?php _e('Exclude from file browser', WPFB) ?></label></th>
+			<th scope="row" valign="top"><label for="cat_exclude_browser"><?php _e('Exclude from file browser','wp-filebase') ?></label></th>
 			<td><input type="checkbox" name="cat_exclude_browser" value="1" <?php checked($file_category->cat_exclude_browser) ?> /></td>
 		</tr>
 		<tr class="form-field">
-			<th scope="row" valign="top"><label for="cat_order"><?php _e('Custom Sort Order', WPFB) ?></label></th>
+			<th scope="row" valign="top"><label for="cat_order"><?php _e('Custom Sort Order','wp-filebase') ?></label></th>
 			<td><input name="cat_order" id="cat_order" type="text" value="<?php echo esc_attr($file_category->cat_order); ?>" class="small-text" size="8" style="width:60px; text-align:right;" /></td>
 		</tr>
 	</table>

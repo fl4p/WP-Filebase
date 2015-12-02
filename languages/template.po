@@ -1301,9 +1301,6 @@ msgstr ""
 msgid "Attach to Post"
 msgstr "An Beitrag anhängen"
 
-msgid "Redirect to file page"
-msgstr ""
-
 msgid "Upload Permission"
 msgstr "Genehmigung hochladen"
 
@@ -2138,4 +2135,191 @@ msgstr ""
 msgid "No sync in progress. Done!"
 msgstr ""
 
+msgid "Could not add custom field '%s'!"
+msgstr ""
 
+msgid "Could not remove custom field '%s'!"
+msgstr ""
+
+msgid "RPC OK!"
+msgstr ""
+
+msgid "RPC does not work correctly!"
+msgstr ""
+
+msgid "Disable file browser Drag &amp; Drop"
+msgstr ""
+
+msgid "Enable file browser Drag &amp; Drop"
+msgstr ""
+
+msgid "%d File(s) processed."
+msgstr ""
+
+msgid "Batch edit %d files"
+msgstr ""
+
+msgid "Access Permissions"
+msgstr ""
+
+msgid "Manage Categories (<a href=\"%s\">add new</a>)"
+msgstr ""
+
+msgid "No Contact Forms found or Contact Form 7 not installed"
+msgstr ""
+
+msgid "Only allow placement inside post content. This provides better security since the upload only works if the form shortcode has actually been placed in the post and the uploading user can read this post. If you want to place the form directly into the template using the <code>do_shortcode</code> function this must be disabled."
+msgstr ""
+
+msgid "Embedded forms will not work unless you enable front end uploads in <a href=\"%s\">Security Settings</a>"
+msgstr ""
+
+msgid "You can Drag &amp; Drop (multiple) files directly on Categories to upload them. Dragging a category or an existing file to another category is also possible."
+msgstr ""
+
+msgid "Manage Files (<a href=\"%s\">add new</a>)"
+msgstr ""
+
+msgid "File Browser post or page not set! Some features like search will not work. <a href=\"%s\">Click here to set the File Browser Post ID.</a>"
+msgstr ""
+
+msgid "Extensions"
+msgstr ""
+
+msgid "Install Extensions to extend functionality of WP-Filebase"
+msgstr ""
+
+msgid "Completely uninstall WP-Filebase"
+msgstr ""
+
+msgid "Batch Sync"
+msgstr ""
+
+msgid "Normal Sync"
+msgstr ""
+
+msgid "Use Batch syncing if you have a large number of files to add."
+msgstr ""
+
+msgid "Sync is currently in batch mode. Use the button to switch to normal mode."
+msgstr ""
+
+msgid "Background Scanning"
+msgstr ""
+
+msgid "Enable Background Scanning of files. Sync adds all files first, then starts a background task scanning file info."
+msgstr ""
+
+msgid "Debug Sync"
+msgstr ""
+
+msgid "Run to get more Debug Info in case Sync crashes"
+msgstr ""
+
+msgid "Upgrade to WP-Filebase Pro for cloud support, advanced permissions handling and much more."
+msgstr ""
+
+msgid "Cloud Syncs"
+msgstr ""
+
+msgid "New Cloud Sync"
+msgstr ""
+
+msgid "NOTICE: The upload path <code>%s</code> is rooted to the filesystem. You should remove the leading slash if you want to use a folder inside your Wordpress directory (i.e: <code>%s</code>)"
+msgstr ""
+
+msgid "Edit Template"
+msgstr ""
+
+msgid "WP-Filebase will be uninstalled completely when deactivating the Plugin! All settings and File/Category Info will be deleted. Actual files in the upload directory will not be removed."
+msgstr ""
+
+msgid "Upload OK!"
+msgstr ""
+
+msgid "<a href=\"%s\" title=\"Wordpress Download Manager Plugin\" style=\"color:inherit;font-size:inherit;\">Downloads served by WP-Filebase</a>"
+msgstr ""
+
+msgid "[%1$s] File Upload: \"%2$s\""
+msgstr ""
+
+msgid "Password Required"
+msgstr ""
+
+msgid "password"
+msgstr ""
+
+msgid "Rescan"
+msgstr ""
+
+msgid "Not Attached"
+msgstr ""
+
+msgid "Local Files"
+msgstr ""
+
+msgid "Cloud Files"
+msgstr ""
+
+msgid "Cannot move category into a sub-category of itself."
+msgstr ""
+
+msgid "You did not create a category. <a href=\"%s\" target=\"_parent\">Click here to create one.</a>"
+msgstr ""
+
+msgid "You license key is expired. Please <a href=\"%s\">contact support</a>"
+msgstr ""
+
+msgid "Your license key is already used. Please free a license slot by <a href=\"%s\">disabling another site</a>. Note: If you have changed the site domain please switch back to the old domain and disable WP-Filebase Pro, then re-enable it on the new domain."
+msgstr ""
+
+msgid "Something went wrong with activation. Please <a href=\"%s\">contact support</a>. (%s)"
+msgstr ""
+
+msgid "Number of Files [new/modified/deleted/uploads]: %d / %d / %d / %d"
+msgstr ""
+
+msgid "Delete files from Cloud if removed locally"
+msgstr ""
+
+msgid "<i>Category</i> Substitute"
+msgstr ""
+
+msgid "Alternative term for the label of category drop downs in upload forms. Affects front-end only (Widgets &amp; Embedded Forms)."
+msgstr ""
+
+msgid "This completely overrides access permissions."
+msgstr ""
+
+msgid "Sign Download URLs"
+msgstr ""
+
+msgid "Increases security and makes URL guessing"
+msgstr ""
+
+msgid "This disables the footer credits only displayed on <a href=\"%s\">File Browser Page</a>. Why should you keep the credits? Every backlink helps WP-Filebase to get more popular, popularity motivates the developer to continue work on the plugin."
+msgstr ""
+
+msgid "Upload Notification Template"
+msgstr ""
+
+msgid "Template used for emails sent on uploads."
+msgstr ""
+
+msgid "Populating file tree..."
+msgstr ""
+
+msgid "%d files in upload directory"
+msgstr ""
+
+msgid "Adding files with background scanning."
+msgstr ""
+
+msgid "Checking %d files for changes..."
+msgstr ""
+
+msgid "Set offline"
+msgstr ""
+
+msgid "Set online"
+msgstr ""

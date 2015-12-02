@@ -65,7 +65,7 @@ public function Display()
 		Drag &amp; Drop
 	</div>
 	<br />
-   <a id="<?php echo $this->prefix; ?>pickfiles" href="#" class="button"><?php _e($this->multi ? 'Select Files' : 'Select File',WPFB); ?></a>
+   <a id="<?php echo $this->prefix; ?>pickfiles" href="#" class="button"><?php _e($this->multi ? 'Select Files' : 'Select File','wp-filebase'); ?></a>
 	<br />
 	<div id="<?php echo $this->prefix; ?>error"></div>
 </div>

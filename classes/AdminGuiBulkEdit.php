@@ -53,7 +53,7 @@ class WPFB_AdminGuiBulkEdit {
 		}
 		
 		
-		return sprintf(__("%d File(s) processed.",WPFB), count($files));
+		return sprintf(__('%d File(s) processed.','wp-filebase'), count($files));
 	}
 	
 	
@@ -65,7 +65,7 @@ class WPFB_AdminGuiBulkEdit {
 		$prefix = "bulk";
 ?>
 <div class="form-wrap">
-	<h3><?php printf(__('Batch edit %d files',WPFB), $num_files); ?></h3>
+	<h3><?php printf(__('Batch edit %d files','wp-filebase'), $num_files); ?></h3>
 <form action="<?php echo remove_query_arg(array('action')) ?>" method="post">
 	<input type="hidden" name="action" value="edit" />	
 	<input type="hidden" name="action2" value="apply" />	
@@ -73,7 +73,7 @@ class WPFB_AdminGuiBulkEdit {
 	<input type="hidden" name="cats" value="<?php echo esc_attr(json_encode($cat_ids)); ?>" />
 		
 	<div>
-		<label for="<?php echo $prefix ?>file_category"><?php _e('Category',WPFB) ?></label>
+		<label for="<?php echo $prefix ?>file_category"><?php _e('Category','wp-filebase') ?></label>
 		<select name="file_category" id="<?php echo $prefix; ?>file_category" class="wpfb-cat-select"><?php wpfb_loadclass('Category'); echo WPFB_Output::CatSelTree(array('none_label' => __( '&mdash; No Change &mdash;' ), 'check_add_perm'=>true, 'add_cats' => true)); ?></select>
 	</div>
 	<div class="form-field">		
@@ -99,19 +99,19 @@ class WPFB_AdminGuiBulkEdit {
 	</div>
 -->
 	<div class="" style="float: left;">	
-		<fieldset><legend class=""><?php _e('Direct Linking', WPFB) ?></legend>
+		<fieldset><legend class=""><?php _e('Direct Linking','wp-filebase') ?></legend>
 		<label title="<?php _e('&mdash; No Change &mdash;' ) ?>"><input type="radio" name="file_direct_linking" value="" <?php checked(1); ?>/> <?php _e('&mdash; No Change &mdash;' ) ?></label>
-		<label title="<?php _e('Yes') ?>"><input type="radio" name="file_direct_linking" value="1" /> <?php _e('Allow direct linking', WPFB) ?></label>
-		<label title="<?php _e('No') ?>"><input type="radio" name="file_direct_linking" value="0" /> <?php _e('Redirect to post', WPFB) ?></label>
+		<label title="<?php _e('Yes') ?>"><input type="radio" name="file_direct_linking" value="1" /> <?php _e('Allow direct linking','wp-filebase') ?></label>
+		<label title="<?php _e('No') ?>"><input type="radio" name="file_direct_linking" value="0" /> <?php _e('Redirect to post','wp-filebase') ?></label>
 
 		</fieldset>
 	</div>
 
 	<div class="">	
-		<fieldset><legend class=""><?php _e('Offline', WPFB) ?></legend>
+		<fieldset><legend class=""><?php _e('Offline','wp-filebase') ?></legend>
 		<label title="<?php _e('&mdash; No Change &mdash;' ) ?>"><input type="radio" name="file_offline" value="" <?php checked(1); ?>/> <?php _e('&mdash; No Change &mdash;' ) ?></label>
-		<label title="<?php _e('Yes') ?>"><input type="radio" name="file_offline" value="1" /> <?php _e('Set offline', WPFB) ?></label>
-		<label title="<?php _e('No') ?>"><input type="radio" name="file_offline" value="0" /> <?php _e('Set online', WPFB) ?></label>
+		<label title="<?php _e('Yes') ?>"><input type="radio" name="file_offline" value="1" /> <?php _e('Set offline','wp-filebase') ?></label>
+		<label title="<?php _e('No') ?>"><input type="radio" name="file_offline" value="0" /> <?php _e('Set online','wp-filebase') ?></label>
 		</fieldset>
 	</div>
 

@@ -33,7 +33,7 @@ static function Parse($tpl)
 			  array(__CLASS__,'ParseTplIf'), $tpl);
 	
 	// parse translation texts
-	$tpl = preg_replace('/([^\w])%\\\\\'(.+?)\\\\\'%([^\w])/', '$1\'.__(__(\'$2\', WPFB)).\'$3', $tpl);
+	$tpl = preg_replace('/([^\w])%\\\\\'(.+?)\\\\\'%([^\w])/', '$1\'.__(__(\'$2\', \'wp-filebase\')).\'$3', $tpl);
 
 	// parse special vars
 	$tpl = str_replace('%post_id%', '\'.get_the_ID().\'', $tpl);
@@ -100,7 +100,7 @@ static function Check($tpl)
 	
 	wpfb_loadclass('File');
 	$f = new WPFB_File();
-	$e = null;
+	$e = null; // extra data
 	$tpl = 'return (' . $tpl . ');';
 	
 	if(!@eval($tpl))

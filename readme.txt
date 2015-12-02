@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfil
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
 Tested up to: 4.3.1
-Stable tag: 3.1.02
+Stable tag: 3.1.03
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -120,6 +120,11 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 == Changelog ==
 
+= 3.1.03 =
+* Added Extension Update API caching
+* Load getid3_lib if necessary
+* Fixed XXS URL redirection vulnerability found by [Cybersecurity Works](http://www.cybersecurityworks.com)
+
 = 3.1.02 =
 * PHP 7 constructor compatibility (and WP 4.3.0)
 * Updated getId3
@@ -143,6 +148,7 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 * Rescan looks for thumbnails with same basename if `Auto-detect thumbnails` is enabled
 * Fixed fatal error in editor plugin with conflicting plugins
 * Updated french translation by Marco Siviero
+* Changed textdomain from 'wpfb' to 'wp-filebase' for language pack compatibility
 
 = 3.1.01 =
 * Added support for remote urls for local files with `file://` scheme

@@ -18,7 +18,7 @@ function uploadProgress(up, file) {
 	jQuery('.percent', item).html( file.percent + '%' );
 
 	if ( file.percent == 100 ) {
-		item.html('<strong class="crunching">' + '<?php _e('File %s uploaded.', WPFB) ?>'.replace(/%s/g, file.name) + '</strong>');
+		item.html('<strong class="crunching">' + '<?php _e('File %s uploaded.','wp-filebase') ?>'.replace(/%s/g, file.name) + '</strong>');
 	}
 }
 	
@@ -82,7 +82,7 @@ wpUploaderInit = <?php echo json_encode($plupload_init); ?>;
 <div id="drag-drop-area">
 	<div class="drag-drop-inside">
 	<p class="drag-drop-info">
-		<?php _e('Drop files here - or -',WPFB); ?>
+		<?php _e('Drop files here - or -','wp-filebase'); ?>
 		<span class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></span>
 		<span class="drag-drop-info-spacer"></span>
 	</p>

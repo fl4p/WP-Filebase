@@ -1,28 +1,28 @@
 <?php class WPFB_WidgetForms {
 	public static function UploadWidget($obj, $instance ) {
 		if(!WPFB_Core::$settings->frontend_upload) {
-			_e('Frontend upload is disabled in security settings!', WPFB);
+			_e('Frontend upload is disabled in security settings!','wp-filebase');
 			return;
 		}
 		wpfb_loadclass('File', 'Category', 'Output');
-		if(!isset($instance['title'])) $instance['title'] = __('Upload File',WPFB);
+		if(!isset($instance['title'])) $instance['title'] = __('Upload File','wp-filebase');
 		?><div>
 			<p><label for="<?php echo $obj->get_field_id('title'); ?>"><?php _e('Title:'); ?> <input type="text" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label></p>
 			<p><label for="<?php echo $obj->get_field_id('category'); ?>"><?php _e('Category:'); ?>
 				<select id="<?php echo $obj->get_field_id('category'); ?>" name="<?php echo $obj->get_field_name('category'); ?>">
-					<option value="-1"  style="font-style:italic;"><?php _e('Selectable by Uploader',WPFB); ?></option>
-					<?php echo WPFB_Output::CatSelTree(array('none_label' => __('Upload to Root',WPFB), 'selected'=> empty($instance['category']) ? 0 : $instance['category'])); ?>
+					<option value="-1"  style="font-style:italic;"><?php _e('Selectable by Uploader','wp-filebase'); ?></option>
+					<?php echo WPFB_Output::CatSelTree(array('none_label' => __('Upload to Root','wp-filebase'), 'selected'=> empty($instance['category']) ? 0 : $instance['category'])); ?>
 				</select>
 			</label></p>
-			<p><input type="checkbox" id="<?php echo $obj->get_field_id('overwrite'); ?>" name="<?php echo $obj->get_field_name('overwrite'); ?>" value="1" <?php checked(!empty($instance['overwrite'])) ?> /> <label for="<?php echo $obj->get_field_id('overwrite'); ?>"><?php _e('Overwrite existing files', WPFB) ?></label></p>
-			<p><input type="checkbox" id="<?php echo $obj->get_field_id('attach'); ?>" name="<?php echo $obj->get_field_name('attach'); ?>" value="1" <?php checked(!empty($instance['attach'])) ?> /> <label for="<?php echo $obj->get_field_id('attach'); ?>"><?php _e('Attach file to current post/page', WPFB) ?></label></p>
+			<p><input type="checkbox" id="<?php echo $obj->get_field_id('overwrite'); ?>" name="<?php echo $obj->get_field_name('overwrite'); ?>" value="1" <?php checked(!empty($instance['overwrite'])) ?> /> <label for="<?php echo $obj->get_field_id('overwrite'); ?>"><?php _e('Overwrite existing files','wp-filebase') ?></label></p>
+			<p><input type="checkbox" id="<?php echo $obj->get_field_id('attach'); ?>" name="<?php echo $obj->get_field_name('attach'); ?>" value="1" <?php checked(!empty($instance['attach'])) ?> /> <label for="<?php echo $obj->get_field_id('attach'); ?>"><?php _e('Attach file to current post/page','wp-filebase') ?></label></p>
 		</div><?php
 	}	
 	
 	public static function CatListWidget( $obj, $instance ) {
 		if(WPFB_Core::$settings->file_browser_post_id <= 0) {
 			echo '<div>';
-			_e('Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings.', WPFB);
+			_e('Before you can use this widget, please set a Post ID for the file browser in WP-Filebase settings.','wp-filebase');
 			echo '<br /><a href="'.admin_url('admin.php?page=wpfilebase_sets#file-browser').'">';
 			_e('Goto File Browser Settings');
 			echo '</a></div>';
@@ -60,7 +60,7 @@
 			<label for="<?php echo $obj->get_field_id('sort-asc1'); ?>"><input type="radio" name="<?php echo $obj->get_field_name('sort-asc'); ?>" id="<?php echo $obj->get_field_id('sort-asc1'); ?>" value="1"<?php checked($instance['sort-asc'], true) ?>/><?php _e('Ascending'); ?></label>
 		</p>
 		<!--
-		<p><label for="wpfilebase-catlist-limit"><?php _e('Limit:', WPFB); ?>
+		<p><label for="wpfilebase-catlist-limit"><?php _e('Limit:','wp-filebase'); ?>
 			<input type="text" id="wpfilebase-catlist-limit" name="wpfilebase-catlist-limit" size="4" maxlength="3" value="<?php echo $options['catlist_limit']; ?>" />
 		</label></p> -->
 	</div>
@@ -87,7 +87,7 @@
 			<input type="text" id="<?php echo $obj->get_field_id('title'); ?>" name="<?php echo $obj->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label>
 		</p>
 		<!-- TODO multi cat -->
-		<p><label for="<?php echo $obj->get_field_id('cat'); ?>"><?php _e('Category:', WPFB); ?>
+		<p><label for="<?php echo $obj->get_field_id('cat'); ?>"><?php _e('Category:','wp-filebase'); ?>
 			<select name="<?php echo $obj->get_field_name('cat'); ?>" id="<?php echo $obj->get_field_id('cat'); ?>">
 			<?php echo WPFB_Output::CatSelTree(array('selected'=>empty($instance['cat']) ? 0 : $instance['cat'], 'none_label'=>__('All'))) ?>
 			</select></label>
@@ -113,11 +113,11 @@
 			<label for="<?php echo $obj->get_field_id('sort-asc1'); ?>"><input type="radio" name="<?php echo $obj->get_field_name('sort-asc'); ?>" id="<?php echo $obj->get_field_id('sort-asc1'); ?>" value="1"<?php checked($instance['sort-asc'], true) ?>/><?php _e('Ascending'); ?></label>
 		</p>
 		
-		<p><label for="<?php echo $obj->get_field_id('limit'); ?>"><?php _e('Limit:', WPFB); ?>
+		<p><label for="<?php echo $obj->get_field_id('limit'); ?>"><?php _e('Limit:','wp-filebase'); ?>
 			<input type="text" id="<?php echo $obj->get_field_id('limit'); ?>" name="<?php echo $obj->get_field_name('limit'); ?>" value="<?php echo intval($instance['limit']); ?>" size="4" maxlength="3" /></label>
 		</p>
 		
-		<p><label for="<?php echo $obj->get_field_id('tpl'); ?>"><?php _e('Template:', WPFB); ?>
+		<p><label for="<?php echo $obj->get_field_id('tpl'); ?>"><?php _e('Template:','wp-filebase'); ?>
 			<input class="widefat" type="text" id="<?php echo $obj->get_field_id('id'); ?>" name="<?php echo $obj->get_field_name('tpl'); ?>" value="<?php echo esc_attr($instance['tpl']); ?>" /></label>
 			<br /><?php	echo WPFB_Models::TplFieldsSelect($obj->get_field_id('id'), true); ?>
 		</p>

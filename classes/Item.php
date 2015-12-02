@@ -310,6 +310,7 @@ class WPFB_Item {
 		
 		self::$tpl_uid++;
 		$f =& $this;
+                $e = null; // extra data
 		return eval("return ($parsed_tpl);");
 	}
 	
@@ -513,7 +514,7 @@ class WPFB_Item {
 		$cat_changed = $new_cat_id != $old_cat_id;
 		
 		if($cat_changed && $new_cat_id > 0 && $this->IsAncestorOf($new_cat)) {
-			return array( 'error' => __('Cannot move category into a sub-category of itself.',WPFB));
+			return array( 'error' => __('Cannot move category into a sub-category of itself.','wp-filebase'));
 		}
 		
 		// strip accents/umlauts
@@ -580,10 +581,13 @@ class WPFB_Item {
 				}
 			}
 			
+                        
 			// finally move it!
 			if(!empty($old_name) && @file_exists($old_path)) {
-				if($this->is_file && $this->IsLocal()) {
-					if(!@rename($old_path, $new_path))
+                                //echo "MOVING! $old_path -> $new_path";
+                                
+				if($this->is_file) {
+					if(!@rename($old_path, c))
 						return array( 'error' => sprintf('Unable to move file %s!', $old_path));
 					@chmod($new_path, octdec(WPFB_PERM_FILE));
 				} else {

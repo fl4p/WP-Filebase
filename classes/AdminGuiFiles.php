@@ -51,7 +51,7 @@ static function Display()
 			} else {
 				$file = WPFB_File::GetFile($_GET['file_id']);
 				if(is_null($file) || !$file->CurUserCanEdit())
-					wp_die(__('You do not have the permission to edit this file!',WPFB));
+					wp_die(__('You do not have the permission to edit this file!','wp-filebase'));
 				WPFB_Admin::PrintForm('file', $file);
 			}
 			break;
@@ -83,7 +83,7 @@ static function Display()
 			if(isset($result['error']) && $result['error']) {
 				$message = $result['error'] . '<br /><a href="javascript:history.back()">' . __("Go back") . '</a>';
 			} else {
-				$message = $update?__('File updated.', WPFB):__('File added.', WPFB);
+				$message = $update?__('File updated.','wp-filebase'):__('File added.','wp-filebase');
 			}
 
 		default:
@@ -104,8 +104,8 @@ static function Display()
 			}
 ?>
 	<h2><?php
-	echo str_replace(array('(<','>)'),array('<','>'), sprintf(__('Manage Files (<a href="%s">add new</a>)', WPFB), '#addfile" class="add-new-h2'));
-	echo '<a href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload',WPFB).'</a>';
+	echo str_replace(array('(<','>)'),array('<','>'), sprintf(__('Manage Files (<a href="%s">add new</a>)','wp-filebase'), '#addfile" class="add-new-h2'));
+	echo '<a href="'.admin_url('admin.php?page=wpfilebase_manage&amp;action=batch-upload').'" class="add-new-h2">'.__('Batch Upload','wp-filebase').'</a>';
 	
 	if ( isset($_GET['s']) && $_GET['s'] )
 		printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;'/*def*/) . '</span>', esc_html(stripslashes($_GET['s'])));
@@ -125,7 +125,7 @@ $file_table->prepare_items();
 <form class="search-form topmargin" action="" method="get">
 	<input type="hidden" value="<?php echo esc_attr($_GET['page']); ?>" name="page" />
 	<input type="hidden" value="<?php echo empty($_GET['view']) ? '' : esc_attr(@$_GET['view']); ?>" name="view" />
-<?php $file_table->search_box( __("Search Files",WPFB), 's' ); ?>
+<?php $file_table->search_box( __('Search Files','wp-filebase'), 's' ); ?>
 </form>	
  
 <?php $file_table->views(); ?>
@@ -187,13 +187,13 @@ static function PrintFileInfo($info, $path='file_info')
 
 static function FileInfoPathsBox($info)
 {
-	?><p><?php printf(__('The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code.', WPFB), '<code>%file_info/tags/id3v2/artist%</code>'); ?></p>
+	?><p><?php printf(__('The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code.','wp-filebase'), '<code>%file_info/tags/id3v2/artist%</code>'); ?></p>
 	<pre>
 	<?php self::PrintFileInfo(empty($info->value) ? $info : $info->value); ?>
 	</pre>	
 	<?php
 	if(!empty($info->keywords)) {
-		?><p><b><?php _e('Keywords used for search:',WPFB) ?></b> <?php echo esc_html($info->keywords) ?></p> <?php
+		?><p><b><?php _e('Keywords used for search:','wp-filebase') ?></b> <?php echo esc_html($info->keywords) ?></p> <?php
 	}
 }
 }
@@ -327,14 +327,14 @@ class WPFB_File_List_Table extends WP_List_Table {
 		$posts_columns['cb'] = '<input type="checkbox" />';
 		$posts_columns['id'] = 'ID';
 		$posts_columns['title'] = __('Name');
-		$posts_columns['file'] = __('Filename', WPFB);
+		$posts_columns['file'] = __('Filename','wp-filebase');
 		$posts_columns['size'] = __('Size'/*def* /);
 		$posts_columns['desc'] = __('Description'/*def* /);		
 		$posts_columns['cat'] = __('Category'/*def* /);
-		$posts_columns['perm'] = __('Access Permission',WPFB);
-		$posts_columns['uploader'] = __('Owner',WPFB);
-		$posts_columns['hits'] = __('Hits', WPFB);
-		$posts_columns['lastdl'] = __('Last download', WPFB);
+		$posts_columns['perm'] = __('Access Permission','wp-filebase');
+		$posts_columns['uploader'] = __('Owner','wp-filebase');
+		$posts_columns['hits'] = __('Hits','wp-filebase');
+		$posts_columns['lastdl'] = __('Last download','wp-filebase');
 		
 		return $posts_columns;
 	}

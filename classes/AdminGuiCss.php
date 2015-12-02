@@ -31,7 +31,7 @@ static function Display()
 	if(path_is_absolute($upload_path))
 	{
 		echo '<div class="updated fade"><p>';
-		printf(__('Custom CSS does only work if upload path is relative to WordPress path. It is currently set to <code>%s</code>, so <b>custom CSS will not work!</b>',WPFB), $upload_path);
+		printf(__('Custom CSS does only work if upload path is relative to WordPress path. It is currently set to <code>%s</code>, so <b>custom CSS will not work!</b>','wp-filebase'), $upload_path);
 		echo "</p></div>";
 	}
 	
@@ -54,7 +54,7 @@ static function Display()
 			
 			$exists = file_exists($css_path_edit) && is_file($css_path_edit);
 			if( ($exists && !is_writable($css_path_edit)) || (!$exists && !is_writable(dirname($css_path_edit))) ) {
-				?><div class="error default-password-nag"><p><?php printf(__('%s is not writable!', WPFB), $css_path_edit) ?></p></div><?php
+				?><div class="error default-password-nag"><p><?php printf(__('%s is not writable!','wp-filebase'), $css_path_edit) ?></p></div><?php
 				break;
 			}
 			
@@ -81,8 +81,8 @@ static function Display()
 		 <div><textarea cols="70" rows="25" name="newcontent" id="newcontent" tabindex="1" class="codepress css" style="width: 98%;"><?php echo $content ?></textarea>
 		 <input type="hidden" name="action" value="edit_css" />
 		<p class="submit">
-		<?php echo "<input type='submit' name='submit' class='button-primary' value='" . esc_attr__('Update File', WPFB) . "' tabindex='2' />" ?>
-		<?php if($exists) { echo "<input type='submit' name='restore_default' class='button' onclick=\"return confirm('Sure?')\" value='" . esc_attr__('Restore Default', WPFB) . "' tabindex='3' />"; } ?>
+		<?php echo "<input type='submit' name='submit' class='button-primary' value='" . esc_attr__('Update File','wp-filebase') . "' tabindex='2' />" ?>
+		<?php if($exists) { echo "<input type='submit' name='restore_default' class='button' onclick=\"return confirm('Sure?')\" value='" . esc_attr__('Restore Default','wp-filebase') . "' tabindex='3' />"; } ?>
 		</p>
 		</div>
 </form>

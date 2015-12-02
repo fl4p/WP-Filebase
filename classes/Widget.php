@@ -27,7 +27,7 @@ function CatTree(&$root_cat)
 class WPFB_UploadWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File Upload'), array('description' => __('Allows users to upload files from the front end.',WPFB)) );
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File Upload'), array('description' => __('Allows users to upload files from the front end.','wp-filebase')) );
 	}
 
 	function widget( $args, $instance ) {
@@ -40,7 +40,7 @@ class WPFB_UploadWidget extends WP_Widget {
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);		
 		echo $before_widget;
-		echo $before_title . (empty($title) ? __('Upload File',WPFB) : $title) . $after_title;
+		echo $before_title . (empty($title) ? __('Upload File','wp-filebase') : $title) . $after_title;
 		
 		$prefix = "wpfb-upload-widget-".$this->id_base;
 		$form_url = add_query_arg('wpfb_upload_file', 1);
@@ -67,7 +67,7 @@ class WPFB_UploadWidget extends WP_Widget {
 class WPFB_AddCategoryWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Add Category',WPFB), array('description' => __('Allows users to create file categories from the front end.',WPFB)) );
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Add Category','wp-filebase'), array('description' => __('Allows users to create file categories from the front end.','wp-filebase')) );
 	}
 
 	function widget( $args, $instance ) {			
@@ -79,7 +79,7 @@ class WPFB_AddCategoryWidget extends WP_Widget {
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);		
 		echo $before_widget;
-		echo $before_title . (empty($title) ? __('Add File Category',WPFB) : $title) . $after_title;
+		echo $before_title . (empty($title) ? __('Add File Category','wp-filebase') : $title) . $after_title;
 		
 		$prefix = "wpfb-add-cat-widget-".$this->id_base;
 		$form_url = add_query_arg('wpfb_add_cat', 1);
@@ -110,7 +110,7 @@ class WPFB_AddCategoryWidget extends WP_Widget {
 	}
 	
 	function form( $instance ) {
-		if(!isset($instance['title'])) $instance['title'] = __('Add File Category',WPFB);
+		if(!isset($instance['title'])) $instance['title'] = __('Add File Category','wp-filebase');
 		?><div>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?> <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label></p>
 		</div><?php
@@ -120,7 +120,7 @@ class WPFB_AddCategoryWidget extends WP_Widget {
 class WPFB_SearchWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Search'), array('description' => __('Widget for searching files.',WPFB)) );
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Search'), array('description' => __('Widget for searching files.','wp-filebase')) );
 	}
 
 	function widget( $args, $instance ) {
@@ -128,7 +128,7 @@ class WPFB_SearchWidget extends WP_Widget {
 		
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);		
-		echo $before_widget, $before_title . (empty($title) ? __('Search Files',WPFB) : $title) . $after_title;
+		echo $before_widget, $before_title . (empty($title) ? __('Search Files','wp-filebase') : $title) . $after_title;
 		
 		$prefix = "wpfb-search-widget-".$this->id_base;
 		
@@ -160,7 +160,7 @@ class WPFB_SearchWidget extends WP_Widget {
 class WPFB_CatListWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Category list', WPFB), array('description' => __('Simple listing of file categories', WPFB)) );
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('Category list','wp-filebase'), array('description' => __('Simple listing of file categories','wp-filebase')) );
 	}
 
 	function widget( $args, $instance ) {
@@ -174,7 +174,7 @@ class WPFB_CatListWidget extends WP_Widget {
 		
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);		
-		echo $before_widget, $before_title . (empty($title) ? __('File Categories',WPFB) : $title) . $after_title;
+		echo $before_widget, $before_title . (empty($title) ? __('File Categories','wp-filebase') : $title) . $after_title;
 	
 		$tree = !empty($instance['hierarchical']);
 	
@@ -214,7 +214,7 @@ class WPFB_CatListWidget extends WP_Widget {
 class WPFB_FileListWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File list', WPFB), array('description' => __('Listing of files with custom sorting', WPFB)) );
+		parent::__construct( false, WPFB_PLUGIN_NAME .' '.__('File list','wp-filebase'), array('description' => __('Listing of files with custom sorting','wp-filebase')) );
 	}
 	
 	static function limitStrLen($str, $maxlen)
@@ -228,7 +228,7 @@ class WPFB_FileListWidget extends WP_Widget {
 		
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);		
-		echo $before_widget, $before_title . (empty($title) ? __('Files',WPFB) : $title) . $after_title;
+		echo $before_widget, $before_title . (empty($title) ? __('Files','wp-filebase') : $title) . $after_title;
 	
 		
 		// special handling for empty cats

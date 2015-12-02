@@ -20,15 +20,15 @@ class WPFB_FileListTable extends WP_List_Table {
         $columns = array(
             'cb'			=> '<input type="checkbox" />', //Render a checkbox instead of text
 				'name'  =>		__('Name'/*def*/),
-				'filename'     		=> __('Filename', WPFB),
+				'filename'     		=> __('Filename','wp-filebase'),
 				'size'     		=> __('Size'/*def*/),
 				'desc'  	=> __('Description'/*def*/),
-				'cat' => __('Category'/*def*/),
-				'perms'    => __('Access Permission',WPFB),
-				'owner'     	=> __('Owner',WPFB),
+				'cat' => __('Categories'/*def*/),
+				'perms'    => __('Access Permission','wp-filebase'),
+				'owner'     	=> __('Owner','wp-filebase'),
 				'date'     		=> __('Date'/*def*/),
-				'hits'    		=> __('Hits', WPFB),
-				'last_dl_time'  => __('Last download', WPFB)
+				'hits'    		=> __('Hits','wp-filebase'),
+				'last_dl_time'  => __('Last download','wp-filebase')
         );
 		  
         return $columns;
@@ -76,7 +76,7 @@ class WPFB_FileListTable extends WP_List_Table {
 			  // TODO duplicate
         );
 		 
-		 if(!$file->CurUserCanEdit())
+		 if(!$file->CurUserCanEdit() &&  1)
 		 {
 			 unset($actions['delete']);
 		 }
@@ -156,9 +156,9 @@ class WPFB_FileListTable extends WP_List_Table {
 	 
 	function get_views(){
 		$current = ( !empty($_REQUEST['view']) ? $_REQUEST['view'] : 'all');
-		$views = array('all' => 'All', 'own' => 'Own Files', 'offline' => 'Offline', 'notattached' => 'Not Attached',
-			 'local' => 'Local Files'
-			 , 'cloud' => 'Cloud Files'
+		$views = array('all' => __('All'), 'own' => __('Own Files','wp-filebase'), 'offline' => __('Offline','wp-filebase'), 'notattached' => __('Not Attached','wp-filebase'),
+			 'local' => __('Local Files','wp-filebase')
+			 , 'cloud' => __('Cloud Files','wp-filebase')
 			 );
 		foreach($views as $tag => $label) {
 			$class = ($current == $tag ? ' class="current"' :'');
@@ -187,7 +187,7 @@ class WPFB_FileListTable extends WP_List_Table {
 						$file->Remove(true);
 					}
 					WPFB_Admin::SyncCustomFields();
-					$message = sprintf(__("%d File(s) deleted.",WPFB), count($files));
+					$message = sprintf(__('%d File(s) deleted.','wp-filebase'), count($files));
 					
 					break;
 				
@@ -206,7 +206,7 @@ class WPFB_FileListTable extends WP_List_Table {
 						$file->file_offline = 1;
 						$file->DbSave();
 					}
-					$message = sprintf(__("%d File(s) were set offline.",WPFB), count($files));
+					$message = sprintf(__('%d File(s) were set offline.','wp-filebase'), count($files));
 					break;
 				
 				case 'set_on':
@@ -214,7 +214,7 @@ class WPFB_FileListTable extends WP_List_Table {
 						$file->file_offline = 0;
 						$file->DbSave();
 					}
-					$message = sprintf(__("%d File(s) were set online.",WPFB), count($files));
+					$message = sprintf(__('%d File(s) were set online.','wp-filebase'), count($files));
 					
 					break;
 			}

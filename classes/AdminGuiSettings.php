@@ -41,7 +41,7 @@ static function Display()
 		$new_options = get_option(WPFB_OPT_NAME);
 		$messages = array_merge($messages, WPFB_Admin::SettingsUpdated($options, $new_options));
 		unset($new_options);
-		$messages[] = __('Settings reseted.', WPFB);		
+		$messages[] = __('Settings reseted.','wp-filebase');		
 		$options = get_option(WPFB_OPT_NAME);
 	}
 	elseif(isset($post['submit']))
@@ -87,7 +87,7 @@ static function Display()
 		
 		$post['download_base'] = trim($post['download_base'], '/');
 		if(WPFB_Admin::WPCacheRejectUri($post['download_base'] . '/', $options['download_base'] . '/'))
-			$messages[] = sprintf(__('/%s/ added to rejected URIs list of WP Super Cache.', WPFB), $post['download_base']);
+			$messages[] = sprintf(__('/%s/ added to rejected URIs list of WP Super Cache.','wp-filebase'), $post['download_base']);
 		
 		$tpl_file = ($post['template_file']);
 		$tpl_cat = ($post['template_cat']);
@@ -99,9 +99,9 @@ static function Display()
 			
 			if(!$result['error']) {
 				$options['template_file_parsed'] = $tpl_file;
-				$messages[] = __('File template successfully parsed.', WPFB);
+				$messages[] = __('File template successfully parsed.','wp-filebase');
 			} else {
-				$errors[] = sprintf(__('Could not parse template: error (%s) in line %s.', WPFB), $result['msg'], $result['line']);
+				$errors[] = sprintf(__('Could not parse template: error (%s) in line %s.','wp-filebase'), $result['msg'], $result['line']);
 			}
 		}
 		
@@ -113,9 +113,9 @@ static function Display()
 			
 			if(!$result['error']) {
 				$options['template_cat_parsed'] = $tpl_cat;
-				$messages[] = __('Category template successfully parsed.', WPFB);
+				$messages[] = __('Category template successfully parsed.','wp-filebase');
 			} else {
-				$errors[] = sprintf(__('Could not parse template: error (%s) in line %s.', WPFB), $result['msg'], $result['line']);
+				$errors[] = sprintf(__('Could not parse template: error (%s) in line %s.','wp-filebase'), $result['msg'], $result['line']);
 			}
 		}
 		
@@ -123,7 +123,7 @@ static function Display()
 		$fb_sub_pages = get_pages(array('child_of' => $options['file_browser_post_id']));
 		if($options['file_browser_post_id'] > 0 && count($fb_sub_pages))
 		{
-			$messages[] = sprintf(__('Warning: The Filebrowser page <b>%s</b> has at least one subpage <b>%s</b>. This will cause unexpected behavior, since all requests to the subpages are redirected to the File Browser Page. Please choose a Page that does not have any subpages for File Browser.',WPFB),
+			$messages[] = sprintf(__('Warning: The Filebrowser page <b>%s</b> has at least one subpage <b>%s</b>. This will cause unexpected behavior, since all requests to the subpages are redirected to the File Browser Page. Please choose a Page that does not have any subpages for File Browser.','wp-filebase'),
 						get_the_title($post['file_browser_post_id']), get_the_title($fb_sub_pages[0]->ID));
 		}
 		
@@ -160,21 +160,21 @@ static function Display()
 		$messages = array_merge($messages, WPFB_Admin::SettingsUpdated($old_options, $options));
 
 		if(count($errors) == 0)
-			$messages[] = __('Settings updated.', WPFB);
+			$messages[] = __('Settings updated.','wp-filebase');
 		
 		//refresh any description which can contain opt values
 		$option_fields = WPFB_Admin::SettingsSchema();
 	}
 	
 	if(WPFB_Core::$settings->allow_srv_script_upload)
-		$messages[] = __('WARNING: Script upload enabled!', WPFB);
+		$messages[] = __('WARNING: Script upload enabled!','wp-filebase');
 		
 	$upload_path = WPFB_Core::$settings->upload_path;
 	if(!empty($old_options) && path_is_absolute($upload_path) && !path_is_absolute($old_options['upload_path']))
 	{
 		$rel_path  = str_replace('\\','/',$upload_path);
 		$rel_path = substr($rel_path, strpos($rel_path, '/')+1);
-		$messages[] = __(sprintf('NOTICE: The upload path <code>%s</code> is rooted to the filesystem. You should remove the leading slash if you want to use a folder inside your Wordpress directory (i.e: <code>%s</code>)', $upload_path, $rel_path), WPFB);
+		$messages[] = sprintf(__('NOTICE: The upload path <code>%s</code> is rooted to the filesystem. You should remove the leading slash if you want to use a folder inside your Wordpress directory (i.e: <code>%s</code>)','wp-filebase'), $upload_path, $rel_path);
 	}
 	
 	$action_uri = admin_url('admin.php') . '?page=' . $_GET['page'] . '&amp;updated=true';
@@ -228,17 +228,17 @@ jQuery(document).ready( function() {
 	
 	
 	$option_categories = array(
-		__('Common', WPFB)					=> array('upload_path','search_integration' /*'cat_drop_down'*/),
-		__('Display', WPFB)					=> array('file_date_format','thumbnail_size','auto_attach_files', 'attach_loop','attach_pos', 'filelist_sorting', 'filelist_sorting_dir', 'filelist_num', /* TODO: remove? 'parse_tags_rss',*/ 'decimal_size_format','search_result_tpl','disable_css'),
-		__('File Browser',WPFB)				=> array('file_browser_post_id','file_browser_cat_sort_by','file_browser_cat_sort_dir','file_browser_file_sort_by','file_browser_file_sort_dir','file_browser_fbc', 'late_script_loading', 'folder_icon', 'small_icon_size',
+		__('Common','wp-filebase')					=> array('upload_path','search_integration' /*'cat_drop_down'*/),
+		__('Display','wp-filebase')					=> array('file_date_format','thumbnail_size','auto_attach_files', 'attach_loop','attach_pos', 'filelist_sorting', 'filelist_sorting_dir', 'filelist_num', /* TODO: remove? 'parse_tags_rss',*/ 'decimal_size_format','search_result_tpl','disable_css'),
+		__('File Browser','wp-filebase')				=> array('file_browser_post_id','file_browser_cat_sort_by','file_browser_cat_sort_dir','file_browser_file_sort_by','file_browser_file_sort_dir','file_browser_fbc', 'late_script_loading', 'folder_icon', 'small_icon_size',
 		'disable_footer_credits','footer_credits_style',
 			  		),
-		__('Download', WPFB)				=> array('hide_links', 'disable_permalinks', 'download_base', 'force_download', 'range_download', 'http_nocache', 'ignore_admin_dls', 'accept_empty_referers','allowed_referers' /*,'dl_destroy_session'*/,'use_fpassthru'),
-		__('Form Presets', WPFB)			=> array('default_author','default_roles', 'default_cat', 'default_direct_linking','languages', 'platforms', 'licenses', 'requirements', 'custom_fields'),
-		__('Limits', WPFB)					=> $limits,
-		__('Security', WPFB)				=> array('allow_srv_script_upload', 'fext_blacklist', 'frontend_upload', 'hide_inaccessible', 'inaccessible_msg', 'inaccessible_redirect', 'cat_inaccessible_msg', 'login_redirect_src', 'protect_upload_path', 'private_files'),
-		__('Templates and Scripts', WPFB)	=> array('template_file', 'template_cat', 'dlclick_js' ),
-		__('Sync',WPFB)						=> array('cron_sync', 'base_auto_thumb', 'remove_missing_files','fake_md5' ),
+		__('Download','wp-filebase')				=> array('hide_links', 'disable_permalinks', 'download_base', 'force_download', 'range_download', 'http_nocache', 'ignore_admin_dls', 'accept_empty_referers','allowed_referers' /*,'dl_destroy_session'*/,'use_fpassthru'),
+		__('Form Presets','wp-filebase')			=> array('default_author','default_roles', 'default_cat', 'default_direct_linking','languages', 'platforms', 'licenses', 'requirements', 'custom_fields'),
+		__('Limits','wp-filebase')					=> $limits,
+		__('Security','wp-filebase')				=> array('allow_srv_script_upload', 'fext_blacklist', 'frontend_upload', 'hide_inaccessible', 'inaccessible_msg', 'inaccessible_redirect', 'cat_inaccessible_msg', 'login_redirect_src', 'protect_upload_path', 'private_files'),
+		__('Templates and Scripts','wp-filebase')	=> array('template_file', 'template_cat', 'dlclick_js' ),
+		__('Sync','wp-filebase')						=> array('cron_sync', 'base_auto_thumb', 'remove_missing_files','fake_md5' ),
 		__('Misc')							=> $misc_tags,
 	);
 	?>
@@ -352,7 +352,7 @@ jQuery(document).ready( function() {
 	<input type="hidden" name="page_options" value="<?php echo $page_option_list; ?>" />
 	<p class="submit">
 	<input type="submit" name="submit" value="<?php _e('Save Changes') ?>" class="button-primary" />
-	<input type="submit" name="reset" value="<?php _e('Restore Default Settings', WPFB) ?>" onclick="return confirm('<?php _e('All settings (except default file and category template) will be set to default values. Continue?', WPFB); ?>')" class="button delete" style="float: right;" />
+	<input type="submit" name="reset" value="<?php _e('Restore Default Settings','wp-filebase') ?>" onclick="return confirm('<?php _e('All settings (except default file and category template) will be set to default values. Continue?','wp-filebase'); ?>')" class="button delete" style="float: right;" />
 	</p>
 </form>
 </div>	<!-- wrap -->	
