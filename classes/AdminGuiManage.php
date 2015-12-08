@@ -8,9 +8,9 @@ static function NewExtensionsAvailable() {
 	if(!$tag_time) {
 		wpfb_loadclass('ExtensionLib');
 		$res = WPFB_ExtensionLib::QueryAvailableExtensions();
-		if(!$res) return false;
+		if(!$res || empty($res->info)) return false;
 		$tag_time = $res->info['tag_time'];
-		set_transient('wpfb_ext_tagtime', $tag_time, 3600);
+		set_transient('wpfb_ext_tagtime', $tag_time, 0  + 6 * HOUR_IN_SECONDS);
 	}
 	
 	return (!$last_gui_time || $last_gui_time != $tag_time);
@@ -337,7 +337,7 @@ if(!jQuery(document.body).hasClass('mobile')) {
 				$nd = 0;
 				foreach($ids as $id) {
 					$id = intval($id);					
-					if(($file=WPFB_File::GetFile($id))!=null && $file->CurUserCanEdit()) {
+					if(($file=WPFB_File::GetFile($id))!=null && $file->CurUserCanDelete()) {
 						$file->Remove(true);
 						$nd++;
 					}

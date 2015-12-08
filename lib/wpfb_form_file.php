@@ -135,7 +135,7 @@ jQuery(document).ready(function($){
 		
 		jQuery.ajax({
 			url: wpfbConf.ajurl,
-			data: {action:"ftag_proposal","tag":lt},
+			data: {wpfb_action:"tag_autocomplete","tag":lt}, // TODO test!
 			dataType: "json",
 			success: (function(data){
 				var fp = $('#file_tags_proposal');
@@ -216,9 +216,9 @@ function WPFB_addTag(tag)
 					<div id="html-upload-ui">
 						<label for="file_upload"><?php _e('Choose File','wp-filebase') ?></label>
 						<input type="file" name="file_upload" id="file_upload" /><br />
-						<?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.','wp-filebase'), 'php.ini'); ?>">?</a></b>
+						<?php printf(__('Maximum upload file size: %s.'/*def*/), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?> <b>&nbsp;&nbsp;<a href="#" onclick="alert(this.title); return false;" title="<?php printf(__('Ask your webhoster to increase this limit, it is set in %s.','wp-filebase'), 'php.ini'); ?>">?</a></b>
 						<p class="upload-html-bypass hide-if-no-js"><?php _e('You are using the Browser uploader.'); 
-						printf( __('Try the <a href="%s">Flash uploader</a> instead.'), esc_url(add_query_arg('flash', 1)) );
+						printf( __('Try the <a href="%s">Drag&amp;Drop uploader</a> instead.', 'wp-filebase'), esc_url(add_query_arg('flash', 1)) );
 						?>
 					</div>
 					<div id="flash-upload-ui"><?php $adv_uploader->Display(); ?></div> <!--  flash-upload-ui -->

@@ -97,6 +97,8 @@ static function Schema()
 	'file_browser_fbc'		=> array('default' => false, 'title' => __('Files before Categories','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Files will appear above categories in the file browser.','wp-filebase')),
 
 		 
+            
+        'file_browser_inline_add' => array('default' => true, 'title' => __('Inline Add','wp-filebase'), 'type' => 'checkbox', 'desc' => __('In each category display actions to add a file or category.','wp-filebase')),
 	
 			'folder_icon' => array('default' => '/plugins/wp-filebase/images/folder-icons/folder_orange48.png', 'title' => __('Folder Icon','wp-filebase'), 'type' => 'icon', 'icons' => $folder_icons, 'desc' => sprintf(__('Choose the default category icon and file browser icon. You can put custom icons in <code>%s</code>.','wp-filebase'),'wp-content/images/foldericons')),
 			 
@@ -120,7 +122,7 @@ static function Schema()
 	'parse_tags_rss'		=> array('default' => true, 'title' => __('Parse template tags in RSS feeds','wp-filebase'), 'type' => 'checkbox', 'desc' => __('If enabled WP-Filebase content tags are parsed in RSS feeds.','wp-filebase')),
 	
 	'allow_srv_script_upload'	=> array('default' => false, 'title' => __('Allow script upload','wp-filebase'), 'type' => 'checkbox', 'desc' => __('If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!','wp-filebase')),
-	'protect_upload_path'	=> array('default' => true, 'title' => __('Protect upload path','wp-filebase'), 'type' => 'checkbox', 'desc' => __('This prevents direct access to files in the upload directory.','wp-filebase')),
+	'protect_upload_path'           => array('default' => true, 'title' => __('Protect upload path','wp-filebase'), 'type' => 'checkbox', 'desc' => __('This prevents direct access to files in the upload directory.','wp-filebase'). ' '.__('Only applies on Apache webservers! For NGINX you have to edit its config file manually.','wp-filebase')),
 
 		 
 	'private_files'			=> array('default' => false, 'title' => __('Private Files','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Access to files is only permitted to owner and administrators.','wp-filebase').' '.__('This completely overrides access permissions.','wp-filebase')),
@@ -175,11 +177,10 @@ static function Schema()
 	'licenses'				=> array('default' =>
 "*Freeware|free\nShareware|share\nGNU General Public License|gpl|http://www.gnu.org/copyleft/gpl.html\nCC Attribution-NonCommercial-ShareAlike|ccbyncsa|http://creativecommons.org/licenses/by-nc-sa/3.0/", 'title' => __('Licenses','wp-filebase'), 'type' => 'textarea', 'desc' => &$multiple_entries_desc, 'nowrap' => true),
 	'requirements'			=> array('default' =>
-"PDF Reader|pdfread|http://www.foxitsoftware.com/pdf/reader/addons.php
+"PDF Reader|pdfread|https://www.foxitsoftware.com/products/pdf-reader/
 Java|java|http://www.java.com/download/
-Flash|flash|http://get.adobe.com/flashplayer/
 Open Office|ooffice|http://www.openoffice.org/download/index.html
-.NET Framework 3.5|.net35|http://www.microsoft.com/downloads/details.aspx?FamilyID=333325fd-ae52-4e35-b531-508d977d32a6",
+",
 	'title' => __('Requirements','wp-filebase'), 'type' => 'textarea', 'desc' => $multiple_entries_desc . ' ' . __('You can optionally add |<i>URL</i> to each line to link to the required software/file.','wp-filebase'), 'nowrap' => true),
 	
 	'default_direct_linking'	=> array('default' => 1, 'title' => __('Default File Direct Linking'), 'type' => 'select', 'desc' => __('','wp-filebase'), 'options' => array(1 => __('Allow direct linking','wp-filebase'), 0 => __('Redirect to post','wp-filebase') )),	 

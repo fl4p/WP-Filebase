@@ -4,6 +4,7 @@ Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
+
 CKEDITOR.plugins.add( 'wpfilebase',
 {
 	requires: [ 'iframedialog' ],
@@ -30,7 +31,7 @@ CKEDITOR.plugins.add( 'wpfilebase',
 										id : 'pageWPFilebase',
 										label : 'WP-Filebase',
 										style : 'width:680px; height:400px;',
-										html : '<iframe src="'+me.path+'../../editor_plugin.php?post_id='+postId+'" frameborder="0" name="iframeWPFilebase" id="iframeWPFilebase" allowtransparency="1" style="width:100%;height:400px;margin:0;padding:0;"></iframe>'
+										html : '<iframe src="'+ajaxurl.replace("admin-ajax.php","?wpfilebase-screen=editor-plugin")+'&post_id='+postId+'" frameborder="0" name="iframeWPFilebase" id="iframeWPFilebase" allowtransparency="1" style="width:100%;height:400px;margin:0;padding:0;"></iframe>'
 									}
 								]
 						}

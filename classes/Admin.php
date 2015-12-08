@@ -654,8 +654,7 @@ function WPFB_formCategoryChanged()
 	} else {
 		jQuery.ajax({
 			url: wpfbConf.ajurl,
-			data: {action:"catinfo","id":catId},
-			dataType: "json",
+			data: {wpfb_action:"catinfo",id:catId},
 			success: (function(data){jQuery('#<?php echo $name ?>_inherited_permissions_label').html(data.roles_str);})
 		});
 	}

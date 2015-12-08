@@ -170,6 +170,13 @@ function batchUploaderFileQueued(up, file)
 function batchUploaderSuccess(file, serverData)
 {
 	var item = jQuery('#'+file.dom_id);	
+        
+        if(!serverData || serverData == -1 || 'object' != typeof(serverData)) {
+            jQuery('.error', item).show().html('Server response error! '+serverData);
+            console.log(serverData);
+            return;
+        }
+        
 	var url = serverData.file_cur_user_can_edit ? serverData.file_edit_url : serverData.file_download_url;
 	jQuery('.filename', item).html('<a href="'+url+'" target="_blank">'+serverData.file_display_name+'</a> <span class="ok"><?php _e('Upload OK!','wp-filebase') ?></span>');
 	jQuery('img', item).attr('src', serverData.file_thumbnail_url);

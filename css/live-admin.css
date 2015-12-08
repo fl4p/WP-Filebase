@@ -74,3 +74,14 @@
 .wpfb-treeview-upload {
 	margin-left: 15px;
 }
+
+.wpfb-treeview-upload span.ok {
+    background: green;
+    font-size: 0.6em;
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: text-top;
+    border-radius: 1em;
+    padding: 0.1em 0.6em;
+    color: white;
+}

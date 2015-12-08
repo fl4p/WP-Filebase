@@ -54,7 +54,7 @@
 	function wpfbFBDelete(e) {
 		e.stopPropagation();
 		var t = jQuery(e.currentTarget).parents('li').first();		
-		var d = {action: 'delete'};
+		var d = {wpfb_action: 'delete'};
 		var tid = t.attr('id').split('-');
 		d[tid[tid.length-2]+'_id'] = +tid[tid.length-1];
 		jQuery.ajax({type: 'POST', url: wpfbConf.ajurl, data: d,

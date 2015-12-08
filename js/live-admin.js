@@ -24,7 +24,7 @@ function wpfb_menuDel(menuItem,menu) {
 		jQuery.ajax({
 			type: 'POST',
 			url: wpfbConf.ajurl,
-			data: {action:'delete',file_id:fid},
+			data: {wpfb_action:'delete',file_id:fid},
 			async: false,
 			success: (function(data){
 				if(data != '-1') {
@@ -45,15 +45,9 @@ function wpfb_addContextMenu(el, url) {
 		el.contextMenu(wpfbContextMenu,{theme:'osx',shadow:false,showTransition:'fadeIn',hideTransition:'fadeOut',file_url:url});
 }
 
-function wpfb_manageAttachments(url,postId)
-{
-	var browserWindow = window.open("../wp-content/plugins/wp-filebase/wpfb-postbrowser.php?post=" + postId + "&inp_id=" + inputId + "&tit_id=" + titleId, "PostBrowser", "width=300,height=400,menubar=no,location=no,resizable=no,status=no,toolbar=no");
-	browserWindow.focus();
-}
-
 function wpfb_toggleContextMenu() {
 	wpfbConf.cm = !wpfbConf.cm;
-	jQuery.ajax({url: wpfbConf.ajurl, data:'action=toggle-context-menu', async: false});
+	jQuery.ajax({url: wpfbConf.ajurl, data:{wpfb_action: 'toggle-context-menu'}, async: false});
 	return true;
 }
 
@@ -83,7 +77,7 @@ function wpfb_newCatInput(el,pid) {
 				var lip = el.closest('li').prev('li');
 				var tv =  el.parents('.treeview').first(); var set = tv.data("settings");
 				jQuery.ajax({url: wpfbConf.ajurl, type:"POST",dataType:'json',
-					data:{action:'new-cat', cat_name:cat_name, cat_parent:pid, args:set.ajax.data, is_admin:(typeof(adminpage) !== 'undefined')?1:0},
+					data:{wpfb_action:'new-cat', cat_name:cat_name, cat_parent:pid, args:set.ajax.data, is_admin:(typeof(adminpage) !== 'undefined')?1:0},
 					success: (function(data){
 						if(data.error) {
 							alert(data.error);

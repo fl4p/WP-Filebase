@@ -1,8 +1,28 @@
+function WPFB_PopupCenter(url, title, w, h) {
+    // Fixes dual-screen position                         Most browsers      Firefox
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+    width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'scrollbars=yes, menubar=no,location=no,resizable=no,status=no,toolbar=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+    
+    return newWindow;
+}
+
 function WPFB_PostBrowser(inputId, titleId)
 {
 	var postId = document.getElementById(inputId).value;
 	var pluginUrl = (typeof(wpfbConf.ajurl) == 'undefined') ? "../wp-content/plugins/wp-filebase/" : (wpfbConf.ajurl+"/../");
-	var browserWindow = window.open(pluginUrl+"wpfb-postbrowser.php?post=" + postId + "&inp_id=" + inputId + "&tit_id=" + titleId, "PostBrowser", "width=300,height=400,menubar=no,location=no,resizable=no,status=no,toolbar=no,scrollbars=yes");
+	var browserWindow = WPFB_PopupCenter(wpfbConf.ajurl+"&wpfb_action=postbrowser-main&post=" + postId + "&inp_id=" + inputId + "&tit_id=" + titleId, "PostBrowser", 300, 400);
 	browserWindow.focus();
 }
 
@@ -92,7 +112,7 @@ jQuery(document).ready(function($) {
 			if(cat_name !== '' && !inp.prop('disabled')) {
 				inp.prop('disabled', true).addClass('loading');
 				jQuery.ajax({url: wpfbConf.ajurl, type:"POST",dataType:'json',
-					data:{action:'new-cat', cat_name:cat_name, cat_parent:pid},
+					data:{wpfb_action:'new-cat', cat_name:cat_name, cat_parent:pid},
 					success: (function(data){
 						if(data.error) {
 							alert(data.error);

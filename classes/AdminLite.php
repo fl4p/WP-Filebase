@@ -102,6 +102,19 @@ static function Init() {
 			}
 		}
 	}
+        
+        if(isset($_GET['wpfilebase-screen'])) {
+            $screen = $_GET['wpfilebase-screen'];
+            if($screen == 'editor-plugin') {
+                require_once(WPFB_PLUGIN_ROOT.'screens/editor-plugin.php');                
+            }
+            
+            if($screen == 'tpl-preview') {
+                require_once(WPFB_PLUGIN_ROOT.'screens/tpl-preview.php');
+            }
+            
+            exit;
+        }
 }
 
 static function DisplayManagePage(){wpfb_call('AdminGuiManage', 'Display');}

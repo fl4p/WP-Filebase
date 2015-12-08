@@ -203,18 +203,18 @@ function delayedReload() {
 
 
 function getFilePath(id) {
-	var fi = jQuery.parseJSON(jQuery.ajax({url:wpfbConf.ajurl, data: {action:"fileinfo","id":id} ,async:false}).responseText);
+	var fi = jQuery.parseJSON(jQuery.ajax({url:wpfbConf.ajurl, data: {wpfb_action:"fileinfo","id":id} ,async:false}).responseText);
 	return (fi != null && fi.path != '') ? fi.path : '';	
 }
 
 function getCatPath(id) {
-	var ci = jQuery.parseJSON(jQuery.ajax({url:wpfbConf.ajurl, data:{action:"catinfo","id":id},async:false}).responseText);
+	var ci = jQuery.parseJSON(jQuery.ajax({url:wpfbConf.ajurl, data:{wpfb_action:"catinfo","id":id},async:false}).responseText);
 	return (ci != null && ci.path != '') ? ci.path : '';	
 };
 
 function getTreeViewModel(data) {
 	if(typeof data != 'object') data = {};
-	data.action = "tree";
+	data.wpfb_action = "tree";
 	return {url: wpfbAjax,
 		ajax:{data:data,type:"post"},
 		animated: "medium"

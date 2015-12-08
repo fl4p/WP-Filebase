@@ -238,7 +238,7 @@ static function GetTreeItems($parent_id, $args=array())
 		
 		$files_before_cats = $browser && WPFB_Core::$settings->file_browser_fbc;	
 		
-		$inline_add_cat = /*($cat && $cat->CurUserCanAddFiles()) ||*/  WPFB_Core::CurUserCanCreateCat() && (!isset($args['inline_add']) || $args['inline_add']);
+		$inline_add_cat = (is_admin() || WPFB_Core::$settings->file_browser_inline_add) && /*($cat && $cat->CurUserCanAddFiles()) ||*/  WPFB_Core::CurUserCanCreateCat() && (!isset($args['inline_add']) || $args['inline_add']);
 	
 		$where = " cat_parent = $parent_id ";
 		if($browser) $where .= " AND cat_exclude_browser <> '1' ";
@@ -477,7 +477,7 @@ private static function initFileTreeView($id=null, $base=0)
 	if(is_object($base)) $base = $base->GetId();
 
 	$ajax_data =  array(
-		 'action'=>'tree',
+		 'wpfb_action'=>'tree',
 		 'type'=>'browser',
 		 'base' => intval($base)
 	) ;
@@ -487,7 +487,7 @@ private static function initFileTreeView($id=null, $base=0)
 	?>
 <script type="text/javascript">
 //<![CDATA[
-function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?>={url: "<?php echo WPFB_Core::$ajax_url ?>",
+function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?>={url: "<?php echo WPFB_Core::$ajax_url_public ?>",
 ajax:{data:<?php echo json_encode($ajax_data); ?>,type:"post",error:function(x,status,error){if(error) alert(error);},complete:function(x,status){if(typeof(wpfb_setupLinks)=='function')wpfb_setupLinks();}},
 animated: "medium"}).data("settings",wpfb_fbsets<?php echo $jss ?>);
 }
@@ -613,10 +613,10 @@ static function FileForm($prefix, $form_url, $vars, $secret_key=null ) {
 					$adv_uploader->Display($prefix);
 				} ?>
 				<small><?php printf(str_replace('%d%s','%s',__('Maximum upload file size: %d%s.'/*def*/)), WPFB_Output::FormatFilesize(WPFB_Core::GetMaxUlSize())) ?></small>
-				
 				<?php if(empty($auto_submit)) { ?><div style="float: right; text-align:right;"><input type="submit" class="button-primary" name="submit-btn" value="<?php _e('Add New','wp-filebase'); ?>" /></div>
 				<?php } ?>
 			</div>
+
 		</form>	
 	</div>
 	<?php

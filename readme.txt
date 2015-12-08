@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfil
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
 Tested up to: 4.3.1
-Stable tag: 3.1.03
+Stable tag: 3.1.04
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -120,6 +120,12 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 == Changelog ==
 
+= 3.1.04 =
+* FileBrowser: net option `Inline Add` to toggle the display of Add File/Category links
+* Async Uploader: Added error message on invalid server response after upload
+* Prevent direct script access for Editor Plugin, Post Browser and AJAX
+* PHP 7 compatibility: `mysql_close` only called if exists
+
 = 3.1.03 =
 * Added Extension Update API caching
 * Load getid3_lib if necessary
@@ -131,18 +137,16 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 * Fixed sideload issue
 * Made treeview drag&drop IE compatible
 * Added delete buttons to backend file browser 
-* Show icons in file/category selector tree (TEST)
+* Show icons in file/category selector tree
 * Better sync progress reporting
 * Improved sync performance, reduced server load during sync
-* Rescan process can be resumed (TEST?)
-* Rescan Tool now rescans remote files (TEST)
 * Removed FLV player, replaced with HTML5 video player
 * Added compatibility for latest CF7
 * Fix: More robust file name handling with special characters
 * Fixed individual file force download option
 * File browser: only show add category if user has permission
 * Run a File Sync to fix category file counter bug (categories no opening in file browser)
-* Inherit category upload permissions (TEST)
+* Inherit category upload permissions
 * Deleting a category removes the folder
 * New list template header/footer var: `%search_term%`
 * Rescan looks for thumbnails with same basename if `Auto-detect thumbnails` is enabled

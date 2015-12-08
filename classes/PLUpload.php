@@ -57,7 +57,7 @@ $plupload_init = array(
 	'file_data_name' => 'async-upload',
 	'multiple_queues' => false,
 	'max_file_size' => $max_upload_size.'b',
-	'url' => WPFB_Core::PluginUrl('wpfb-async-upload.php'),
+	'url' => add_query_arg('wpfb_action', 'upload', WPFB_Core::$ajax_url_public),
 	'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
 	'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
 	'filters' => array( array('title' => __( 'Allowed Files' ), 'extensions' => '*') ),

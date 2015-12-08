@@ -4,11 +4,20 @@ class WPFB_ExtensionLib {
 
     private static function apiRequest($act, $post_data = null, $use_ssl = true) {
         global $wp_version;
-        //print_r($post_data);
+        
         $site = rawurlencode(base64_encode(get_option('siteurl')));
         $url = "http" . ($use_ssl ? "s://ssl-account.com" : ":/") . "/interface.fabi.me/wpfilebase-pro/$act.php";
         $get_args = array('version' => WPFB_VERSION, 'pl_slug' => 'wp-filebase', 'pl_ver' => WPFB_VERSION, 'wp_ver' => $wp_version , 'site' => $site);
 
+        // try to get from cache
+        $cache_key =  'wpfb_apireq_'.md5($act.'||'.serialize($get_args).'||'.serialize($post_data).'||'.__FILE__);       
+        $res = get_transient($cache_key);
+        if ($res !== false) {
+            return $res;
+        }
+        
+        //trigger_error ( "WP-Filebase apiRequest (ssl=$use_ssl): $act ".json_encode($post_data), E_USER_NOTICE );
+        
         if (empty($post_data)) {
             $res = wp_remote_get($url, $get_args);
         } else {
@@ -22,7 +31,12 @@ class WPFB_ExtensionLib {
             print_r($res);
             return false;
         }
-        return empty($res['body']) ? false : json_decode($res['body']);
+        
+        $res = empty($res['body']) ? false : json_decode($res['body']);
+        
+        set_transient($cache_key, $res, 0  + 6 * HOUR_IN_SECONDS);
+        
+        return $res;
     }
 
     static function GetExtensionsVersionNumbers() {
@@ -47,27 +61,23 @@ class WPFB_ExtensionLib {
 
     static function GetLatestVersionInfoExt() {
         $ext_vers = json_encode(self::GetExtensionsVersionNumbers());
-        $cache_key = 'wpfb_updcheckext_' . md5($ext_vers);
-        $res = get_transient($cache_key);
-        if ($res !== false)
-            return $res;
         $res = self::apiRequest('update-check-ext', array('extensions' => $ext_vers));
-        $res = empty($res) ? array() : (array) $res;
-        set_transient($cache_key, $res, 6 * HOUR_IN_SECONDS);
-        return $res;
+        return empty($res) ? array() : (array) $res;
     }
 
     static function QueryAvailableExtensions($bought_extensions_only = false) {
-        $ext_vers = self::GetExtensionsVersionNumbers();
-        $res = self::apiRequest('exts', array('bought' => $bought_extensions_only, 'extensions' => json_encode($ext_vers)));
-        if (!$res)
-            return false;
-        $res = (object) $res;
-        $res->info = (array) $res->info;
-        foreach ($res->plugins as $i => $p) {
-            $res->plugins[$i] = (object) $p;
-            $res->plugins[$i]->ratings = (array) $res->plugins[$i]->ratings;
-            $res->plugins[$i]->icons = (array) $res->plugins[$i]->icons;
+        $ext_vers = json_encode(self::GetExtensionsVersionNumbers());
+        $res = self::apiRequest('exts', array('bought' => $bought_extensions_only, 'extensions' => $ext_vers));
+        if (!empty($res)) {
+            $res = (object) $res;
+            $res->info = (array) $res->info;
+            foreach ($res->plugins as $i => $p) {
+                $res->plugins[$i] = (object) $p;
+                $res->plugins[$i]->ratings = (array) $res->plugins[$i]->ratings;
+                $res->plugins[$i]->icons = (array) $res->plugins[$i]->icons;
+            }
+        } else {
+            $res = null;
         }
         return $res;
     }

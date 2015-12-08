@@ -51,7 +51,7 @@ SWFUpload.onload = function() {
 			button_text_top_padding: 3,
 			button_image_url: '<?php echo $upload_image_path; ?>',
 			button_placeholder_id: "flash-browse-button",
-			upload_url : "<?php echo esc_attr( WPFB_Core::PluginUrl('wpfb-async-upload.php') ); ?>",
+			upload_url : "<?php echo esc_attr( add_query_arg('wpfb_action', 'upload', WPFB_Core::$ajax_url_public) ); ?>",
 			flash_url : "<?php echo includes_url('js/swfupload/swfupload.swf'); ?>",
 			file_post_name: "async-upload",
 			file_types: "<?php echo apply_filters('upload_file_glob', '*.*'); ?>",
@@ -86,8 +86,6 @@ SWFUpload.onload = function() {
 };
 //]]>
 </script>
-
-
 <?php do_action('pre-flash-upload-ui'); ?>
 	<div>
 	<input type="hidden" id="file_flash_upload" name="file_flash_upload" value="0" />

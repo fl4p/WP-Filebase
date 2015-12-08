@@ -587,7 +587,7 @@ class WPFB_Item {
                                 //echo "MOVING! $old_path -> $new_path";
                                 
 				if($this->is_file) {
-					if(!@rename($old_path, c))
+					if(!@rename($old_path, $new_path))
 						return array( 'error' => sprintf('Unable to move file %s!', $old_path));
 					@chmod($new_path, octdec(WPFB_PERM_FILE));
 				} else {

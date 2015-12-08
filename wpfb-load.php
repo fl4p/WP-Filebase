@@ -71,14 +71,4 @@ if(defined('WP_INSTALLING') && WP_INSTALLING) {
 WPFB_Core::InitDirectScriptAccess();
 
 
-function wpfb_ajax_die($msg,$title='',$args='') {
-	@ob_end_clean();
-	echo '<div class="error-div">
-	<strong>' . $msg . '</strong></div>';
-	exit;	
-}
 
-
-if(defined('DOING_AJAX') && DOING_AJAX) {
-	add_filter('wp_die_ajax_handler', create_function('$v','return "wpfb_ajax_die";'));
-}

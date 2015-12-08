@@ -311,6 +311,12 @@ class WPFB_File extends WPFB_Item {
 	function GetModifiedTime($gmt=false) { return $this->file_mtime + ($gmt ? ( get_option( 'gmt_offset' ) * 3600 ) : 0); }
 	
 	
+
+	function CurUserCanDelete($user = null)
+	{
+            return $this->CurUserCanEdit($user);
+	}
+
 	// only deletes file/thumbnail on FS, keeping DB entry
 	function Delete($keep_thumb=false)
 	{

@@ -12,7 +12,7 @@ static function AdminBar() {
 	$is_filebrowser = false;
 	if ( !empty($current_object) && !empty($current_object->post_type) && $current_object->ID > 0) {
 		$is_filebrowser = ($current_object->ID == WPFB_Core::$settings->file_browser_post_id);
-		$link = esc_attr(WPFB_Core::PluginUrl('editor_plugin.php?manage_attachments=1&post_id='.$current_object->ID));
+		$link = esc_attr(admin_url('?wpfilebase-screen=editor-plugin&manage_attachments=1&post_id='.$current_object->ID));
 		$wp_admin_bar->add_menu( array( 'parent' => WPFB, 'id' => WPFB.'-attachments', 'title' => __('Manage attachments','wp-filebase'), 'href' => $link,
 		'meta' => array('onclick' => 'window.open("'.$link.'", "wpfb-manage-attachments", "width=680,height=400,menubar=no,location=no,resizable=no,status=no,toolbar=no,scrollbars=yes");return false;')));
 	}
@@ -24,7 +24,7 @@ static function AdminBar() {
 	
 	if($is_filebrowser) {
 		$wp_admin_bar->add_menu(array('parent' => WPFB, 'id' => WPFB.'-toggle-drag-drop', 'title' => get_user_option('wpfb_set_fbdd') ? __('Disable file browser Drag &amp; Drop','wp-filebase') : __('Enable file browser Drag &amp; Drop','wp-filebase'), 'href' => 'javascript:;',
-		'meta' => array('onclick' => 'jQuery.ajax({url:wpfbConf.ajurl,type:"POST",data:{action:"set-user-setting",name:"fbdd",value:'.(get_user_option('wpfb_set_fbdd')?0:1).'},async:false});location.reload();return false;')));
+		'meta' => array('onclick' => 'jQuery.ajax({url:wpfbConf.ajurl,type:"POST",data:{wpfb_action:"set-user-setting",name:"fbdd",value:'.(get_user_option('wpfb_set_fbdd')?0:1).'},async:false});location.reload();return false;')));
 	}
 	
 }

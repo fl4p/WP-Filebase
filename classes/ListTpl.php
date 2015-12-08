@@ -229,7 +229,7 @@ class WPFB_ListTpl {
 		$footer = $this->ParseHeaderFooter($this->footer, $uid);		
 		$is_datatable = strpos($footer, ").dataTable(")!==false;
 		
-		// TODO: no page_limit when dataTable?
+		// TODO: no page_limit when dataTable? 
 		// hide pagenav when using datatable
 		$this->current_list->hide_pagenav = $this->current_list->hide_pagenav || $is_datatable;
 		
