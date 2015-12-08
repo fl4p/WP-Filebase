@@ -11,8 +11,20 @@ class WPFB_TreeviewAdmin {
     public static function RenderHTML($id, $drag_drop = false, $tpl_tag = null, $args = array()) {
         $jss = md5($id);
         ?>
+        <style type="text/css" media="screen">
+            #<?php echo $id; ?> .dragover-target {
+                background: #f1c40f;
+            }
+
+            #<?php echo $id; ?> .dragged {
+                opacity: 0.5;
+                background: #3498db;
+                border: 0.2em solid #2980b9;
+                margin: -0.2em;
+            }
+        </style>
         <script type="text/javascript">
-        //<![CDATA[
+            //<![CDATA[
             var wpfb_fbDOMModTimeout<?php echo $jss ?> = -1;
 
         <?php if ($drag_drop) { ?>
@@ -37,9 +49,14 @@ class WPFB_TreeviewAdmin {
         <?php if ($drag_drop) { ?>
                     jQuery("#<?php echo $id ?> li:not([draggable]):not([id$='-0'])")
                             .attr('draggable', 'true')
+                            .bind('dragend', function (e) {
+                                jQuery(e.currentTarget).removeClass('dragged');
+                            })
                             .bind('dragstart', function (e) {
                                 var li = jQuery(e.currentTarget), t = 'file', id = wpfb_fileBrowserTargetId(e, t) || ((t = 'cat') && wpfb_fileBrowserTargetId(e, t));
                                 if (id > 0) {
+                                    e.stopPropagation();
+                                    li.addClass('dragged');
                                     var dt = e.originalEvent.dataTransfer;
                                     dt.effectAllowed = (t === 'cat') ? 'move' : 'linkMove';
                                     dt.clearData();
@@ -66,9 +83,9 @@ class WPFB_TreeviewAdmin {
                         var idp = wpfb_getFileBrowserIDP('<?php echo $id ?>');
                         var cat_id = wpfb_fileBrowserTargetId(e, 'cat'), cur_id = wpfb_fbDragCat<?php echo $jss ?>;
                         if (cur_id !== cat_id && cat_id > 0) {
-                            jQuery('#' + idp + 'cat-' + cur_id).css({backgroundColor: ''});
+                            jQuery('#' + idp + 'cat-' + cur_id).removeClass('dragover-target');
                             if (ok)
-                                jQuery('#' + idp + 'cat-' + id).css({backgroundColor: 'yellow'});
+                                jQuery('#' + idp + 'cat-' + id).addClass('dragover-target');
                             wpfb_fbDragCat<?php echo $jss ?> = ok ? cat_id : 0;
                         }
 
@@ -83,7 +100,7 @@ class WPFB_TreeviewAdmin {
                             e.originalEvent.dataTransfer.dropEffect = 'move';
                         }
                     }).bind('dragleave', function (e) {
-                        jQuery(e.currentTarget).css({backgroundColor: ''});
+                        jQuery(e.currentTarget).removeClass('dragover-target');
                         wpfb_fbDragCat<?php echo $jss ?> = 0;
                     }).bind('drop', function (e) {
                         var li = jQuery(e.currentTarget), id = wpfb_fileBrowserTargetId(e, 'cat'), dt = e.originalEvent.dataTransfer;
@@ -98,7 +115,8 @@ class WPFB_TreeviewAdmin {
                         if (!tid || tid.length !== 2)
                             return false;
 
-                        jQuery('#' + idp + 'cat-' + id).css({backgroundColor: '', cursor: 'wait'});
+                        jQuery('#' + idp + 'cat-' + id).css({cursor: 'wait'}).removeClass('dragover-target');
+                        ;
                         wpfb_fbDragCat<?php echo $jss ?> = 0;
 
                         jQuery.ajax({url: wpfbConf.ajurl, type: "POST", dataType: "json",
@@ -156,7 +174,7 @@ class WPFB_TreeviewAdmin {
         <?php if ($drag_drop) { ?>
                     .bind('dragleave', function (e) {
                         var idp = wpfb_getFileBrowserIDP('<?php echo $id ?>');
-                        jQuery('#' + idp + 'cat-' + wpfb_fbDragCat<?php echo $jss ?>).css({backgroundColor: ''});
+                        jQuery('#' + idp + 'cat-' + wpfb_fbDragCat<?php echo $jss ?>).removeClass('dragover-target');
                         wpfb_fbDragCat<?php echo $jss ?> = 0;
                     })
                             .before('<' + 'div class="wpfb-drag-drop-hint">+ DRAG &amp; DROP enabled<' + '/div>');
@@ -187,21 +205,25 @@ class WPFB_TreeviewAdmin {
                     if (li.hasClass('expandable'))
                         jQuery('.hitarea', li).click();
 
-                    jQuery('#' + idp + 'cat-' + cat_id).css({backgroundColor: ''});
+                    jQuery('#' + idp + 'cat-' + cat_id).removeClass('dragover-target');
                     wpfb_fbDragCat<?php echo $jss ?> = 0;
                 },
                 fileQueued: function (up, file) {
                     var idp = wpfb_getFileBrowserIDP('<?php echo $id ?>');
                     var cat_id = up.settings.multipart_params["cat_id"];
-                    var el = (cat_id === 0) ? jQuery('#<?php echo $id ?>') : jQuery('#' + idp + 'cat-' + cat_id).children('ul').first();
-                    if (el.length)
-                        el.after(
-                                '<div id="' + file.dom_id + '" class="wpfb-treeview-upload">' +
+                    var catUl = (cat_id === 0) ? jQuery('#<?php echo $id ?>') : jQuery('#' + idp + 'cat-' + cat_id).children('ul').first();
+                    if (catUl.length) {
+                        var catUploadUl = catUl.nextAll('ul.uploads');
+                        if (!catUploadUl.length)
+                            catUploadUl = jQuery('<ul class="uploads"></ul>').insertAfter(catUl);
+                        catUploadUl.append(
+                                '<li id="' + file.dom_id + '" class="wpfb-treeview-upload">' +
                                 '<' + 'img src="<?php echo site_url(WPINC . '/images/crystal/default.png'); ?>" alt="Loading..." style="height:1.2em;margin-right:0.3em;" /' + '>' +
                                 '<' + 'span class="filename">' + file.name + '<' + '/span><' + 'span class="error"><' + '/span> ' +
                                 '<' + 'div class="loading" style="background-image:url(<?php echo admin_url('images/loading.gif'); ?>);width:1.2em;height:1.2em;background-size:contain;display:inline-block;vertical-align:sub;"><' + '/div>' +
                                 '<' + 'span class="percent">0%<' + '/span>' +
-                                '<' + '/div>');
+                                '<' + '/li>');
+                    }
 
         <?php if (!empty($args['onFileQueued'])) echo $args['onFileQueued'] . '(file, up.settings.multipart_params);'; ?>
                 },
@@ -222,7 +244,7 @@ class WPFB_TreeviewAdmin {
         <?php if (!empty($args['onSuccess'])) echo $args['onSuccess'] . '(file,serverData);'; ?>
                 }
             };
-        //]]>
+            //]]>
         </script>
         <?php
         wpfb_loadclass('PLUploader');

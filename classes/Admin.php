@@ -306,6 +306,15 @@ static function InsertFile($data, $in_gui =false)
 	} elseif($add_existing || empty($file->file_date)) {		
 		$file->file_date = gmdate('Y-m-d H:i:s', file_exists($file->GetLocalPath()) ? filemtime($file->GetLocalPath()) : time());
 	}
+        
+        // since 4.4, wpdb will acutally set NULL values, so make sure everything is an empty string
+        $file->file_hash = '';
+        $file->file_remote_uri = '';
+        
+        $file->file_tags = '';
+        $file->file_license = '';
+        $file->file_password = '';
+        $file->file_last_dl_ip = '';
 
 	self::fileApplyMeta($file, $data);	
 	

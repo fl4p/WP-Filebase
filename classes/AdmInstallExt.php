@@ -24,7 +24,20 @@ class WPFB_AdmInstallExt {
             } elseif (!empty($plugin->license_required)) {
                 $action_links[0] = '<a class="buy-now button thickbox" href="' . esc_attr($plugin->add_url) . '" data-title="' . esc_attr(sprintf(__('Add extension %s'), $plugin->name)) . '">' . __('Add License') . '</a>';
             }
+        } else {
+           // print_r($plugin);
+            // seems to be installed
+            if(is_dir( WP_PLUGIN_DIR . '/' . $plugin->slug ) ) {
+		$installed_plugin = get_plugins('/' . $plugin->slug);
+                if(!empty($installed_plugin)) {
+                    $key = array_keys( $installed_plugin );
+                    $plugin_file = $plugin->slug . '/' . reset( $key );
+                    if(!is_plugin_active($plugin_file))
+                        $action_links[0] = '<a class="button" href="' . esc_attr(admin_url('plugins.php?plugin_status=inactive')) . '" aria-label="' . esc_attr(sprintf(__('Activate extension %s'), $plugin->name)) . '">' . __('Activate') . '</a>';
+                }
+            }
         }
+        
         if (!empty($plugin->need_to_buy))
             $action_links[1] = '<a href="' . esc_attr($plugin->homepage) . '" class="no_thickbox" target="_blank">' . __('More Details') . '</a>';
 
@@ -72,7 +85,6 @@ class WPFB_AdmInstallExt {
 
         <div class="wrap">
             <h2><?php echo esc_html($title); ?></h2>
-
         <?php
 //$wp_list_table->views();
 //echo '<br class="clear" />';
@@ -84,7 +96,10 @@ class WPFB_AdmInstallExt {
         <script>
             jQuery('a.buy-now').click(function (e) {
                 if (jQuery(this).text() === 'Refresh') {
-                    window.location.reload();
+                    if(window.location.search.indexOf('&no_api_cache=1') > 0)
+                        window.location.reload();
+                    else
+                        window.location.search += '&no_api_cache=1';
                     return false;
                 }
                 jQuery(this).text('Refresh');

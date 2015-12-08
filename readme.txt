@@ -121,7 +121,7 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 == Changelog ==
 
 = 3.1.04 =
-* FileBrowser: net option `Inline Add` to toggle the display of Add File/Category links
+* FileBrowser: new option `Inline Add` to toggle the display of Add File/Category links
 * Async Uploader: Added error message on invalid server response after upload
 * Prevent direct script access for Editor Plugin, Post Browser and AJAX
 * PHP 7 compatibility: `mysql_close` only called if exists

@@ -10,7 +10,12 @@ class WPFB_ExtensionLib {
         $get_args = array('version' => WPFB_VERSION, 'pl_slug' => 'wp-filebase', 'pl_ver' => WPFB_VERSION, 'wp_ver' => $wp_version , 'site' => $site);
 
         // try to get from cache
-        $cache_key =  'wpfb_apireq_'.md5($act.'||'.serialize($get_args).'||'.serialize($post_data).'||'.__FILE__);       
+        $cache_key =  'wpfb_apireq_'.md5($act.'||'.serialize($get_args).'||'.serialize($post_data).'||'.__FILE__);
+        
+        if(isset($_REQUEST['no_api_cache'])) {
+            delete_transient($cache_key);
+        }
+        
         $res = get_transient($cache_key);
         if ($res !== false) {
             return $res;
