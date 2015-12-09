@@ -468,8 +468,8 @@ private static function initFileTreeView($id=null, $base=0)
 	WPFB_Core::$load_js = true;
 	
 	// see Core::EnqueueScripts(), where scripts are enqueued if late script loading is disabled
-	wp_print_scripts('jquery-treeview-async');
-	wp_print_styles('jquery-treeview');
+	wp_enqueue_script('jquery-treeview-async');
+	wp_enqueue_style('jquery-treeview');
 			
 	if($id == null)
 		return;
@@ -484,28 +484,14 @@ private static function initFileTreeView($id=null, $base=0)
 	if(is_admin()) $ajax_data['is_admin'] = true;
 	
 	$jss = md5($id);
-	?>
-<script type="text/javascript">
-//<![CDATA[
-function wpfb_initfb<?php echo $jss ?>() {	jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?>={url: "<?php echo WPFB_Core::$ajax_url_public ?>",
-ajax:{data:<?php echo json_encode($ajax_data); ?>,type:"post",error:function(x,status,error){if(error) alert(error);},complete:function(x,status){if(typeof(wpfb_setupLinks)=='function')wpfb_setupLinks();}},
-animated: "medium"}).data("settings",wpfb_fbsets<?php echo $jss ?>);
-}
-jQuery(document).ready(function(){
-	var fel=jQuery("#<?php echo $id ?>");
-	if('function' != typeof fel.treeview) {
-		jQuery.when(
-<?php global $wp_scripts; $treeview_scripts = array('jquery-treeview','jquery-treeview-edit', 'jquery-treeview-async');
-foreach($treeview_scripts as $ts) { ?>
-			 jQuery.getScript('<?php echo esc_js($wp_scripts->registered[$ts]->src); ?>'),
-<?php } ?>
-			 jQuery.Deferred(function( deferred ){ jQuery( deferred.resolve ); })
-		).done(function(){ wpfb_initfb<?php echo $jss ?>(); });
-	} else {	wpfb_initfb<?php echo $jss ?>();	}
-});
-//]]>
-</script>
-<?php
+
+	$script_params = array(
+		'url' => WPFB_Core::$ajax_url_public,
+	);
+
+	wp_register_script('output_file_tree', plugins_url('/WP-Filebase/js/OutputFileTree.js'), ['jquery-treeview','jquery-treeview-edit', 'jquery-treeview-async'], true);
+	wp_localize_script('output_file_tree', 'params', $script_params);
+	wp_enqueue_script('output_file_tree');
 }
 
 static function GeneratePage($title, $content, $prepend_to_current=false) {
