@@ -106,6 +106,10 @@ class WPFB_Core {
             wpfb_loadclass('Ajax');
             WPFB_Ajax::PublicRequest();
         }
+        
+        if (isset($_GET['wpfilebase_thumbnail'])) {
+            require_once(WPFB_PLUGIN_ROOT.'thumbnail.php');
+        }
     }
 
     static function AjaxPublic() {

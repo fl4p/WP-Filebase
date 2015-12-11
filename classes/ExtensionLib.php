@@ -12,7 +12,8 @@ class WPFB_ExtensionLib {
         // try to get from cache
         $cache_key =  'wpfb_apireq_'.md5($act.'||'.serialize($get_args).'||'.serialize($post_data).'||'.__FILE__);
         
-        if(isset($_REQUEST['no_api_cache'])) {
+        $no_cache = isset($_REQUEST['no_api_cache']) || isset($_REQUEST['force-check']);
+        if($no_cache) {
             delete_transient($cache_key);
         }
         
@@ -22,6 +23,10 @@ class WPFB_ExtensionLib {
         }
         
         //trigger_error ( "WP-Filebase apiRequest (ssl=$use_ssl): $act ".json_encode($post_data), E_USER_NOTICE );
+        
+        if($no_cache) {
+            $get_args['nocache'] = 1;
+        }
         
         if (empty($post_data)) {
             $res = wp_remote_get($url, $get_args);
@@ -45,10 +50,6 @@ class WPFB_ExtensionLib {
     }
 
     static function GetExtensionsVersionNumbers() {
-        $res = get_transient('wpfb_ext_vers');
-        if ($res !== false)
-            return $res;
-
         if (!function_exists('get_plugins')) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
@@ -58,9 +59,6 @@ class WPFB_ExtensionLib {
                 $installed_versions[$p] = $details['Version'];
             }
         }
-
-        set_transient('wpfb_ext_vers', $installed_versions, 1 * MINUTE_IN_SECONDS);
-
         return $installed_versions;
     }
 

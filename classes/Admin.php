@@ -28,7 +28,7 @@ static function InitClass()
 static function SettingsSchema() { return wpfb_call('Settings','Schema'); }
 
 static function InsertCategory($catarr)
-{	//print_r($catarr);
+{
 	$catarr = wp_parse_args($catarr, array('cat_id' => 0, 'cat_name' => '', 'cat_description' => '', 'cat_parent' => 0, 'cat_folder' => '', 'cat_order' => 0));
 	extract($catarr, EXTR_SKIP);
 	$data = (object)$catarr;

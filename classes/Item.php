@@ -379,11 +379,11 @@ class WPFB_Item {
 
         if ($this->is_category) {
             // add mtime for cache updates
-            return empty($this->cat_icon) ? (WP_CONTENT_URL . WPFB_Core::$settings->folder_icon) : WPFB_Core::PluginUrl("wp-filebase_thumb.php?cid=$this->cat_id&t=" . @filemtime($this->GetThumbPath()));
+            return empty($this->cat_icon) ? (WP_CONTENT_URL . WPFB_Core::$settings->folder_icon) : home_url("?wpfilebase_thumbnail=1&cid=$this->cat_id&t=" . @filemtime($this->GetThumbPath()));
         }
 
         if (!empty($this->file_thumbnail) /* && file_exists($this->GetThumbPath()) */) { // speedup
-            return WPFB_Core::PluginUrl('wp-filebase_thumb.php?fid=' . $this->file_id . '&name=' . $this->file_thumbnail); // name var only for correct caching!
+            return home_url('?wpfilebase_thumbnail=1&fid=' . $this->file_id . '&name=' . $this->file_thumbnail); // name var only for correct caching!
         }
 
         $type = $this->GetType();

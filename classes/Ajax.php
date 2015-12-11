@@ -24,7 +24,7 @@ class WPFB_Ajax {
         // error messages should be send using JSON
         $wpdb->suppress_errors(true);
 
-        $func($args);
+        call_user_func ($func, $args);
         exit;
     }
 
