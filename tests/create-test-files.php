@@ -15,7 +15,7 @@ class TestFileSet {
 
 
 
-        $this->local_files = [];
+        $this->local_files = array();
 
         foreach($test_files as $f => $u) {
             $fn = $dir.$f;

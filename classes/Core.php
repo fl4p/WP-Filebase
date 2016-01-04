@@ -120,7 +120,7 @@ class WPFB_Core {
 			return $cache[$for];
 		
 		$u = WPFB_Core::UploadDir();
-		$fn = $u . '/._log-' . $for . '-' . md5($u . NONCE_KEY . $for) . '.txt';
+		$fn = $u . '/._log-' . $for . '-' . md5($u . (defined('NONCE_KEY') ? NONCE_KEY : '') . $for) . '.txt';
 		
 		if(is_file($fn) && filesize($fn) > self::LOG_MAX_FILE_SIZE) {
 			rename($fn , "$fn.old");
