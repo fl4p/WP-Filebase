@@ -21,7 +21,7 @@ class WPFB_BatchUploader {
 	
 	public function Display()
 	{	
-		WPFB_Core::PrintJS();
+		 wpfb_call('Output', 'PrintJS');
 		wp_print_scripts('utils'); // setUserSetting
 		?>
 		<style type="text/css" media="screen">@import url(<?php echo WPFB_PLUGIN_URI.'css/batch-uploader.css' ?>);</style>
@@ -85,8 +85,7 @@ jQuery(document).ready( function() {
 	form.find('tr.more-more').hide();
 	morePresets = 0;
 	jQuery('#<?php echo $this->prefix; ?>-uploader-presets-more-toggle').click(function() {
-		var pm = morePresets; pm++; pm %= 3;
-		batchUploaderSetPresetsMore(pm);
+		batchUploaderSetPresetsMore(morePresets = ((morePresets+1)%3));
 	});	
 	batchUploaderSetPresetsMore(typeof(getUserSetting) !== 'function' || getUserSetting('wpfb_batch_presets_more') || 0);
 });
@@ -95,16 +94,15 @@ function batchUploaderSetPresetsMore(m)
 {
 	if(isNaN(m)) m = 0;
 	var form = jQuery('#<?php echo $this->prefix; ?>-uploader-presets').find('form');
-	var s = (m+morePresets);
 	
-	if( s==1||s==2 ) form.find('tr.more').toggle(400);
-	if( m==2||morePresets==2) form.find('tr.more-more').toggle(400);
-	morePresets = m;
+	form.find('tr.more')[m == 0 ? 'hide' : 'show'](400);
+	form.find('tr.more-more')[m != 2 ? 'hide' : 'show'](400);
 	
 	// TODO show any field with non-default value!!
 	
 	//form.find('tr.more').toggle(morePresets > 0);
 	//form.find('tr.more-more').toggle(morePresets > 1);
+	
 	if(typeof(setUserSetting) !== 'undefined') setUserSetting('wpfb_batch_presets_more',''+morePresets);
 	jQuery('#<?php echo $this->prefix; ?>-uploader-presets-more-toggle td span').html(m==2?'<?php _e('less'); ?>':'<?php _e('more'); ?>');
 }

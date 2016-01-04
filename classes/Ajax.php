@@ -24,7 +24,7 @@ class WPFB_Ajax {
         // error messages should be send using JSON
         $wpdb->suppress_errors(true);
 
-        call_user_func ($func, $args);
+        call_user_func($func, $args);
         exit;
     }
 
@@ -48,6 +48,7 @@ class WPFB_Ajax {
             'usersearch' => 'usersearch',
             'postbrowser-main' => 'postBrowserMain',
             'postbrowser' => 'postBrowser',
+				'parse-filename' => 'parseFilename',
                 //'postbrowser' => '',
                 //rsync-browser
         );
@@ -58,7 +59,8 @@ class WPFB_Ajax {
         $public_actions = array(
             'tree' => 'actionTree',
             'list' => 'actionList',
-            'upload' => 'upload'
+            'upload' => 'upload',
+				'parse-filename' => 'parseFilename'
         );
         self::dispatchAction($public_actions);
     }
@@ -222,7 +224,9 @@ class WPFB_Ajax {
     }
 
     private static function actionNewCat($args) {
-        if (!WPFB_Core::CurUserCanCreateCat())
+        wpfb_loadclass('Category');
+        $parent_cat = empty($args['cat_parent']) ? null : WPFB_Category::GetCat($args['cat_parent']);
+        if (!WPFB_Core::CurUserCanCreateCat() && !$parent_cat && !$parent_cat->CurUserCanAddFiles())
             die('-1');
         wpfb_loadclass('Admin');
         $result = WPFB_Admin::InsertCategory($args);
@@ -329,7 +333,7 @@ class WPFB_Ajax {
         $frontend_upload = !empty($args['frontend_upload']) && $args['frontend_upload'] !== "false";
         $file_add_now = !empty($args['file_add_now']) && $args['file_add_now'] !== "false";
 
-
+        // TODO: need to check if frontend_upload and user logged in state
         // Flash often fails to send cookies with the POST or upload, so we need to pass it in GET or POST instead
         if (!is_user_logged_in()) {
             if (is_ssl() && empty($_COOKIE[SECURE_AUTH_COOKIE]) && !empty($_REQUEST['auth_cookie']))
@@ -344,6 +348,9 @@ class WPFB_Ajax {
             }
         }
 
+        wpfb_loadclass('Category', 'File');
+        $parent_cat = empty($args['cat_id']) ? null : WPFB_Category::GetCat($args['cat_id']);
+
         if ($frontend_upload) {
             if ($file_add_now) {
                 wpfb_ajax_die('Unsupported upload!');
@@ -352,7 +359,7 @@ class WPFB_Ajax {
                         wpfb_ajax_die(__('You do not have permission to upload files.'));
             }
         } else {
-            if (!WPFB_Core::CurUserCanUpload())
+            if (!WPFB_Core::CurUserCanUpload() && !$parent_cat && !$parent_cat->CurUserCanAddFiles())
                 wpfb_ajax_die(__('You do not have permission to upload files.'));
 
             check_admin_referer(WPFB . '-async-upload');
@@ -426,11 +433,16 @@ class WPFB_Ajax {
         echo $json;
     }
 
+	 private static function parseFilename($args) {
+		 wpfb_loadclass('Admin');
+		 wp_send_json(WPFB_Admin::ParseFileNameVersion($args['filename']));		 
+		 exit;
+	 }
 }
 
 function wpfb_ajax_die($msg, $title = '', $args = '') {
-    @ob_end_clean();
-    if(empty($msg)) die();
+    if (empty($msg))
+        die();
     echo '<div class="error-div">
 	<strong>' . $title . ' ' . $msg . '</strong></div>';
     exit;

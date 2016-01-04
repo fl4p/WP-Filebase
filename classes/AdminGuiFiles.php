@@ -79,7 +79,7 @@ static function Display()
 				$_POST['file_date'] =  sprintf( "%04d-%02d-%02d %02d:%02d:%02d", $aa, $mm, $jj, $hh, $mn, $ss );
 			}
 			
-			$result = WPFB_Admin::InsertFile(array_merge($_POST, $_FILES), true);
+			$result = WPFB_Admin::InsertFile(stripslashes_deep(array_merge($_POST, $_FILES)), true);
 			if(isset($result['error']) && $result['error']) {
 				$message = $result['error'] . '<br /><a href="javascript:history.back()">' . __("Go back") . '</a>';
 			} else {
@@ -175,9 +175,9 @@ static function PrintFileInfo($info, $path='file_info')
 	foreach($info as $key => $val)
 	{
 		$p = $path.'/'.$key;
-		if(is_array($val) && count($val) == 1 && isset($val[0])) // if its a single array, just take the first element
-			$val = $val[0];
-		echo '<b>',esc_html($p),"</b> = ",esc_html($val),"\n";
+		if(is_array($val) && count($val) == 1) // if its a single array, just take the first element
+			$val = reset($val);
+		echo '<code>%',esc_html($p),"%</code> = ",esc_html(is_array($val) ? ('Array('.count($val).')') : strval($val)),"\n";
 		if(is_array($val) || is_object($val))
 		{			
 			self::PrintFileInfo($val, $p);
@@ -188,9 +188,7 @@ static function PrintFileInfo($info, $path='file_info')
 static function FileInfoPathsBox($info)
 {
 	?><p><?php printf(__('The following tags can be used in templates. For example, if you want to display the Artist of a MP3 File, put %s inside the template code.','wp-filebase'), '<code>%file_info/tags/id3v2/artist%</code>'); ?></p>
-	<pre>
-	<?php self::PrintFileInfo(empty($info->value) ? $info : $info->value); ?>
-	</pre>	
+	<pre><?php self::PrintFileInfo(empty($info->value) ? $info : $info->value); ?></pre>	
 	<?php
 	if(!empty($info->keywords)) {
 		?><p><b><?php _e('Keywords used for search:','wp-filebase') ?></b> <?php echo esc_html($info->keywords) ?></p> <?php

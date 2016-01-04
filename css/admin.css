@@ -133,65 +133,87 @@
 	height: 32px;
 }
 
-
-#wpfilebase-form-upload-row th, #wpfilebase-form-upload-row td {
-	margin: 0;
-	padding: 0;
+#file_thumbnail_wrap.thumbnail-centered {
+	margin: auto;
+	width: 150px;
 }
 
 #wpfilebase-upload-menu
 {
-	
-	float: left;
-	height: 104px;
-	background-color: #ddd;
-	padding: 0;
-	border: 1px solid #ddd;
-	border-right: none;
-	
-	-moz-border-radius-topleft:5px;
-	-moz-border-radius-bottomleft:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-webkit-border-top-left-radius:5px;
-	-khtml-border-bottom-left-radius:5px;
-	-khtml-border-top-left-radius:5px;
-	border-bottom-left-radius:5px;
-	border-top-left-radius:5px;
-
+	text-align: center;
+	-webkit-border-top-right-radius:2px;
+	-webkit-border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	border-top-left-radius:2px;
+	    overflow: auto;
 }
 
 #wpfilebase-upload-tabs {
-	width: auto;
-	max-width: 400px;
-	height: 100px;
-	padding: 4px 0 0 4px;
-	background-color: #f9f9f9;
+	min-height: 80px;
+	background-color: white;
 	
 	border: 1px solid #ddd;
-	border-left: none;	
-	-moz-border-radius-toprigth:5px;
-	-moz-border-radius-bottomright:5px;
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-top-right-radius:5px;
-	-khtml-border-bottom-right-radius:5px;
-	-khtml-border-top-right-radius:5px;
-	border-bottom-right-radius:5px;
-	border-top-right-radius:5px;
+	border-top: none;	
+
+	-webkit-border-bottom-left-radius:2px;
+	-webkit-border-bottom-right-radius:2px;
+	border-bottom-left-radius:2px;
+	border-bottom-right-radius:2px;
 	
-	
-	overflow:auto;
+
+}
+
+#wpfilebase-upload-tabs > div {
+	position: relative;
+	padding: 6px;
 }
 	
 #wpfilebase-upload-menu a
 {
-	display: block;
-	margin: 8px 0 8px 6px;
-	padding: 2px;
-	padding-right: 10px;
+	display: inline-block;
+	margin: 8px 0 0 6px;
+	padding: 4px;
+	color: white;
+	text-decoration: none;
+}
+
+
+#wpfilebase-upload-menu a:after  {
+    right: 0;
+    border: 8px solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #f1f1f1;
+    top: 50%;
+    margin-top: -8px;
+}
+
+
+#wpfilebase-upload-menu #file-upload-progress {
+
+		display: inline-block;
+		float: right;
+		margin: 8px 10px 0 0;
+}
+
+#wpfilebase-upload-menu .media-item .progress {
+	margin: 0 5px;
+}
+
+#wpfilebase-upload-menu  .media-item .filename {
+	line-height: 26px;
+	height: auto;
+}
+#wpfilebase-upload-menu  strong {
+    font-weight: 300;
+	line-height: 26px;
 }
 
 #wpfilebase-upload-menu a.current, #wpfilebase-upload-menu a:hover {
-	background-color: #f9f9f9;
+	border-bottom: 2px solid white;
 }
 
 #wpfilebase-upload-tabs .upload-flash-bypass, #wpfilebase-upload-tabs .upload-html-bypass {
@@ -205,23 +227,20 @@
 }
 
 #wpfilebase-upload-tabs .drag-drop #drag-drop-area {
-	width: 370px;
 	height: auto;
 	border-width: 2px;
+	border-radius: 2px;
 }
 
 #wpfilebase-upload-tabs .drag-drop-inside {
-	margin: 5px;
-	width: 370px;
-}
-
-#wpfilebase-upload-tabs .drag-drop-inside p {
-	margin: 15px;
+	margin: 8px auto;
+	text-align: center;
 	font-size: 12px;
 }
 
-#wpfilebase-upload-tabs .drag-drop-buttons {
-	display: inline;
+#wpfilebase-upload-tabs .drag-drop-inside p {
+
+	     font-size: 16px;
 }
 
 #file_user_roles.hidden {
@@ -289,7 +308,10 @@
 	border-bottom-left-radius:8px;
 	border-top-left-radius:8px;
 	
-	opacity: 0.7;
+	opacity: 0.75;
+
+        -webkit-transition:opacity 500ms ease-out;
+        transition:opacity 500ms ease-out;
 }
 
 #wpfb-support-col:hover, #wpfb-support-col:focus {
@@ -373,19 +395,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 
 
 
-#wpfb-tools {
-	min-height: 190px;
+#wpfb-tools .tool-desc {
+	min-height: 100px;
 }
 
 #wpfb-tools .button {
 	height: 70px !important;
+	border: none;
+	font-size: 11px;
+   padding: 0 8px;
+	
+	/*max-width: 110px;
+	text-overflow: ellipsis; 
+	overflow:hidden;
+	white-space:nowrap; */
 }
 
-#wpfb-tools .button span {
+#wpfb-tools .button svg {
 	height: 32px;
 	width: 32px;
 	display: block;
 	margin: 6px auto 1px auto;
+	fill: #95a5a6;
+}
+
+#wpfb-tools .button:hover svg {
+	/* fill: #2980b9; */
 }
 
 #wpfb-tools ul {
@@ -395,7 +430,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 #wpfb-tools ul li {
 	/*float: left;*/
 	display: inline-block;
-	margin-right: 10px;
+	margin-right: 2px;
 }
 
 #wpfb-tools .tool-desc {
@@ -628,4 +663,92 @@ ul.treeview span.onedrivesync span.cat-icon-overlay,
 	font-size: 9px;
 	opacity: 0.7;
 	cursor: default;
+}
+
+#file_thumbnail_preview {
+	float: right;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    background-position: center 50%;
+    background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.wpfb-upload-box {
+	margin: auto; max-width: 800px; position:relative;
+}
+
+.wpfb-upload-box div.overlay-locked {
+	position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: 50;     background: rgba(255, 255, 255, 0.8);
+}
+
+.wpfb-upload-box div.overlay-locked svg {
+    display: block;
+    fill: #2c3e50;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	margin: -40px;	
+}
+
+.wpfb-upload-box div.overlay-locked span {
+    display: block;
+    position: absolute;	
+	 text-align: center;
+	 width: 100%;
+	 top: 100%;
+	 margin-top: -3em;
+	 font-weight: bold;
+	 text-shadow: 0px 0px 1px white,0px 0px 1px white;
+	 color: #2c3e50;
+}
+
+ul.thumbnails.image_picker_selector .thumbnail img {
+	width: 48px;
+}
+
+#wpfb-logs.postbox pre b {
+	font-size: 9px;
+	vertical-align: top;
+}
+
+#wpfb-logs.postbox pre span.error {
+	background-color: #fbb;
+}
+
+#screen-meta-links {
+    margin: 0 200px 0 0;
+}
+
+.wpfb-scan-spinner {
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #333;
+
+ display: inline-block;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(4.5em) }
+  50% { -webkit-transform: perspective(4.5em) rotateY(180deg) }
+  100% { -webkit-transform: perspective(4.5em) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(4.5em) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(4.5em) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(4.5em) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(4.5em) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(4.5em) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(4.5em) rotateX(-180deg) rotateY(-179.9deg);
+  }
 }

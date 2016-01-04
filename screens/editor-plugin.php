@@ -4,8 +4,6 @@
 if(!defined('ABSPATH') || !is_admin())
     exit;
 
-
-define('WPFB_EDITOR_PLUGIN', 1);
 if ( ! isset( $_GET['inline'] ) )
 	define( 'IFRAME_REQUEST' , true );
 
@@ -19,7 +17,7 @@ wpfb_loadclass('Core', 'File', 'Category', 'AdminLite', 'Admin', 'ListTpl', 'Out
 wp_enqueue_script( 'common' );
 wp_enqueue_script('jquery-ui-widget');
 wp_enqueue_script( 'jquery-color' ); 
-wp_enqueue_script('jquery-treeview-async');
+wp_enqueue_script('wpfb-treeview');
 wp_enqueue_script('postbox');
 wp_enqueue_script('wpfb-editor-plugin', WPFB_PLUGIN_URI."js/editor-plugin.js", array(), WPFB_VERSION);
 
@@ -28,7 +26,7 @@ wp_enqueue_style( 'wp-admin' );
 //wp_enqueue_style( 'colors' );
 wp_enqueue_style( 'media' );
 wp_enqueue_style( 'ie' );
-wp_enqueue_style('jquery-treeview');
+wp_enqueue_style('wpfb-treeview');
 
 //do_action('admin_init');
 
@@ -270,7 +268,7 @@ if($action =='addfile' || $action =='updatefile')
 	if(!wp_verify_nonce($_POST['wpfb-file-nonce'], $nonce_action."-editor") && !wp_verify_nonce($_POST['wpfb-file-nonce'], $nonce_action) )
 		wp_die(__('Cheatin&#8217; uh?'));
 	
-	$result = WPFB_Admin::InsertFile(array_merge(stripslashes_deep($_POST), $_FILES));
+	$result = WPFB_Admin::InsertFile(stripslashes_deep(array_merge($_POST, $_FILES)));
 	if(isset($result['error']) && $result['error']) {
 		?><div id="message" class="updated fade"><p><?php echo $result['error']; ?></p></div><?php
 		$file = new WPFB_File($_POST);
@@ -448,6 +446,6 @@ do_action('admin_print_footer_scripts');
 	initEditorPlugin();
 	if(typeof wpOnload=='function')wpOnload();
 </script>
-<?php WPFB_Core::PrintJS(); /* only required for wpfbConf */ ?>
+<?php  wpfb_call('Output', 'PrintJS'); /* only required for wpfbConf */ ?>
 </body>
 </html>

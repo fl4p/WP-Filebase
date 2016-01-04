@@ -18,7 +18,8 @@ function uploadProgress(up, file) {
 	jQuery('.percent', item).html( file.percent + '%' );
 
 	if ( file.percent == 100 ) {
-		item.html('<strong class="crunching">' + '<?php _e('File %s uploaded.','wp-filebase') ?>'.replace(/%s/g, file.name) + '</strong>');
+		// "crunching"
+		item.html('<div class="wpfb-scan-spinner admin-scheme-bgcolor-3"></div>');
 	}
 }
 	
@@ -81,11 +82,9 @@ wpUploaderInit = <?php echo json_encode($plupload_init); ?>;
 <?php do_action('pre-plupload-upload-ui'); // hook change, old name: 'pre-flash-upload-ui' ?>
 <div id="drag-drop-area">
 	<div class="drag-drop-inside">
-	<p class="drag-drop-info">
-		<?php _e('Drop files here - or -','wp-filebase'); ?>
-		<span class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></span>
-		<span class="drag-drop-info-spacer"></span>
-	</p>
+		<p class="drag-drop-info"><?php _e('Drop files here - or -','wp-filebase'); ?></p>
+		<div class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" /></div>
+		<div class="drag-drop-info-spacer"></div>
 	</div>
 </div>
 	<p class="upload-flash-bypass">

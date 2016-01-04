@@ -38,6 +38,16 @@
 	padding-right: 450px;
 }
 
+@media screen and (max-width: 782px) {
+	.wpfb-batch-uploader-interface .uploader-presets {
+		float: none;
+		width: auto;
+	}
+	.wpfb-batch-uploader-interface .drag-drop-uploader {
+		padding-right: 0;
+	}
+}
+
 .wpfb-embedded-form .wpfb-batch-uploader-interface .drag-drop-uploader {
 	overflow: hidden;
 	padding-right: 6px;

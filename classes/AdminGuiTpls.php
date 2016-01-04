@@ -42,7 +42,7 @@ static function Display()
 	
 	wpfb_loadclass('Admin', 'Output', 'TplLib', 'ListTpl');
 	
-	WPFB_Core::PrintJS();
+	 wpfb_call('Output', 'PrintJS');
 	
 	$_POST = stripslashes_deep($_POST);
 	$_GET = stripslashes_deep($_GET);	
@@ -187,16 +187,17 @@ jQuery(document).ready( function() {
 		default:
 ?>
 <div class="wrap">
-<h2><?php _e('Templates','wp-filebase'); ?>
+<h2><?php _e('Embed Templates','wp-filebase'); ?>
 <?php if(empty(WPFB_Core::$settings->disable_css) && current_user_can('edit_themes')) { ?>
 	<a href="<?php echo admin_url('admin.php?page=wpfilebase_css'); ?>" class="add-new-h2"><?php _e('Edit Stylesheet','wp-filebase'); ?></a>
 <?php } ?>	
 	<a href="<?php echo add_query_arg('iframe-preview',(int)empty($_GET['iframe-preview'])); ?>" class="add-new-h2">iframe preview</a>
 </h2>
+<p><?php _e('You can embed files into posts or pages using the file embed templates. File list templates use file embed templates and category embed templates.','wp-filebase'); ?></p>
 <div id="wpfb-tabs">
 	<ul class="wpfb-tab-menu">
-		<li><a href="#file"><?php _e('Files','wp-filebase') ?></a></li>
-		<li><a href="#cat"><?php _e('Categories') ?></a></li>
+		<li><a href="#file"><?php _e('File','wp-filebase') ?></a></li>
+		<li><a href="#cat"><?php _e('Category') ?></a></li>
 		<li><a href="#list"><?php _e('File List','wp-filebase') ?></a></li>
 	</ul>
 	
@@ -205,14 +206,14 @@ jQuery(document).ready( function() {
 	<?php self::TplsTable('file'); ?>
 	</div>
 	
-	<div id="cat" class="wrap">
-	<p><?php _e('These templates can be used for categories.','wp-filebase'); ?></p>
-	<?php self::TplsTable('cat'); ?>
-	</div>
-	
 	<div id="list" class="wrap">
 	<p><?php _e('A list-template consists of header, footer and file template. It can optionally have a category template to list sub-categories.','wp-filebase'); ?></p>
 	<?php self::TplsTable('list'); ?>
+	</div>
+    
+	<div id="cat" class="wrap">
+	<p><?php _e('These templates are used by the file list templates.','wp-filebase'); ?></p>
+	<?php self::TplsTable('cat'); ?>
 	</div>
 
 	

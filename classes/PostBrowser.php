@@ -12,14 +12,13 @@ class WPFB_PostBrowser {
                 <title><?php _e('Posts'); ?></title>
                 <meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
                 <?php
-                wp_enqueue_script('jquery');
-                wp_enqueue_script('jquery-treeview-async');
+                wp_enqueue_script('wpfb-treeview');
 
                 wp_enqueue_style('global');
                 wp_enqueue_style('wp-admin');
                 wp_enqueue_style('media');
                 wp_enqueue_style('ie');
-                wp_enqueue_style('jquery-treeview');
+                wp_enqueue_style('wpfb-treeview');
 
                 do_action('admin_print_styles');
                 do_action('admin_print_scripts');

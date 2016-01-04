@@ -19,9 +19,9 @@ static function Schema()
 	if($upload_path_base == '' || $upload_path_base == '/')
 		$upload_path_base = 'wp-content/uploads';
 		
-	$last_sync_time	= intval(get_option(WPFB_OPT_NAME.'_cron_sync_time'));
-	$last_sync_time = ($last_sync_time > 0) ? (" (".sprintf( __('Last cron sync on %1$s at %2$s.','wp-filebase'), date_i18n( get_option( 'date_format'), $last_sync_time ), date_i18n( get_option( 'time_format'), $last_sync_time ) ).")") : '';
-		
+	$sync_stats	= (get_option('wpfilebase_cron_sync_stats'));
+	wpfb_loadclass('Output');
+	$last_sync_time =  (!empty($sync_stats)) ? ("<br> (".sprintf( __('Last cron sync %s ago took %s and used %s of RAM.','wp-filebase'), human_time_diff($sync_stats['t_start']), human_time_diff($sync_stats['t_start'], $sync_stats['t_end']), WPFB_Output::FormatFilesize($sync_stats['mem_peak']) ) .")") : '';		
 	
 	$list_tpls = array_keys(wpfb_call('ListTpl','GetAll'));
 	$list_tpls = empty($list_tpls) ? array() : array_combine($list_tpls, $list_tpls);
@@ -43,7 +43,7 @@ static function Schema()
 	
 	// common
 	'upload_path'			=> array('default' => $upload_path_base . '/filebase', 'title' => __('Upload Path','wp-filebase'), 'desc' => __('Path where all files are stored. Relative to WordPress\' root directory.','wp-filebase'), 'type' => 'text', 'class' => 'code', 'size' => 65),
-	'thumbnail_size'		=> array('default' => 120, 'title' => __('Thumbnail size'), 'desc' => __('The maximum side of the image is scaled to this value.','wp-filebase'), 'type' => 'number', 'class' => 'num', 'size' => 8),
+	'thumbnail_size'		=> array('default' => 300, 'title' => __('Thumbnail size'), 'desc' => __('The maximum side of the image is scaled to this value.','wp-filebase'), 'type' => 'number', 'class' => 'num', 'size' => 8),
 	'thumbnail_path'		=> array('default' => '', 'title' => __('Thumbnail Path','wp-filebase'), 'desc' => __('Thumbnails can be stored at a different path than the actual files. Leave empty to use the default upload path. The directory specified here CANNOT be inside the upload path!','wp-filebase'), 'type' => 'text', 'class' => 'code', 'size' => 65),
 	
 	'base_auto_thumb'		=> array('default' => true, 'title' => __('Auto-detect thumbnails','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Images are considered as thumbnails for files with the same name when syncing. (e.g `file.jpg` &lt;=&gt; `file.zip`)','wp-filebase')),

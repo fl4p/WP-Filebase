@@ -31,7 +31,8 @@ if (!defined('WPFB')) {
     define('WPFB_PLUGIN_NAME', 'WP-Filebase');
     define('WPFB_TAG_VER', 2);
 
-    function wpfb_loadclass($cl) {
+    function wpfb_loadclass($cl)
+    {
         if (func_num_args() > 1) {
             $args = func_get_args(); // func_get_args can't be used as func param!
             return array_map(__FUNCTION__, $args);
@@ -63,32 +64,39 @@ if (!defined('WPFB')) {
 
     // calls static $fnc of class $cl with $params
     // $cl is loaded automatically if not existing
-    function wpfb_call($cl, $fnc, $params = null, $is_args_array = false) {
+    function wpfb_call($cl, $fnc, $params = null, $is_args_array = false)
+    {
         $cln = 'WPFB_' . $cl;
         $fnc = array($cln, $fnc);
         return (class_exists($cln) || wpfb_loadclass($cl)) ? ($is_args_array ? call_user_func_array($fnc, $params) : call_user_func($fnc, $params)) : null;
     }
 
-    function wpfb_callback($cl, $fnc) {
+    function wpfb_callback($cl, $fnc)
+    {
         return create_function('', '$p=func_get_args();return wpfb_call("' . $cl . '","' . $fnc . '",$p,true);');
     }
 
-    function wpfilebase_init() {
+    function wpfilebase_init()
+    {
         wpfb_loadclass('Core');
     }
 
-    function wpfilebase_widgets_init() {
+    function wpfilebase_widgets_init()
+    {
         wpfb_loadclass('Widget');
     }
 
-    function wpfilebase_activate() {
+    function wpfilebase_activate()
+    {
         define('WPFB_NO_CORE_INIT', true);
         wpfb_loadclass('Core', 'Admin', 'Setup');
         WPFB_Setup::OnActivateOrVerChange(empty(WPFB_Core::$settings->version) ? null : WPFB_Core::$settings->version);
     }
 
-    function wpfilebase_deactivate() {
+    function wpfilebase_deactivate()
+    {
         wpfb_loadclass('Core', 'Admin', 'Setup');
+        wpfb_call('ExtensionLib', 'PluginDeactivated');
         WPFB_Setup::OnDeactivate();
     }
 
@@ -98,8 +106,6 @@ if (!defined('WPFB')) {
         ob_start();
     }
 }
-
-// database settings
 
 /**
  * WPDB
@@ -113,14 +119,15 @@ if (isset($wpdb)) {
     $wpdb->wpfilebase_files_id3 = $wpdb->prefix . 'wpfb_files_id3';
 }
 
+if (isset($_GET['wpfilebase_thumbnail'])) {
+    require_once(WPFB_PLUGIN_ROOT . 'thumbnail.php');
+}
+
 if (function_exists('add_action')) {
     add_action('init', 'wpfilebase_init');
     add_action('widgets_init', 'wpfilebase_widgets_init');
-    add_action('admin_init', array('WPFB_Core', 'AdminInit'), 10);
     add_action('admin_menu', array('WPFB_Core', 'AdminMenu'));
+    add_action('admin_init', array('WPFB_Core', 'AdminInit'), 10);
     register_activation_hook(__FILE__, 'wpfilebase_activate');
     register_deactivation_hook(__FILE__, 'wpfilebase_deactivate');
 }
-
-
-

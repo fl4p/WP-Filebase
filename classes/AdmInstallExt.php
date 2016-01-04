@@ -74,7 +74,7 @@ class WPFB_AdmInstallExt {
             exit;
         }
 
-        $title = __('Add Extensions');
+        $title = __('Extensions','wp-filebase');
 
         wp_print_scripts('plugin-install');
         ?>
@@ -84,7 +84,8 @@ class WPFB_AdmInstallExt {
         </style>
 
         <div class="wrap">
-            <h2><?php echo esc_html($title); ?></h2>
+            <h3><?php echo esc_html($title); ?></h3>
+			<p>Each extensions is an additional plugin. You can test all extensions in the <a href="http://demo.wpfilebase.com/wp-admin/admin.php?page=wpfilebase_manage" target="_blank">Live Demo Sandbox</a>.</p>
         <?php
 //$wp_list_table->views();
 //echo '<br class="clear" />';

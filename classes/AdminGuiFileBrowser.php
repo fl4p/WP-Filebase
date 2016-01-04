@@ -31,7 +31,7 @@
 	
 
 		WPFB_Output::FileBrowser($content, 0, empty($_GET['wpfb_cat']) ? 0 : intval($_GET['wpfb_cat']));	
-		WPFB_Core::PrintJS();
+		wpfb_call('Output', 'PrintJS');
 		
 ?>
     <div class="wrap filebrowser-admin"> 

@@ -20,6 +20,15 @@ static function Display()
 {
 	global $wpdb, $user_ID;
 	
+	require_once(ABSPATH . 'wp-admin/includes/dashboard.php');
+	wpfb_loadclass('AdminDashboard');
+	
+
+	add_thickbox();
+	wp_enqueue_script( 'dashboard' );
+	if ( wp_is_mobile() )
+		wp_enqueue_script( 'jquery-touch-punch' );
+	
 	//register_shutdown_function( create_function('','$error = error_get_last(); if( $error && $error[\'type\'] != E_STRICT ){print_r( $error );}else{return true;}') );
 	
 	wpfb_loadclass('File', 'Category', 'Admin', 'Output');
@@ -29,17 +38,6 @@ static function Display()
 	$action = (!empty($_POST['action']) ? $_POST['action'] : (!empty($_GET['action']) ? $_GET['action'] : ''));
 	$clean_uri = remove_query_arg(array('message', 'action', 'file_id', 'cat_id', 'deltpl', 'hash_sync', 'doit', 'ids', 'files', 'cats', 'batch_sync' /* , 's'*/)); // keep search keyword	
 	
-
-	// switch simple/extended form
-	if(isset($_GET['exform'])) {
-		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true); 
-	} else
-		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform');
-		
-	if(!empty($_GET['wpfb-hide-how-start']))
-		update_user_option($user_ID, WPFB_OPT_NAME . '_hide_how_start', 1);		
-	$show_how_start = !(bool)get_user_option(WPFB_OPT_NAME . '_hide_how_start');	
 
 	WPFB_Admin::PrintFlattrHead();
 	?>
@@ -64,15 +62,11 @@ static function Display()
 	<div class="wrap">
 	<div id="icon-wpfilebase" class="icon32"><br /></div>
 	<h2><?php echo WPFB_PLUGIN_NAME; ?></h2>
-	
+		
 	<?php
 
 		
-	if($show_how_start)
-		wpfb_call('AdminHowToStart', 'Display');
 		
-	if(!empty($_GET['action']))
-			echo '<p><a href="' . $clean_uri . '" class="button">' . __('Go back'/*def*/) . '</a></p>';
 	
 	switch($action)
 	{
@@ -94,26 +88,11 @@ static function Display()
 				
 				if(!empty($error_msg)) echo '<div class="error default-password-nag"><p>'.$error_msg.'</p></div>';				
 				
-					if(!empty(WPFB_Core::$settings->tag_conv_req)) {
+				if(!empty(WPFB_Core::$settings->tag_conv_req)) {
 					echo '<div class="updated"><p><a href="'.add_query_arg('action', 'convert-tags').'">';
 					_e('WP-Filebase content tags must be converted','wp-filebase');
 					echo '</a></p></div><div style="clear:both;"></div>';
 				}
-				
-				if(!get_post(WPFB_Core::$settings->file_browser_post_id)) {
-					echo '<div class="updated"><p>';
-					printf(__('File Browser post or page not set! Some features like search will not work. <a href="%s">Click here to set the File Browser Post ID.</a>','wp-filebase'), esc_attr(admin_url('admin.php?page=wpfilebase_sets#'.sanitize_title(__('File Browser','wp-filebase')))));
-					echo '</p></div><div style="clear:both;"></div>';
-				}
-				
-				/*
-				wpfb_loadclass('Config');
-				if(!WPFB_Config::IsWritable()) {
-					echo '<div class="updated"><p>';
-					printf(__('The config file %s is not writable or could not be created. Please create the file and make it writable for the webserver.','wp-filebase'), WPFB_Config::$file);
-					echo '</p></div><div style="clear:both;"></div>';
-				}
-				*/
 		?>
 	<?php
 if(self::PluginHasBeenUsedAWhile(true))
@@ -140,158 +119,14 @@ if(self::PluginHasBeenUsedAWhile()) { ?>
 </div>
 </div>
 <?php }
-
 ?>
 
-<div id="wpfb-stats-wrap" style="float:right; border-left: 1px solid #eee; margin-left: 5px;">
-<div id="col-container">
-	<div id="col-right">
-		<div class="col-wrap">
-			<h3><?php _e('Traffic','wp-filebase'); ?></h3>
-			<table class="wpfb-stats-table">
-			<?php
-				$traffic_stats = wpfb_call('Misc','GetTraffic');					
-				$limit_day = (WPFB_Core::$settings->traffic_day * 1048576);
-				$limit_month = (WPFB_Core::$settings->traffic_month * 1073741824);
-			?>
-			<tr>
-				<td><?php
-					if($limit_day > 0)
-						self::ProgressBar($traffic_stats['today'] / $limit_day, WPFB_Output::FormatFilesize($traffic_stats['today']) . '/' . WPFB_Output::FormatFilesize($limit_day));
-					else
-						echo WPFB_Output::FormatFilesize($traffic_stats['today']);
-				?></td>
-				<th scope="row"><?php _e('Today','wp-filebase'); ?></th>
-			</tr>
-			<tr>
-				<td><?php
-					if($limit_month > 0)
-						self::ProgressBar($traffic_stats['month'] / $limit_month, WPFB_Output::FormatFilesize($traffic_stats['month']) . '/' . WPFB_Output::FormatFilesize($limit_month));
-					else
-						echo WPFB_Output::FormatFilesize($traffic_stats['month']);
-				?></td>
-				<th scope="row"><?php _e('This Month','wp-filebase'); ?></th>
-			</tr>
-			<tr>
-				<td><?php echo WPFB_Output::FormatFilesize($wpdb->get_var("SELECT SUM(file_size) FROM $wpdb->wpfilebase_files")) ?></td>
-				<th scope="row"><?php _e('Total File Size','wp-filebase'); ?></th>
-			</tr>	
-			</table>
-</div>
-</div><!-- /col-right -->
-			
-<div id="col-left">
-<div class="col-wrap">
-
-			<h3><?php _e('Statistics','wp-filebase'); ?></h3>
-			<table class="wpfb-stats-table">
-			<tr>
-				<td><?php echo WPFB_File::GetNumFiles() ?></td>
-				<th scope="row"><?php _e('Files','wp-filebase'); ?></th>				
-			</tr>
-			<tr>
-				<td><?php echo WPFB_Category::GetNumCats() ?></td>
-				<th scope="row"><?php _e('Categories'); ?></th>
-			</tr>
-			<tr>
-				<td><?php echo "".(int)$wpdb->get_var("SELECT SUM(file_hits) FROM $wpdb->wpfilebase_files") ?></td>
-				<th scope="row"><?php _e('Downloads','wp-filebase'); ?></th>
-			</tr>
-			</table>
-</div>
-</div><!-- /col-left -->
-
-</div><!-- /col-container -->
-</div>
-
-
-<div>
-<!-- <h2><?php _e('Tools'); ?></h2> -->
-<?php
-
-$cron_sync_desc = '';
-if(WPFB_Core::$settings->cron_sync) {
-	$cron_sync_desc .= __('Automatic sync is enabled. Cronjob scheduled hourly.');
-	$last_sync_time	= intval(get_option(WPFB_OPT_NAME.'_cron_sync_time'));
-	$cron_sync_desc .=  ($last_sync_time > 0) ? (" (".sprintf( __('Last cron sync on %1$s at %2$s.','wp-filebase'), date_i18n( get_option( 'date_format'), $last_sync_time ), date_i18n( get_option( 'time_format'), $last_sync_time ) ).")") : '';
-} else {
-	$cron_sync_desc .= __('Cron sync is disabled.','wp-filebase');
-}
-
-$tools = array(
-	 array(
-		  'url' => add_query_arg(array('action' => 'sync', )),
-		  'icon' => 'activity',
-		  'label' => __('Sync Filebase','wp-filebase'),
-		  'desc' => __('Synchronises the database with the file system. Use this to add FTP-uploaded files.','wp-filebase').'<br />'.$cron_sync_desc		  
-	)
-);
-
-
-
-
-if(current_user_can('install_plugins')) { // is admin?
-	$new_tag = self::NewExtensionsAvailable() ? '<span class="wp-ui-notification new-exts">new</span>' : '';
-	$tools[] = array(
-			  'url' => add_query_arg(array('action' => 'install-extensions')),
-			  'icon' => 'plug',
-			  'label' => __('Extensions','wp-filebase').$new_tag,
-			  'desc' => __('Install Extensions to extend functionality of WP-Filebase','wp-filebase')	 
-	);
-}
-
-?>
-<div id="wpfb-tools">
-	<h2><?php _e('Tools'); ?></h2>
-<ul>
-<?php foreach($tools as $id => $tool) {
-	?>
-	<li id="wpfb-tool-<?php echo $id; ?>"><a href="<?php echo $tool['url']; ?>" <?php if(!empty($tool['confirm'])) { ?> onclick="return confirm('<?php echo $tool['confirm']; ?>')" <?php } ?> class="button"><span style="background-image:url(<?php echo esc_attr(WPFB_PLUGIN_URI); ?>images/<?php echo $tool['icon']; ?>.png)"></span><?php echo $tool['label']; ?></a></li>
-<?php } ?>
-</ul>
-<?php foreach($tools as $id => $tool) { ?>	
-<div id="wpfb-tool-desc-<?php echo $id; ?>" class="tool-desc">
-	<?php echo $tool['desc']; ?>
-</div>
-<?php } ?>
-<script>
-if(!jQuery(document.body).hasClass('mobile')) {
-	jQuery('#wpfb-tools li').mouseenter(function(e) {
-		jQuery('#wpfb-tools .tool-desc').hide();
-		jQuery('#wpfb-tool-desc-'+this.id.substr(10)).show();
-	});
-}
-</script>
-		
-<?php if(!empty(WPFB_Core::$settings->tag_conv_req)) { ?><p><a href="<?php echo add_query_arg('action', 'convert-tags') ?>" class="button"><?php _e('Convert old Tags','wp-filebase')?></a> &nbsp; <?php printf(__('Convert tags from versions earlier than %s.','wp-filebase'), '0.2.0') ?></p> <?php } ?>
-<!--  <p><a href="<?php echo add_query_arg('action', 'add-urls') ?>" class="button"><?php _e('Add multiple URLs','wp-filebase')?></a> &nbsp; <?php _e('Add multiple remote files at once.','wp-filebase'); ?></p>
--->
-</div>
 	
-	<div style="clear: both;"></div>
-
-<?php
-	if(WPFB_Core::CurUserCanUpload()) {		
-		WPFB_Admin::PrintForm('file', null, array('exform' => $exform));
-	}
-?>
-			
-		<?php
-			if(!$show_how_start) // display how start here if its hidden
-				wpfb_call('AdminHowToStart', 'Display');
-		?>
-			
-			<h2><?php _e('About'); ?></h2>
-			<p>
-			<?php echo WPFB_PLUGIN_NAME . ' ' . WPFB_VERSION ?> by Fabian Schlieper <a href="http://fabi.me/">
-			<?php if(strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') === false) { ?><img src="http://fabi.me/misc/wpfb_icon.gif?lang=<?php if(defined('WPLANG')) {echo WPLANG;} ?>" alt="" /><?php } ?> fabi.me</a><br/>
-			Includes the great file analyzer <a href="http://www.getid3.org/">getID3()</a> by James Heinrich.<br />
-			Tools Icons by <a href="http://www.icondeposit.com/">Matt Gentile</a>.
-			</p>
-			<?php if(current_user_can('edit_files')) { ?>
-			<p><a href="<?php echo admin_url('plugins.php?wpfb-uninstall=1') ?>" class="button"><?php _e('Completely uninstall WP-Filebase','wp-filebase') ?></a></p>
-				<?php
-			}
+	<div id="dashboard-widgets-wrap">
+	<?php wp_dashboard(); ?>
+	</div><!-- dashboard-widgets-wrap -->
+	
+	<?php
 			break;
 			
 	case 'convert-tags':
@@ -402,6 +237,10 @@ if(!jQuery(document.body).hasClass('mobile')) {
 		break;
 		
 	} // switch	
+	
+	
+		if(!empty($_GET['action']))
+			echo '<p><a href="' . $clean_uri . '" class="button">' . __('Go back'/*def*/) . '</a></p>';
 	?>
 </div> <!-- wrap -->
 <?php

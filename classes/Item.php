@@ -8,6 +8,8 @@ class WPFB_Item {
     var $last_parent = null;
     var $locked = 0;
     private $_read_permissions = null;
+
+
     static $tpl_uid = 0;
     static $id_var;
 
@@ -22,11 +24,11 @@ class WPFB_Item {
     }
 
     function __toString() {
-        return $this->GetName() . ' (' . ($this->is_file ? 'file' : 'cat') . ' ' . $this->GetId() . ')';
+        return $this->GetLocalPathRel() . ' (' . ($this->is_file ? 'file' : 'cat') . ' ' . $this->GetId() . ')';
     }
 
     function GetId() {
-        return (int) ($this->is_file ? $this->file_id : $this->cat_id);
+        return 0 + ($this->is_file ? $this->file_id : $this->cat_id);
     }
 
     function GetName() {
@@ -48,6 +50,10 @@ class WPFB_Item {
         return ($this->is_file ? $this->file_category : $this->cat_parent);
     }
 
+    /**
+     * 
+     * @return WPFB_Category
+     */
     function GetParent() {
         if (($pid = $this->GetParentId()) != $this->last_parent_id) { // caching
             if ($pid > 0)
@@ -176,7 +182,10 @@ class WPFB_Item {
     }
 
     protected function TriggerLockedError() {
-        trigger_error("Cannot save locked item '" . $this->GetName() . "' to database!", E_USER_WARNING);
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        array_shift($trace); array_shift($trace);
+        $backtrace = print_r($trace, true);
+        trigger_error("Cannot save locked $this to database! ($backtrace)", E_USER_WARNING);
         return false;
     }
 
@@ -195,7 +204,7 @@ class WPFB_Item {
         $vars = get_class_vars(get_class($this));
         foreach ($vars as $var => $def) {
             $pos = strpos($var, ($this->is_file ? 'file_' : 'cat_'));
-            if ($pos === false || $pos != 0 || $var == $id_var || is_array($this->$var) || is_object($this->$var))
+            if ($pos === false || $pos != 0 || $var == $id_var || is_array($this->$var) || is_object($this->$var) || $var == 'file_scan_lock' || $var == 'cat_scan_lock')
                 continue;
             $values[$var] = $this->$var; // no & ref here, this causes esc of actual objects data!!!!
         }
@@ -456,7 +465,7 @@ class WPFB_Item {
      * @return WPFB_File[]
      */
     function GetChildFilesFast($recursive = false) {
-        static $parent_walker;
+        static $parent_walker = false;
         if (!$parent_walker)
             $parent_walker = create_function('&$f,$fid,$pid', 'if($f->file_category != $pid) $f = null;');
 
@@ -684,6 +693,31 @@ class WPFB_Item {
          */
     }
 
+    function DBReload() {
+        global $wpdb;
+        if ($this->locked) $this->TriggerLockedError();
+        $tbl = $this->is_file ? $wpdb->wpfilebase_files : $wpdb->wpfilebase_cats;
+        $id_field = $this->is_file ? 'file_id' : 'cat_id';
+        $id = 0+$this->GetId();
+        $db_row = $wpdb->get_row("SELECT * FROM $tbl WHERE $id_field = $id");
+
+        if(!$db_row) // item has been deleted?
+           return null;
+
+        foreach ($db_row as $col => $val) {
+            $this->$col = $val;
+        }
+
+        if(!empty($this->cat_childs)) {
+            foreach($this->cat_childs as $i => $c) {
+                $c->DBReload();
+            }
+        }
+
+        unset($this->childs_complete, $this->cat_childs);
+
+        return $this;
+    }
     protected static function GetPermissionWhere($owner_field, $permissions_field, $user = null) {
         //$user = is_null($user) ? wp_get_current_user() : (empty($user->roles) ? new WP_User($user) : $user);
         $user = is_null($user) ? wp_get_current_user() : $user;
@@ -708,6 +742,94 @@ class WPFB_Item {
             }
         }
         return $permission_sql;
+    }
+
+    /**
+      Own database based locking (don't rely on flock() (requires disk writes) or sem_acquire() or mysql GET_LCOK)
+      Acquire locks with TryScanLock(), they will be unlocked on script end (no need of manual unlocks)
+      If a fatal exception prevents automatic unlocking locks will timeout after 10 mins
+     */
+    const SCAN_LOCK_TIMEOUT = 600;
+
+    static $_file_scan_locks, $_cat_scan_locks, $_scan_lock_init;
+
+    static function _removeScanLocks() {
+        global $wpdb;
+
+        foreach (self::$_file_scan_locks as $id => $lock_time) {
+            $wpdb->update($wpdb->wpfilebase_files, array('file_scan_lock' => 0), array('file_id' => $id, 'file_scan_lock' => $lock_time));
+        }
+
+        foreach (self::$_cat_scan_locks as $id => $lock_time) {
+            $wpdb->update($wpdb->wpfilebase_cats, array('cat_scan_lock' => 0), array('cat_id' => $id, 'cat_scan_lock' => $lock_time));
+        }
+    }
+
+    /**
+     * 
+     * @global wpdb $wpdb
+     * @staticvar boolean $init
+     * @return type
+     */
+    function TryScanLock() {
+        global $wpdb;
+
+        if (!self::$_scan_lock_init) {
+            self::$_scan_lock_init = true;
+            self::$_file_scan_locks = array();
+            self::$_cat_scan_locks = array();
+            register_shutdown_function(array(__CLASS__, '_removeScanLocks'));
+        }
+
+        if ($this->is_file)
+            $sla = &self::$_file_scan_locks;
+        else
+            $sla = &self::$_cat_scan_locks;
+
+        $table = $this->is_file ? $wpdb->wpfilebase_files : $wpdb->wpfilebase_cats;
+        $prefix = $this->is_file ? 'file' : 'cat';
+        $slf = "{$prefix}_scan_lock";
+        $now = time();
+        $lock_time = $now + self::SCAN_LOCK_TIMEOUT;
+        $id = $this->GetId();
+
+        // first check if we own the lock and update if necessary
+        if (isset($sla[$id])) {
+            //echo "TryLock $this @".__LINE__." isset";
+            return ($lock_time > $sla[$id]) ?
+                    ($wpdb->update($table, array($slf => $lock_time), array("{$prefix}_id" => $id, $slf => $sla[$id])) && ($sla[$id] = $this->$slf = $lock_time )) : true;
+        }
+
+        // actually try to set the lock and store it in $sla if success
+        return $wpdb->query($wpdb->prepare("
+			UPDATE `{$table}`
+			SET `$slf` = %d
+			WHERE (`{$prefix}_id` = %d) AND (`$slf` < %d)
+			", $lock_time, $id, $now)) && ($sla[$id] = $this->$slf = $lock_time);
+    }
+
+    /**
+     * If false, this does not mean that a lock cannot be acquired
+     * 
+     * @return bool
+     */
+    function IsScanLocked() {
+        return ($this->is_file ? $this->file_scan_lock : $this->cat_scan_lock) >= time();
+    }
+
+    function GetScanLockDebug() {
+        $prefix = $this->is_file ? 'file' : 'cat';
+        $slf = "{$prefix}_scan_lock";
+        if ($this->is_file)
+            $sla = &self::$_file_scan_locks;
+        else
+            $sla = &self::$_cat_scan_locks;
+        return '<pre>' . print_r(array(
+                    'id' => $this->GetId(),
+                    $slf => $this->$slf,
+                    'locks' => $sla,
+                    'flocks' => self::$_file_scan_locks
+                        ), true) . '</pre>';
     }
 
 }

@@ -33,6 +33,7 @@ static function TplVarsDesc($for_cat=false)
 	'file_url_encoded'		=> __('Download URL encoded for use in query strings','wp-filebase'),
 	
 	'file_icon_url'			=> __('URL of the thumbnail or icon','wp-filebase'),
+        'file_small_icon'              => __('A small icon (HTML element)','wp-filebase'),
 	
 	
 	'file_size'				=> __('Formatted file size','wp-filebase'),

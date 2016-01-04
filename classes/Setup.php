@@ -46,7 +46,9 @@ static function AddOptions()
 	
 	
 	// for static css caching
-	add_option('wpfb_css', WPFB_PLUGIN_URI . 'wp-filebase.css');
+	add_option('wpfb_css', WPFB_PLUGIN_URI . 'wp-filebase.css?v='.WPFB_VERSION);
+	
+	add_option('wpfilebase_cron_sync_stats', array(), null, 'no'/*autoload*/);
  
 }
 static function AddTpls($old_ver=null) {	
@@ -141,7 +143,7 @@ Your browser does not support the video tag.  <a href='%file_url%'>Open Video di
 </table>
 <script type="text/javascript" charset="utf-8">
 	jQuery(document).ready(function() {
-		jQuery(\'#wpfb-data-table-%uid%\').dataTable();
+		jQuery(\'#wpfb-data-table-%uid%\').DataTable();
 	} );
 </script>',
 			'file_tpl_tag' => 'data-table',
@@ -252,6 +254,8 @@ static function SetupDBTables($old_ver=null)
   `cat_icon` varchar(255) default NULL,
   `cat_exclude_browser` enum('0','1') NOT NULL default '0',
   `cat_order` int(8) NOT NULL default '0',
+  `cat_wp_term_id` bigint(20) NOT NULL default '0',
+  `cat_scan_lock` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`cat_id`),
   FULLTEXT KEY `USER_ROLES` (`cat_user_roles`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
@@ -294,6 +298,7 @@ static function SetupDBTables($old_ver=null)
   `file_last_dl_ip` varchar(100) NOT NULL default '',
   `file_last_dl_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `file_rescan_pending` tinyint(4) NOT NULL default '0',
+  `file_scan_lock` bigint(20) unsigned NOT NULL default '0',
   ". /*`file_meta` TEXT NULL DEFAULT NULL,*/ "
   PRIMARY KEY  (`file_id`),
   FULLTEXT KEY `DESCRIPTION` (`file_description`),
@@ -387,7 +392,10 @@ static function SetupDBTables($old_ver=null)
 
 	
 	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_rescan_pending` tinyint(4) NOT NULL default '0'";
-
+	
+	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_scan_lock` bigint(20) unsigned NOT NULL default '0'";
+	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_scan_lock` bigint(20) unsigned NOT NULL default '0'";
+	
 	// since 0.2.9.25
 	
 	// fix (0,1,3) => (0,1,2)
@@ -401,6 +409,10 @@ static function SetupDBTables($old_ver=null)
 	$queries[] = "@ALTER TABLE `$tbl_files` ADD  `file_name_original` varchar(300) NOT NULL default '' AFTER `file_name`";
 				
 				
+        
+        $queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_wp_term_id` bigint(20) NOT NULL default '0'";
+        
+        
 	$queries[] = "OPTIMIZE TABLE `$tbl_cats`";
 	$queries[] = "OPTIMIZE TABLE `$tbl_files`";
 
@@ -608,14 +620,18 @@ static function OnActivateOrVerChange($old_ver=null) {
 	
 	
 	
+        $wp_upload = wp_upload_dir();
+        
 	// move old css
 	if(file_exists(WPFB_Core::GetOldCustomCssPath())) {
-		$wp_upload = wp_upload_dir();
 		$wp_upload_ok = (empty($wp_upload['error']) && is_writable($wp_upload['basedir']));
 		if($wp_upload_ok && @rename(WPFB_Core::GetOldCustomCssPath(), $wp_upload['basedir'] . '/wp-filebase.css')) {
 			update_option('wpfb_css', $wp_upload['baseurl'] . '/wp-filebase.css?t='.time());
 		}
 	}
+       
+        // refresh css URL (in case upload_dir changed or upgrade from free to pro)
+        update_option('wpfb_css', trailingslashit(file_exists($wp_upload['basedir'].'/wp-filebase.css') ? $wp_upload['baseurl'] : WPFB_PLUGIN_URI) . 'wp-filebase.css?t='.time());
 	
 	flush_rewrite_rules();
 	
@@ -636,7 +652,8 @@ static function OnDeactivate() {
 		self::DropDBTables();
 		self::RemoveTpls();
 		
-		delete_option('wpfilebase_cron_sync_time');		
+		delete_option('wpfilebase_cron_sync_time');	
+		delete_option('wpfilebase_cron_sync_stats');	
 		delete_option('wpfb_license_key');
 		delete_option('wpfilebase_last_check');
 		delete_option('wpfilebase_forms');

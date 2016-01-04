@@ -491,8 +491,7 @@ static function SendFile($file_path, $args=array())
 		$buffer_size = (int)(1024 * min($bandwidth, 64));
 
 		// convert kib/s => bytes/ms
-		$bandwidth *= 1024;
-		$bandwidth /= 1000;
+		$bandwidth *= 1024 / 1000;
 
 		$cur = $begin;
 		

@@ -19,7 +19,7 @@
 	
 	function GetAjaxAuthData($json=false)
 	{
-		$frontend = !is_admin() && !defined('WPFB_EDITOR_PLUGIN');
+		$frontend = !is_admin();
 		$dat = array(
 			"auth_cookie" => (is_ssl() ? @$_COOKIE[SECURE_AUTH_COOKIE] : @$_COOKIE[AUTH_COOKIE]),
 			"logged_in_cookie" => @$_COOKIE[LOGGED_IN_COOKIE],
@@ -54,11 +54,22 @@ function fileQueued(fileObj) {
 	jQuery('.progress', '#file-upload-progress').show();
 	jQuery('.filename', '#file-upload-progress').show();
 
+	jQuery('#file_thumbnail_preview').hide();
+
 	jQuery("#media-upload-error").empty();
 	jQuery('.upload-flash-bypass').hide();
 	
 	jQuery('#file-submit').prop('disabled', true);
 	jQuery('#cancel-upload').show().prop('disabled', false);
+
+	/* parse file name and fill display name and version */
+		jQuery.ajax({url:wpfbConf.ajurl, data:{wpfb_action: 'parse-filename', filename:fileObj.name},
+			success: (function(data){
+				var d = jQuery('#file_display_name'), v = jQuery('#file_version');
+				d.val()||d.val(data.title);
+				v.val()||v.val(data.version);
+			})
+		});
 
 	 /* delete already uploaded temp file */
 	if(jQuery('#file_flash_upload').val() != '0') {
@@ -94,13 +105,15 @@ function uploadSuccess(fileObj, serverData) {
 	if(file_obj && 'undefined' != typeof(file_obj.file_id)) {		
 		jQuery('#file_form_action').val("updatefile");
 		jQuery('#file_id').val(file_obj.file_id);
+		jQuery('#file-upload-progress').html('<strong class="crunching">' + '<?php _e('%s uploaded.','wp-filebase') ?>'.replace(/%s/g, file_obj.file_display_name) + '</strong>');
 		
 		if(file_obj.file_thumbnail) {
-			jQuery('#file_thumbnail_wrap').show();
-			jQuery('#file_thumbnail_wrap').children('img').attr('src', file_obj.file_thumbnail_url);
-			jQuery('#file_thumbnail_name').html(file_obj.file_thumbnail);
+			jQuery('#file_thumbnail_wrap').show().children('img').attr('src', file_obj.file_thumbnail_url);
+			jQuery('#file_thumbnail_name').html(file_obj.file_thumbnail);			
+			jQuery('#file_thumbnail_preview').show().css("background-image", 'url(\''+file_obj.file_thumbnail_url+'\')');
 		} else {
 			jQuery('#file_thumbnail_wrap').hide();
+			jQuery('#file_thumbnail_preview').hide();
 		}
 		
 		jQuery('#file_display_name').val(file_obj.file_display_name);

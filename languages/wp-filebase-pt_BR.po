@@ -2287,8 +2287,8 @@ msgstr "Nenhum"
 # @ default
 #: classes/Output.php:431 lib/wpfb_form_file.php:188
 #, php-format
-msgid "Maximum upload file size: %d%s"
-msgstr "Tamanho máximo de arquivo de upload: %d%s"
+msgid "Maximum upload file size: %s"
+msgstr "Tamanho máximo de arquivo de upload: %s"
 
 # @ default
 #: classes/Output.php:439

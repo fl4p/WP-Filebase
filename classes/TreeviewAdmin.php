@@ -10,6 +10,7 @@ class WPFB_TreeviewAdmin {
 
     public static function RenderHTML($id, $drag_drop = false, $tpl_tag = null, $args = array()) {
         $jss = md5($id);
+        wp_print_scripts('wpfb-live-admin');
         ?>
         <style type="text/css" media="screen">
             #<?php echo $id; ?> .dragover-target {
@@ -116,7 +117,6 @@ class WPFB_TreeviewAdmin {
                             return false;
 
                         jQuery('#' + idp + 'cat-' + id).css({cursor: 'wait'}).removeClass('dragover-target');
-                        ;
                         wpfb_fbDragCat<?php echo $jss ?> = 0;
 
                         jQuery.ajax({url: wpfbConf.ajurl, type: "POST", dataType: "json",
