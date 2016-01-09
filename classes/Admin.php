@@ -274,7 +274,7 @@ class WPFB_Admin {
 				$file->SetModifiedTime($remote_file_info['time']);
 		} else {
 			$file_src_path = $upload ? $data->file_upload['tmp_name'] : ($add_existing ? $data->file_path : null);
-			$file_name = $upload ? str_replace('\\', '', $data->file_upload['name']) : ((empty($file_src_path) && $update) ? $file->file_name : basename($file_src_path));
+			$file_name = $upload ? str_replace('\\', '', $data->file_upload['name']) : ((empty($file_src_path) && $update) ? $file->file_name : substr(strrchr (str_replace('\\','/',$file_src_path),'/'),1)); // no basename here!
 		}
 
 
@@ -469,16 +469,17 @@ class WPFB_Admin {
 		$fnwv = substr($file_name, 0, strrpos($file_name, '.')); // remove extension
 		if (empty($file_version)) {
 			$matches = array();
-			if (preg_match('/[-_\.]v?([0-9]{1,2}\.[0-9]{1,2}(\.[0-9]{1,2}){0,2})(-[a-zA-Z_]+)?$/', $fnwv, $matches) && !preg_match('/^[\.0-9]+-[\.0-9]+$/', $fnwv)) { // FIX: don't extract ver from 01.01.01-01.02.03.mp3
-				$file_version = $matches[1];
-				if ((strlen($fnwv) - strlen($matches[0])) > 1)
-					$fnwv = substr($fnwv, 0, -strlen($matches[0]));
-			}
 			/* match github-style files */
-			elseif(preg_match('/^(.+?)-v?([0-9]{1,3}\.[0-9]{1,3}[-\.0-9a-zA-Z]*)-0-[0-9a-z]+$/', $fnwv, $matches))
+			if(preg_match('/^(.+?)-v?([0-9]{1,3}\.[0-9]{1,3}[-\.0-9a-zA-Z]*)-0-[0-9a-z]+$/', $fnwv, $matches))
 			{
 				$fnwv = $matches[1];
 				$file_version = $matches[2];
+			}
+			elseif (preg_match('/[-_\.]v?([0-9]{1,3}\.[0-9]{1,3}(\.[0-9]{1,3}){0,2})(-[a-zA-Z_0-9]+)?$/', $fnwv, $matches)
+				&& !preg_match('/^[\.0-9]+-[\.0-9]+$/', $fnwv)) { // FIX: don't extract ver from 01.01.01-01.02.03.mp3
+				$file_version = $matches[1];
+				if ((strlen($fnwv) - strlen($matches[0])) > 1)
+					$fnwv = substr($fnwv, 0, -strlen($matches[0]));
 			}
 		} elseif (substr($fnwv, -strlen($file_version)) == $file_version) {
 			$fnwv = trim(substr($fnwv, 0, -strlen($file_version)), '-');
@@ -916,7 +917,7 @@ class WPFB_Admin {
 		return $wpdb->query($wpdb->prepare(
 										"UPDATE `$wpdb->wpfilebase_files` "
 										. "SET `file_rescan_pending` = %d, `file_scan_lock` = 0 "
-										. "WHERE `file_scan_lock` < %d", $re_thumb ? 2 : 1, time())
+										. "WHERE `file_rescan_pending` < %d AND `file_scan_lock` < %d", $re_thumb ? 2 : 1, $re_thumb ? 2 : 1, time())
 		);
 	}
 

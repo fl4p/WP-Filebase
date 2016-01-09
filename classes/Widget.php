@@ -1,7 +1,7 @@
 <?php
 class WPFB_Widget {
 	
-static function InitClass() {
+static function register() {
 	register_widget('WPFB_UploadWidget');
 	register_widget('WPFB_AddCategoryWidget');
 	register_widget('WPFB_SearchWidget');

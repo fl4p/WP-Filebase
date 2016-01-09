@@ -9,9 +9,7 @@ class WPFB_Item {
     var $locked = 0;
     private $_read_permissions = null;
 
-
     static $tpl_uid = 0;
-    static $id_var;
 
     function __construct($db_row = null) {
         if (!empty($db_row)) {
@@ -439,7 +437,7 @@ class WPFB_Item {
      * @param $recursive Optional
      * @return WPFB_File[] Files
      */
-    function GetChildFiles($recursive = false, $sorting = null, $check_permissions = false) {
+    function GetChildFiles($recursive = false, $sorting = null, $check_permissions = false, $local_only = false) {
         if ($this->is_file)
             return array($this->GetId() => $this);
 
@@ -449,11 +447,13 @@ class WPFB_Item {
         // if recursive, include secondary category links with GetSqlCatWhereStr
         $where = $recursive ? WPFB_File::GetSqlCatWhereStr($this->cat_id) : '(file_category = ' . $this->cat_id . ')';
 
+        if($local_only) $where = "(file_remote_uri = '' AND $where)";
+
         $files = WPFB_File::GetFiles2($where, $check_permissions, $sorting);
         if ($recursive) {
             $cats = $this->GetChildCats(true);
             foreach (array_keys($cats) as $i)
-                $files += $cats[$i]->GetChildFiles(false, $sorting, $check_permissions);
+                $files += $cats[$i]->GetChildFiles(false, $sorting, $check_permissions, $local_only);
         }
         return $files;
     }

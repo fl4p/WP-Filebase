@@ -1,0 +1,15 @@
+{
+  "name": "image-picker",
+  "homepage": "https://github.com/rvera/image-picker",
+  "version": "0.2.4",
+  "_release": "0.2.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.4",
+    "commit": "69078ccca278d7bd2581bbf2a4511506560d7ab2"
+  },
+  "_source": "git://github.com/rvera/image-picker.git",
+  "_target": "~0.2.4",
+  "_originalSource": "rvera/image-picker",
+  "_direct": true
+}

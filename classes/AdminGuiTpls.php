@@ -5,10 +5,13 @@ static $sample_file = null;
 static $sample_cat = null;
 static $protected_tags = array('default','single','excerpt','filebrowser','filepage','filepage_excerpt');
 
-static function InitClass() {
+
+static function Display()
+{
 	global $user_identity;
+
 	wpfb_loadclass('File', 'Category');
-	
+
 	self::$sample_file = new WPFB_File(array(
 		'file_id' => 0,
 		'file_name' => 'example.pdf',
@@ -23,7 +26,7 @@ static function InitClass() {
 		'file_hits' => 3,
 		'file_added_by' => wp_get_current_user()->ID
 	));
-	
+
 	self::$sample_cat = new WPFB_Category(array(
 		'cat_id' => 0,
 		'cat_name' => 'Example Category',
@@ -31,14 +34,9 @@ static function InitClass() {
 		'cat_folder' => 'example',
 		'cat_num_files' => 0, 'cat_num_files_total' => 0
 	));
-	
+
 	self::$sample_file->Lock();
 	self::$sample_cat->Lock();
-}
-
-static function Display()
-{
-	global $wpdb, $user_ID, $user_identity;
 	
 	wpfb_loadclass('Admin', 'Output', 'TplLib', 'ListTpl');
 	
@@ -47,8 +45,7 @@ static function Display()
 	$_POST = stripslashes_deep($_POST);
 	$_GET = stripslashes_deep($_GET);	
 	$action = (!empty($_POST['action']) ? $_POST['action'] : (!empty($_GET['action']) ? $_GET['action'] : ''));
-	$clean_uri = remove_query_arg(array('message', 'action', 'file_id', 'cat_id', 'deltpl', 'hash_sync' /* , 's'*/)); // keep search keyword
-	
+
 	// security	nonce
 	if(!empty($action) && $action != 'edit' && !check_admin_referer($action.'-'.$_REQUEST['type'],'wpfb-tpl-nonce'))
 		wp_die(__('Cheatin&#8217; uh?'));		

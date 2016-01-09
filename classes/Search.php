@@ -1,7 +1,7 @@
 <?php
 class WPFB_Search {
 
-static function InitClass()
+static function sqlHooks()
 {
 	if(WPFB_Core::$settings->search_integration) {
 		add_filter('posts_join', array(__CLASS__, 'PostsJoin'));

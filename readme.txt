@@ -3,8 +3,8 @@ Contributors: fabifott
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfilebase%40fabi%2eme&item_name=WP-Filebase&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
-Tested up to: 4.4
-Stable tag: 3.3.4
+Tested up to: 4.4.1
+Stable tag: 3.4.0
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -120,13 +120,12 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 == Changelog ==
 
-Test: remove cat and see what happens with taxonomies
-Test what happens now on remote sync changed file? does it get queued?
+* `-` considered as word seperate when parsing file name
+* Fill out file display and version automatically
 
 = 3.4.0 =
 * New Dashboard
 * New upload box -- More responsive, new coloring adapts to admin theme
-
 * Added logging system
 * Added GitHub file name format version recognition
 * Removed file browser warning if not set
@@ -141,7 +140,6 @@ Test what happens now on remote sync changed file? does it get queued?
 * Set Default Thumbnail size to 300px
 * Fixed error `class getid3_lib not found`
 * Changed thumbnail file name pattern: `X._[key].thumb.(jpg|png)` -- This prevents thumbnails from being added as actual files when meta data is lost (on site migration)
-
 * Changed JS registration `jquery-treeview` to `wpfb-treeview` to avoid conflicts
 * Fix: Send a 1x1 transparent thumbnail if thumbnail not available
 * Filepages and File Categories now appear in Navigation Menus page -- You can add these to your navigation menu to easily link to a file details page. You can also link to file category listing the file pages in that category

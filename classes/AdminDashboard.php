@@ -7,10 +7,6 @@
  */
 class WPFB_AdminDashboard {
 
-	static function screenLayoutColumns($columns, $screen_id) {
-		$columns[$screen_id] = 2;
-		return $columns;
-	}
 
 	static function Setup($custom = false) {
 		global $user_ID;
@@ -235,6 +231,11 @@ class WPFB_AdminDashboard {
 		}
 	}
 
+	/**
+	 * Lists 20 normal log entries and max. 100 errors
+	 *
+	 * @param $for
+	 */
 	static function showLog($for) {
 		$filename = WPFB_Core::GetLogFile($for);
 		$lines = is_file($filename) ? file($filename) : null;
@@ -245,13 +246,21 @@ class WPFB_AdminDashboard {
 			return;
 		}
 		$n = count($lines);
+		$ni = $n-1;
 		echo "<pre><strong>$for</strong> ",sprintf(__('%s ago'), human_time_diff(filemtime($filename))),":\n";
-		for ($i = $n-1; $i >= max(0, $n - 20); $i--) {
+		for ($i = $n-1; $i >= max(0, $n - 100); $i--) {
 			$msg = rtrim(substr($lines[$i], $date_len));
-			if(stripos($msg, 'error') || stripos($msg, 'failed') || stripos($msg, 'exception') || stripos($msg, 'unexpected') || stripos($msg, 'warning')) {
-				$msg = "<span class='error'>$msg</span>";
-			}
+			$e = (stripos($msg, 'error') || stripos($msg, 'failed') || stripos($msg, 'exception') || stripos($msg, 'unexpected') || stripos($msg, 'warning'));
+
+			if($i < ($n - 20) && !$e)
+				continue;
+
+			if($ni != $i)
+				echo "<b>\t[...]\n</b>";
+
+			$e && $msg = "<span class='error'>$msg</span>";
 			echo '<b>'.substr($lines[$i], 0, $date_len).'</b>'.$msg . "\n";
+			$ni = $i - 1;
 		}
 		echo '</pre>';
 	}

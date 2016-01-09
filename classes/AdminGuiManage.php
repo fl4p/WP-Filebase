@@ -111,6 +111,7 @@ if(self::PluginHasBeenUsedAWhile()) { ?>
 	<p>Please <a href="http://wordpress.org/support/view/plugin-reviews/wp-filebase">give it a good rating</a>.</p>
 	<p>For Cloud support and lots of other advanced features consider an</p>
 	<p style="text-align: center;"><a href="https://wpfilebase.com/?ref=dblike" class="button-primary">Upgrade to Pro</a></p>
+	<p style="text-align: center;"><a href="http://demo.wpfilebase.com/?ref=dblike" class="button">Live Pro Demo</a></p>
 	<p style="text-align:right;float:right;font-style:italic;">Thanks, Fabian</p> 
 	<!-- <div style="text-align: center;">
 	<?php //WPFB_Admin::PrintPayPalButton() ?>

@@ -27,11 +27,7 @@ class WPFB_Core {
 		self::$ajax_url_public = strstr(home_url('/?wpfilebase_ajax=1'), '//'); // remove protocol qualifier
 		self::$settings = (object) get_option(WPFB_OPT_NAME, array());
 		
-		// this is for failsafe (during tests)
-		if(empty(self::$settings->upload_path)) {
-			wpfilebase_activate();
-			self::$settings = (object) get_option(WPFB_OPT_NAME);
-		}
+
 		if (defined('WPFB_NO_CORE_INIT'))
 			return; // on activation
 
@@ -49,7 +45,6 @@ class WPFB_Core {
 		add_action('wpfb_cron', array(__CLASS__, 'Cron'));
 		add_action('wpfilebase_sync', array(__CLASS__, 'Sync')); // for Developers: New wp-filebase actions
 		add_action('wpfilebase_bgscan', array(__CLASS__, 'BgScanWork')); // for Developers: New wp-filebase actions
-
 
 		// for attachments and file browser
 		add_filter('the_content', array(__CLASS__, 'ContentFilter'), 10); // must be lower than 11 (before do_shortcode) and after wpautop (>9)
@@ -104,11 +99,6 @@ class WPFB_Core {
 			wpfb_call('Admin', empty($_GET['wpfb_upload_file']) ? 'ProcessWidgetAddCat' : 'ProcessWidgetUpload');
 		}
 
-		if (defined('DOING_CRON') && DOING_CRON) {
-			wpfb_loadclass('CCron');
-			WPFB_CCron::SetLogFile(self::GetLogFile('ccron'));
-			WPFB_CCron::doCron($_GET);
-		}
 	}
 
 	const LOG_MAX_FILE_SIZE = 200000; // 200K
@@ -211,8 +201,10 @@ class WPFB_Core {
 		// conditional loading of the search hooks
 		global $wp_query;
 
-		if (!empty($wp_query->query_vars['s']))
+		if (WPFB_Core::$settings->search_integration && !empty($wp_query->query_vars['s'])) {
 			wpfb_loadclass('Search');
+			WPFB_Search::sqlHooks();
+		}
 
 
 		if (!empty($_GET['wpfb_s']) || !empty($_GET['s'])) {

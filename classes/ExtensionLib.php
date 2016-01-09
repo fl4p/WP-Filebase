@@ -17,7 +17,7 @@ if(!class_exists('WPFB_ExtensionLib')) {
             $no_cache = isset($_REQUEST['no_api_cache']) || isset($_REQUEST['force-check']) || isset($post_data['nocache']);
             if($no_cache) {
                 delete_transient($cache_key);
-                            $get_args['nocache'] = 1;
+                $get_args['nocache'] = 1;
             }
 
             $res = $no_cache ? false : get_transient($cache_key);

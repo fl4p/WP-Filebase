@@ -130,8 +130,18 @@ class WPFB_Category extends WPFB_Item
         return parent::DBSave();
     }
 
+
+    static $no_bubble = false;
+
+    static function DisableBubbling()
+    {
+        self::$no_bubble = true;
+    }
+
     function NotifyFileAdded($file)
     {
+        if(self::$no_bubble)
+            return;
         //if($this->IsAncestorOf($file)) // Removed for secondary categories!
         //{
         if ($file->file_category == $this->cat_id) {
@@ -151,6 +161,9 @@ class WPFB_Category extends WPFB_Item
 
     function NotifyFileRemoved($file)
     {
+        if(self::$no_bubble)
+            return;
+
         //if($this->IsAncestorOf($file)) // FIX: when a file is moved to another category this function is called on old category, so IsAncestorOf will false, since the files is no longer in this category
         //{
         if ($file->file_category == $this->cat_id) {
@@ -295,7 +308,7 @@ class WPFB_Category extends WPFB_Item
 
     function CurUserCanEdit($user = null)
     {
-        return parent::CurUserCanEdit($user) && $this->CurUserCanAddFiles($user);
+        return parent::CurUserCanEdit($user);
     }
 
 }

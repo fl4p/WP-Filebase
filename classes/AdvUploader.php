@@ -48,6 +48,11 @@
 /* <![CDATA[ */
 
 
+
+jQuery(document).ready(function () {
+	jQuery('#file_display_name,#file_version' ).keyup(function() { jQuery(this).data('keyUpTriggered', true); });
+});
+
 function fileQueued(fileObj) {
 	jQuery('#file-upload-progress').show().html('<div class="progress"><div class="percent">0%</div><div class="bar" style="width: 30px"></div></div><div class="filename original"> ' + fileObj.name + '</div>');
 
@@ -66,8 +71,8 @@ function fileQueued(fileObj) {
 		jQuery.ajax({url:wpfbConf.ajurl, data:{wpfb_action: 'parse-filename', filename:fileObj.name},
 			success: (function(data){
 				var d = jQuery('#file_display_name'), v = jQuery('#file_version');
-				d.val()||d.val(data.title);
-				v.val()||v.val(data.version);
+				d.data('keyUpTriggered')||d.val(data.title);
+				v.data('keyUpTriggered')||v.val(data.version);
 			})
 		});
 
@@ -99,27 +104,32 @@ function uploadSuccess(fileObj, serverData) {
 		wpFileError(fileObj, serverData);
 		return;
 	}
+
+	jQuery('#file_thumbnail_wrap').hide();
+	jQuery('#file_thumbnail_preview').hide();
 	
 	var file_obj = jQuery.parseJSON(serverData);
+
+	if(file_obj && file_obj.nonce) {
+		jQuery('#wpfb-file-nonce').val(file_obj.nonce);
+	}
+
+	jQuery('#file-upload-progress').html('<strong class="crunching">' + '<?php _e('%s uploaded.','wp-filebase') ?>'.replace(/%s/g, file_obj.file_display_name ? file_obj.file_display_name : file_obj.name) + '</strong>');
 	
 	if(file_obj && 'undefined' != typeof(file_obj.file_id)) {		
 		jQuery('#file_form_action').val("updatefile");
 		jQuery('#file_id').val(file_obj.file_id);
-		jQuery('#file-upload-progress').html('<strong class="crunching">' + '<?php _e('%s uploaded.','wp-filebase') ?>'.replace(/%s/g, file_obj.file_display_name) + '</strong>');
+
 		
 		if(file_obj.file_thumbnail) {
 			jQuery('#file_thumbnail_wrap').show().children('img').attr('src', file_obj.file_thumbnail_url);
 			jQuery('#file_thumbnail_name').html(file_obj.file_thumbnail);			
 			jQuery('#file_thumbnail_preview').show().css("background-image", 'url(\''+file_obj.file_thumbnail_url+'\')');
-		} else {
-			jQuery('#file_thumbnail_wrap').hide();
-			jQuery('#file_thumbnail_preview').hide();
 		}
 		
 		jQuery('#file_display_name').val(file_obj.file_display_name);
 		jQuery('#file_version').val(file_obj.file_version);
-		
-		jQuery('#wpfb-file-nonce').val(file_obj.nonce);
+
 	} else {
 		jQuery('#file_flash_upload').val(serverData);
 	}

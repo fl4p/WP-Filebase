@@ -145,14 +145,15 @@ class WPFB_FileListTable extends WP_List_Table {
 	}
 
 	function column_last_dl_time($file) {
-		return ( (!empty($file->file_last_dl_time) && $file->file_last_dl_time > 0) ? mysql2date(get_option('date_format'), $file->file_last_dl_time) : '-');
+		$t =  mysql2date('U', $file->file_last_dl_time);
+		$gmt_offset = get_option('gmt_offset') * 3600;
+		return ($t > 0) ? sprintf(__('%s ago'), human_time_diff($t-$gmt_offset)) : '-';
 	}
 
 	function get_bulk_actions() {
 		$actions = array(
 			 'edit' => __('Edit'),
 			 'delete' => __('Delete'),
-#		
 			 //'change_cat' => 'Change Category',
 			 'set_off' => 'Set Offline',
 			 'set_on' => 'Set Online',
@@ -253,7 +254,7 @@ class WPFB_FileListTable extends WP_List_Table {
 					$view_cond = "file_post_id = 0";
 					break;
 				case 'nothumb':
-					$view_cond = "file_thumbnail = ''";
+					$view_cond = "(file_thumbnail = '' OR file_thumbnail IS NULL)";
 					break;
 				case 'rescanpending':
 					$view_cond = "file_rescan_pending = 1";

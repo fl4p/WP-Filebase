@@ -6,7 +6,7 @@ class WPFB_AdminLite
     {
         wp_enqueue_style(WPFB . '-admin', WPFB_PLUGIN_URI . 'css/admin.css', array(), WPFB_VERSION, 'all');
 
-        wp_register_script('jquery-deserialize', WPFB_PLUGIN_URI . 'extras/jquery/jquery.deserialize.js', array('jquery'), WPFB_VERSION);
+        wp_register_script('jquery-deserialize', WPFB_PLUGIN_URI . 'bower_components/jquery-deserialize/dist/jquery.deserialize.min.js', array('jquery'), WPFB_VERSION);
 
         if (isset($_GET['page'])) {
             $page = $_GET['page'];

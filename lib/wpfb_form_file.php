@@ -217,13 +217,16 @@ WPFB_Admin::PrintAdminSchemeCss();
 	<?php wp_nonce_field($nonce_action, 'wpfb-file-nonce'); ?>
 
 	<div class="wpfb-upload-box">
-		<?php if ($update && $file->IsScanLocked()) { ?>
-			<div class="overlay-locked"><?php echo WPFB_Admin::Icon('lock', 80); ?>
-				<span><?php printf(__('This file is locked for %s or until the scan process completes.', 'wp-filebase'), human_time_diff(time(), $file->file_scan_lock)); echo ' '.__('You can edit meta data only.', 'wp-filebase') ?></span>
+		<?php if ($update && ($file->IsScanLocked() || $file->GetRemoteSyncMeta() )) { ?>
+			<div class="overlay-locked"><?php echo WPFB_Admin::Icon('lock', 70); ?>
+				<span><?php $file->IsScanLocked() &&
+						 printf(__('This file is locked for %s or until the scan process completes.', 'wp-filebase'), human_time_diff(time(), $file->file_scan_lock))
+					; echo ' '.__('You can edit meta data only.', 'wp-filebase') ?></span>
 			</div>
 		<?php } ?>
+
 		<div id="wpfilebase-upload-menu" class="admin-scheme-bgcolor-0">
-			<a href="#" <?php echo ($file->IsRemote() ? '' : 'class="admin-scheme-bgcolor-2 current"'); ?> onclick="return WPFB_switchFileUpload(0)"><?php _e('Upload') ?></a>
+			<a href="#" <?php echo ($file->IsRemote() ? '' : 'class="admin-scheme-bgcolor-2 current"'); ?> onclick="return WPFB_switchFileUpload(0)"><?php $update ? _e('Upload Update','wp-filebase') : _e('Upload') ?></a>
 			<a href="#" <?php echo ($file->IsRemote() ? 'class="admin-scheme-bgcolor-2 current"' : ''); ?> onclick="return WPFB_switchFileUpload(1)"><?php _e('File URL') ?></a>
 			<input type="hidden" name="file_is_remote" id="file_is_remote" value="<?php echo ($file->IsRemote() ? 1 : 0); ?>" />
 		</div>

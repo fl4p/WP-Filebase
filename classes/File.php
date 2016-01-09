@@ -57,26 +57,31 @@ class WPFB_File extends WPFB_Item
 
     //static $cache_complete = false;
 
-    static function InitClass()
-    {
-        global $wpdb;
-        self::$id_var = 'file_id';
-    }
 
+    /**
+     * @param string $extra_sql
+     *
+     * @return WPFB_File[]
+     */
     static function GetFiles($extra_sql = '')
     {
         global $wpdb;
         $files = array();
-        $results = $wpdb->get_results("SELECT `$wpdb->wpfilebase_files`.* FROM $wpdb->wpfilebase_files $extra_sql");
+        $results = $wpdb->get_results("SELECT `$wpdb->wpfilebase_files`.* FROM $wpdb->wpfilebase_files $extra_sql", ARRAY_A);
+
         if (!empty($results)) {
             foreach (array_keys($results) as $i) {
-                $id = (int)$results[$i]->file_id;
+                $id               = 0+$results[$i]['file_id'];
                 self::$cache[$id] = new WPFB_File($results[$i]);
-                $files[$id] = self::$cache[$id];
+                $files[$id]       = self::$cache[$id];
+            }
+
+            if(count($results) > 500) {
+                unset($results);
+                $wpdb->flush();
             }
         }
 
-        unset($results); //
         return $files;
     }
 
@@ -712,6 +717,12 @@ class WPFB_File extends WPFB_Item
         return explode(',', trim($this->file_tags, ','));
     }
 
+    function SetRescanPending($force_thumb=false) {
+        $this->file_rescan_pending = max($this->file_rescan_pending, $force_thumb ? 2:1);
+        if(!$this->locked)
+            $this->DBSave();
+    }
+
     static function UpdateTags($cur_file = null)
     {
         $tags = array();
@@ -727,6 +738,24 @@ class WPFB_File extends WPFB_Item
         ksort($tags);
         update_option(WPFB_OPT_NAME . '_ftags', $tags);
     }
+
+
+    // TODO move to RemoteSync
+    function SetRemoteSyncMeta($rev, $rsync_id, $uri_expires, $guid = '')
+    {
+        return false;
+    }
+
+    /**
+     *
+     * @global type $wpdb
+     * @return WPFB_RemoteFileInfo
+     */
+    function GetRemoteSyncMeta()
+    {
+        return false;
+    }
+
 
     function GetWPAttachmentID()
     {

@@ -8,8 +8,8 @@ class WPFB_AdminGuiSettings {
 		wpfb_loadclass('Admin', 'Output');
 		wpfb_call('Output', 'PrintJS');
 
-		wp_register_script('jquery-imagepicker', WPFB_PLUGIN_URI . 'extras/jquery/image-picker/image-picker.min.js', array('jquery'), WPFB_VERSION);
-		wp_register_style('jquery-imagepicker', WPFB_PLUGIN_URI . 'extras/jquery/image-picker/image-picker.css', array(), WPFB_VERSION);
+		wp_register_script('rvera-image-picker', WPFB_PLUGIN_URI . 'bower_components/image-picker/image-picker/image-picker.min.js', array('jquery'), WPFB_VERSION);
+		wp_register_style('rvera-image-picker', WPFB_PLUGIN_URI .  'bower_components/image-picker/image-picker/image-picker.css', array(), WPFB_VERSION);
 
 		if (!current_user_can('manage_options')) {
 			wp_die(__('Cheatin&#8217; uh?') . '<!-- manage_options -->');
@@ -306,8 +306,8 @@ class WPFB_AdminGuiSettings {
 									break;
 
 																case 'icon':
-									wp_print_scripts('jquery-imagepicker');
-									wp_print_styles('jquery-imagepicker');
+									wp_print_scripts('rvera-image-picker');
+									wp_print_styles('rvera-image-picker');
 
 									echo '<select class="image-picker show-html" name="' . $opt_tag . '" id="' . $opt_tag . '">';
 									?>

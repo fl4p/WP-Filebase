@@ -454,6 +454,7 @@ class WPFB_Output
         }
         $ft = preg_replace('/\.([^0-9])/', ' $1', $ft);
         $ft = str_replace('_', ' ', $ft);
+        $ft = str_replace('-', ' ', $ft);
         $ft = str_replace('%20', ' ', $ft);
         $ft = ucwords($ft);
         return trim($ft);

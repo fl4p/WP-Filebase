@@ -15,3 +15,11 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 require $_tests_dir . '/includes/bootstrap.php';
 
 require dirname( __FILE__ ) . '/create-test-files.php';
+
+
+// this is for failsafe (during tests)
+wpfb_loadclass('Core');
+if(empty(WPFB_Core::$settings->upload_path)) {
+	wpfilebase_activate();
+	WPFB_Core::$settings = (object) get_option(WPFB_OPT_NAME);
+}
