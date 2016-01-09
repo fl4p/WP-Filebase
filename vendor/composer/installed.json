@@ -1,0 +1,61 @@
+[
+    {
+        "name": "james-heinrich/getid3",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/JamesHeinrich/getID3.git",
+            "reference": "91677a280304c260e3084a6d26196eab9228da13"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/91677a280304c260e3084a6d26196eab9228da13",
+            "reference": "91677a280304c260e3084a6d26196eab9228da13",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "suggest": {
+            "ext-exif": "EXIF extension is required for graphic modules.",
+            "ext-rar": "RAR extension is required for RAR archive module."
+        },
+        "time": "2015-04-20 17:23:52",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "JamesHeinrich\\GetID3\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL"
+        ],
+        "authors": [
+            {
+                "name": "Craig Duncan",
+                "email": "git@duncanc.co.uk",
+                "homepage": "https://github.com/duncan3dc",
+                "role": "Developer"
+            },
+            {
+                "name": "James Heinrich",
+                "email": "info@getid3.org",
+                "homepage": "https://github.com/JamesHeinrich",
+                "role": "Developer"
+            }
+        ],
+        "description": "Extract and write useful information to/from popular multimedia file formats",
+        "homepage": "http://www.getid3.org/",
+        "keywords": [
+            "audio",
+            "codecs",
+            "id3",
+            "metadata",
+            "tags",
+            "video"
+        ]
+    }
+]
