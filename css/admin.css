@@ -492,6 +492,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 .fixed .column-name img {
 	margin-right: 8px;
 	float: left;
+	max-width: 180px;
+	max-height: 180px;
 }
 
 .fixed .column-name .row-actions {

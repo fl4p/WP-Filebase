@@ -140,15 +140,16 @@ class WPFB_GetID3 {
 		}
 		// TODO END;
 
-		if ($cf_changed && !$file->locked)
-			$file->DbSave();
+		if ($cf_changed && !$file->IsLocked())
+			$file->DbSave(true);
 
 		return $res;
 	}
 
 	static function UpdateCachedFileInfo($file) {
 		$info = self::analyzeFile($file);
-		self::StoreFileInfo($file, $info);
+		if(self::StoreFileInfo($file, $info) === false)
+			return false;
 		return $info;
 	}
 

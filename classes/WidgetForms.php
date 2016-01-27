@@ -93,7 +93,7 @@
 			</select></label>
 		</p>
 		<!-- 
-		<p><input type="checkbox" id="<?php echo $obj->get_field_id('hierarchical'); ?>" name="<?php echo $obj->get_field_name('hierarchical'); ?>" value="1" <?php checked($instance['hierarchical']); ?> />
+		<p><input type="checkbox" id="<?php echo $obj->get_field_id('hierarchical'); ?>" name="<?php echo $obj->get_field_name('hierarchical'); ?>" value="1" <?php checked(empty($instance['hierarchical']), false); ?> />
 		<label for="<?php echo $obj->get_field_id('hierarchical'); ?>"><?php _e( 'Show hierarchy' ); ?></label>
 		</p>
 		 -->

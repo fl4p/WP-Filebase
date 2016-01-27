@@ -21,7 +21,11 @@ static function Schema()
 		
 	$sync_stats	= (get_option('wpfilebase_cron_sync_stats'));
 	wpfb_loadclass('Output');
-	$last_sync_time =  (!empty($sync_stats)) ? ("<br> (".sprintf( __('Last cron sync %s ago took %s and used %s of RAM.','wp-filebase'), human_time_diff($sync_stats['t_start']), human_time_diff($sync_stats['t_start'], $sync_stats['t_end']), WPFB_Output::FormatFilesize($sync_stats['mem_peak']) ) .")") : '';		
+	$last_sync_time =  (!empty($sync_stats)) ? ("<br> (".
+		sprintf( __('Last cron sync %s ago took %s and used %s of RAM.','wp-filebase'), human_time_diff($sync_stats['t_start']), human_time_diff($sync_stats['t_start'], $sync_stats['t_end']), WPFB_Output::FormatFilesize($sync_stats['mem_peak']) )
+		." "
+		.(($next=wp_next_scheduled(WPFB.'_cron')) ? sprintf( __('Next cron sync scheduled in %s.','wp-filebase'), human_time_diff(time(), $next) ) : "")
+		.")") : '';
 	
 	$list_tpls = array_keys(wpfb_call('ListTpl','GetAll'));
 	$list_tpls = empty($list_tpls) ? array() : array_combine($list_tpls, $list_tpls);
@@ -142,7 +146,7 @@ static function Schema()
 	'admin_bar'	=> array('default' => true, 'title' => __('Add WP-Filebase to admin menu bar','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Display some quick actions for file management in the admin menu bar.','wp-filebase')),
 	//'file_context_menu'	=> array('default' => true, 'title' => '', 'type' => 'checkbox', 'desc' => ''),
 	
-	'cron_sync'	=> array('default' => false, 'title' => __('Automatic Sync','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Schedules a cronjob to hourly synchronize the filesystem and the database.','wp-filebase').$last_sync_time),
+	'cron_sync'	=> array('default' => true, 'title' => __('Automatic Sync','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Schedules a cronjob to hourly synchronize the filesystem and the database.','wp-filebase').$last_sync_time),
 	
 	'remove_missing_files'	=> array('default' => false, 'title' => __('Remove Missing Files','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Missing files are removed from the database during sync','wp-filebase')),
 	

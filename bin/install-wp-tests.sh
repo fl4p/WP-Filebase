@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-if [ $# -lt 3 ]; then
-	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version]"
-	exit 1
-fi
+# make sure this has linux EOL!!!
+# 1. run this script
+# 2 cd to plugins dir, run "phpunit"
 
-DB_NAME=$1
-DB_USER=$2
-DB_PASS=$3
+DB_NAME=${1-wpfilebase_testing}
+DB_USER=${2-root}
+DB_PASS=${3-root}
 DB_HOST=${4-localhost}
 WP_VERSION=${5-latest}
 

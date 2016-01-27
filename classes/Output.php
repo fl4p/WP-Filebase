@@ -291,7 +291,7 @@ class WPFB_Output
             WPFB_Core::CurUserCanCreateCat() && (!isset($args['inline_add']) || $args['inline_add']);
 
         $where = " cat_parent = $parent_id ";
-        if ($browser)
+        if ($browser && !$is_admin)
             $where .= " AND cat_exclude_browser <> '1' ";
         $cats = WPFB_Category::GetCats("WHERE $where ORDER BY $sql_sort_cats");
 
@@ -342,7 +342,7 @@ class WPFB_Output
             //$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::$settings->hide_inaccessible, $sql_file_order);
 
             $files = WPFB_File::GetFiles2(
-                $where,                     (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload'))), $sql_sort_files
+                $where,                     (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload')) && !($is_admin && current_user_can('manage_options'))), $sql_sort_files
             );
 
             foreach ($files as $f)
@@ -454,7 +454,7 @@ class WPFB_Output
         }
         $ft = preg_replace('/\.([^0-9])/', ' $1', $ft);
         $ft = str_replace('_', ' ', $ft);
-        $ft = str_replace('-', ' ', $ft);
+        //$ft = str_replace('-', ' ', $ft);
         $ft = str_replace('%20', ' ', $ft);
         $ft = ucwords($ft);
         return trim($ft);

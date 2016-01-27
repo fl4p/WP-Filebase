@@ -5,7 +5,7 @@ class CreateCatTest extends WP_UnitTestCase {
 	function test_new_cat() {
         wpfb_loadclass('Admin');
 		$res = WPFB_Admin::InsertCategory(array('cat_name' => 'Root Cat'));
-		$this->assertEmpty($res['error']);
+		$this->assertEmpty($res['error'], $res['error']);
 
         /** @var WPFB_Category $root_cat */
         $root_cat = $res['cat'];

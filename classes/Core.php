@@ -23,6 +23,7 @@ class WPFB_Core {
 	}
 
 	static function InitClass() {
+
 		self::$ajax_url = admin_url('admin-ajax.php?action=wpfilebase');
 		self::$ajax_url_public = strstr(home_url('/?wpfilebase_ajax=1'), '//'); // remove protocol qualifier
 		self::$settings = (object) get_option(WPFB_OPT_NAME, array());
@@ -272,7 +273,7 @@ class WPFB_Core {
 		global $id, $post;
 
 		// replace file browser post content with search results
-		if (WPFB_Core::$file_browser_search && $id == WPFB_Core::$settings->file_browser_post_id) {
+		if (WPFB_Core::$file_browser_search && $id && $id == WPFB_Core::$settings->file_browser_post_id) {
 			wpfb_loadclass('Search', 'File', 'Category');
 			$content = '';
 			WPFB_Search::FileSearchContent($content);
@@ -288,7 +289,7 @@ class WPFB_Core {
 			// TODO: file resulst are generated twice, 2nd time in the_excerpt filter (SearchExcerptFilter)
 			// some themes do not use excerpts in search resulsts!!
 			// replace file browser post content with search results
-			if (WPFB_Core::$file_browser_search && $id == WPFB_Core::$settings->file_browser_post_id) {
+			if (WPFB_Core::$file_browser_search && WPFB_Core::$settings->file_browser_post_id && $id == WPFB_Core::$settings->file_browser_post_id) {
 				wpfb_loadclass('Search', 'File', 'Category');
 				$content = '';
 				WPFB_Search::FileSearchContent($content);
@@ -296,7 +297,7 @@ class WPFB_Core {
 				$single = is_single() || is_page();
 
 				// the did_action check prevents JS beeing printed into the post during a pre-render (e.g. WP SEO)
-				if ($single && $post->ID == WPFB_Core::$settings->file_browser_post_id && did_action('wp_print_scripts')) {
+				if ($single && WPFB_Core::$settings->file_browser_post_id && $post->ID == WPFB_Core::$settings->file_browser_post_id && did_action('wp_print_scripts')) {
 					$wpfb_fb = true;
 					wpfb_loadclass('Output', 'File', 'Category');
 					WPFB_Output::FileBrowser($content, 0, empty($_GET['wpfb_cat']) ? 0 : intval($_GET['wpfb_cat']));
@@ -422,10 +423,14 @@ class WPFB_Core {
 	}
 
 	static function Cron() {
+		wpfb_call('Misc','GetFileTypeStats');
+
 		if (self::$settings->cron_sync ) {
+			self::LogMsg('Starting cron sync...', 'sync');
 			$t_start = microtime(true);
 			wpfb_call('Sync', 'Sync');
 			$t_end = microtime(true);
+			self::LogMsg('Cron sync done!', 'sync');
 			update_option('wpfilebase_cron_sync_stats', array(
 				 't_start' => $t_start,
 				 't_end' => $t_end,

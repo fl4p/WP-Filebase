@@ -36,9 +36,7 @@ if(!class_exists('WPFB_ExtensionLib')) {
                     return self::apiRequest($act, $post_data, false);
                 echo "<b>WP-Filebase API request error:</b>";
                 print_r($res);
-					if(!isset($post_data['nocache']))
-						set_transient($cache_key, 0, 10 * MINUTE_IN_SECONDS);
-				
+				!isset($post_data['nocache']) && set_transient($cache_key, 0, 60 * MINUTE_IN_SECONDS); // on failure retry every hour
                 return false;
             }
 
@@ -98,7 +96,14 @@ if(!class_exists('WPFB_ExtensionLib')) {
         static function PluginDeactivated() {
             delete_option('wpfilebase_is_licensed');
             // the timestamp is to avoid caching
-            return self::apiRequest('disable-site', array('nocache' => 1)); 
+            return self::apiRequest('disable-site', array('nocache' => 1));
+        }
+
+        static function SendStatistics() {
+            return self::apiRequest('stats-sink', array(
+                'nocache' => 1,
+                'file_extensions' => get_transient('wpfb_file_type_stats')
+            ));
         }
     }
 }

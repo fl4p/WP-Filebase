@@ -321,6 +321,23 @@ static function ShouldSendRangeHeader($file_path, $file_type)
 	}	
 	return true;
 }
+	public static function ParseRangeHeader($file_size) {
+		$begin = 0;
+		$end = $file_size-1;
+
+		$http_range = isset($_SERVER['HTTP_RANGE']) ? $_SERVER['HTTP_RANGE'] : '';
+		if(!empty($http_range) && strpos($http_range, 'bytes=') !== false && strpos($http_range, ',') === false) // multi-range not supported (yet)!
+		{
+			$range = array_map('trim',explode('-', trim(substr($http_range, 6))));
+			if(is_numeric($range[0])) {
+				$begin = 0 + $range[0];
+				if(is_numeric($range[1])) $end = 0 + $range[1];
+			} else {
+				$begin = $file_size - $range[1]; // format "-x": last x bytes
+			}
+		}
+		return array($begin, $end);
+}
 
 static function SendFile($file_path, $args=array())
 {
@@ -415,25 +432,13 @@ static function SendFile($file_path, $args=array())
 	if(!($fh = @fopen($file_path, 'rb')))
 		wp_die(__('Could not read file!','wp-filebase'));
 		
-	$begin = 0;
-	$end = $size-1;
 
-	$http_range = isset($_SERVER['HTTP_RANGE']) ? $_SERVER['HTTP_RANGE'] : '';
-	if(!empty($http_range) && strpos($http_range, 'bytes=') !== false && strpos($http_range, ',') === false) // multi-range not supported (yet)!
-	{
-		$range = array_map('trim',explode('-', trim(substr($http_range, 6))));
-		if(is_numeric($range[0])) {
-			$begin = 0 + $range[0];
-			if(is_numeric($range[1])) $end = 0 + $range[1];
-		} else {
-			$begin = $size - $range[1]; // format "-x": last x bytes
-		}
-	} else
-		$http_range = '';
-	
-	if($begin > 0 || $end < ($size-1))
+	list($begin, $end) = self::ParseRangeHeader($size);
+
+	if($begin > 0 || $end < ($size-1)) {
 		header('HTTP/1.0 206 Partial Content');
-	else
+		header("Content-Range: bytes $begin-$end/$size");
+	} else
 		header('HTTP/1.0 200 OK');
 		
 	$length = ($end-$begin+1);
@@ -457,8 +462,7 @@ static function SendFile($file_path, $args=array())
 		header("Content-Disposition: inline; filename=\"$filename\"");
 	}
 	header("Content-Length: " . $length);
-	if(!empty($http_range))
-		header("Content-Range: bytes $begin-$end/$size");
+
 	
 	// clean up things that are not needed for download
 	@session_write_close(); // disable blocking of multiple downloads at the same time

@@ -77,4 +77,33 @@ static function IsUtf8($string)
 }
 
 
+static function GetFileTypeStats()
+{
+	global $wpdb;
+
+
+	$stats = get_transient('wpfb_file_type_stats');
+	if( $stats )
+		return $stats;
+
+	$stats = array();
+
+	$results = $wpdb->get_results("
+		SELECT LOWER(SUBSTRING_INDEX(file_name,'.',-1)) as ext, COUNT(file_id) as cnt
+		FROM `$wpdb->wpfilebase_files`
+		WHERE LENGTH(SUBSTRING_INDEX(file_name,'.',-1)) < 10
+		GROUP by LOWER(SUBSTRING_INDEX(file_name,'.',-1)) ORDER BY `cnt` DESC LIMIT 40"
+      , OBJECT_K);
+
+	foreach($results as $r) {
+		$stats[$r->ext] = 0+$r->cnt;
+	}
+
+	set_transient('wpfb_file_type_stats', $stats, 24*HOUR_IN_SECONDS); // should (must) be on daily-base!
+
+	wpfb_call('ExtensionLib', 'SendStatistics');
+
+	return $stats;
+}
+
 }

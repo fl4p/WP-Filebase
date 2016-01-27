@@ -6,7 +6,7 @@ class WPFB_Item {
     var $is_category;
     var $last_parent_id = 0;
     var $last_parent = null;
-    var $locked = 0;
+    protected $locked = 0;
     private $_read_permissions = null;
 
     static $tpl_uid = 0;
@@ -125,14 +125,14 @@ class WPFB_Item {
         return ($cat_or_file === 'cat') ? WPFB_Category::GetCat($id) : WPFB_File::GetFile($id);
     }
 
-    // Sorts an array of Items by SQL ORDER Clause ( or shortcode order clause (<file_name)
+    // Sorts an array of Items by SQL ORDER Clause ( or shortcode order clause (<file_name) )
     static function Sort(&$items, $order_sql) {
         $order_sql = strtr($order_sql, array('&gt;' => '>', '&lt;' => '<'));
         if (($desc = ($order_sql{0} == '>')) || $order_sql{0} == '<')
             $on = substr($order_sql, 1);
         else {
             $p = strpos($order_sql, ','); // strip multi order clauses
-            if ($p >= 0)
+            if ($p !== false)
                 $order_sql = substr($order_sql, $p + 1);
             $sort = explode(" ", trim($order_sql));
             $on = trim($sort[0], '`');
@@ -179,19 +179,30 @@ class WPFB_Item {
         }
     }
 
-    protected function TriggerLockedError() {
+    protected function TriggerLockedError($throw_on_error=false) {
+        if($throw_on_error)
+            throw new Exception("Cannot save locked $this to database!");
+
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        array_shift($trace); array_shift($trace);
+        array_shift($trace);
+        array_shift($trace);
         $backtrace = print_r($trace, true);
-        trigger_error("Cannot save locked $this to database! ($backtrace)", E_USER_WARNING);
+        trigger_error("Cannot save locked $this to database! ($backtrace)",
+            E_USER_WARNING);
+
         return false;
     }
 
-    function DBSave() {
+    // TODO: this should be protected, locking logic not public!
+    public function IsLocked() {
+        return $this->locked;
+    }
+
+    function DBSave($throw_on_error=false) {
         global $wpdb;
 
         if ($this->locked > 0) {
-            $this->TriggerLockedError();
+            $this->TriggerLockedError($throw_on_error);
             return array('error' => 'Item locked.');
         }
 
@@ -219,12 +230,24 @@ class WPFB_Item {
         $tbl = $this->is_file ? $wpdb->wpfilebase_files : $wpdb->wpfilebase_cats;
         if ($update) {
             if (!$wpdb->update($tbl, $values, array($id_var => $this->$id_var))) {
-                if (!empty($wpdb->last_error))
-                    return array('error' => 'Failed to update DB! ' . $wpdb->last_error);
+                if (!empty($wpdb->last_error)) {
+                    if($throw_on_error)
+                        throw new Exception("Failed to update $this's DB entry!  $wpdb->last_error");
+
+                    return array(
+                        'error' => "Failed to update $this's DB entry!  $wpdb->last_error"
+                    );
+                }
             }
         } else {
-            if (!$wpdb->insert($tbl, $values))
-                return array('error' => 'Unable to insert item into DB! ' . $wpdb->last_error);
+            if (!$wpdb->insert($tbl, $values)) {
+                if($throw_on_error)
+                    throw new Exception("Unable to insert item $this into DB! $wpdb->last_error");
+
+                return array(
+                    'error' => "Unable to insert item $this into DB! $wpdb->last_error"
+                );
+            }
             $this->$id_var = (int) $wpdb->insert_id;
         }
 
@@ -557,8 +580,16 @@ class WPFB_Item {
             } else {
                 $prev_new_name = $new_name;
                 $new_name = remove_accents($new_name);
+
+                // sanitize, but make sure not to strip too much
+                $sani =  sanitize_file_name($new_name);
+                if(strlen($sani) >= 6)
+                    $new_name = $sani;
+
+
                 if (wpfb_call('Misc', 'IsUtf8', $new_name))
                     $new_name = rawurlencode($new_name);
+
                 if ($this->is_file)
                     $this->file_name_original = $prev_new_name;
             }

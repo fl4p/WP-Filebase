@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfil
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
 Tested up to: 4.4.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -120,18 +120,20 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 == Changelog ==
 
-= 3.4.1 =
-* `-` considered as word seperate when parsing file name
-* Fill out file display and version automatically
-* Fixed cron bug
-* Updated image-picker and jquery-deserialize
 
-= 3.4.0 =
+
+
+= 3.4.2 =
 * New Dashboard
 * New upload box -- More responsive, new coloring adapts to admin theme
 * Added logging system
 * Added GitHub file name format version recognition
+* Fills out file display and version automatically
+* Fixed cron bug
+* Updated image-picker and jquery-deserialize
+* Added download URLs to backend file browser
 * Removed file browser warning if not set
+* Template variable file_name uses file_name_orignal if set
 * Disabled output buffering for NGINX on progress reporting
 * Fixed defaults for custom fields
 * Combined & minified treeview scripts
@@ -146,6 +148,13 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 * Changed JS registration `jquery-treeview` to `wpfb-treeview` to avoid conflicts
 * Fix: Send a 1x1 transparent thumbnail if thumbnail not available
 * Filepages and File Categories now appear in Navigation Menus page -- You can add these to your navigation menu to easily link to a file details page. You can also link to file category listing the file pages in that category
+* Fixed remote redirect
+* Fixed remote file name detection
+* Fixed file hit counter
+* New template variable ``%is_mobile%`
+* Fixed file list sorting bug
+* Fixed file browser showing up unexpectedly
+* Fixed permission issue in backend file browser
 
 = 3.3.3 =
 * DataTables update to 1.10.10

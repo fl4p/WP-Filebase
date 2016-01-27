@@ -89,7 +89,7 @@ class WPFB_Category extends WPFB_Item
      */
     static function GetCat($id)
     {
-        $id = intval($id);
+        $id = 0+$id;
         if ($id > 0 && (isset(self::$cache[$id]) || WPFB_Category::GetCats("WHERE cat_id = $id"))) {
             return self::$cache[$id];
         }
@@ -115,7 +115,7 @@ class WPFB_Category extends WPFB_Item
         $this->is_category = true;
     }
 
-    function DBSave()
+    function DBSave($throw_on_error=false)
     { // validate some values before saving (fixes for mysql strict mode)
         if ($this->locked > 0) {
             return $this->TriggerLockedError();
@@ -127,31 +127,33 @@ class WPFB_Category extends WPFB_Item
         $this->cat_num_files_total = intval($this->cat_num_files_total);
 
 
-        return parent::DBSave();
+        return parent::DBSave($throw_on_error);
     }
 
 
     static $no_bubble = false;
 
-    static function DisableBubbling()
+    static function DisableBubbling($disable=true)
     {
-        self::$no_bubble = true;
+        self::$no_bubble = $disable;
+        self::$cache_complete = false;
     }
 
     function NotifyFileAdded($file)
     {
         if(self::$no_bubble)
             return;
-        //if($this->IsAncestorOf($file)) // Removed for secondary categories!
-        //{
+
+
         if ($file->file_category == $this->cat_id) {
             $this->cat_num_files++;
         }
+
         $this->cat_num_files_total++;
         if (!$this->locked) {
             $this->DBSave();
         }
-        //}
+
 
         $parent = $this->GetParent();
         if ($parent) {
@@ -164,8 +166,7 @@ class WPFB_Category extends WPFB_Item
         if(self::$no_bubble)
             return;
 
-        //if($this->IsAncestorOf($file)) // FIX: when a file is moved to another category this function is called on old category, so IsAncestorOf will false, since the files is no longer in this category
-        //{
+
         if ($file->file_category == $this->cat_id) {
             $this->cat_num_files--;
         }
@@ -179,7 +180,6 @@ class WPFB_Category extends WPFB_Item
         if (!$this->locked) {
             $this->DBSave();
         }
-        //}
 
         $parent = $this->GetParent();
         if ($parent) {
@@ -189,7 +189,8 @@ class WPFB_Category extends WPFB_Item
 
     function GetChildCats($recursive = false, $sort_by_name = false)
     {
-        if (!self::$cache_complete && empty($this->childs_complete)) {
+        if (!self::$cache_complete && empty($this->childs_complete))
+        {
             $this->cat_childs = self::GetCats("WHERE cat_parent = " . (int)$this->cat_id . ($sort_by_name ? " ORDER BY cat_name ASC" : ""));
             $this->childs_complete = true;
         }
@@ -273,6 +274,8 @@ class WPFB_Category extends WPFB_Item
                 return $this->GetEditUrl();
             case 'uid':
                 return self::$tpl_uid;
+
+            case 'is_mobile': return wp_is_mobile();
         }
 
         // string length limit:

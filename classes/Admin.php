@@ -30,6 +30,8 @@ class WPFB_Admin {
 		if (isset($_GET['no-ob'])) {
 			self::DisableOutputBuffering();
 		}
+
+		!get_transient('wpfb_file_type_stats') && wpfb_call('Misc','GetFileTypeStats');
 	}
 
 	static function SettingsSchema() {
@@ -52,8 +54,8 @@ class WPFB_Admin {
 		extract($catarr, EXTR_SKIP);
 		$data = (object) $catarr;
 
-		$cat_id = intval($cat_id);
-		$cat_parent = intval($cat_parent);
+		$cat_id = intval($data->cat_id);
+		$cat_parent = intval($data->cat_parent);
 		$update = ($cat_id > 0); // update or creating??
 		$add_existing = !empty($add_existing);
 		/* @var $cat WPFB_Category */
@@ -168,7 +170,8 @@ class WPFB_Admin {
 		$result = $cat->DBSave();
 		if (is_array($result) && !empty($result['error']))
 			return $result;
-		$cat_id = (int) $result['cat_id'];
+		$cat_id = 0+$result['cat_id'];
+		WPFB_Category::$cache[$cat_id] = $cat;
 
 		return array('error' => false, 'cat_id' => $cat_id, 'cat' => $cat);
 	}
@@ -358,7 +361,8 @@ class WPFB_Admin {
 					return $result;
 				if (!rename($tmp_file, $file->GetLocalPath()))
 					return array('error' => "Could not rename temp file $tmp_file -> {$file->GetLocalPath()} !");
-				$data->file_remote_uri = '';
+				if(!$remote_redirect)
+					$data->file_remote_uri = '';
 			}
 		} elseif (!$add_existing && !$update) {
 			return array('error' => __('No file was uploaded.', 'wp-filebase'));
@@ -489,7 +493,7 @@ class WPFB_Admin {
 	}
 
 // size, type, name, time, etag
-	static function GetRemoteFileInfo($url, $args = array(), $follow_redirects=5) {
+	static function GetRemoteFileInfo($url, $follow_redirects=5) {
 		wpfb_loadclass('Download');
 
 		if (parse_url($url, PHP_URL_SCHEME) === 'file' && is_readable($url)) {
@@ -506,7 +510,7 @@ class WPFB_Admin {
 
 		require_once( ABSPATH . WPINC . "/http.php" );
 
-		$response = wp_remote_head($url, array_merge(array('timeout' => 10), $args));
+		$response = wp_remote_head($url, array_merge(array('timeout' => 10)));
 		if (is_wp_error($response))
 			return $response;
 
@@ -535,7 +539,7 @@ class WPFB_Admin {
 		// check for filename header
 		if (!empty($headers['content-disposition'])) {
 			$matches = array();
-			if (preg_match('/filename="?(.+)"?/', $headers['content-disposition'], $matches) == 1)
+			if (preg_match('/filename="?([^"]+)"?/', $headers['content-disposition'], $matches) == 1)
 				$info['name'] = $matches[1];
 		}
 
@@ -550,7 +554,23 @@ class WPFB_Admin {
 		return $info;
 	}
 
+	/**
+	 * @param string|WPFB_File    $url
+	 * @param null $dest_file
+	 * @param int  $size_for_progress
+	 *
+	 * @return array
+	 */
 	public static function SideloadFile($url, $dest_file = null, $size_for_progress = 0) {
+		if(is_object($url)) {
+			$file = $url;
+			$url = $file->GetRemoteUri();
+			if(!$url)
+				return array('error' => "Could not get URL of file $file!");
+		}
+
+
+
 		//WARNING: The file is not automatically deleted, The script must unlink() the file.
 		@ini_set('max_execution_time', '0');
 		@set_time_limit(0);
@@ -612,7 +632,7 @@ class WPFB_Admin {
 		return $last_cat_id;
 	}
 
-	static function AddExistingFile($file_path, $thumb = null, $presets = null, $no_scan = false) {
+	static function AddExistingFile($file_path, $thumb = null, $presets = null) {
 		$cat_id = self::CreateCatTree($file_path);
 
 		if (is_array($cat_id) && !empty($cat_id['error']))
@@ -632,8 +652,7 @@ class WPFB_Admin {
 						'file_category' => $cat_id,
 						'file_path' => $file_path,
 						'file_thumbnail' => $thumb,
-						'no_scan' => $no_scan
-		)));
+								)));
 	}
 
 	static function WPCacheRejectUri($add_uri, $remove_uri = '') {
@@ -993,6 +1012,10 @@ class WPFB_Admin {
 		}
 
 		flush_rewrite_rules();
+
+
+		wp_clear_scheduled_hook(WPFB.'_cron');
+		wp_schedule_event(time()+10, 'hourly', WPFB.'_cron');
 
 		return $messages;
 	}

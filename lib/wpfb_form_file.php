@@ -263,7 +263,8 @@ WPFB_Admin::PrintAdminSchemeCss();
 					<br />
 					<span style="text-overflow: ellipsis; white-space: nowrap"><label><input type="radio" name="file_remote_redirect" value="1" <?php checked($file->IsRemote()); ?> onchange="jQuery('#wpfilebase-remote-scan-wrap').show();" /><?php _e('Redirect to URL', 'wp-filebase') ?></label>
 						&nbsp;
-						<span id="wpfilebase-remote-scan-wrap" class="hidden" ><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)', 'wp-filebase') ?></label></span>					</span>
+						<span id="wpfilebase-remote-scan-wrap" class="<?php echo $file->IsRemote() ? '' : 'hidden'; ?>"><label><input type="checkbox" name="file_remote_scan" value="1" checked="checked" /><?php _e('Scan remote file (disable for large files)', 'wp-filebase') ?></label></span>
+					</span>
 				</fieldset>
 			</div>
 		</div>

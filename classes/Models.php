@@ -24,6 +24,7 @@ static function TplVarsDesc($for_cat=false)
 	
 	'cat_id'				=> __('The category ID','wp-filebase'),
 	'uid'					=> __('A unique ID number to identify elements within a template','wp-filebase'),
+	'is_mobile'             => __('1 if access from mobile device, otherwise 0','wp-filebase')
 	);
 	else return array_merge(array(	
 	'file_display_name'		=> __('Title','wp-filebase'),
@@ -83,7 +84,8 @@ static function TplVarsDesc($for_cat=false)
 	
 	'uid'					=> __('A unique ID number to identify elements within a template','wp-filebase'),
 	'post_id'				=> __('ID of the current post or page','wp-filebase'),
-	'wpfb_url'				=> sprintf(__('Plugin root URL (%s)','wp-filebase'), WPFB_PLUGIN_URI)
+	'wpfb_url'				=> sprintf(__('Plugin root URL (%s)','wp-filebase'), WPFB_PLUGIN_URI),
+	'is_mobile'             => __('1 if access from mobile device, otherwise 0','wp-filebase'),
 	), WPFB_Core::GetCustomFields(true));
 }
 

@@ -10,7 +10,7 @@
 		if(true || !isset($file_tpls['filebrowser_admin'])) {
 			$file_tpls['filebrowser_admin'] = 
 				'%file_small_icon% '.
-				'%file_display_name% (%file_size%) '.
+				'%file_display_name% (<a href="%file_url%">%file_name%</a>, %file_size%) '.
 				'<!-- IF %file_user_can_edit% --><a href="%file_edit_url%" class="edit" onclick="wpfbFBEditFile(event)">%\'Edit\'%</a><!-- ENDIF -->'.
 				'<!-- IF %file_user_can_edit% --><a href="#" class="delete" onclick="return confirm(\'Sure?\') && wpfbFBDelete(event) && false;">%\'Delete\'%</a><!-- ENDIF -->'
 			;
@@ -21,7 +21,7 @@
 		if(true || !isset($cat_tpls['filebrowser_admin'])) {
 			$cat_tpls['filebrowser_admin'] = 
 				'<span class="cat-icon" style="background-image:url(\'%cat_icon_url%\');"><span class="cat-icon-overlay"></span></span>'.
-				'%cat_name% '.
+				'%cat_name% (%cat_num_files% / %cat_num_files_total%)'.
 				'<!-- IF %cat_user_can_edit% --><a href="%cat_edit_url%" class="edit" onclick="wpfbFBEditCat(event)">%\'Edit\'%</a><!-- ENDIF -->'.
 				'<!-- IF %cat_user_can_edit% --><a href="#" class="delete" onclick="return confirm(\'Sure?\') && wpfbFBDelete(event) && false;">%\'Delete\'%</a><!-- ENDIF -->'
 			;			

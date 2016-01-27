@@ -45,7 +45,10 @@ class WPFB_AdminDashboard {
 		if (WPFB_Core::$settings->cron_sync) {
 			$cron_sync_desc .= __('Automatic sync is enabled. Cronjob scheduled hourly.');
 			$sync_stats = (get_option('wpfilebase_cron_sync_stats'));
-			$cron_sync_desc .= (!empty($sync_stats)) ? (" (" . sprintf(__('Last cron sync %s ago took %s and used %s of RAM.', 'wp-filebase'), human_time_diff($sync_stats['t_start']), human_time_diff($sync_stats['t_start'], $sync_stats['t_end']), WPFB_Output::FormatFilesize($sync_stats['mem_peak'])) . ")") : '';
+			$cron_sync_desc .= ((!empty($sync_stats)) ? (" (" . sprintf(__('Last cron sync %s ago took %s and used %s of RAM.', 'wp-filebase'), human_time_diff($sync_stats['t_start']), human_time_diff($sync_stats['t_start'], $sync_stats['t_end']), WPFB_Output::FormatFilesize($sync_stats['mem_peak']))
+
+				. ")") : '')." "
+				.(($next=wp_next_scheduled(WPFB.'_cron')) ? sprintf( __('Next cron sync scheduled in %s.','wp-filebase'), human_time_diff(time(), $next) ) : "");
 		} else {
 			$cron_sync_desc .= __('Cron sync is disabled.', 'wp-filebase');
 		}
@@ -115,6 +118,7 @@ class WPFB_AdminDashboard {
 
 	static function WidgetStats() {
 		global $wpdb;
+
 		?>
 		<div id="col-container">
 			<div id="col-right">
@@ -250,7 +254,7 @@ class WPFB_AdminDashboard {
 		echo "<pre><strong>$for</strong> ",sprintf(__('%s ago'), human_time_diff(filemtime($filename))),":\n";
 		for ($i = $n-1; $i >= max(0, $n - 100); $i--) {
 			$msg = rtrim(substr($lines[$i], $date_len));
-			$e = (stripos($msg, 'error') || stripos($msg, 'failed') || stripos($msg, 'exception') || stripos($msg, 'unexpected') || stripos($msg, 'warning'));
+			$e = (stripos($msg, 'error') !== false || stripos($msg, 'failed') !== false || stripos($msg, 'exception') !== false || stripos($msg, 'unexpected') !== false || stripos($msg, 'warning') !== false || stripos($msg, 'not found') !== false);
 
 			if($i < ($n - 20) && !$e)
 				continue;
@@ -258,8 +262,8 @@ class WPFB_AdminDashboard {
 			if($ni != $i)
 				echo "<b>\t[...]\n</b>";
 
-			$e && $msg = "<span class='error'>$msg</span>";
-			echo '<b>'.substr($lines[$i], 0, $date_len).'</b>'.$msg . "\n";
+			$e && ($msg = "<span class='error'>".esc_html($msg)."</span>");
+			echo '<b>'.esc_html(substr($lines[$i], 0, $date_len)).'</b>',str_replace('&lt;br&gt;','<br>',$msg),"\n";
 			$ni = $i - 1;
 		}
 		echo '</pre>';

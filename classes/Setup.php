@@ -270,7 +270,7 @@ static function SetupDBTables($old_ver=null)
   `file_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `file_mtime` bigint(20) unsigned NOT NULL default '0',
   `file_hash` char(32) NOT NULL,
-  `file_remote_uri` varchar(255) NOT NULL default '',
+  `file_remote_uri` varchar(2000) NOT NULL default '',
   `file_thumbnail` varchar(255) default NULL,
   `file_display_name` varchar(255) NOT NULL default '',
   `file_description` text,
@@ -330,7 +330,7 @@ static function SetupDBTables($old_ver=null)
 	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_icon` VARCHAR(255) NULL DEFAULT NULL";
 	
 	// since v0.2.0.0
-	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_remote_uri` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `file_hash`"; 
+	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_remote_uri` VARCHAR( 2000 ) NULL DEFAULT NULL AFTER `file_hash`";
 	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_force_download` enum('0','1') NOT NULL default '0'";
 	$queries[] = "@ALTER TABLE `$tbl_files` ADD `file_path` varchar(255) NOT NULL default '' AFTER `file_name`";
 	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_exclude_browser` enum('0','1') NOT NULL default '0'";
@@ -375,7 +375,7 @@ static function SetupDBTables($old_ver=null)
 	$queries[] = "ALTER TABLE  `$tbl_cats` CHANGE  `cat_folder`  `cat_folder` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
 	$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_name`  `file_name` VARCHAR( 300 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
 
-	
+
 	$queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_owner` bigint(20) unsigned NOT NULL default 0 AFTER `cat_user_roles`";
 
 	
@@ -411,8 +411,11 @@ static function SetupDBTables($old_ver=null)
 				
         
         $queries[] = "@ALTER TABLE `$tbl_cats` ADD `cat_wp_term_id` bigint(20) NOT NULL default '0'";
-        
-        
+
+
+	$queries[] = "ALTER TABLE  `$tbl_files` CHANGE  `file_remote_uri`  `file_remote_uri` VARCHAR( 2000 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  ''";
+
+
 	$queries[] = "OPTIMIZE TABLE `$tbl_cats`";
 	$queries[] = "OPTIMIZE TABLE `$tbl_files`";
 
@@ -591,7 +594,8 @@ static function OnActivateOrVerChange($old_ver=null) {
 	// make sure that either wp-filebase or wp-filebase pro is enabled bot not both!
 	if ( ! function_exists( 'is_plugin_active' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}	
+	}
+
 	if(is_plugin_active('wp-filebase-pro/wp-filebase.php'))		deactivate_plugins('wp-filebase/wp-filebase.php');	
 	
 	wpfb_loadclass('Admin','File','Category');
@@ -602,25 +606,29 @@ static function OnActivateOrVerChange($old_ver=null) {
 	$new_options = get_option(WPFB_OPT_NAME);
 	WPFB_Admin::SettingsUpdated($old_options, $new_options);
 	self::ProtectUploadPath();
+
+	$sync_data_file = WPFB_Core::UploadDir() . '/._sync.data';
+	is_file($sync_data_file) && unlink($sync_data_file);
 	
 	WPFB_Admin::WPCacheRejectUri(WPFB_Core::$settings->download_base . '/', $old_options['download_base'] . '/');
-		
-	$ncats = WPFB_Category::GetNumCats();
-	$nfiles = WPFB_File::GetNumFiles();
-	
-	if($ncats < self::MANY_CATEGORIES && $nfiles < self::MANY_FILES) { // avoid long activation time
+
+
+	// TODO, do this in background
+	if(WPFB_Category::GetNumCats() < self::MANY_CATEGORIES && WPFB_File::GetNumFiles() < self::MANY_FILES) { // avoid long activation time
 		wpfb_loadclass('Sync');
 		WPFB_Sync::SyncCats();
 		WPFB_Sync::UpdateItemsPath();
+
 	}
 	
 	if (!wp_next_scheduled(WPFB.'_cron'))	
-		wp_schedule_event(time(), 'hourly', WPFB.'_cron');	
+		wp_schedule_event(time()+20, 'hourly', WPFB.'_cron');
 	if(!get_option('wpfb_install_time')) add_option('wpfb_install_time', (($ft=(int)mysql2date('U',$wpdb->get_var("SELECT file_mtime FROM $wpdb->wpfilebase_files ORDER BY file_mtime ASC LIMIT 1")))>0)?$ft:time(), null, 'no');
 	
+
 	
 	
-        $wp_upload = wp_upload_dir();
+	$wp_upload = wp_upload_dir();
         
 	// move old css
 	if(file_exists(WPFB_Core::GetOldCustomCssPath())) {
@@ -631,10 +639,25 @@ static function OnActivateOrVerChange($old_ver=null) {
 	}
        
         // refresh css URL (in case upload_dir changed or upgrade from free to pro)
-        update_option('wpfb_css', trailingslashit(file_exists($wp_upload['basedir'].'/wp-filebase.css') ? $wp_upload['baseurl'] : WPFB_PLUGIN_URI) . 'wp-filebase.css?t='.time());
+	update_option('wpfb_css', trailingslashit(file_exists($wp_upload['basedir'].'/wp-filebase.css') ? $wp_upload['baseurl'] : WPFB_PLUGIN_URI) . 'wp-filebase.css?t='.time());
 	
 	flush_rewrite_rules();
-	
+
+
+	// change mapping of file browser folder icons (2340897_sdf.svg => svg-.....svg!)
+	$image_mappings = array(
+		'1449888880_folder.svg' => 'svg-folder.svg',
+		'1449888883_folder.svg' => 'svg-folder-blue.svg',
+		'1449888885_folder-blue.svg' => 'svg-folderblue.svg',
+		'1449888886_folder-green.svg' => 'svg-folder-green.svg'
+	);
+
+	$folder_icons_base = '/plugins/wp-filebase/images/folder-icons/';
+	$folder_icon = substr(WPFB_Core::$settings->folder_icon, strlen($folder_icons_base));
+	if(isset($image_mappings[$folder_icon])) {
+		WPFB_Core::UpdateOption('folder_icon', $folder_icons_base.$image_mappings[$folder_icon]);
+	}
+
 	//delete_option('wpfilebase_dismiss_support_ending');
 }
 
@@ -642,6 +665,9 @@ static function OnDeactivate() {
 	wp_clear_scheduled_hook(WPFB.'_cron');
 	
 	self::UnProtectUploadPath();
+
+	$sync_data_file = WPFB_Core::UploadDir() . '/._sync.data';
+	is_file($sync_data_file) && unlink($sync_data_file);
 	
 	//delete_option('wpfilebase_dismiss_support_ending');
 	
