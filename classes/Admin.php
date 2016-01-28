@@ -441,7 +441,7 @@ class WPFB_Admin {
 				@unlink($file->GetLocalPath()); // when download redircet the actual files is not needed anymore
 		} else {
 			// set permissions
-			@chmod($file->GetLocalPath(), octdec(WPFB_PERM_FILE));
+			is_file($file->GetLocalPath()) && @chmod($file->GetLocalPath(), octdec(WPFB_PERM_FILE));
 			$file->file_remote_uri = $data->file_remote_uri = ''; // no redirection, URI is not neede anymore		
 		}
 

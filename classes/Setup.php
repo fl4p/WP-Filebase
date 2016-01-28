@@ -580,9 +580,9 @@ static function ProtectUploadPath()
 	
 	if(WPFB_Core::$settings->protect_upload_path && is_writable(WPFB_Core::UploadDir()) && ($fp = @fopen($htaccess, 'w')) )
 	{
-		@fwrite($fp, "Order deny,allow\n");
-		@fwrite($fp, "Deny from all\n");
-		@fclose($fp);
+		fwrite($fp, "Order deny,allow\n");
+		fwrite($fp, "Deny from all\n");
+		fclose($fp);
 		return @chmod($htaccess, octdec(WPFB_PERM_FILE));
 	}	
 	return false;
@@ -659,6 +659,12 @@ static function OnActivateOrVerChange($old_ver=null) {
 	}
 
 	//delete_option('wpfilebase_dismiss_support_ending');
+	// fixes files that where offline
+	if($old_ver ===  "3.4.2") {
+		$wpdb->query("UPDATE `$wpdb->wpfilebase_files` SET file_offline = '0' WHERE 1");
+		wpfb_loadclass('Sync');
+		WPFB_Sync::list_files(WPFB_Core::UploadDir());
+	}
 }
 
 static function OnDeactivate() {

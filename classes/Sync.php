@@ -114,6 +114,35 @@ class WPFB_Sync
         WPFB_Admin::SyncCustomFields();
     }
 
+
+    public static function list_files( $folder = '', $levels = 100 ) {
+        if ( empty($folder) )
+            return false;
+
+        if ( ! $levels )
+            return false;
+
+        $files = array();
+        // if opendir fails, try to chmod and try again
+        if ( ($dir = @opendir( $folder )) || (is_dir($folder) && chmod($folder, octdec(WPFB_PERM_DIR)) && ($dir = @opendir( $folder )) ) ) {
+            while (($file = readdir( $dir ) ) !== false ) {
+                if ( in_array($file, array('.', '..') ) )
+                    continue;
+                if ( is_dir( $folder . '/' . $file ) ) {
+                    $files2 = self::list_files( $folder . '/' . $file, $levels - 1);
+                    if ( $files2 )
+                        $files = array_merge($files, $files2 );
+                    else
+                        $files[] = $folder . '/' . $file . '/';
+                } else {
+                    $files[] = $folder . '/' . $file;
+                }
+            }
+        }
+        @closedir( $dir );
+        return $files;
+    }
+
     /**
      * @param WPFB_SyncData $sync_data
      * @param boolean $output
@@ -157,7 +186,7 @@ class WPFB_Sync
 
         // search for not added files
         $upload_dir               = self::cleanPath(WPFB_Core::UploadDir());
-        $all_files                = self::cleanPath(list_files($upload_dir));
+        $all_files                = self::cleanPath(self::list_files($upload_dir));
         $sync_data->num_all_files = count($all_files);
 
         if ($output) {
@@ -350,11 +379,11 @@ class WPFB_Sync
 
         // chmod
         if ($output) {
-            self::DEcho('<p>Setting permissions...');
+            self::DEcho('<p>Setting permissions (files: 0'.(WPFB_PERM_FILE).', folders: 0'.(WPFB_PERM_DIR).')...');
         }
         $sync_data->log['warnings']
             += self::Chmod(self::cleanPath(WPFB_Core::UploadDir()),
-            array_keys($sync_data->known_filenames));
+            array_filter(array_keys($sync_data->known_filenames)));
         if ($output) {
             self::DEcho('done!</p>');
         }
@@ -443,6 +472,10 @@ class WPFB_Sync
         foreach ($sync_data->db_file_states as $fs) {
             $file_path     = $upload_dir . $fs->path_rel;
             $rel_file_path = $fs->path_rel;
+
+            if(empty($fs->path_rel)) {
+                $rel_file_path = $fs->getFile()->GetLocalPath(true);
+            }
 
             $progress_reporter->SetProgress(++$i);
             $progress_reporter->SetField($rel_file_path);
@@ -901,7 +934,7 @@ class WPFB_Sync
         for ($i = 0; $i < count($files); $i++) {
             $f = "$base_dir/" . $files[$i];
             if (file_exists($f)) {
-                @chmod($f, octdec(WPFB_PERM_FILE));
+                @chmod($f, octdec(is_file($f) ? WPFB_PERM_FILE : WPFB_PERM_DIR));
                 if ( ! is_writable($f) && ! is_writable(dirname($f))) {
                     $result[] = sprintf(__('File <b>%s</b> is not writable!',
                         'wp-filebase'), substr($f, $upload_dir_len));
@@ -1043,6 +1076,7 @@ class WPFB_FileState {
      * @return string
      */
     public function getThumbPath() {
+        if(empty($this->thumb_file_name)) return false;
         $p    = strrpos($this->path_rel, '/');
         return ($p === false || $p === 0) ? $this->thumb_file_name :  (substr($this->path_rel, 0, $p+1).$this->thumb_file_name);
     }
@@ -1167,7 +1201,8 @@ class WPFB_SyncData
         $this->num_db_files = count($this->db_file_states);
         for($i = 0; $i < $this->num_db_files; $i++) {
             $this->known_filenames[$this->db_file_states[$i]->path_rel] = 1;
-            $this->known_filenames[$this->db_file_states[$i]->getThumbPath()] = 1;
+            $t = $this->db_file_states[$i]->getThumbPath();
+            if($t) $this->known_filenames[$t] = 1;
         }
     }
 

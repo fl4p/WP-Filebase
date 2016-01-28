@@ -109,16 +109,11 @@ class WPFB_AdminLite
 
 
         if (isset($_GET['wpfilebase-screen'])) {
-            $screen = $_GET['wpfilebase-screen'];
-            if ($screen == 'editor-plugin') {
-                require_once(WPFB_PLUGIN_ROOT . 'screens/editor-plugin.php');
+            switch($_GET['wpfilebase-screen']) {
+                case 'editor-plugin': require_once (WPFB_PLUGIN_ROOT . 'screens/editor-plugin.php'); exit;
+                case 'tpl-preview': require_once (WPFB_PLUGIN_ROOT . 'screens/tpl-preview.php'); exit;
             }
-
-            if ($screen == 'tpl-preview') {
-                require_once(WPFB_PLUGIN_ROOT . 'screens/tpl-preview.php');
-            }
-
-            exit;
+            wp_die('Unknown screen '.esc_html($_GET['wpfilebase-screen']).'!');
         }
     }
 

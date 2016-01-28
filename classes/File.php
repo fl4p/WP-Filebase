@@ -219,7 +219,7 @@ class WPFB_File extends WPFB_Item
         return $nn;
     }
 
-    static function GetNumFiles2($where, $check_permissions = true)
+    static function GetNumFiles2($where='', $check_permissions = true)
     {
         global $wpdb;
         $n = $wpdb->get_var("SELECT COUNT(`{$wpdb->wpfilebase_files}`.`file_id`) FROM " . self::genSelectSql($where, $check_permissions));
@@ -636,8 +636,6 @@ class WPFB_File extends WPFB_Item
             update_user_option($user_ID, WPFB_OPT_NAME . '_last_dl', time());
         }
 
-        WPFB_Core::LogMsg(json_encode($_SERVER));
-
         $head_only = ($_SERVER["REQUEST_METHOD"] == "HEAD");
         list($begin, $end) = WPFB_Download::ParseRangeHeader($this->file_size);
 
@@ -676,6 +674,7 @@ class WPFB_File extends WPFB_Item
                 'filename' => empty($this->file_name_original) ? $this->file_name : $this->file_name_original
             ));
         } else {
+            // avoid redirect caching
             //header('HTTP/1.1 301 Moved Permanently');
             header('Cache-Control: no-store, no-cache, must-revalidate');
             header('Expires: Thu, 01 Jan 1970 00:00:00 GMT');

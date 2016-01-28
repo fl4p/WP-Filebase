@@ -276,7 +276,7 @@ static function TplsTable($type, $exclude=array(), $include=array()) {
 			<div class="entry-content wpfilebase-tpl-preview">
 				<div id="tpl-preview_<?php echo $tpl_tag ?>">
 					<?php if(!empty($_GET['iframe-preview'])) { ?>					
-					<iframe src="<?php echo admin_url("?wpfilebase-screen=tpl-preview&type=$type&tag=$tpl_tag"); ?>" style="width:100%;height:220px;"></iframe>
+					<iframe src="<?php echo admin_url("admin.php?wpfilebase-screen=tpl-preview&type=$type&tag=$tpl_tag"); ?>" style="width:100%;height:220px;"></iframe>
 					<?php } else {
 						$table_found = !$list && (strpos($tpl_src, '<table') !== false);
 						if(!$list && !$table_found && strpos($tpl_src, '<tr') !== false) {

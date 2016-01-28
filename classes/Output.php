@@ -53,7 +53,7 @@ class WPFB_Output
         echo "\n//]]>\n</script>\n";
     }
 
-    static function ProcessShortCode($args, $content = null, $tag = null)
+    static function ProcessShortCode($args)
     {
         $id = empty($args ['id']) ? -1 : intval($args ['id']);
         if ($id <= 0 && !empty($args['path'])) { // path indentification
@@ -127,6 +127,12 @@ class WPFB_Output
         return array($sort, $desc ? 'DESC' : 'ASC');
     }
 
+    /**
+     * @param  WPFB_File[]    $files
+     * @param string $tpl_tag
+     *
+     * @return string
+     */
     private static function genFileList(&$files, $tpl_tag = null)
     {
         $content = '';
@@ -338,12 +344,10 @@ class WPFB_Output
                 $where .= " AND `file_post_id` = 0";
 
 
-            //	$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::$settings->hide_inaccessible, $sql_file_order);
             //$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::$settings->hide_inaccessible, $sql_file_order);
 
-            $files = WPFB_File::GetFiles2(
-                $where,                     (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload')) && !($is_admin && current_user_can('manage_options'))), $sql_sort_files
-            );
+            $check_permissions =  (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload')) && !($is_admin && current_user_can('manage_options')))  ;
+            $files = WPFB_File::GetFiles2( $where, $check_permissions, $sql_sort_files );
 
             foreach ($files as $f)
                 $file_items[$i++] = (object)array(
