@@ -10,6 +10,8 @@ class WPFB_Sync
     static $error_log_file;
     static $debug_output = false;
 
+    const OLD_THUMB_SUFFIX = '/-([0-9]+)x([0-9]+)\.(jpg|jpeg|png|gif)$/i';
+
     static function InitClass()
     {
         wpfb_loadclass("Admin", "GetID3", "FileUtils", "Misc");
@@ -631,6 +633,9 @@ class WPFB_Sync
         );
     }
 
+    /**
+     * @param WPFB_SyncData $sync_data
+     */
     static function GetThumbnails($sync_data)
     {
         $num_files_to_add = $num_new_files = count($sync_data->new_files);
@@ -738,7 +743,23 @@ class WPFB_Sync
                 $sync_data->num_files_to_add--;
             }
         }
-    }
+
+        // FIX: check for db files with a thumbnail-style file name and assign it to a file with similar name
+        foreach($sync_data->db_file_states as $fs_thumb) {
+            $matches = array();
+            if (preg_match(self::OLD_THUMB_SUFFIX, $fs_thumb->path_rel, $matches)
+                && ($file=$sync_data->getDbStateByPathPrefix(substr($fs_thumb->path_rel, 0, -strlen($matches[0])).'.'))
+                && $file->getFile()->IsLocal()
+                && ($is = getimagesize($fs_thumb->getFile()->GetLocalPath()))
+                && $is[0] == $matches[1] && $is[1] == $matches[2]
+            ) {
+                                $fs_thumb->getFile()->DeleteThumbnail();
+                $file->getFile()->DeleteThumbnail();
+                $file->getFile()->file_thumbnail = basename($fs_thumb->getFile()->GetLocalPath());
+                $file->getFile()->DBSave(true);
+                $fs_thumb->getFile()->Remove(false, true);
+        }
+    }}
 
     static function SyncCats($cats = null, $output = false)
     {
@@ -1204,6 +1225,21 @@ class WPFB_SyncData
             $t = $this->db_file_states[$i]->getThumbPath();
             if($t) $this->known_filenames[$t] = 1;
         }
+    }
+
+    /**
+     * @param string $prefix
+     *
+     * @return WPFB_FileState
+     */
+    public function getDbStateByPathPrefix($prefix) {
+        $pl = strlen($prefix);
+        foreach($this->db_file_states as $fs) {
+            if( strlen($fs->path_rel) > $pl && strncmp($fs->path_rel, $prefix, $pl) === 0 ) {
+                return $fs;
+            }
+        }
+        return null;
     }
 
 }

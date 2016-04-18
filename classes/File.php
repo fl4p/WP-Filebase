@@ -403,8 +403,8 @@ class WPFB_File extends WPFB_Item
             $this->DBSave();
     }
 
-    // completly removes the file from DB and FS
-    function Remove($bulk = false)
+    // completly removes the file from DB (and FS)
+    function Remove($bulk = false, $dont_delete = false)
     {
         global $wpdb;
 
@@ -422,7 +422,7 @@ class WPFB_File extends WPFB_Item
 
         $this->Lock(true); // prevent Delete() from saving to DB!
 
-        return $this->Delete();
+        return $dont_delete || $this->Delete();
     }
 
     private function getInfoValue($path)
