@@ -11,6 +11,13 @@ class WPFB_AdmInstallExt {
         }
         if ($user_ID && !empty($res->info['tag_time']))
             update_user_option($user_ID, 'wpfb_ext_tagtime', $res->info['tag_time']);
+
+        // strip 'WP-Filebase' prefix
+        foreach($res->plugins as $plug) {
+            $plug->name = str_replace('WP-Filebase ', '', $plug->name);
+        }
+
+
         return $res;
     }
 
@@ -22,13 +29,13 @@ class WPFB_AdmInstallExt {
             } elseif (!empty($plugin->need_to_buy)) {
                 $action_links[0] = '<a class="buy-now button button-primary" href="' . esc_attr($plugin->buy_url) . '" target="_blank" aria-label="' . esc_attr(sprintf(__('Buy extension %s'), $plugin->name)) . '">' . sprintf(__('Buy now (%s)'), $plugin->license_price) . '</a>';
             } elseif (!empty($plugin->license_required)) {
-                $action_links[0] = '<a class="buy-now button thickbox" href="' . esc_attr($plugin->add_url) . '" data-title="' . esc_attr(sprintf(__('Add extension %s'), $plugin->name)) . '">' . __('Add License') . '</a>';
+                $action_links[0] = '<a class="buy-now button thickbox" href="' . esc_attr($plugin->add_url) . '" data-title="' . esc_attr(sprintf(__('Add extension %s'), $plugin->name)) . '">' . __('Add License (free)') . '</a>';
             }
         } else {
            // print_r($plugin);
             // seems to be installed
             if(is_dir( WP_PLUGIN_DIR . '/' . $plugin->slug ) ) {
-		$installed_plugin = get_plugins('/' . $plugin->slug);
+		        $installed_plugin = get_plugins('/' . $plugin->slug);
                 if(!empty($installed_plugin)) {
                     $key = array_keys( $installed_plugin );
                     $plugin_file = $plugin->slug . '/' . reset( $key );
@@ -41,9 +48,8 @@ class WPFB_AdmInstallExt {
         if (!empty($plugin->need_to_buy))
             $action_links[1] = '<a href="' . esc_attr($plugin->homepage) . '" class="no_thickbox" target="_blank">' . __('More Details') . '</a>';
 
-        if (!empty($plugin->requires_pro)) {
-            $action_links[] = '<span class="wp-ui-notification wpfb-pro" title="This extension requires WP-Filebase Pro">pro</span>';
-        }
+
+        $action_links[] = (empty($plugin->requires_pro) ? '<span class="wp-ui-notification wpfb-free" title="works with WP-Filebase Free">free</span>' : '') . '<span class="wp-ui-notification wpfb-pro" title="works with WP-Filebase Pro">pro</span>';
         return $action_links;
     }
 

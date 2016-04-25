@@ -655,16 +655,22 @@ ul.treeview span.onedrivesync span.cat-icon-overlay,
 }
 
 
-.plugin-card span.wpfb-pro {
+.plugin-card span.wpfb-pro, .plugin-card span.wpfb-free {
 	border-radius: 20px;
 	display: inline-block;
-	width: 25px;
-	line-height: 25px;
+	width: 27px;
+	line-height: 27px;
 	text-transform: uppercase;
 	text-align: center;
 	font-size: 9px;
-	opacity: 0.7;
+	opacity: 0.8;
 	cursor: default;
+	margin-right: 4px;
+	background: #8e44ad;
+}
+
+.plugin-card span.wpfb-free {
+	background: #27ae60;
 }
 
 #file_thumbnail_preview {

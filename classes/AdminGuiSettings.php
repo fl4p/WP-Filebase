@@ -342,7 +342,10 @@ class WPFB_AdminGuiSettings {
 							$page_option_list .= $opt_tag . ',';
 						}
 
-						echo '</table></div>' . "\n";
+
+						echo '</table>';
+						do_action('wpfilebase_settings_category_after', $opt_cat);
+						echo '</div>' . "\n";
 					}
 					?>
 				</div> <!--wpfilebase-opttabs-->

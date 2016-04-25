@@ -583,8 +583,8 @@ class WPFB_File extends WPFB_Item
 
         @error_reporting(0);
         wpfb_loadclass('Category', 'Download');
-        $downloader_ip = preg_replace('/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR']);
-        get_currentuserinfo();
+        $downloader_ip = WPFB_Download::GetClientIp();
+        wp_get_current_user();
         $logged_in = (!empty($user_ID));
         $user_role = $logged_in ? reset($current_user->roles) : null; // get user's highest role (like in user-eidt.php)
         $is_admin = current_user_can('manage_options');

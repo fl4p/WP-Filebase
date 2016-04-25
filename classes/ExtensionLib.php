@@ -16,6 +16,7 @@ if(!class_exists('WPFB_ExtensionLib')) {
 
             $no_cache = isset($_REQUEST['no_api_cache']) || isset($_REQUEST['force-check']) || isset($post_data['nocache']);
             if($no_cache) {
+                self::flushCache();
                 delete_transient($cache_key);
                 $get_args['nocache'] = 1;
             }
@@ -46,6 +47,16 @@ if(!class_exists('WPFB_ExtensionLib')) {
                 set_transient($cache_key, $res, $license_key ? (10 * MINUTE_IN_SECONDS) : (6 * HOUR_IN_SECONDS));
 
             return $res;
+        }
+
+        private static function flushCache()
+        {
+            global $wpdb;
+            $transient_names = $wpdb->get_col("SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '_transient_wpfb_apireq_%'");
+            $p   = strlen('_transient_');
+            foreach ($transient_names as $tn) {
+               delete_transient(substr($tn, $p));
+            }
         }
 
         static function GetExtensionsVersionNumbers() {

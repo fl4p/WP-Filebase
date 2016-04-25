@@ -29,16 +29,24 @@ class WPFB_GetID3 {
 	}
 
 	/**
+	 * @param WPFB_File $file
+	 * @param array $info
+	 */
+private static function indexDocument($file, &$info, &$times)
+{
+
+}
+
+	/**
 	 * Intesive analysis of file contents. Does _not_ make changes to the file or store anything in the DB!
 	 * 
-	 * @param type $file
+	 * @param WPFB_File $file
 	 * @return type
 	 */
 	private static function analyzeFile($file) {
 		@ini_set('max_execution_time', '0');
 		@set_time_limit(0);
-
-		$filename = is_string($file) ? $file : $file->GetLocalPath();
+		$filename = $file->GetLocalPath();
 
 		$times = array();
 		$times['analyze'] = microtime(true);
@@ -48,10 +56,12 @@ class WPFB_GetID3 {
 			getid3_lib::CopyTagsToComments($info);
 		}
 
-		if (!empty($_GET['debug'])) {
-			wpfb_loadclass('Sync');
-			WPFB_Sync::PrintDebugTrace("file_analyzed_" . $file->GetLocalPathRel());
-		}
+		$info = apply_filters('wpfilebase_analyze_file', $info, $file);
+
+		// only index if keywords not externally set
+		if(!isset($info['keywords']))
+			self::indexDocument($file, $info, $times);
+
 		
 		$times['end'] = microtime(true);			
 		$t_keys = array_keys($times);
@@ -79,8 +89,12 @@ class WPFB_GetID3 {
 				$cover_img = & $info['comments']['picture'][0]['data'];
 			elseif (!empty($info['id3v2']['APIC'][0]['data']))
 				$cover_img = & $info['id3v2']['APIC'][0]['data'];
-			else
+			elseif (!empty($info['document']['thumbnail_url'])) {
+				// read thumbnail from external webservice
+				$cover_img = @file_get_contents($info['document']['thumbnail_url']);
+			} else {
 				$cover_img = null;
+			}
 
 			// TODO unset pic in info?
 
