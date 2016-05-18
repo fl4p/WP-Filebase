@@ -82,7 +82,8 @@ class WPFB_FileUtils {
 
 		$tmp_del && is_file($tmp_img) && unlink($tmp_img);
 
-		if (!$thumb)
+		// if the thumb is still missing, cancel thumbnail creation
+		if (!$thumb || is_wp_error( $thumb ))
 			return false;
 
 		$fn = $dir . str_ireplace(array('.pdf_thumb', '.jpg_thumb', '.tiff_thumb', '.tif_thumb', '.bmp_thumb'), '', $thumb['file']);
