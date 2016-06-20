@@ -221,7 +221,13 @@ class WPFB_Core {
 			elseif (!empty($_GET['wpfb_cat']))
 				self::$file_browser_item = WPFB_Category::GetCat($_GET['wpfb_cat']);
 			else {
-				$url = (is_ssl() ? 'https' : 'http') . '://' . $_SERVER["HTTP_HOST"] . stripslashes($_SERVER['REQUEST_URI']);
+				$url = '';
+
+				if ( ! defined( 'WP_CLI' ) || defined( 'WP_CLI' ) && ! WP_CLI ) {
+					// don't access the $_SERVER parameter if it's running while a WP-CLI command is being used
+					$url = (is_ssl() ? 'https' : 'http') . '://' . $_SERVER["HTTP_HOST"] . stripslashes($_SERVER['REQUEST_URI']);
+				}
+
 				if (($qs = strpos($url, '?')) !== false)
 					$url = substr($url, 0, $qs); // remove query string	
 				$path = trim(substr($url, strlen(WPFB_Core::GetPostUrl($id))), '/');
