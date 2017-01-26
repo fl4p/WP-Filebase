@@ -79,7 +79,7 @@ static function Display()
 				$_POST['file_date'] =  sprintf( "%04d-%02d-%02d %02d:%02d:%02d", $aa, $mm, $jj, $hh, $mn, $ss );
 			}
 			
-			$result = WPFB_Admin::InsertFile(stripslashes_deep(array_merge($_POST, $_FILES)), true);
+			$result = WPFB_Admin::InsertFile(array_merge(stripslashes_deep($_POST), $_FILES), true);
 			if(isset($result['error']) && $result['error']) {
 				$message = $result['error'] . '<br /><a href="javascript:history.back()">' . __("Go back") . '</a>';
 			} else {
