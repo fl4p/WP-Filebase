@@ -884,7 +884,7 @@ class WPFB_Admin {
 		// if category is set in widget options, force to use this. security done with nonce checking ($_POST['cat'] is reliable)
 		if ($_POST['cat'] >= 0)
 			$_POST['file_category'] = $_POST['cat'];
-		$result = WPFB_Admin::InsertFile(stripslashes_deep(array_merge($_POST, $_FILES, array('frontend_upload' => true, 'form' => empty($form) ? null : $form))));
+		$result = WPFB_Admin::InsertFile(array_merge($_FILES, stripslashes_deep(array_merge($_POST, array('frontend_upload' => true, 'form' => empty($form) ? null : $form)))));
 		if (isset($result['error']) && $result['error']) {
 			$content .= '<div id="message" class="updated fade"><p>' . $result['error'] . '</p></div>';
 			$title .= __('Error');

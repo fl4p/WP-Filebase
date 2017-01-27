@@ -268,7 +268,7 @@ if($action =='addfile' || $action =='updatefile')
 	if(!wp_verify_nonce($_POST['wpfb-file-nonce'], $nonce_action."-editor") && !wp_verify_nonce($_POST['wpfb-file-nonce'], $nonce_action) )
 		wp_die(__('Cheatin&#8217; uh?'));
 	
-	$result = WPFB_Admin::InsertFile(stripslashes_deep(array_merge($_POST, $_FILES)));
+	$result = WPFB_Admin::InsertFile(array_merge(stripslashes_deep($_POST), $_FILES));
 	if(isset($result['error']) && $result['error']) {
 		?><div id="message" class="updated fade"><p><?php echo $result['error']; ?></p></div><?php
 		$file = new WPFB_File($_POST);
