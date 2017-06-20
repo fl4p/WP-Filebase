@@ -89,7 +89,7 @@ class WPFB_Category extends WPFB_Item
      */
     static function GetCat($id)
     {
-        $id = 0+$id;
+        $id = 0 + $id;
         if ($id > 0 && (isset(self::$cache[$id]) || WPFB_Category::GetCats("WHERE cat_id = $id"))) {
             return self::$cache[$id];
         }
@@ -115,7 +115,7 @@ class WPFB_Category extends WPFB_Item
         $this->is_category = true;
     }
 
-    function DBSave($throw_on_error=false)
+    function DBSave($throw_on_error = false)
     { // validate some values before saving (fixes for mysql strict mode)
         if ($this->locked > 0) {
             return $this->TriggerLockedError();
@@ -130,10 +130,15 @@ class WPFB_Category extends WPFB_Item
         return parent::DBSave($throw_on_error);
     }
 
+    function GetWPTermId()
+    {
+        return 0;
+    }
+
 
     static $no_bubble = false;
 
-    static function DisableBubbling($disable=true)
+    static function DisableBubbling($disable = true)
     {
         self::$no_bubble = $disable;
         self::$cache_complete = false;
@@ -141,7 +146,7 @@ class WPFB_Category extends WPFB_Item
 
     function NotifyFileAdded($file)
     {
-        if(self::$no_bubble)
+        if (self::$no_bubble)
             return;
 
 
@@ -163,7 +168,7 @@ class WPFB_Category extends WPFB_Item
 
     function NotifyFileRemoved($file)
     {
-        if(self::$no_bubble)
+        if (self::$no_bubble)
             return;
 
 
@@ -189,8 +194,7 @@ class WPFB_Category extends WPFB_Item
 
     function GetChildCats($recursive = false, $sort_by_name = false)
     {
-        if (!self::$cache_complete && empty($this->childs_complete))
-        {
+        if (!self::$cache_complete && empty($this->childs_complete)) {
             $this->cat_childs = self::GetCats("WHERE cat_parent = " . (int)$this->cat_id . ($sort_by_name ? " ORDER BY cat_name ASC" : ""));
             $this->childs_complete = true;
         }
@@ -232,7 +236,7 @@ class WPFB_Category extends WPFB_Item
         }
 
         self::$cache_complete = false;
-        unset(self::$cache[0+$this->cat_id]);
+        unset(self::$cache[0 + $this->cat_id]);
 
         // delete the category
         @unlink($this->GetLocalPath());
@@ -275,7 +279,8 @@ class WPFB_Category extends WPFB_Item
             case 'uid':
                 return self::$tpl_uid;
 
-            case 'is_mobile': return wp_is_mobile();
+            case 'is_mobile':
+                return wp_is_mobile();
         }
 
         // string length limit:
@@ -311,7 +316,18 @@ class WPFB_Category extends WPFB_Item
 
     function CurUserCanEdit($user = null)
     {
-        return parent::CurUserCanEdit($user);
+        return parent::CurUserCanEdit($user) ;
+    }
+
+    /**
+     * @return null|WPFB_RemoteSync
+     */
+    function getCloudSync() {
+        wpfb_loadclass('RemoteSync');
+        $rs = WPFB_RemoteSync::GetByCat($this->GetId());
+        if($rs) return $rs;
+        $parent = $this->GetParent();
+        return $parent ? $parent->getCloudSync() : null;
     }
 
 }

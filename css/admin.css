@@ -726,6 +726,9 @@ ul.thumbnails.image_picker_selector .thumbnail img {
 
 #wpfb-logs.postbox pre span.error {
 	background-color: #fbb;
+	max-height: 14em;
+	display: inline-block;
+	overflow: auto;
 }
 
 #screen-meta-links {
@@ -759,4 +762,12 @@ ul.thumbnails.image_picker_selector .thumbnail img {
     transform: perspective(4.5em) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(4.5em) rotateX(-180deg) rotateY(-179.9deg);
   }
+}
+
+
+/* dashboard fix */
+@media only screen and (max-width: 1800px) and (min-width: 1500px) {
+	#wpbody-content #dashboard-widgets #postbox-container-1 {
+		width: 49%;
+	}
 }

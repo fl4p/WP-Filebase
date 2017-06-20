@@ -5,6 +5,12 @@ class TreeTest extends WP_UnitTestCase {
     {
         if(get_current_user_id())
             return;
+
+        $usr = get_user_by('login', 'test_admin');
+        if($usr && $usr->exists()) {
+            wp_set_current_user($usr->ID);
+            return;
+        }
         $usr = wp_create_user('test_admin', 'test_admin');
         $this->assertNotWPError($usr);
         wp_set_current_user($usr);

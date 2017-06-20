@@ -4,7 +4,7 @@ static $FilesPerPage = 50;
 
 static function Display()
 {
-	global $wpdb, $user_ID;
+	global $wpdb;
 
 	wpfb_loadclass('File', 'Category', 'Admin', 'Output');
 	
@@ -25,7 +25,7 @@ static function Display()
 	// switch simple/extended form
 	if(isset($_GET['exform'])) {
 		$exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-		update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true); 
+		update_user_option(get_current_user_id(), WPFB_OPT_NAME . '_exform', $exform, true);
 	} else
 		$exform = (bool)get_user_option(WPFB_OPT_NAME . '_exform');
 	?>
@@ -130,7 +130,6 @@ $file_table->prepare_items();
  
 <?php $file_table->views(); ?>
  <form id="posts-filter" action="" method="post">
- <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
  <?php $file_table->display() ?>
  </form>
  <br class="clear" />
@@ -194,6 +193,23 @@ static function FileInfoPathsBox($info)
 		?><p><b><?php _e('Keywords used for search:','wp-filebase') ?></b> <?php echo esc_html($info->keywords) ?></p> <?php
 	}
 }
+
+	/**
+	 * @param WPFB_File $file
+	 */
+	static function FilePageMetaBoxes($file)
+	{
+		global $post_type, $post_type_object, $post, $post_ID;
+		$post_type = 'wpfb_filepage';
+		$post = (!$file || !$file->file_wpattach_id) ? get_default_post_to_edit( $post_type, true ) : get_post($file->file_wpattach_id);
+		$post_type_object = get_post_type_object( $post_type );
+		$post_ID = $post->ID;
+
+		// context = side,normal,advanced
+		do_meta_boxes($post_type, 'normal', $post);
+		do_meta_boxes($post_type, 'advanced', $post);
+		//include( ABSPATH . 'wp-admin/edit-form-advanced.php' );
+	}
 }
 
 /*

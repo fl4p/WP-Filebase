@@ -39,6 +39,15 @@ static function Schema()
 	$folder_icons = array();
 	foreach($folder_icon_files as $fif)
 		$folder_icons[] = array('path' => str_replace(self::cleanPath(WP_CONTENT_DIR),'',$fif),'url' => str_replace(self::cleanPath(WP_CONTENT_DIR),WP_CONTENT_URL,$fif));
+
+
+	$isApache = stripos($_SERVER["SERVER_SOFTWARE"], 'Apache') !== false;
+
+
+	if(!$isApache) {
+		$nginx_conf = "<pre>location /" . ltrim(WPFB_Core::$settings->upload_path, '/') . " {\n\tdeny all;\n\treturn 403;\n}\n</pre>";
+		$protect_instructions = "<br><b>Please add the following rules to your nginx config file to disable direct file access:</b><br>$nginx_conf";
+	}
 	
 	return
 	(
@@ -126,7 +135,7 @@ static function Schema()
 	'parse_tags_rss'		=> array('default' => true, 'title' => __('Parse template tags in RSS feeds','wp-filebase'), 'type' => 'checkbox', 'desc' => __('If enabled WP-Filebase content tags are parsed in RSS feeds.','wp-filebase')),
 	
 	'allow_srv_script_upload'	=> array('default' => false, 'title' => __('Allow script upload','wp-filebase'), 'type' => 'checkbox', 'desc' => __('If you enable this, scripts like PHP or CGI can be uploaded. <b>WARNING:</b> Enabling script uploads is a <b>security risk</b>!','wp-filebase')),
-	'protect_upload_path'           => array('default' => true, 'title' => __('Protect upload path','wp-filebase'), 'type' => 'checkbox', 'desc' => __('This prevents direct access to files in the upload directory.','wp-filebase'). ' '.__('Only applies on Apache webservers! For NGINX you have to edit its config file manually.','wp-filebase')),
+	'protect_upload_path'       => array('default' => true && $isApache, 'title' => __('Protect upload path','wp-filebase'), 'type' => 'checkbox', 'desc' => __('This prevents direct access to files in the upload directory.','wp-filebase'). ' '.__('Only applies on Apache webservers! For non-Apache server you have to edit its config file manually.','wp-filebase').$protect_instructions, 'disabled' => !$isApache),
 
 		 
 	'private_files'			=> array('default' => false, 'title' => __('Private Files','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Access to files is only permitted to owner and administrators.','wp-filebase').' '.__('This completely overrides access permissions.','wp-filebase')),
@@ -152,7 +161,7 @@ static function Schema()
 	
 			
 	
-	'search_integration' =>  array('default' => true, 'title' => __('Search Integration','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Searches in attached files and lists the associated posts and pages when searching the site.','wp-filebase')),
+	'search_integration' =>  array('default' => true, 'title' => __('Search Integration','wp-filebase'), 'type' => 'checkbox', 'desc' => __('Searches in attached files and lists the associated posts and pages when searching the site.','wp-filebase').' '.sprintf(__('If you experience performance issues with many posts and files (>1000), disable this option but enable %s.','wp-filebase'), 'File Pages / Content Keywords')),
 	
 	'search_result_tpl' =>  array('default' => 'default', 'title' => __('Search Result File List Template','wp-filebase'), 'type' => 'select', 'options' => $list_tpls, 'desc' => __('Set the List Template used for Search Results when using the Search Widget','wp-filebase')),
 	
@@ -198,10 +207,11 @@ Open Office|ooffice|http://www.openoffice.org/download/index.html
 	
 	'template_file'			=> array('default' =>
 <<<TPLFILE
-<div class="wpfilebase-file-default" onclick="if('undefined' == typeof event.target.href) document.getElementById('wpfb-file-link-%uid%').click();">
+<div class="wpfilebase-file-default wpfb-file-%file_id%" onclick="if('undefined' == typeof event.target.href) document.getElementById('wpfb-file-link-%uid%').click();">
   <div class="icon"><a href="%file_url%" target="_blank" title="Download %file_display_name%"><img align="middle" src="%file_icon_url%" alt="%file_display_name%" /></a></div>
   <div class="filetitle">
     <a href="%file_url%" title="Download %file_display_name%" target="_blank" id="wpfb-file-link-%uid%">%file_display_name%</a>
+    %button_edit% %button_delete%
     <!-- IF %file_post_id% AND %post_id% != %file_post_id% --><a href="%file_post_url%" class="postlink">&raquo; %'Post'%</a><!-- ENDIF -->
     <br />
     %file_name%<br />
@@ -262,7 +272,6 @@ JS
 }
 
 }
-
 
 
  

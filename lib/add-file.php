@@ -36,8 +36,7 @@ $adv_uploader = WPFB_AdvUploader::Create($form_url, $update);
 
 
 if (isset($_GET['visual_editor'])) {
-	global $user_ID;
-	update_user_option($user_ID, WPFB . '_visual_editor', (int) $_GET['visual_editor']);
+	update_user_option(get_current_user_id(), WPFB . '_visual_editor', (int) $_GET['visual_editor']);
 }
 $visual_editor = get_user_option(WPFB . '_visual_editor') && !$in_widget && !$in_editor;
 

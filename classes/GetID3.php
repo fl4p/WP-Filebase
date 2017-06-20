@@ -58,6 +58,7 @@ private static function indexDocument($file, &$info, &$times)
 
 		$info = apply_filters('wpfilebase_analyze_file', $info, $file);
 
+
 		// only index if keywords not externally set
 		if(!isset($info['keywords']))
 			self::indexDocument($file, $info, $times);
@@ -110,13 +111,17 @@ private static function indexDocument($file, &$info, &$times)
 
 		self::cleanInfoByRef($info);
 
-		// set encoding to utf8 (required for getKeywords)
+		// set encoding to utf8 (required for GetKeywords)
 		if (function_exists('mb_internal_encoding')) {
 			$cur_enc = mb_internal_encoding();
 			mb_internal_encoding('UTF-8');
 		}
+
+
+		wpfb_loadclass('Misc');
+
 		$keywords = array();
-		self::getKeywords($info, $keywords);
+		WPFB_Misc::GetKeywords($info, $keywords);
 		$keywords = strip_tags(join(' ', $keywords));
 		$keywords = str_replace(array('\n', '&#10;'), '', $keywords);
 		$keywords = preg_replace('/\s\s+/', ' ', $keywords);
@@ -229,20 +234,6 @@ private static function indexDocument($file, &$info, &$times)
 		}
 	}
 
-	private static function getKeywords($info, &$keywords) {
-		foreach ($info as $key => $val) {
-			if (is_array($val) || is_object($val)) {
-				self::getKeywords($val, $keywords);
-				self::getKeywords(array_keys($val), $keywords); // this is for archive files, where file names are array keys
-			} else if (is_string($val)) {
-				$val_a = explode(' ', strtolower(preg_replace('/\W+/', ' ', $val) . ' ' . preg_replace('/\W+/u', ' ', $val)));
-				foreach ($val_a as $v) {
-					if (!in_array($v, $keywords))
-						array_push($keywords, $v);
-				}
-			}
-		}
-		return $keywords;
-	}
+
 
 }

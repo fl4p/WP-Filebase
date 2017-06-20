@@ -136,8 +136,16 @@ class WPFB_SearchWidget extends WP_Widget {
 		$action = WPFB_Core::GetPostUrl($fbp_id);
 		$p_in_query = (strpos($action,'?') !== false); // no permalinks?
 		$action = $p_in_query ? remove_query_arg(array('p','post_id','page_id','wpfb_s')) : $action;
-		
-		echo WPFB_Output::GetSearchForm($action, $p_in_query ? array('p' => $fbp_id) : null, "");
+
+		$args = array();
+
+		if($p_in_query)
+			$args['p'] = $fbp_id;
+
+		if(isset($instance['placeholder']))
+			$args['placeholder'] = $instance['placeholder'];
+
+		echo WPFB_Output::GetSearchForm($action, $args, "");
 
 		echo $after_widget;
 	}
@@ -145,15 +153,24 @@ class WPFB_SearchWidget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
-		//$instance['overwrite'] = !empty($new_instance['overwrite']);
+		$instance['placeholder'] = strip_tags($new_instance['placeholder']);
         return $instance;
 	}
 	
 	function form( $instance ) {
 		if(!isset($instance['title'])) $instance['title'] = __('Search');
-		?><div>
-			<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?> <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label></p>
-		</div><?php
+		?>
+		<div>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+			<input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('placeholder'); ?>"><?php _e('Placeholder:'); ?></label>
+			<input type="text" id="<?php echo $this->get_field_id('placeholder'); ?>" name="<?php echo $this->get_field_name('placeholder'); ?>" value="<?php echo esc_attr(@$instance['placeholder']); ?>" />
+		</p>
+		</div>
+		<?php
 	}
 }
 

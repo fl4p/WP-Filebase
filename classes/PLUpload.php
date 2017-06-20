@@ -64,6 +64,7 @@ $plupload_init = array(
 	'filters' => array( array('title' => __( 'Allowed Files' ), 'extensions' => '*') ),
 	'multipart' => true,
 	'urlstream_upload' => true,
+	//'chunk_size' => '8mb', // TODO
 	'multipart_params' => $this->GetAjaxAuthData()
 );
 

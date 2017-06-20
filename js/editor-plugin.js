@@ -1,5 +1,7 @@
-function tabclick(a)
+function tabclick(a, uses)
 {
+	if(!a) return;
+	uses = uses || [];
 	var href = a.getAttribute('href');	
 	var tabLinks = jQuery("a", a.parentNode.parentNode).toArray();
 	var h,tl,tab;
@@ -24,13 +26,15 @@ function tabclick(a)
 		currentTab = href;
 	}
 	
-	tabUpdateVisibility();
+	tabUpdateVisibility(uses);
 	
 	return false;
 }
 
-function tabUpdateVisibility()
+function tabUpdateVisibility(uses)
 {
+	uses = uses || [];
+
 	var showEls = {
 		'fileselect': (currentTab == 'file' || currentTab == 'fileurl'),
 		'filetplselect': (currentTab == 'file'),
@@ -40,6 +44,10 @@ function tabUpdateVisibility()
 				'filesort' : (currentTab == 'list' ),
 		'catsort':  ( (currentTab == 'list' && jQuery('#list-show-cats:checked').val()) ),
 	};
+
+	for(var i = 0; i < uses.length; i++) {
+		showEls[uses[i]] = true;
+	}
 
 	for(var id in showEls) {
 		if(showEls[id]) jQuery('#'+id).show();
@@ -238,7 +246,7 @@ function insUploadFormTag()
 }
 
 function refreshTrees() {
-	var model = getTreeViewModel({type:"fileselect",onselect:"selectFile(%d,this)",exclude_attached:true, idp:'attachbrowser'});
+	var model = getTreeViewModel({type:"fileselect",onselect:"selectFile(%d,'%s','%s',this)",exclude_attached:true, idp:'attachbrowser'});
 	jQuery("#attachbrowser").empty().treeview(model).data("settings",model);
 	
 	if(!manageAttachments) {

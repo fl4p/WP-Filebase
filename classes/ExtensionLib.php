@@ -9,7 +9,7 @@ if(!class_exists('WPFB_ExtensionLib')) {
             $site = rawurlencode(base64_encode(get_option('siteurl')));
             $license_key = false;
             $url = "http" . ($use_ssl ? "s://ssl-account.com" : ":/") . "/interface.fabi.me/wpfilebase-pro/$act.php";
-            $get_args = array('pl_slug' => 'wp-filebase', 'pl_ver' => WPFB_VERSION, 'wp_ver' => $wp_version, 'key' => $license_key, 'site' => $site);
+            $get_args = array('pl_slug' => basename(WPFB_PLUGIN_ROOT), 'pl_ver' => WPFB_VERSION, 'wp_ver' => $wp_version, 'key' => $license_key, 'site' => $site);
 
             // try to get from cache
             $cache_key =  'wpfb_apireq_'.md5($act.'||'.serialize($get_args).'||'.serialize($post_data).'||'.__FILE__);
@@ -38,10 +38,15 @@ if(!class_exists('WPFB_ExtensionLib')) {
                 echo "<b>WP-Filebase API request error:</b>";
                 print_r($res);
 				!isset($post_data['nocache']) && set_transient($cache_key, 0, 60 * MINUTE_IN_SECONDS); // on failure retry every hour
+                WPFB_Core::LogMsg("API request error (act: $act): ".json_encode($res));
                 return false;
             }
 
             $res = empty($res['body']) ? false : json_decode($res['body']);
+
+            if(!$res && !is_array($res)) {
+                WPFB_Core::LogMsg("API request error (act: $act): empty/invalid response body!");
+            }
 
             if(!isset($post_data['nocache']))
                 set_transient($cache_key, $res, $license_key ? (10 * MINUTE_IN_SECONDS) : (6 * HOUR_IN_SECONDS));
@@ -74,7 +79,9 @@ if(!class_exists('WPFB_ExtensionLib')) {
 
         static function GetLatestVersionInfoExt() {
             $ext_vers = json_encode(self::GetExtensionsVersionNumbers());
+            WPFB_Core::LogMsg('Update channel query for '.json_encode($ext_vers).' ...', 'updater');
             $res = self::apiRequest('update-check-ext', array('extensions' => $ext_vers));
+            WPFB_Core::LogMsg('Update channel query result: '.json_encode($res), 'updater');
             return empty($res) ? array() : (array) $res;
         }
 

@@ -3,8 +3,10 @@ Contributors: fabifott
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=wpfilebase%40fabi%2eme&item_name=WP-Filebase&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: filebase, filemanager, file, files, manager, upload, download, downloads, downloadmanager, images, pdf, widget, filelist, list, thumbnails, thumbnail, attachment, attachments, category, categories, media, template, ftp, http, mp3, id3
 Requires at least: 3.1
-Tested up to: 4.5
-Stable tag: 3.4.5
+Tested up to: 4.8
+Stable tag: 0.3.4.24
+Demo link: http://demo.wpfilebase.com/
+
 
 Adds a powerful download manager including file categories, downloads counter, widgets, sorted file lists and more to your WordPress blog.
 
@@ -74,6 +76,13 @@ The usual way:
 
 If you get an error message saying that the upload directory is not writable create the directory `/wp-content/uploads/filebase` and make it writable (FTP command: `CHMOD 777 wp-content/uploads/filebase`) for the webserver.
 
+If you run nginx, add this to your config file to prevent direct file access:
+`
+location /wp-content/uploads/filebase {
+	deny all;
+	return 403;
+}
+`
 
 Read more in [WP-Filebase documentation](https://wpfilebase.com/documentation/setup/).
 
@@ -120,8 +129,104 @@ Goto WP-Filebase Settings and disable Permalinks under "Download". Try to disabl
 
 == Changelog ==
 
-= 3.4.5 =
-* Fixed download count when behin a proxy (e.g. Cloudflare)
+= 0.3.4.24 =
+* New dashboard
+* Fixed XSS vulnerability
+* Fixed a memory leak when generating thumbnails
+* Fixed inline upload permission issue
+* Fixed drag&drop issues
+
+= 3.4.23 =
+* Fixed inline upload permission issue
+* Fixed drag&drop issues
+* Fixed a memory leak when generating thumbnails
+* Fixed XSS vulnerability
+
+= 3.4.22 =
+* Rename field now visible when adding files
+* Search widget now has placeholder
+* %file_tags% now generates a list of tags with links
+* Disable file pages with constant `WPFILEBASE_DISABLE_FILE_PAGES`
+* Using Imagick for bmp thumbnails
+* Prevent reporting PHP strict warnings and notices
+* Fixed permissions issue for guests in `GetPermissionWhere`
+* Fixed multiple uploaders on single page
+* Fixed cloud sync caching bug
+* Fixed FacetWP support bug
+
+= 3.4.21 =
+* Renamed WP-Filebase dashboard menu entry to `Dashboard`
+* Developers: new filter `wpfilebase_ajax_public_actions`
+* Auto-delete category ZIP files from `.tmp` folder
+* Removed trailing `.0` in file size format for <1000 B
+* Fixed incompatibility with the Divi-Builder plugin
+
+= 3.4.19 =
+* Fixed file browser category and file movement (drag&drop)
+* Fixed upload widget permission issue
+* Now capturing fatal PHP errors in the logs
+
+= 3.4.18 =
+* Improved handling of remote URLs of cloud files
+* WP-Filebase Pro now auto-activates on domain name change (if License slots are available)
+
+= 3.4.17 =
+* New feature: change owner of file
+* New template variable `%file_url_no_preview%`
+* Fixed file browser delete button feedback (files no disappear after deletion)
+* Fixed missing thumbnails after sync when custom thumbnail path is set
+* Fixed CloudSync not scanning files with file preview enabled
+* Fixed embedded video template for cloud files with enabled file preview
+* Added cloud sync system tests
+
+= 3.4.15 =
+* Added support for Easy Digital Downloads integration
+
+= 3.4.14 =
+* Added column for deletion handling in Cloud Sync dashboard
+* Fixed a front-end upload issue setting the wrong category
+* Fixed FacetWP support
+
+= 3.4.13 =
+* Fixed FacetWP support: filter files without access permission
+
+= 3.4.11 =
+* Fixed cloud sync bug caused the file tree to be flattened
+* FacetWP support: filter files without access permission
+* Fixed file browser uploading to root category
+* Fixed authentication issue for thumbnails
+
+= 3.4.10 =
+* Filepages now adopt file tags (e.g. for tag clouds)
+* Fixed disable state detection for `exec`
+* Verbose RPC test
+* Automatic cloud Sync cache flush
+* Fixed admin dashboard columns layout
+* Removed deprecated reference to global `$user_ID`
+
+= 3.4.9 =
+* Prevent file rename for cloud-hosted files
+* Fixed cloud sync file URL retrieval
+* New template variables `%button_edit%`, `%button_delete%`
+
+= 3.4.8 =
+* New file batch action: delete thumbnails
+* Improved error handling when generating cloud links
+* Fixed WP post attachment images
+* Fixed thumbnail creation error handling, https://github.com/f4bsch/WP-Filebase/pull/42
+* Fixed cloud sync browser
+* Fixed editor plugin menu bar
+
+
+= 3.4.6 =
+* Added document indexing hook for extensions
+* Fixed error when editing categories
+* Fixed date display in backend file list
+* Fixed bug with small thumbnails
+* Fixed encoding issue for keywords
+* Fixed Cloud Sync browser for WebDav
+* Fixed download count when behind a proxy (e.g. Cloudflare)
+* Fixed broken thumbnails handling during rescan
 
 = 3.4.4 =
 * Fixed jQuery treeview compatibility issue

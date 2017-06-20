@@ -4,7 +4,7 @@
   Plugin Name: WP-Filebase
   Plugin URI:  https://wpfilebase.com/
   Description: Adds a powerful downloads manager supporting file categories, download counter, widgets, sorted file lists and more to your WordPress blog.
-  Version:     3.4.5
+  Version:     0.3.4.24
   Author:      Fabian Schlieper
   Author URI:  http://fabi.me/
   License:     GPL2
@@ -16,7 +16,8 @@
 
 if (!defined('WPFB')) {
     define('WPFB', 'wpfb');
-    define('WPFB_VERSION', '3.4.5');
+    define('WPFB_VERSION', '0.3.4.24');
+    
     define('WPFB_PLUGIN_ROOT', str_replace('\\', '/', dirname(__FILE__)) . '/');
     if (!defined('ABSPATH')) {
         define('ABSPATH', dirname(dirname(dirname(dirname(__FILE__)))));
@@ -31,6 +32,17 @@ if (!defined('WPFB')) {
     define('WPFB_OPT_NAME', 'wpfilebase');
     define('WPFB_PLUGIN_NAME', 'WP-Filebase');
     define('WPFB_TAG_VER', 2);
+
+
+    function wpfb_autoloadV2($class) {
+        static $ns = 'WPFB\\';
+        $len = strlen($ns);
+        if(strncmp($class, $ns, $len) === 0 ) {
+            require_once  WPFB_PLUGIN_ROOT."classes/".substr($class,$len).".php";
+        }
+    }
+
+    spl_autoload_register('wpfb_autoloadV2');
 
     function wpfb_loadclass($cl)
     {
@@ -65,6 +77,17 @@ if (!defined('WPFB')) {
 
     // calls static $fnc of class $cl with $params
     // $cl is loaded automatically if not existing
+
+    /**
+     * Calls a static method of class with given suffix (e.g. WPFB_{$cl}::$fnc($params)).
+     * Loads class if it does not exist.
+     *
+     * @param string $cl The class name (without WPFB_)
+     * @param string $fnc The method name
+     * @param null $params The arguments to pass
+     * @param bool $is_args_array
+     * @return mixed|null
+     */
     function wpfb_call($cl, $fnc, $params = null, $is_args_array = false)
     {
         $cln = 'WPFB_' . $cl;
@@ -72,6 +95,13 @@ if (!defined('WPFB')) {
         return (class_exists($cln) || wpfb_loadclass($cl)) ? ($is_args_array ? call_user_func_array($fnc, $params) : call_user_func($fnc, $params)) : null;
     }
 
+    /**
+     * Creates a callback with lazy class autoloading.
+     *
+     * @param $cl
+     * @param $fnc
+     * @return string
+     */
     function wpfb_callback($cl, $fnc)
     {
         return create_function('', '$p=func_get_args();return wpfb_call("' . $cl . '","' . $fnc . '",$p,true);');
@@ -102,6 +132,7 @@ if (!defined('WPFB')) {
         WPFB_Setup::OnDeactivate();
     }
 
+
     // FIX: setup the OB to truncate any other output when downloading
     if (!empty($_GET['wpfb_dl'])) {
         @define('NGG_DISABLE_RESOURCE_MANAGER', true); // NexGen Gallery
@@ -128,8 +159,11 @@ if (isset($_GET['wpfilebase_thumbnail'])) {
 if (function_exists('add_action')) {
     add_action('init', 'wpfilebase_init');
     add_action('widgets_init', 'wpfilebase_widgets_init');
-    add_action('admin_menu', array('WPFB_Core', 'AdminMenu'));
+    add_action('admin_menu', wpfb_callback('AdminLite', 'SetupMenu'));
+    add_action( 'network_admin_menu', wpfb_callback('AdminLite', 'NetworkMenu') );
     add_action('admin_init', array('WPFB_Core', 'AdminInit'), 10);
+    //add_action( 'wp_enqueue_scripts', array('WPFB_Core', 'LateScripts'), 999 );
+    
     register_activation_hook(__FILE__, 'wpfilebase_activate');
     register_deactivation_hook(__FILE__, 'wpfilebase_deactivate');
 }

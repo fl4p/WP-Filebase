@@ -9,9 +9,10 @@ class WPFB_Ajax {
             die('-1');
         }
 
-        $func = array(__CLASS__, $actions[$args['wpfb_action']]);
+        $func = is_array($actions[$args['wpfb_action']]) ? $actions[$args['wpfb_action']] : array(__CLASS__, $actions[$args['wpfb_action']]);
 
         if (!is_callable($func)) {
+            WPFB_Core::LogMsg("AJAX error: not callable ".json_encode($func));
             die('-1');
         }
 
@@ -62,10 +63,13 @@ class WPFB_Ajax {
             'upload' => 'upload',
 				'parse-filename' => 'parseFilename'
         );
+
+        $public_actions = apply_filters('wpfilebase_ajax_public_actions', $public_actions);
+
         self::dispatchAction($public_actions);
     }
 
-    private static function actionTree($args) {
+    private static function actionTree($args, $return=false) {
         wpfb_loadclass('File', 'Category', 'Output');
 
         // fixed exploit, thanks to Miroslav Stampar http://unconciousmind.blogspot.com/
@@ -82,7 +86,12 @@ class WPFB_Ajax {
 
         isset($args['cats_only']) && $args['cats_only'] === 'false' && $args['cats_only'] = false;
         isset($args['exclude_attached']) && $args['exclude_attached'] === 'false' && $args['exclude_attached'] = false;
-                wp_send_json(WPFB_Output::GetTreeItems($parent_id, $args));
+                $items = WPFB_Output::GetTreeItems($parent_id, $args);
+
+        if($return)
+            return $items;
+
+        wp_send_json($items);
     }
 
     /**
@@ -98,12 +107,28 @@ class WPFB_Ajax {
             $file_id = intval($args['file_id']);
             if ($file_id <= 0 || ($file = WPFB_File::GetFile($file_id)) == null || !$file->CurUserCanDelete())
                 die('-1');
-            $file->Remove();
-            die('1');
+
+            $data = (array(
+                'id' => $file->GetId(),
+                'url' => $file->GetUrl(),
+                'path' => $file->GetLocalPathRel()
+            ));
+
+            $data['deleted'] = $file->Remove();
+            wp_send_json($data);
+            
         } elseif (isset($args['cat_id'])) {
             $cat_id = intval($args['cat_id']);
             if ($cat_id <= 0 || ($cat = WPFB_Category::GetCat($cat_id)) == null || !$cat->CurUserCanEdit())
                 die('-1');
+
+
+            if(!empty($args['get_tree_items'])) {
+                $items = self::actionTree($args['get_tree_items'], true);
+                $cat->Delete();
+                wp_send_json(array('deleted' => 1, 'children' => $items));
+            }
+
             $cat->Delete();
             die('1');
         } else
@@ -133,7 +158,7 @@ class WPFB_Ajax {
             'file_name' => 'example.pdf',
             'file_display_name' => 'Example Document',
             'file_size' => 1024 * 1024 * 1.5,
-            'file_date' => gmdate('Y-m-d H:i:s', time()),
+            'file_date' => gmdate('Y-m-d H:i:s'),
             'file_hash' => md5(''),
             'file_thumbnail' => 'thumb.png',
             'file_description' => 'This is a sample description.',
@@ -216,18 +241,20 @@ class WPFB_Ajax {
     private static function actionChangeCategory($args) {
         wpfb_loadclass('File', 'Admin');
         $item = WPFB_Item::GetById($args['id'], $args['type']);
-        if ($item && $item->CurUserCanEdit()) {
+        $cat = WPFB_Category::GetCat($args['new_cat_id']);
+        if ($item && $item->CurUserCanEdit() && (!$cat || $cat->CurUserCanAddFiles())) {
             $res = $item->ChangeCategoryOrName($args['new_cat_id']);
             wp_send_json($res);
-        } else
-            die('-1');
+        } else {
+            wp_send_json(array('error' => __("Sorry, you are not allowed to do that.")));
+        }
     }
 
     private static function actionNewCat($args) {
         wpfb_loadclass('Category');
         $parent_cat = empty($args['cat_parent']) ? null : WPFB_Category::GetCat($args['cat_parent']);
-        if (!WPFB_Core::CurUserCanCreateCat() && !$parent_cat && !$parent_cat->CurUserCanAddFiles())
-            die('-1');
+        if (!WPFB_Core::CurUserCanCreateCat() || ($parent_cat && !$parent_cat->CurUserCanAddFiles()))
+            wp_send_json(array('error' => __("Sorry, you are not allowed to do that.")));
         wpfb_loadclass('Admin');
         $result = WPFB_Admin::InsertCategory($args);
         if (isset($result['error']) && $result['error']) {

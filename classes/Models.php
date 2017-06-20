@@ -32,6 +32,7 @@ static function TplVarsDesc($for_cat=false)
 	
 	'file_url'				=> __('Download URL','wp-filebase'),
 	'file_url_encoded'		=> __('Download URL encoded for use in query strings','wp-filebase'),
+	'file_url_no_preview'	=> __('Download link that always points to the actual file','wp-filebase'),
 	
 	'file_icon_url'			=> __('URL of the thumbnail or icon','wp-filebase'),
         'file_small_icon'              => __('A small icon (HTML element)','wp-filebase'),
@@ -86,39 +87,73 @@ static function TplVarsDesc($for_cat=false)
 	'post_id'				=> __('ID of the current post or page','wp-filebase'),
 	'wpfb_url'				=> sprintf(__('Plugin root URL (%s)','wp-filebase'), WPFB_PLUGIN_URI),
 	'is_mobile'             => __('1 if access from mobile device, otherwise 0','wp-filebase'),
+
+		'button_edit' => __('Edit button, only visible for users with permission.'),
+		'button_delete' => __('Delete button, only visible for users with permission.'),
 	), WPFB_Core::GetCustomFields(true));
 }
 
-static function FileSortFields()
-{
-	return array_merge(array(
-	'file_display_name'		=> __('Title','wp-filebase'),
-	'file_name'				=> __('Name of the file','wp-filebase'),
-	'file_version'			=> __('File version','wp-filebase'),
-	
-	'file_hits'				=> __('How many times this file has been downloaded.','wp-filebase'),
-	'file_size'				=> __('Formatted file size','wp-filebase'),
-	'file_date'				=> __('Formatted file date','wp-filebase'),
-	'file_last_dl_time'		=> __('Time of the last download','wp-filebase'),
-	
-	'file_path'				=> __('Relative path of the file'),
-	'file_id'				=> __('File ID'),
-	
-	'file_category_name'	=> __('Category Name','wp-filebase'),
-	'file_category'			=> __('Category ID','wp-filebase'),
-	
-	'file_description'		=> __('Short description','wp-filebase'),	
-	'file_author'			=> __('Author','wp-filebase'),
-	'file_license'			=> __('License','wp-filebase'),
-	
-	'file_post_id'			=> __('ID of the post/page this file belongs to','wp-filebase'),
-	'file_added_by'			=> __('User Name of the owner','wp-filebase'),
-	
-	//'file_offline'			=> __('Offline &gt; Online','wp-filebase'),
-	//'file_direct_linking'	=> __('Direct linking &gt; redirect to post','wp-filebase'),
-	
-	), WPFB_Core::GetCustomFields(true));
-}
+	static function FileSortFields()
+	{
+		return array_merge(array(
+			'file_display_name'		=> __('Title','wp-filebase'),
+			'file_name'				=> __('Name of the file','wp-filebase'),
+			'file_version'			=> __('File version','wp-filebase'),
+
+			'file_hits'				=> __('How many times this file has been downloaded.','wp-filebase'),
+			'file_size'				=> __('Formatted file size','wp-filebase'),
+			'file_date'				=> __('Formatted file date','wp-filebase'),
+			'file_last_dl_time'		=> __('Time of the last download','wp-filebase'),
+
+			'file_path'				=> __('Relative path of the file'),
+			'file_id'				=> __('File ID'),
+
+			'file_category_name'	=> __('Category Name','wp-filebase'),
+			'file_category'			=> __('Category ID','wp-filebase'),
+
+			'file_description'		=> __('Short description','wp-filebase'),
+			'file_author'			=> __('Author','wp-filebase'),
+			'file_license'			=> __('License','wp-filebase'),
+
+			'file_post_id'			=> __('ID of the post/page this file belongs to','wp-filebase'),
+			'file_added_by'			=> __('User Name of the owner','wp-filebase'),
+
+			//'file_offline'			=> __('Offline &gt; Online','wp-filebase'),
+			//'file_direct_linking'	=> __('Direct linking &gt; redirect to post','wp-filebase'),
+
+		), WPFB_Core::GetCustomFields(true));
+	}
+
+	static function FileListColumns()
+	{
+		return array_merge(array(
+			'file_display_name'		=> __('Name'),
+			'file_name'				=> __('Filename','wp-filebase'),
+			'file_version'			=> __('Version','wp-filebase'),
+
+			'file_hits'				=> __('Hits','wp-filebase'),
+			'file_size'				=> __('Size'/*def*/),
+			'file_date'				=> __('Date'/*def*/),
+			'file_last_dl_time'		=> __('Last download','wp-filebase'),
+
+			'file_path'				=> __('Path','wp-filebase'),
+			'file_id'				=> __('ID'),
+
+			'file_category_name'	=> __('Category Name','wp-filebase'),
+
+			'file_description'		=> __('Description'/*def*/),
+			'file_author'			=> __('Author','wp-filebase'),
+			'file_license'			=> __('License','wp-filebase'),
+
+			'file_added_by'			=> __('Owner','wp-filebase'),
+
+			'file_thumbnail'		=> __('Icon')
+
+			//'file_offline'			=> __('Offline &gt; Online','wp-filebase'),
+			//'file_direct_linking'	=> __('Direct linking &gt; redirect to post','wp-filebase'),
+
+		), WPFB_Core::GetCustomFields(true));
+	}
 
 static function CatSortFields()
 {

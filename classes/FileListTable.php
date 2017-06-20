@@ -16,6 +16,12 @@ class WPFB_FileListTable extends WP_List_Table {
 		));
 	}
 
+	protected function handle_row_actions( $item, $column_name, $primary ) {
+		if($column_name == 'date')
+			do_action("wpfilebase_admin_file_list_table_column_{$column_name}", $item);
+		parent::handle_row_actions( $item, $column_name, $primary);
+	}
+
 	function get_columns() {
 		$columns = array(
 			 'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
@@ -71,7 +77,7 @@ class WPFB_FileListTable extends WP_List_Table {
 
 		$actions = array(
 			 'edit' => '<a href="' . $edit_url . '">' . __('Edit') . '</a>',
-			 'delete' => '<a class="submitdelete" href="' . add_query_arg(array('action' => 'delete', 'file[]' => $file->GetId())) . '" onclick="return confirm(\'' . __("Are you sure you want to do this?") . '\')">' . __('Delete') . '</a>',
+			 'delete' => '<a class="submitdelete" href="' . $file->GetDeleteUrl() . '" onclick="return confirm(\'' . __("Are you sure you want to do this?") . '\')">' . __('Delete') . '</a>',
 			 'download' => '<a href="' . esc_attr($file->GetUrl(false, false)) . '">' . __('Download') . '</a>',
 				  // TODO duplicate
 		);
@@ -129,13 +135,13 @@ class WPFB_FileListTable extends WP_List_Table {
 		
 		/* from class-wp-posts-list-table.php */
 		$m_time =  mysql2date('U', $file->file_date);
-		$time =  mysql2date('U', $file->file_date) - $gmt_offset; // gmt time
+		$time =  $m_time - $gmt_offset; // gmt time
 		$time_diff = time() - $time;
 		
 		if ($time_diff > 0 && $time_diff < (DAY_IN_SECONDS*2)) {
 			$h_time = sprintf(__('%s ago'), human_time_diff($time));
 		} else {
-			$h_time = mysql2date(__('Y/m/d'), $m_time);
+			$h_time = date_i18n(__('Y/m/d'), $m_time);
 		}
 		return $h_time;
 	}
@@ -157,6 +163,7 @@ class WPFB_FileListTable extends WP_List_Table {
 			 //'change_cat' => 'Change Category',
 			 'set_off' => 'Set Offline',
 			 'set_on' => 'Set Online',
+			 'del_thumb' => 'Delete Thumbnail', //TODO
 		);
 		return $actions;
 	}
@@ -225,6 +232,16 @@ class WPFB_FileListTable extends WP_List_Table {
 				}
 				$message = sprintf(__('%d File(s) were set online.', 'wp-filebase'), count($files));
 
+				break;
+
+			case 'del_thumb':
+				$n_del = 0;
+				foreach ($files as $file) {
+					if($file->file_thumbnail) $n_del++;
+					$file->DeleteThumbnail();
+					$file->DbSave();
+				}
+				$message = sprintf(__('Deleted %d thumbnails.', 'wp-filebase'), $n_del);
 				break;
 		}
 

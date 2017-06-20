@@ -53,7 +53,7 @@ class WPFB_Output
         echo "\n//]]>\n</script>\n";
     }
 
-    static function ProcessShortCode($args)
+    static function ProcessShortCode($args, $content = null, $tag = null)
     {
         $id = empty($args ['id']) ? -1 : intval($args ['id']);
         if ($id <= 0 && !empty($args['path'])) { // path indentification
@@ -128,7 +128,7 @@ class WPFB_Output
     }
 
     /**
-     * @param  WPFB_File[]    $files
+     * @param  WPFB_File[] $files
      * @param string $tpl_tag
      *
      * @return string
@@ -233,7 +233,7 @@ class WPFB_Output
 
             if (WPFB_Core::CurUserCanCreateCat() || WPFB_Core::CurUserCanUpload()) {
                 wpfb_loadclass('TreeviewAdmin');
-                $content .= WPFB_TreeviewAdmin::ReturnHTML($el_id, is_admin() || get_user_option('wpfb_set_fbdd'), is_admin() ? 'filebrowser_admin' : 'filebrowser');
+                $content .= WPFB_TreeviewAdmin::ReturnHTML($el_id, is_admin() || WPFB_Core::$settings->frontend_upload || get_user_option('wpfb_set_fbdd'), is_admin() ? 'filebrowser_admin' : 'filebrowser');
             }
         }
     }
@@ -293,8 +293,9 @@ class WPFB_Output
 
         $files_before_cats = $browser && WPFB_Core::$settings->file_browser_fbc;
 
-        $inline_add_cat = (is_admin() || WPFB_Core::$settings->file_browser_inline_add) && /* ($cat && $cat->CurUserCanAddFiles()) || */
-            WPFB_Core::CurUserCanCreateCat() && (!isset($args['inline_add']) || $args['inline_add']);
+        $inline_add = (is_admin() || WPFB_Core::$settings->file_browser_inline_add) && (!isset($args['inline_add']) || $args['inline_add']);
+        $inline_add_cat = $inline_add && WPFB_Core::CurUserCanCreateCat();
+        $inline_add_file = $inline_add && WPFB_Core::CurUserCanUpload();
 
         $where = " cat_parent = $parent_id ";
         if ($browser && !$is_admin)
@@ -310,20 +311,27 @@ class WPFB_Output
                 $cat_items[$i++] = (object)array(
                     'id' => $idp_cat . $c->cat_id, 'cat_id' => $c->cat_id,
                     'text' => self::fileBrowserCatItemText($catsel, $filesel, $c, $args['onselect'], $cat_tpl),
-                    'hasChildren' => (($inline_add_cat && $c->CurUserCanAddFiles()) || $c->HasChildren($catsel)),
+                    'hasChildren' => ($inline_add_cat || $inline_add_file || $c->HasChildren($catsel) || $c->CurUserCanAddFiles()),
                     'type' => 'cat',
                     'classes' => $folder_class                 );
         }
 
-        if ($inline_add_cat && ($parent_id <= 0 || $cat->CurUserCanAddFiles())) {
+        if ($inline_add && ($parent_id <= 0 || $cat->CurUserCanAddFiles())) {
             $is = WPFB_Core::$settings->small_icon_size > 0 ? WPFB_Core::$settings->small_icon_size : 32;
             $cat_items[$i++] = (object)array('id' => $idp_cat . '0', 'cat_id' => 0,
-                'text' => '<form action="" style="display:none;"><input type="text" placeholder="' . __('Category Name', 'wp-filebase') . '" name="cat_name" /></form> '
-                    . '<a href="#" style="text-decoration:none;" onclick=\'return wpfb_newCatInput(this,' . $parent_id . ');\'><span style="'
-                    . ($browser ? ('font-size:' . $is . 'px;width:' . $is . 'px') : 'font-size:200%') . ';line-height:0;vertical-align:sub;display:inline-block;text-align:center;">+</span>' . __('Add Category', 'wp-filebase') . '</a>'
-                    . '<span style="font-size: 200%;vertical-align: sub;line-height: 0;font-weight: lighter;"> / </span>'
-                    . '<a href="#" style="text-decoration:none;" class="add-file"><span style="'
-                    . ($browser ? ('font-size:' . $is . 'px;width:' . $is . 'px') : 'font-size:200%') . ';line-height:0;vertical-align:sub;display:inline-block;text-align:center;">+</span>' . __('Add File', 'wp-filebase') . '</a>',
+                'text' => (
+                    $inline_add_cat
+                        ? (
+                        '<form action="" style="display:none;">'
+                        . '<input type="text" placeholder="' . __('Category Name', 'wp-filebase') . '" name="cat_name" /></form> '
+                        . '<a href="#" style="text-decoration:none;" onclick=\'return wpfb_newCatInput(this,' . $parent_id . ');\'><span style="'
+                        . ($browser ? ('font-size:' . $is . 'px;width:' . $is . 'px') : 'font-size:200%') . ';line-height:0;vertical-align:sub;display:inline-block;text-align:center;">+</span>' . __('Add Category', 'wp-filebase') . '</a>'
+                    )
+                        : '')
+                    . (($inline_add_file && $inline_add_cat) ? '<span style="font-size: 200%;vertical-align: sub;line-height: 0;font-weight: lighter;"> / </span>'
+                        : '')
+                    . ($inline_add_file ? ('<a href="#" style="text-decoration:none;" class="add-file"><span style="'
+                        . ($browser ? ('font-size:' . $is . 'px;width:' . $is . 'px') : 'font-size:200%') . ';line-height:0;vertical-align:sub;display:inline-block;text-align:center;">+</span>' . __('Add File', 'wp-filebase') . '</a>') : ''),
                 'hasChildren' => false,
                 'classes' => 'add-item'
             );
@@ -344,15 +352,16 @@ class WPFB_Output
                 $where .= " AND `file_post_id` = 0";
 
 
+            //	$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::$settings->hide_inaccessible, $sql_file_order);
             //$files =  WPFB_File::GetFiles2(WPFB_File::GetSqlCatWhereStr($root_id),  WPFB_Core::$settings->hide_inaccessible, $sql_file_order);
 
-            $check_permissions =  (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload')) && !($is_admin && current_user_can('manage_options')))  ;
-            $files = WPFB_File::GetFiles2( $where, $check_permissions, $sql_sort_files );
+            $check_permissions =                     (WPFB_Core::$settings->hide_inaccessible && !($filesel && wpfb_call('Core', 'CurUserCanUpload')) && !($is_admin && current_user_can('manage_options')))              ;
+            $files = WPFB_File::GetFiles2($where, $check_permissions, $sql_sort_files);
 
             foreach ($files as $f)
                 $file_items[$i++] = (object)array(
                     'id' => $idp_file . $f->file_id, 'file_id' => $f->file_id,
-                    'text' => $filesel ? ('<a href="javascript:;" onclick="' . sprintf($args['onselect'], $f->file_id) . '">' . $f->get_tpl_var('file_small_icon') . ' ' . esc_html($f->GetTitle(24)) . '</a> <span style="font-size:75%;vertical-align:top;">' . esc_html($f->file_name) . '</span>') : $f->GenTpl2($file_tpl, false),
+                    'text' => $filesel ? ('<a href="javascript:;" onclick="' . sprintf($args['onselect'], $f->file_id, esc_js($f->file_path), esc_js($f->file_display_name)) . '">' . $f->get_tpl_var('file_small_icon') . ' ' . esc_html($f->GetTitle(24)) . '</a> <span style="font-size:75%;vertical-align:top;">' . esc_html($f->file_name) . '</span>') : $f->GenTpl2($file_tpl, false),
                     'classes' => $filesel ? 'file' : null,
                     'type' => 'file',
                     'hasChildren' => false
@@ -418,12 +427,17 @@ class WPFB_Output
         static $wpfb_dec_size_format;
         if (!isset($wpfb_dec_size_format))
             $wpfb_dec_size_format = WPFB_Core::$settings->decimal_size_format;
+
+        if ($file_size < 1000) {
+            return $file_size . ' B';
+        }
+        $dp = 1;
+
         if ($wpfb_dec_size_format) {
-            if ($file_size < 1000) {
-                $unit = 'B';
-            } elseif ($file_size < 1000000) {
+            if ($file_size < 1000000) {
                 $file_size /= 1000;
                 $unit = 'KB';
+                $dp = 0;
             } elseif ($file_size < 1000000000) {
                 $file_size /= 1000000;
                 $unit = 'MB';
@@ -432,11 +446,10 @@ class WPFB_Output
                 $unit = 'GB';
             }
         } else {
-            if ($file_size < 1000) {
-                $unit = 'B';
-            } elseif ($file_size < 1000000) {
+            if ($file_size < 1000000) {
                 $file_size /= 1024;
                 $unit = 'KiB';
+                $dp = 0;
             } elseif ($file_size < 1000000000) {
                 $file_size /= 1048576;
                 $unit = 'MiB';
@@ -446,7 +459,10 @@ class WPFB_Output
             }
         }
 
-        return sprintf('%01.1f %s', $file_size, $unit);
+        if($file_size > 100)
+            $dp = 0;
+
+        return sprintf("%01.{$dp}f %s", $file_size, $unit);
     }
 
     static function Filename2Title($ft, $remove_ext = true)
@@ -496,13 +512,13 @@ class WPFB_Output
                 $out .= '<option value="+0" class="add-cat">+ ' . __('Add Category', 'wp-filebase') . '</option>';
         } else {
             $cat = WPFB_Category::GetCat($root_cat_id);
-
+            $can_add = $cat->CurUserCanAddFiles();
 
             $out .= '<option value="' . $root_cat_id . '"'
                 . (($root_cat_id == $s_sel) ? ' selected="selected"' : '')
                                 . '>' . str_repeat('&nbsp;&nbsp; ', $depth) . esc_html($cat->cat_name) . ($s_count ? ' (' . $cat->cat_num_files . ')' : '') . '</option>';
 
-            if ($s_add_cats)
+            if ($s_add_cats && $can_add)
                 $out .= '<option value="+' . $root_cat_id . '" class="add-cat">' . str_repeat('&nbsp;&nbsp; ', $depth + 1) . '+ ' . __('Add Category', 'wp-filebase') . '</option>';
 
             if (isset($cat->cat_childs)) {
@@ -541,7 +557,7 @@ class WPFB_Output
         ?>
         <script type="text/javascript">
             //<![CDATA[
-            function wpfb_initfb<?php echo $jss ?>() {
+            function <?php echo "wpfb_initfb$jss" ?>() {
                 jQuery("#<?php echo $id ?>").treeview(wpfb_fbsets<?php echo $jss ?> = {
                     url: "<?php echo WPFB_Core::$ajax_url_public ?>",
                     ajax: {
@@ -770,6 +786,9 @@ class WPFB_Output
             return "<!-- NO FORM ACTION MATCH -->";
         }
         $form = str_replace(array('name="s"', "name='s'"), array('name="wpfb_s"', "name='wpfb_s'"), $form);
+
+        if (isset($hidden_vars['placeholder']))
+            $form = preg_replace('/placeholder=["\'].+?["\']/', 'placeholder="' . esc_attr($hidden_vars['placeholder']) . '"', $form);
 
         $form = preg_replace('/<input[^>]+?name="post_type"[^>]*?' . '>/', '', $form); // rm any post_type
 

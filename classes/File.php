@@ -71,12 +71,12 @@ class WPFB_File extends WPFB_Item
 
         if (!empty($results)) {
             foreach (array_keys($results) as $i) {
-                $id               = 0+$results[$i]['file_id'];
+                $id = 0 + $results[$i]['file_id'];
                 self::$cache[$id] = new WPFB_File($results[$i]);
-                $files[$id]       = self::$cache[$id];
+                $files[$id] = self::$cache[$id];
             }
 
-            if(count($results) > 500) {
+            if (count($results) > 500) {
                 unset($results);
                 $wpdb->flush();
             }
@@ -174,7 +174,8 @@ class WPFB_File extends WPFB_Item
     {
         global $wpdb;
         $files = array();
-        $results = $wpdb->get_results("SELECT `$wpdb->wpfilebase_files`.* FROM " . self::genSelectSql($where, $check_permissions, $order, $limit, $offset));
+        $sql = "SELECT `$wpdb->wpfilebase_files`.* FROM " . self::genSelectSql($where, $check_permissions, $order, $limit, $offset);
+        $results = $wpdb->get_results($sql);
         if (!empty($results)) {
             foreach (array_keys($results) as $i) {
                 $id = (int)$results[$i]->file_id;
@@ -182,7 +183,9 @@ class WPFB_File extends WPFB_Item
                 $files[$id] = self::$cache[$id];
             }
         } elseif (!empty($wpdb->last_error) && current_user_can('upload_files')) {
+            WPFB_Core::LogMsg("GetFiles2 error: " . $wpdb->last_error);
             echo "<b>Database error</b>: " . $wpdb->last_error; // print debug only if usr can upload
+            echo " for query <code>$sql</code>";
         }
 
         unset($results); //
@@ -219,7 +222,7 @@ class WPFB_File extends WPFB_Item
         return $nn;
     }
 
-    static function GetNumFiles2($where='', $check_permissions = true)
+    static function GetNumFiles2($where = '', $check_permissions = true)
     {
         global $wpdb;
         $n = $wpdb->get_var("SELECT COUNT(`{$wpdb->wpfilebase_files}`.`file_id`) FROM " . self::genSelectSql($where, $check_permissions));
@@ -234,8 +237,8 @@ class WPFB_File extends WPFB_Item
 
     /**
      *
-     * @global type $wpdb
-     * @param type $post_id
+     * @global wpdb $wpdb
+     * @param int $post_id
      * @return WPFB_File
      */
     static function GetByPost($post_id)
@@ -251,7 +254,7 @@ class WPFB_File extends WPFB_Item
         $this->is_file = true;
     }
 
-    function DBSave($throw_on_error=false)
+    function DBSave($throw_on_error = false)
     { // validate some values before saving (fixes for mysql strict mode)
         if ($this->locked > 0)
             return $this->TriggerLockedError($throw_on_error);
@@ -262,8 +265,9 @@ class WPFB_File extends WPFB_Item
         $this->file_direct_linking = (int)$this->file_direct_linking;
         $this->file_force_download = (int)!empty($this->file_force_download);
         if (empty($this->file_last_dl_time))
-            $this->file_last_dl_time = '0000-00-00 00:00:00';
+            $this->file_last_dl_time = '1000-01-01 00:00:00';
         $this->file_size = 0 + $this->file_size;
+        
         $r = parent::DBSave($throw_on_error);
         return $r;
     }
@@ -329,6 +333,7 @@ class WPFB_File extends WPFB_Item
 
         $success = (!empty($thumb) && !is_wp_error($thumb) && is_string($thumb) && file_exists($thumb));
 
+
         if (!$src_set && !$success) {
             $this->file_thumbnail = null;
         } else {
@@ -336,10 +341,12 @@ class WPFB_File extends WPFB_Item
             if ($src_set && !$success)
                 $thumb = $src_image;
 
+
             $this->file_thumbnail = basename(trim($thumb, '.')); // FIX: need to trim . when image has no extension
 
             if (!is_dir(dirname($this->GetThumbPath())))
                 WPFB_Admin::Mkdir(dirname($this->GetThumbPath()));
+
             if (!@rename($thumb, $this->GetThumbPath())) {
                 $this->file_thumbnail = null;
                 @unlink($thumb);
@@ -425,6 +432,22 @@ class WPFB_File extends WPFB_Item
         return $dont_delete || $this->Delete();
     }
 
+    public function getKeywords()
+    {
+        global $wpdb;
+
+        wpfb_loadclass('Misc');
+
+        // generate keywords from file object
+        $file_keywords = array();
+        WPFB_Misc::GetKeywords(array_filter((array)$this, 'is_string'), $file_keywords);
+        $keywords = implode(' ', $file_keywords);
+
+        $keywords .= " " . $wpdb->get_var("SELECT keywords FROM $wpdb->wpfilebase_files_id3 WHERE file_id = $this->file_id");
+
+        return $keywords;
+    }
+
     private function getInfoValue($path)
     {
         if (!isset($this->info)) { // caching
@@ -476,7 +499,10 @@ class WPFB_File extends WPFB_Item
                 return htmlspecialchars($this->GetLocalPathRel());
 
             case 'file_category':
-                return htmlspecialchars(is_object($cat = $this->GetParent()) ? $cat->cat_name : '');
+                $cat = $this->GetParent();
+                if (!$cat) return '';
+                $term_link = '';
+                return (is_wp_error($term_link) || !$term_link) ? $cat->cat_name : ('<a href="' . esc_attr($term_link) . '">' . $cat->cat_name . '</a>');
             case 'cat_small_icon':
                 return is_null($cat = $this->GetParent()) ? '' : ('<img src="' . htmlspecialchars($cat->GetIconUrl('small')) . '" alt="' . esc_attr(sprintf(__('Icon of %s', 'wp-filebase'), $cat->cat_name)) . '" style="width:auto;height:' . WPFB_Core::$settings->small_icon_size . 'px;vertical-align:middle;" />');
             case 'cat_icon_url':
@@ -527,11 +553,26 @@ class WPFB_File extends WPFB_Item
             case 'file_edit_url':
                 return $this->GetEditUrl();
 
+            case 'file_delete_url':
+                return $this->GetDeleteUrl();
+
             case 'uid':
                 return self::$tpl_uid;
 
-            case 'is_mobile': return wp_is_mobile();
+            case 'is_mobile':
+                return wp_is_mobile();
 
+            case 'button_edit':
+                if (!$this->CurUserCanEdit())
+                    return '';
+                wpfb_loadclass('Admin');
+                return '<a href="' . esc_attr($this->GetEditUrl()) . '" title="Edit this file" style="vertical-align:middle;display:inline-block;text-decoration:none;box-shadow:none;border:none;padding: 2px;  margin: -2px;">' . WPFB_Admin::Icon('mode-edit', '20', 'currentColor') . '</a>';
+
+            case 'button_delete':
+                if (!$this->CurUserCanDelete())
+                    return '';
+                wpfb_loadclass('Admin');
+                return '<a href="' . esc_attr($this->GetDeleteUrl()) . '" title="Delete this file" style="vertical-align:middle;display: inline-block; text-decoration: none; box-shadow:none; border: none; padding: 2px;   margin: -2px;" onclick="return confirm(\'' . __("Are you sure you want to do this?") . '\') && !wpfb_fileDelete(' . $this->GetId() . ') && false;">' . WPFB_Admin::Icon('delete', '20', 'currentColor') . '</a>';
         }
 
         if (strpos($name, 'file_info/') === 0) {
@@ -579,13 +620,14 @@ class WPFB_File extends WPFB_Item
     // checks permissions, tracks download and sends the file
     function Download()
     {
-        global $wpdb, $current_user, $user_ID;
+        global $wpdb;
+
 
         @error_reporting(0);
         wpfb_loadclass('Category', 'Download');
         $downloader_ip = WPFB_Download::GetClientIp();
-        wp_get_current_user();
-        $logged_in = (!empty($user_ID));
+        $current_user = wp_get_current_user();
+        $logged_in = is_user_logged_in();
         $user_role = $logged_in ? reset($current_user->roles) : null; // get user's highest role (like in user-eidt.php)
         $is_admin = current_user_can('manage_options');
 
@@ -632,18 +674,17 @@ class WPFB_File extends WPFB_Item
                 $this->DownloadDenied(sprintf(WPFB_Core::$settings->daily_limit_exceeded_msg, $dl_limit));
 
             $usr_dls_today++;
-            update_user_option($user_ID, WPFB_OPT_NAME . '_dls_today', $usr_dls_today);
-            update_user_option($user_ID, WPFB_OPT_NAME . '_last_dl', time());
+            update_user_option(get_current_user_id(), WPFB_OPT_NAME . '_dls_today', $usr_dls_today);
+            update_user_option(get_current_user_id(), WPFB_OPT_NAME . '_last_dl', time());
         }
 
         $head_only = ($_SERVER["REQUEST_METHOD"] == "HEAD");
         list($begin, $end) = WPFB_Download::ParseRangeHeader($this->file_size);
 
         // count download (only downloads starting at first byte)
-        if ( $begin == 0 && !$head_only &&  (!$is_admin || !WPFB_Core::$settings->ignore_admin_dls) ) {
+        if ($begin == 0 && !$head_only && (!$is_admin || !WPFB_Core::$settings->ignore_admin_dls)) {
             $last_dl_time = mysql2date('U', $this->file_last_dl_time, false);
-            if (empty($this->file_last_dl_ip) || $this->file_last_dl_ip != $downloader_ip || ((time() - $last_dl_time) > 86400))
-            {
+            if (empty($this->file_last_dl_ip) || $this->file_last_dl_ip != $downloader_ip || ((time() - $last_dl_time) > 86400)) {
                 $this->file_hits++;
                 $this->file_last_dl_ip = $downloader_ip;
                 $this->file_last_dl_time = current_time('mysql');
@@ -652,14 +693,22 @@ class WPFB_File extends WPFB_Item
                     . " SET file_hits = file_hits + 1, file_last_dl_ip = '"
                     . $downloader_ip . "', file_last_dl_time = '"
                     . $this->file_last_dl_time . "' WHERE file_id = "
-                    . (0+$this->file_id));
+                    . (0 + $this->file_id));
             }
         }
 
         // external hooks
-        do_action('wpfilebase_file_downloaded', $this->file_id);
+        do_action('wpfilebase_file_downloaded', $this->file_id, $begin == 0 && !$head_only);
 
-        $url = $this->GetRemoteUri(true);
+        $no_preview = !empty($_GET['no_preview']);
+
+        try {
+            $url = $this->GetRemoteUri($no_preview ? false : 'default');
+        } catch (Exception $e) {
+            WPFB_Core::LogMsg("Error serving download of $this: " . $e->getMessage());
+            wp_die($e->getMessage());
+        }
+
         $is_local_remote = !empty($url) && parse_url($url, PHP_URL_SCHEME) === 'file' && is_readable($url);
 
         // download or redirect		
@@ -679,12 +728,18 @@ class WPFB_File extends WPFB_Item
             header('Cache-Control: no-store, no-cache, must-revalidate');
             header('Expires: Thu, 01 Jan 1970 00:00:00 GMT');
             header('Location: ' . $url);
+            do_action('wpfilebase_download_headers', $url);
         }
 
         exit;
     }
 
-    function GetRemoteUri($die_on_error=false)
+    /**
+     * @param bool|string $to_preview true|false|'default' (Uses cloudsync settings)
+     * @return mixed
+     * @throws RemoteSyncException
+     */
+    function GetRemoteUri($to_preview = 'default')
     {
         return $this->file_remote_uri;
     }
@@ -733,9 +788,10 @@ class WPFB_File extends WPFB_Item
         return explode(',', trim($this->file_tags, ','));
     }
 
-    function SetRescanPending($force_thumb=false) {
-        $this->file_rescan_pending = max($this->file_rescan_pending, $force_thumb ? 2:1);
-        if(!$this->locked)
+    function SetRescanPending($force_thumb = false)
+    {
+        $this->file_rescan_pending = max($this->file_rescan_pending, $force_thumb ? 2 : 1);
+        if (!$this->locked)
             $this->DBSave();
     }
 
@@ -756,16 +812,30 @@ class WPFB_File extends WPFB_Item
     }
 
 
+
+
     // TODO move to RemoteSync
-    function SetRemoteSyncMeta($rev, $rsync_id, $uri_expires, $guid = '')
+    /**
+     * @param $rfi WPFB_RemoteFileInfo
+     * @param $rsync WPFB_RemoteSync
+     * @param $file WPFB_File
+     * @return bool|false|int
+     * @throws RemoteSyncException
+     */
+    function SetRemoteSyncMeta($rfi, $rsync)
+    {
+        return false;
+    }
+
+    function SetRemoteSyncUrl($url, $expires = 0, $preview_url = '')
     {
         return false;
     }
 
     /**
      *
-     * @global type $wpdb
-     * @return WPFB_RemoteFileInfo
+     * @global wpdb $wpdb
+     * @return WPFB_RemoteSyncMeta
      */
     function GetRemoteSyncMeta()
     {
@@ -789,4 +859,10 @@ class WPFB_File extends WPFB_Item
     {
         return empty($this->file_remote_uri);
     }
+
+    function IsCloudHosted()
+    {
+        return !!$this->GetRemoteSyncMeta();
+    }
+
 }

@@ -10,7 +10,7 @@ static function MakeCssUrlsAbsolute($css)
 
 static function Display()
 {
-	global $wpdb, $user_ID;
+	global $wpdb;
 	
 	wpfb_loadclass('Admin', 'Output');
 	

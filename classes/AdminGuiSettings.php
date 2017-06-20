@@ -219,7 +219,7 @@ class WPFB_AdminGuiSettings {
 					$misc_tags[] = 'admin_bar';
 
 				$limits = array('bitrate_unregistered', 'bitrate_registered', 'traffic_day', 'traffic_month', 'traffic_exceeded_msg', 'file_offline_msg', 'daily_user_limits', 'daily_limit_subscriber', 'daily_limit_contributor', 'daily_limit_author', 'daily_limit_editor', 'daily_limit_exceeded_msg');
-
+			$no_filepages = defined('WPFILEBASE_DISABLE_FILE_PAGES') && WPFILEBASE_DISABLE_FILE_PAGES;
 
 				$option_categories = array(
 					 __('Common', 'wp-filebase') => array('upload_path', 'search_integration' /* 'cat_drop_down' */),
@@ -236,6 +236,9 @@ class WPFB_AdminGuiSettings {
 					 __('Sync', 'wp-filebase') => array('cron_sync', 'base_auto_thumb', 'remove_missing_files', 'fake_md5' ),
 					 __('Misc') => $misc_tags,
 				);
+				
+				/* WPFB API*/
+				$option_categories = apply_filters('wpfilebase_settings_categories', array_filter($option_categories));
 				?>
 				<div id="wpfb-tabs">
 					<ul class="wpfb-tab-menu">
@@ -277,6 +280,13 @@ class WPFB_AdminGuiSettings {
 										if (isset($field_data['size']))
 											echo ' size="' . (int) $field_data['size'] . '"';
 									}
+									
+									if(!empty($field_data['placeholder']))
+										echo ' placeholder="'.$field_data['placeholder'].'"';
+
+									if($field_data['disabled'])
+										echo ' disabled="disabled" ';
+										
 									echo $style_class . ' />';
 									break;
 

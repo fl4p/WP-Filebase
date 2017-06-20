@@ -19,7 +19,13 @@ static function Parse($tpl)
 	
 	// remove slash after wpfb_url
 	$tpl = str_replace("%wpfb_url%/", "%wpfb_url%", $tpl);
-	
+
+	// avoid preview links for resources
+	$res_tags = array('source', 'img', 'video');
+	foreach($res_tags as $tag) {
+		$tpl = preg_replace("/<{$tag}([^>]+)src=[\"']%file_url%[\"']/i", '<'.$tag.'$1src="%file_url_no_preview%"', $tpl);
+	}
+
 	// since 0.2.0 the onclick is set via jQuery!
 	//add dl js
 	//$tpl = preg_replace('/<a ([^>]*)href="%file_url%"/i', '<a $1href="%file_url%" onclick="wpfilebase_dlclick(%file_id%, \'%file_url_rel%\')"', $tpl);
@@ -38,7 +44,8 @@ static function Parse($tpl)
 	// parse special vars
 	$tpl = str_replace('%post_id%', '\'.get_the_ID().\'', $tpl);
 	$tpl = str_replace('%wpfb_url%', '\'.(WPFB_PLUGIN_URI).\'', $tpl);
-	
+
+
 	// parse variables
 	$tpl = preg_replace('/%([a-z0-9_\/:]+?)%/i', '\'.$f->get_tpl_var(\'$1\',$e).\'', $tpl);
 	

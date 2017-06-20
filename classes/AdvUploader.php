@@ -67,6 +67,8 @@ function fileQueued(fileObj) {
 	jQuery('#file-submit').prop('disabled', true);
 	jQuery('#cancel-upload').show().prop('disabled', false);
 
+	jQuery('#file_rename').val(fileObj.name);
+
 	/* parse file name and fill display name and version */
 		jQuery.ajax({url:wpfbConf.ajurl, data:{wpfb_action: 'parse-filename', filename:fileObj.name},
 			success: (function(data){

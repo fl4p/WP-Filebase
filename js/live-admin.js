@@ -16,6 +16,38 @@ function wpfb_menuEdit(menuItem, menu) {
         window.location = wpfbConf.fileEditUrl + fid + '&redirect_to=' + escape(window.location.href);
 }
 
+
+function wpfb_fileDelete(fid) {
+    jQuery.ajax({
+        type: 'POST',
+        url: wpfbConf.ajurl,
+        data: {wpfb_action: 'delete', file_id: fid},
+        success: (function (data) {
+            console.log(data);
+            if (data != '-1') {
+                jQuery('a[href="'+data.url+'"],a[data-url="'+data.url+'"]').each(function() {
+                    console.log(this);
+                    var el = jQuery(this);
+                    el.css("textDecoration", "line-through");
+                    el.unbind('click').click((function () {
+                        return false;
+                    }));
+                    el.fadeTo('slow', 0.3);
+                });
+
+                jQuery('.wpfb-file-'+data.id).each(function() {
+                    console.log(this);
+                    var el = jQuery(this);
+                    el.unbind('click').click((function () { return false; }));
+                    el.fadeTo('slow', 0.3);
+                });
+
+
+            }
+        })
+    });
+}
+
 function wpfb_menuDel(menuItem, menu) {
 
     var fid = wpfb_getLinkFileId(menu.target);
@@ -142,7 +174,11 @@ function wpfb_treeviewAddFile(ev, pid)
 function wpfb_fileBrowserTargetId(e, cat_or_file)
 {
     var t = ('object' === typeof (e.target)) ? jQuery(e.target) : jQuery(e);
-    var idp = wpfb_getFileBrowserIDP(jQuery(t).parents('ul.treeview,ul.filebrowser,ul').first());
+
+
+    var fbEl = jQuery(t).parents('ul.treeview,ul.filebrowser,ul').first();
+    var idp = wpfb_getFileBrowserIDP(fbEl);
+
     var tid = t.prop("id");
     var pl = idp.length + cat_or_file.length;
     if (t.prop('tagName') === 'LI' && tid.substr(0, pl + 1) === (idp + cat_or_file + "-"))
@@ -150,7 +186,13 @@ function wpfb_fileBrowserTargetId(e, cat_or_file)
     var p = t.parents('li[id^="' + idp + cat_or_file + '-"][id!="' + idp + cat_or_file + '-0"]');
     if (p && p.length)
         return parseInt(p.prop("id").substr(pl + 1));
-    return 0;
+
+    var params = wpfb_getFileBrowserParams(fbEl);
+
+    if(params && typeof params.base != 'undefined')
+        return params.base;
+
+    return -1;
 }
 
 function wpfb_getFileBrowserIDP(id) {
@@ -161,4 +203,11 @@ function wpfb_getFileBrowserIDP(id) {
     if (set && set.id_prefix)
         return set.id_prefix;
     return 'wpfb-';
+}
+
+function wpfb_getFileBrowserParams(id) {
+    var set = (('object' === typeof (id)) ? id : jQuery('#' + id)).data("settings");
+    if (set && set.ajax)
+        return set.ajax.data;
+    return {};
 }

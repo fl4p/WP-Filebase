@@ -2,8 +2,31 @@
 
 class WPFB_AdminLite
 {
+    static function onShutdown()
+    {
+        $error = error_get_last();
+        if ($error
+            && $error['type'] <= E_USER_ERROR
+            && $error['type'] != E_COMPILE_WARNING
+            && $error['type'] != E_CORE_WARNING
+            && $error['type'] != E_NOTICE
+            && $error['type'] != E_WARNING
+        ) {
+            if (current_user_can('manage_options')) {
+                echo '<pre>PHP ERROR:';
+                var_dump($error);
+                echo '</pre>';
+            }
+            WPFB_Core::LogMsg('SHUTDOWN ERROR:' . json_encode($error));
+        } else {
+            return true;
+        }
+    }
+
     static function InitClass()
     {
+        register_shutdown_function(array(__CLASS__, 'onShutdown'));
+
         wp_enqueue_style(WPFB . '-admin', WPFB_PLUGIN_URI . 'css/admin.css', array(), WPFB_VERSION, 'all');
 
         wp_register_script('jquery-deserialize', WPFB_PLUGIN_URI . 'bower_components/jquery-deserialize/dist/jquery.deserialize.min.js', array('jquery'), WPFB_VERSION);
@@ -24,6 +47,9 @@ class WPFB_AdminLite
         //wp_register_widget_control(WPFB_PLUGIN_NAME, "[DEPRECATED]".WPFB_PLUGIN_NAME .' '. __('File list','wp-filebase'), array(__CLASS__, 'WidgetFileListControl'), array('description' => __('DEPRECATED','wp-filebase')));
 
         add_action('admin_print_scripts', array('WPFB_AdminLite', 'AdminPrintScripts'));
+
+
+        add_action('in_plugin_update_message-wp-filebase-pro/wp-filebase.php', array(__CLASS__, 'pluginUpdateMessage'), 10, 2);
 
         self::CheckChangedVer();
 
@@ -50,10 +76,14 @@ class WPFB_AdminLite
     static function SetupMenu()
     {
         global $wp_version;
+
         $pm_tag = WPFB_OPT_NAME . '_manage';
         $icon = (floatval($wp_version) >= 3.8) ? 'images/admin_menu_icon2.png' : 'images/admin_menu_icon.png';
 
-        add_menu_page(WPFB_PLUGIN_NAME, WPFB_PLUGIN_NAME, 'manage_categories', $pm_tag, wpfb_callback('AdminGuiManage', 'Display'), WPFB_PLUGIN_URI . $icon /*, $position*/);
+
+        add_menu_page(WPFB_PLUGIN_NAME, WPFB_PLUGIN_NAME, 'manage_categories', $pm_tag, null, WPFB_PLUGIN_URI . $icon /*, $position*/);
+        add_submenu_page($pm_tag, WPFB_PLUGIN_NAME, __('Dashboard'), 'manage_categories', $pm_tag, wpfb_callback('AdminGuiManage', 'Display'));
+
         $menu_entries = array(
             array('tit' => __('Files', 'wp-filebase'), 'tag' => 'files', 'fnc' => wpfb_callback('AdminGuiFiles', 'Display'), 'desc' => 'View uploaded files and edit them',
                 'cap' => 'upload_files',
@@ -70,14 +100,14 @@ class WPFB_AdminLite
 
 
         if (empty(WPFB_Core::$settings->disable_css)) {
-            $menu_entries[] = array('tit' => __('Edit Stylesheet','wp-filebase'), 'tag' => 'css', 'fnc' => wpfb_callback('AdminGuiCss', 'Display'), 'desc' => 'Edit the CSS for the file template',
+            $menu_entries[] = array('tit' => __('Edit Stylesheet', 'wp-filebase'), 'tag' => 'css', 'fnc' => wpfb_callback('AdminGuiCss', 'Display'), 'desc' => 'Edit the CSS for the file template',
                 //'hide'=>true,
                 'cap' => 'edit_themes',
             );
         }
 
         $menu_entries = array_merge($menu_entries, array(
-            array('tit' => __('Embed Templates','wp-filebase'), 'tag' => 'tpls', 'fnc' => 'DisplayTplsPage', 'desc' => 'Edit custom file list templates',
+            array('tit' => __('Embed Templates', 'wp-filebase'), 'tag' => 'tpls', 'fnc' => 'DisplayTplsPage', 'desc' => 'Edit custom file list templates',
                 'cap' => 'edit_themes',
             ),
 
@@ -88,8 +118,14 @@ class WPFB_AdminLite
 
         foreach ($menu_entries as $me) {
             $callback = is_callable($me['fnc']) ? $me['fnc'] : array(__CLASS__, $me['fnc']);
-            add_submenu_page($pm_tag, WPFB_PLUGIN_NAME . ' - ' . $me['tit'], empty($me['hide']) ?$me['tit'] : null, empty($me['cap']) ? 'read' : $me['cap'], WPFB_OPT_NAME . '_' . $me['tag'], $callback);
+            add_submenu_page($pm_tag, WPFB_PLUGIN_NAME . ' - ' . $me['tit'], empty($me['hide']) ? $me['tit'] : null, empty($me['cap']) ? 'read' : $me['cap'], WPFB_OPT_NAME . '_' . $me['tag'], $callback);
         }
+    }
+
+    static function NetworkMenu()
+    {
+        $pm_tag = WPFB_OPT_NAME . '_manage';
+        add_menu_page(WPFB_PLUGIN_NAME, WPFB_PLUGIN_NAME, 'manage_options', $pm_tag, wpfb_callback('AdminGuiManage', 'Display'), WPFB_PLUGIN_URI . 'images/admin_menu_icon2.png' /*, $position*/);
     }
 
     static function Init()
@@ -109,11 +145,15 @@ class WPFB_AdminLite
 
 
         if (isset($_GET['wpfilebase-screen'])) {
-            switch($_GET['wpfilebase-screen']) {
-                case 'editor-plugin': require_once (WPFB_PLUGIN_ROOT . 'screens/editor-plugin.php'); exit;
-                case 'tpl-preview': require_once (WPFB_PLUGIN_ROOT . 'screens/tpl-preview.php'); exit;
+            switch ($_GET['wpfilebase-screen']) {
+                case 'editor-plugin':
+                    require_once(WPFB_PLUGIN_ROOT . 'screens/editor-plugin.php');
+                    exit;
+                case 'tpl-preview':
+                    require_once(WPFB_PLUGIN_ROOT . 'screens/tpl-preview.php');
+                    exit;
             }
-            wp_die('Unknown screen '.esc_html($_GET['wpfilebase-screen']).'!');
+            wp_die('Unknown screen ' . esc_html($_GET['wpfilebase-screen']) . '!');
         }
     }
 
@@ -200,5 +240,15 @@ class WPFB_AdminLite
         WPFB_AdminDashboard::Setup(false);
     }
 
+
+static function pluginUpdateMessage($plugin_data, $response)
+{
+    if(empty( $response->package )) {
+        $u = WPFB_ProLib::getLicenseExtendUrl();
+        echo "<br><b>Please <a href='".$u."'>extend your license</a>.</b>";
+        //print_r($plugin_data);
+        //print_r($response);
+    }
+}
 
 }

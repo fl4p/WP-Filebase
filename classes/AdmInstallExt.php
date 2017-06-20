@@ -3,14 +3,14 @@
 class WPFB_AdmInstallExt {
 
     static function PluginsApiFilter($res, $action, $args) {
-        global $user_ID;
         $res = wpfb_call('ExtensionLib', 'QueryAvailableExtensions');
         if (!$res || empty($res->info)) {
             wp_die('WP-Filebase extension directory is currently not available.');
             return false;
         }
-        if ($user_ID && !empty($res->info['tag_time']))
-            update_user_option($user_ID, 'wpfb_ext_tagtime', $res->info['tag_time']);
+	
+        if (is_user_logged_in() && !empty($res->info['tag_time']))
+            update_user_option(get_current_user_id(), 'wpfb_ext_tagtime', $res->info['tag_time']);
 
         // strip 'WP-Filebase' prefix
         foreach($res->plugins as $plug) {
@@ -27,7 +27,7 @@ class WPFB_AdmInstallExt {
             if (!empty($plugin->dependencies_unmet)) {
                 $action_links[0] = '<a class="button" onclick="return confirm(\'This extension requires WP-Filebase Pro. Do you want to learn more about an upgrade?\');" href="' . esc_attr($plugin->dependencies_url) . '" target="_blank" aria-label="' . esc_attr(sprintf(__('Install extension %s'), $plugin->name)) . '">' . __('Install') . '</a>';
             } elseif (!empty($plugin->need_to_buy)) {
-                $action_links[0] = '<a class="buy-now button button-primary" href="' . esc_attr($plugin->buy_url) . '" target="_blank" aria-label="' . esc_attr(sprintf(__('Buy extension %s'), $plugin->name)) . '">' . sprintf(__('Buy now (%s)'), $plugin->license_price) . '</a>';
+                $action_links[0] = '<a class="buy-now button button-primary" href="' . esc_attr($plugin->buy_url) . '" target="_blank" aria-label="' . esc_attr(sprintf(__('Buy extension %s'), $plugin->name)) . '">' . sprintf(__('%s'), $plugin->license_price) . '</a>';
             } elseif (!empty($plugin->license_required)) {
                 $action_links[0] = '<a class="buy-now button thickbox" href="' . esc_attr($plugin->add_url) . '" data-title="' . esc_attr(sprintf(__('Add extension %s'), $plugin->name)) . '">' . __('Add License (free)') . '</a>';
             }
@@ -40,13 +40,22 @@ class WPFB_AdmInstallExt {
                     $key = array_keys( $installed_plugin );
                     $plugin_file = $plugin->slug . '/' . reset( $key );
                     if(!is_plugin_active($plugin_file))
-                        $action_links[0] = '<a class="button" href="' . esc_attr(admin_url('plugins.php?plugin_status=inactive')) . '" aria-label="' . esc_attr(sprintf(__('Activate extension %s'), $plugin->name)) . '">' . __('Activate') . '</a>';
+                        $action_links[0] = '<a class="button" href="' . esc_attr(admin_url('plugins.php?plugin_status=inactive')) . '" aria-label="' . esc_attr(sprintf(__('Activate extension %s'), $plugin->name)) . '">' . __('Go to plugin activation') . '</a>';
                 }
             }
         }
-        
+
         if (!empty($plugin->need_to_buy))
             $action_links[1] = '<a href="' . esc_attr($plugin->homepage) . '" class="no_thickbox" target="_blank">' . __('More Details') . '</a>';
+
+
+        if (!empty($plugin->demo_url)) {
+//            $du = explode('?', $plugin->demo_url);
+ //           $action_links[] = '<a href="' . esc_attr($du[0].'?KeepThis=true&TB_iframe=true&height=400&width=600&'.$du[1]) . '" class="thickbox" target="_blank">' . __('Live Preview') . '</a>';
+
+            $action_links[] = '<a href="' . esc_attr($plugin->demo_url) . '" class="no_thickbox" target="_blank">' . __('Live Demo') . '</a>';
+
+        }
 
 
         $action_links[] = (empty($plugin->requires_pro) ? '<span class="wp-ui-notification wpfb-free" title="works with WP-Filebase Free">free</span>' : '') . '<span class="wp-ui-notification wpfb-pro" title="works with WP-Filebase Pro">pro</span>';

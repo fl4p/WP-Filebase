@@ -6,6 +6,10 @@ class WPFB_ProgressReporter {
 
     var $quiet;
     var $debug;
+
+    var $throw_exceptions = false;
+    var $text_output = false;
+
     var $progress_cur;
     var $progress_end;
     var $progress_bar;
@@ -15,6 +19,8 @@ class WPFB_ProgressReporter {
 
     var $memprof;
 
+    var $nl;
+
     /**
      * @var progressbar
      */
@@ -23,6 +29,7 @@ class WPFB_ProgressReporter {
     function __construct($suppress_output = false) {
         $this->quiet = !!$suppress_output;
         $this->debug = !empty($_REQUEST['debug']);
+        $this->nl = "<br>";
 
         if ($this->memprof = (isset($_REQUEST['MEMPROF']) && function_exists('memprof_enable'))) {
             memprof_enable();
@@ -30,28 +37,50 @@ class WPFB_ProgressReporter {
         }
     }
 
+    function enableThrowExceptions(){
+        $this->throw_exceptions = true;
+    }
+
+    function enableTextOutput(){
+        $this->text_output = true;
+        $this->nl = "\n";
+    }
+
     function Log($msg, $no_new_line = false) {
+        if($this->text_output)
+            $msg = strip_tags($msg);
+
         if (!$this->quiet)
-            self::DEcho((!$no_new_line) ? ($msg . "<br />") : $msg);
+            self::DEcho((!$no_new_line) ? ($msg . $this->nl) : $msg);
+        WPFB_Core::LogMsg($msg, 'sync');
         $this->UpdateMemBar();
     }
 
     function LogError($err) {
-        if ($this->quiet)
-            return;
-        self::DEcho("<span style='color:#d00;'>$err</span><br />");
-        $this->UpdateMemBar();
+        if (!$this->quiet) {
+            self::DEcho($this->text_output ? "\033[31m$err\n" : "<span style='color:#d00;'>$err</span><br />");
+            WPFB_Core::LogMsg("error: $err", 'sync');
+            $this->UpdateMemBar();
+        }
+        if($this->throw_exceptions)
+            throw new Exception($err);
     }
 
     function LogException(Exception $e) {
-        if ($this->quiet)
-            return;
-        self::DEcho("<span style='color:#d00;'>" . print_r($e->getMessage(), true). "</span><br />");
-        if ($this->debug) {
-            var_dump($e);
-            self::DEcho("<br />");
+        if (!$this->quiet) {
+
+            $msg = print_r($e->getMessage(), true);
+            self::DEcho($this->text_output ? "\033[31m$msg\n" : ("<span style='color:#d00;'>" . $msg . "</span><br />"));
+            WPFB_Core::LogMsg("error: $msg", 'sync');
+            if ($this->debug) {
+                var_dump($e);
+                self::DEcho("<br />");
+            }
+            $this->UpdateMemBar();
         }
-        $this->UpdateMemBar();
+
+        if($this->throw_exceptions)
+            throw $e;
     }
 
     function Debug() {
@@ -72,7 +101,7 @@ class WPFB_ProgressReporter {
 
     function InitProgress($progress_end) {
         $this->progress_end = $progress_end;
-        if (!$this->quiet) {
+        if (!$this->quiet && !$this->text_output) {
             //if(is_null($this->progress_bar)) {
             if (!class_exists('progressbar'))
                 include_once(WPFB_PLUGIN_ROOT . 'extras/progressbar.class.php');
@@ -100,7 +129,7 @@ class WPFB_ProgressReporter {
         $this->last_field_id = $id = md5(uniqid());
         $this->Log(str_replace('%#%', "<span id='$id'>$val</span>", $format), true);
 
-        if(is_numeric($val))
+        if(is_numeric($val) && !$this->text_output)
             echo (" (<span id='$id-rate-scope'></span>) <script> document.getElementById('$id-rate-scope').measure = {log: [{t: Date.now(),v: 0+'$val'}], update: function(v) {
                 var el = document.getElementById('$id-rate-scope'), m = el.measure, now = Date.now(), l = m.log[0];
                 m.log.push({t: now,v: 0+v});
@@ -114,7 +143,7 @@ class WPFB_ProgressReporter {
                 el.innerHTML = (Math.round(rate*10)/10)+ ' per second (in the last minute)';
             }}; </script>");
 
-        echo "<br />";
+        echo $this->nl;
 
         if ($obey_upd_interval && !$this->debug)
             $this->field_update_times[$id] = 1;
@@ -127,7 +156,7 @@ class WPFB_ProgressReporter {
         if (!$id)
             $id = $this->last_field_id;
 
-        if ($id && !$this->quiet && (!isset($this->field_update_times[$id]) || (($t = microtime(true)) - $this->field_update_times[$id]) >= self::FIELD_UPDATE_INTERVAL)) {
+        if ($id && !$this->quiet && !$this->text_output && (!isset($this->field_update_times[$id]) || (($t = microtime(true)) - $this->field_update_times[$id]) >= self::FIELD_UPDATE_INTERVAL)) {
             $val = str_replace('\\', '/', $val);
             self::DEcho("<script> document.getElementById('$id').innerHTML = '$val'; </script>");
             if(is_numeric($val)) {
@@ -207,6 +236,9 @@ class WPFB_ProgressReporter {
     }
 
     function UpdateMemBar() {
+        static $was_80 = false;
+        static $was_90 = false;
+
         if($this->mem_bar) {
             $ms = self::GetMemStats();
             $pu = round($ms['usage']/$ms['limit'] * 100);
@@ -214,6 +246,16 @@ class WPFB_ProgressReporter {
             if($this->memprof && $pu > 90) {
                 memprof_dump_callgrind(fopen("/tmp/callgrind_mem.out", "w"));
                 die("memprof @$pu% written to /tmp/callgrind_mem.out");
+            }
+
+            if(!$was_80 && $pu > 80) {
+                $was_80 = true;
+                $this->Log("Notice: high memory usage $pu% > 80%.");
+            }
+
+            if(!$was_90 && $pu > 90) {
+                $was_90 = true;
+                $this->Log("WARNING: running out of memory (usage $pu% > 90%)!");
             }
 
             if($this->memprof) {

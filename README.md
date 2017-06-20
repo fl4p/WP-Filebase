@@ -1,3 +1,4 @@
+#file_require(!WPFB_PRO)
 WP-Filebase Download Manager
 ===============================
 

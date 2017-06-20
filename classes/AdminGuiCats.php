@@ -29,7 +29,7 @@ class WPFB_AdminGuiCats {
     }
 
     static function Display() {
-        global $wpdb, $user_ID;
+        global $wpdb;
 
         if (!WPFB_Core::CurUserCanCreateCat())
             wp_die(__('Cheatin&#8217; uh?'));
@@ -44,7 +44,7 @@ class WPFB_AdminGuiCats {
         // switch simple/extended form
         if (isset($_GET['exform'])) {
             $exform = (!empty($_GET['exform']) && $_GET['exform'] == 1);
-            update_user_option($user_ID, WPFB_OPT_NAME . '_exform', $exform, true);
+            update_user_option(get_current_user_id(), WPFB_OPT_NAME . '_exform', $exform, true);
         } else {
             $exform = (bool) get_user_option(WPFB_OPT_NAME . '_exform');
         }

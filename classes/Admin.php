@@ -31,11 +31,10 @@ class WPFB_Admin {
 			self::DisableOutputBuffering();
 		}
 
-		!get_transient('wpfb_file_type_stats') && wpfb_call('Misc','GetFileTypeStats');
 	}
 
 	static function SettingsSchema() {
-		return wpfb_call('Settings', 'Schema');
+		return apply_filters('wpfilebase_settings_schema', wpfb_call('Settings', 'Schema'));;
 	}
 
 	/**
@@ -67,7 +66,7 @@ class WPFB_Admin {
 			return array('error' => __('You must enter a category name or a folder name.', 'wp-filebase'));
 		if (!$add_existing && !empty($cat_folder) && (!$update || $cat_folder != $cat->cat_folder)) {
 			$cat_folder = preg_replace('/\s/', ' ', $cat_folder);
-			if (!preg_match('/^[0-9a-z-_.+,\'\s()]+$/i', $cat_folder))
+			if (!preg_match('/^[0-9a-z-_.+,\'\s()%]+$/i', $cat_folder))
 				return array('error' => __('The category folder name contains invalid characters.', 'wp-filebase'));
 		}
 		wpfb_loadclass('Output');
@@ -97,6 +96,13 @@ class WPFB_Admin {
 
 		if ($add_existing)
 			$cat->cat_folder = $cat_folder;
+
+		// renaming cloud synced categories not supported yet
+		if($update && ($cat->cat_parent != $cat_parent || $cat->cat_folder != $cat_folder)) {
+			if($cat->GetParent() && $cat->GetParent()->getCloudSync())
+				return array('error' => __('Cannot change category inside a cloud sync!', 'wp-filebase'));
+		}
+
 		// this will (eventually) inherit permissions:
 		$result = $cat->ChangeCategoryOrName($cat_parent, $cat_folder, $add_existing);
 		if (is_array($result) && !empty($result['error']))
@@ -116,8 +122,9 @@ class WPFB_Admin {
 		if ($update && !empty($cat_child_apply_perm)) {
 			$cur = $cat->GetReadPermissions();
 			$childs = $cat->GetChildFiles(true);
-			foreach ($childs as $child)
+			foreach ($childs as $child) {
 				$child->SetReadPermissions($cur);
+			}
 
 			$childs = $cat->GetChildCats(true);
 			foreach ($childs as $child) {
@@ -281,7 +288,7 @@ class WPFB_Admin {
 		}
 
 
-		if ($upload)
+		if ($file->IsRemote())
 			$data->file_rename = null;
 
 
@@ -332,10 +339,15 @@ class WPFB_Admin {
 		if ($file_category > 0 && ($new_cat = WPFB_Category::GetCat($file_category)) == null)
 			$file_category = 0;
 
-		// this inherits permissions as well:
-		$result = $file->ChangeCategoryOrName($file_category, empty($data->file_rename) ? $file_name : $data->file_rename, $add_existing, !empty($data->overwrite));
-		if (is_array($result) && !empty($result['error']))
-			return $result;
+		if(!$update || !$file->IsCloudHosted()) {
+			// this inherits permissions as well:
+			$result = $file->ChangeCategoryOrName($file_category,
+				empty($data->file_rename) ? $file_name : $data->file_rename,
+				$add_existing, ! empty($data->overwrite));
+			if (is_array($result) && ! empty($result['error'])) {
+				return $result;
+			}
+		}
 
 		$prev_read_perms = $file->file_offline ? array('administrator') : $file->GetReadPermissions();
 		// explicitly set permissions:
@@ -388,6 +400,14 @@ class WPFB_Admin {
 			$file->file_last_dl_ip = '';
 
 			$file->file_added_by = empty($current_user) ? 0 : $current_user->ID;
+		}
+
+		// set owner
+		if(!empty($data->file_added_by)) {
+			$user = get_user_by('login', $data->file_added_by);
+			if($user && $user->exists()) {
+				$file->file_added_by = $user->ID;
+			}
 		}
 
 		self::fileApplyMeta($file, $data);
@@ -460,6 +480,9 @@ class WPFB_Admin {
 				$file->CreateThumbnail(); // check if the file is an image and create thumbnail
 			}
 		}
+
+		do_action($update ? 'wpfilebase_file_updated' : 'wpfilebase_file_added', $file, $data);
+		do_action('wpfilebase_file_edited', $file, $data);
 
 		// save into db again
 		$result = $file->DBSave();
@@ -564,11 +587,11 @@ class WPFB_Admin {
 	public static function SideloadFile($url, $dest_file = null, $size_for_progress = 0) {
 		if(is_object($url)) {
 			$file = $url;
-			$url = $file->GetRemoteUri();
-			if(!$url)
-				return array('error' => "Could not get URL of file $file!");
+			try { $url = $file->GetRemoteUri(false); }
+			catch(Exception $e) {
+				return array('error' => "Could not get URL of file $file: {$e->getMessage()}");
+			}
 		}
-
 
 
 		//WARNING: The file is not automatically deleted, The script must unlink() the file.
@@ -604,6 +627,10 @@ class WPFB_Admin {
 		return array('error' => false, 'file' => $dest_file);
 	}
 
+	/**
+	 * @param $file_path string Absolute path
+	 * @return array|int
+	 */
 	static function CreateCatTree($file_path) {
 		$rel_path = trim(substr($file_path, strlen(WPFB_Core::UploadDir())), '/');
 		$rel_dir = dirname($rel_path);
@@ -871,7 +898,7 @@ class WPFB_Admin {
 		$title = '';
 
 			if (!WPFB_Core::$settings->frontend_upload && !current_user_can('upload_files'))
-				wp_die(__('Cheatin&#8217; uh?') . " (disabled)");
+				wp_die(__('Cheatin&#8217; uh?') . " (frontend uploads disabled)");
 
 		{
 			$form = null;
@@ -903,6 +930,9 @@ class WPFB_Admin {
 	public static function ProcessWidgetAddCat() {
 		$content = '';
 		$title = '';
+
+			if (!WPFB_Core::$settings->frontend_upload && !current_user_can('upload_files'))
+				wp_die(__('Cheatin&#8217; uh?') . " (frontend uploads disabled)");
 
 		// nonce/referer check (security)
 		$nonce_action = $_POST['prefix'];
@@ -1092,7 +1122,11 @@ class WPFB_Admin {
 	}
 
 	static function FuncIsDisabled($name) {
-		return strpos(@ini_get('disable_functions') . ',' . @ini_get('suhosin.executor.func.blacklist') . ',', $name . ',') !== false;
+		static $dfs = false;
+		if($dfs === false) {
+			$dfs = ','.@ini_get('disable_functions') . ',' . @ini_get('suhosin.executor.func.blacklist') . ',';
+		}
+		return strpos($dfs, ','.$name.',') !== false;
 	}
 
 	static function GetFileHash($filename) {

@@ -2,7 +2,7 @@
 class WPFB_AdminGuiSupport {
 static function Display()
 {
-	global $wpdb, $user_ID;
+	global $wpdb;
 	
 	wpfb_loadclass('Admin', 'Output');
 	

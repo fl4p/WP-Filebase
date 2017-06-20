@@ -551,6 +551,11 @@ class WPFB_Download
 
         @ini_set("zlib.output_compression", "Off");
 
+
+        if(headers_sent ($headers_sent_file, $headers_sent_line ) ) {
+            WPFB_Core::LogMsg("SendFile error: headers already sent @$headers_sent_file:$headers_sent_line");
+        }
+
         // remove some headers
         if (function_exists('header_remove')) {
             header_remove();
@@ -668,6 +673,8 @@ class WPFB_Download
         }
         header("Content-Length: " . $length);
 
+        do_action('wpfilebase_download_headers', $file_path);
+
 
         // clean up things that are not needed for download
         @session_write_close(); // disable blocking of multiple downloads at the same time
@@ -754,7 +761,19 @@ class WPFB_Download
 
         $is_local = parse_url($url, PHP_URL_SCHEME) === 'file'
             && is_readable($url);
-        $rh       = @fopen($url, 'rb'); // read binary
+
+
+        // PHP bug?: for local URLs we should pass a null context, but this fails!
+        $context = stream_context_create(array(
+            'ssl' => array(
+                // set some SSL/TLS specific options
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        ));
+
+        $rh       = @fopen($url, 'rb', false, $context); // read binary
         if ($rh === false) {
             return array(
                 'error' => sprintf('Could not open URL %s!', $url) . ' '

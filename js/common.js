@@ -55,9 +55,10 @@ function wpfb_processlink(index, el) {
 		el.attr('wpfbfid', fid);
 		url = url.substr(0, i); // remove hash, not actually needed
 	}
-	el.unbind('click').click(url, wpfb_onclick); // bind onclick
+	el.unbind('click').click(url, wpfb_onclick); // bind onclick with url
+	el.attr('data-url', url);
 	if(wpfbConf.cm && typeof(wpfb_addContextMenu) == 'function') wpfb_addContextMenu(el, url);
-	if(wpfbConf.hl) url = 'javascript:;';
+	if(wpfbConf.hl) url = '#';
 	el.attr('href', url);
 }
 

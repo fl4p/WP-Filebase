@@ -23,6 +23,9 @@ class TestFileSet {
             if(file_exists($fn)) continue;
             echo "Downloading test file $u\n";
             WPFB_Download::SideloadFile($u, $fn);
+
+            if(!file_exists($fn))
+                throw Exception("Failed to download $u => $fn");
         }
     }
 

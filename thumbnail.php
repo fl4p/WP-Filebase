@@ -18,7 +18,9 @@ if (isset($_GET['fid'])) {
     $item = WPFB_Category::GetCat(0 + $_GET['cid']);
 }
 
-if ($item == null || !$item->CurUserCanAccess(true)) {
+// consider the 'name' input argument as a secret and use it for authentication
+// TODO: better use a signuature with wp_nonce api
+if ($item == null || (!$item->CurUserCanAccess(true) && $_GET['name'] != $item->file_thumbnail)) {
     header('X-Fallback-Thumb: 1');
     $img_path = ABSPATH . WPINC . '/images/';
     if (file_exists($img = $img_path . 'crystal/default.png')

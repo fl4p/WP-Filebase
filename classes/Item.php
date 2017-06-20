@@ -1,6 +1,7 @@
 <?php
 
-class WPFB_Item {
+class WPFB_Item
+{
 
     var $is_file;
     var $is_category;
@@ -11,7 +12,8 @@ class WPFB_Item {
 
     static $tpl_uid = 0;
 
-    function __construct($db_row = null) {
+    function __construct($db_row = null)
+    {
         if (!empty($db_row)) {
             foreach ($db_row as $col => $val) {
                 $this->$col = $val;
@@ -21,38 +23,45 @@ class WPFB_Item {
         }
     }
 
-    function __toString() {
+    function __toString()
+    {
         return $this->GetLocalPathRel() . ' (' . ($this->is_file ? 'file' : 'cat') . ' ' . $this->GetId() . ')';
     }
 
-    function GetId() {
+    function GetId()
+    {
         return 0 + ($this->is_file ? $this->file_id : $this->cat_id);
     }
 
-    function GetName() {
+    function GetName()
+    {
         return $this->is_file ? $this->file_name : $this->cat_folder;
     }
 
-    function GetTitle($maxlen = 0) {
+    function GetTitle($maxlen = 0)
+    {
         $t = $this->is_file ? $this->file_display_name : $this->cat_name;
         if ($maxlen > 3 && strlen($t) > $maxlen)
             $t = (function_exists('mb_substr') ? mb_substr($t, 0, $maxlen - 3, 'utf8') : substr($t, 0, $maxlen - 3)) . '...';
         return $t;
     }
 
-    function Equals($item) {
+    function Equals($item)
+    {
         return (isset($item->is_file) && $this->is_file == $item->is_file && $this->GetId() > 0 && $this->GetId() == $item->GetId());
     }
 
-    function GetParentId() {
+    function GetParentId()
+    {
         return ($this->is_file ? $this->file_category : $this->cat_parent);
     }
 
     /**
-     * 
+     *
      * @return WPFB_Category
      */
-    function GetParent() {
+    function GetParent()
+    {
         if (($pid = $this->GetParentId()) != $this->last_parent_id) { // caching
             if ($pid > 0)
                 $this->last_parent = WPFB_Category::GetCat($pid);
@@ -63,7 +72,8 @@ class WPFB_Item {
         return $this->last_parent;
     }
 
-    function GetParents() {
+    function GetParents()
+    {
         $p = $this;
         $parents = array();
         while (!is_null($p = $p->GetParent()))
@@ -71,11 +81,13 @@ class WPFB_Item {
         return $parents;
     }
 
-    function GetOwnerId() {
-        return (int) ($this->is_file ? $this->file_added_by : $this->cat_owner);
+    function GetOwnerId()
+    {
+        return (int)($this->is_file ? $this->file_added_by : $this->cat_owner);
     }
 
-    function Lock($lock = true) {
+    function Lock($lock = true)
+    {
         if ($lock)
             $this->locked++;
         else
@@ -87,7 +99,8 @@ class WPFB_Item {
      *
      * @return WPFB_Item
      */
-    static function GetByName($name, $parent_id = 0) {
+    static function GetByName($name, $parent_id = 0)
+    {
         global $wpdb;
 
         $name = esc_sql($name);
@@ -103,8 +116,22 @@ class WPFB_Item {
         return reset($items);
     }
 
-    static function GetByPath($path) {
-        global $wpdb;
+
+    /**
+     * @param $uri e.g. wpfilebase://path/to#file-123
+     * @return null|WPFB_Item
+     */
+    static function GetByUri($uri)
+    {
+        $uri_parsed = parse_url($uri);
+        if ($uri_parsed['scheme'] != 'wpfilebase')
+            return null;
+        $fragment = explode('-', $uri_parsed['fragment']);
+        return self::GetById($fragment[1], $fragment[0]);
+    }
+
+    static function GetByPath($path)
+    {
         $path = trim(str_replace('\\', '/', $path), '/');
         $items = WPFB_Category::GetCats("WHERE cat_path = '" . esc_sql($path) . "' LIMIT 1");
         if (empty($items)) {
@@ -121,12 +148,14 @@ class WPFB_Item {
      *
      * @return WPFB_Item
      */
-    static function GetById($id, $cat_or_file) {
+    static function GetById($id, $cat_or_file)
+    {
         return ($cat_or_file === 'cat') ? WPFB_Category::GetCat($id) : WPFB_File::GetFile($id);
     }
 
     // Sorts an array of Items by SQL ORDER Clause ( or shortcode order clause (<file_name) )
-    static function Sort(&$items, $order_sql) {
+    static function Sort(&$items, $order_sql)
+    {
         $order_sql = strtr($order_sql, array('&gt;' => '>', '&lt;' => '<'));
         if (($desc = ($order_sql{0} == '>')) || $order_sql{0} == '<')
             $on = substr($order_sql, 1);
@@ -143,20 +172,29 @@ class WPFB_Item {
         usort($items, create_function('$a,$b', $comparer));
     }
 
-    function GetEditUrl() {
+    function GetEditUrl()
+    {
         $fc = ($this->is_file ? 'file' : 'cat');
         return admin_url("admin.php?page=wpfilebase_{$fc}s&action=edit{$fc}&{$fc}_id=" . $this->GetId() . (defined('DOING_AJAX') ? "&redirect_referer=1" : ""));
     }
 
-    function GetLocalPath($refresh = false) {
+    function GetDeleteUrl()
+    {
+        // TODO: no delete url for categories
+        return $this->is_file ? wp_nonce_url(admin_url("admin.php?page=wpfilebase_files&action=delete&file[]=" . $this->GetId()), 'delete') : '';
+    }
+
+    function GetLocalPath($refresh = false)
+    {
         return WPFB_Core::UploadDir() . '/' . $this->GetLocalPathRel($refresh);
     }
 
-    function GetLocalPathRel($refresh = false) {
+    function GetLocalPathRel($refresh = false)
+    {
         if ($this->is_file)
-            $cur_path = & $this->file_path;
+            $cur_path = &$this->file_path;
         else
-            $cur_path = & $this->cat_path;
+            $cur_path = &$this->cat_path;
 
         if ($refresh) {
             if (($parent = $this->GetParent()) != null)
@@ -179,8 +217,11 @@ class WPFB_Item {
         }
     }
 
-    protected function TriggerLockedError($throw_on_error=false) {
-        if($throw_on_error)
+    protected function TriggerLockedError($throw_on_error = false)
+    {
+        WPFB_Core::LogMsg("Error: cannot save locked $this to database!");
+
+        if ($throw_on_error)
             throw new Exception("Cannot save locked $this to database!");
 
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
@@ -194,11 +235,13 @@ class WPFB_Item {
     }
 
     // TODO: this should be protected, locking logic not public!
-    public function IsLocked() {
+    public function IsLocked()
+    {
         return $this->locked;
     }
 
-    function DBSave($throw_on_error=false) {
+    function DBSave($throw_on_error = false)
+    {
         global $wpdb;
 
         if ($this->locked > 0) {
@@ -215,6 +258,8 @@ class WPFB_Item {
             $pos = strpos($var, ($this->is_file ? 'file_' : 'cat_'));
             if ($pos === false || $pos != 0 || $var == $id_var || is_array($this->$var) || is_object($this->$var) || $var == 'file_scan_lock' || $var == 'cat_scan_lock')
                 continue;
+
+            if (is_null($this->$var)) $this->$var = '';
             $values[$var] = $this->$var; // no & ref here, this causes esc of actual objects data!!!!
         }
 
@@ -231,7 +276,8 @@ class WPFB_Item {
         if ($update) {
             if (!$wpdb->update($tbl, $values, array($id_var => $this->$id_var))) {
                 if (!empty($wpdb->last_error)) {
-                    if($throw_on_error)
+                    WPFB_Core::LogMsg("Error: failed to update $this: {$wpdb->last_error}");
+                    if ($throw_on_error)
                         throw new Exception("Failed to update $this's DB entry!  $wpdb->last_error");
 
                     return array(
@@ -241,20 +287,23 @@ class WPFB_Item {
             }
         } else {
             if (!$wpdb->insert($tbl, $values)) {
-                if($throw_on_error)
+                WPFB_Core::LogMsg("Error: failed to insert $this: {$wpdb->last_error}");
+
+                if ($throw_on_error)
                     throw new Exception("Unable to insert item $this into DB! $wpdb->last_error");
 
                 return array(
                     'error' => "Unable to insert item $this into DB! $wpdb->last_error"
                 );
             }
-            $this->$id_var = (int) $wpdb->insert_id;
+            $this->$id_var = (int)$wpdb->insert_id;
         }
 
         return array('error' => false, $id_var => $this->$id_var, 'id' => $this->$id_var);
     }
 
-    function IsAncestorOf($item) {
+    function IsAncestorOf($item)
+    {
         $p = $item->GetParent();
         if ($p == null)
             return false;
@@ -264,13 +313,14 @@ class WPFB_Item {
     }
 
     /**
-     * 
+     *
      * @staticvar WP_User $current_user
      * @param type $for_tpl
      * @param WP_User $user
      * @return boolean
      */
-    function CurUserCanAccess($for_tpl = false, $user = null) {
+    function CurUserCanAccess($for_tpl = false, $user = null)
+    {
         static $current_user = null;
         if (!$current_user) {
             $current_user = wp_get_current_user();
@@ -301,14 +351,16 @@ class WPFB_Item {
         return false;
     }
 
-    function CurUserCanEdit($user = null) {
+    function CurUserCanEdit($user = null)
+    {
         if (is_null($user))
             $user = wp_get_current_user();
         // current_user_can('manage_options') checks if user is admin!
         return $this->CurUserIsOwner($user) || user_can($user, 'manage_options') || (!WPFB_Core::$settings->private_files && user_can($user, $this->is_file ? 'edit_others_posts' : 'manage_categories'));
     }
 
-    function GetUrl($rel = false, $to_file_page = false) { // TODO: rawurlencode??
+    function GetUrl($rel = false, $to_file_page = false)
+    { // TODO: rawurlencode??
         static $esc = array('#' => '%23', ' ' => '%20', '%' => '%25', "'" => '%27');
         $ps = WPFB_Core::$settings->disable_permalinks ? null : get_option('permalink_structure');
         if ($this->is_category || $to_file_page) {
@@ -337,7 +389,8 @@ class WPFB_Item {
         return $url;
     }
 
-    function GenTpl($parsed_tpl = null, $context = '') {
+    function GenTpl($parsed_tpl = null, $context = '')
+    {
         if ($context != 'ajax')
             WPFB_Core::$load_js = true;
 
@@ -358,12 +411,13 @@ class WPFB_Item {
          */
 
         self::$tpl_uid++;
-        $f = & $this;
+        $f = &$this;
         $e = null; // extra data
         return eval("return ($parsed_tpl);");
     }
 
-    function GenTpl2($tpl_tag = null, $load_js = true, $extra_data = null) {
+    function GenTpl2($tpl_tag = null, $load_js = true, $extra_data = null)
+    {
         static $tpl_funcs = array('file' => array(), 'cat' => array());
 
         if (empty($tpl_tag))
@@ -383,12 +437,13 @@ class WPFB_Item {
         self::$tpl_uid = (defined('DOING_AJAX') && DOING_AJAX) ? ($this->GetId() . '' . (round(microtime() * 1000) % 1000)) : (self::$tpl_uid + 1);
 
         if ($extra_data && !is_object($extra_data))
-            $extra_data = (object) $extra_data;
+            $extra_data = (object)$extra_data;
 
         return $tpl_funcs[$type][$tpl_tag]($this, $extra_data);
     }
 
-    function GetThumbPath($refresh = false) {
+    function GetThumbPath($refresh = false)
+    {
         static $base_dir = '';
         if (empty($base_dir) || $refresh)
             $base_dir = (empty(WPFB_Core::$settings->thumbnail_path) ? WPFB_Core::UploadDir() : path_join(ABSPATH, WPFB_Core::$settings->thumbnail_path)) . '/';
@@ -404,7 +459,8 @@ class WPFB_Item {
         }
     }
 
-    function GetIconUrl($size = null) {
+    function GetIconUrl($size = null)
+    {
         // todo: remove file operations!
 
         if ($this->is_category) {
@@ -413,6 +469,7 @@ class WPFB_Item {
         }
 
         if (!empty($this->file_thumbnail) /* && file_exists($this->GetThumbPath()) */) { // speedup
+            //. '&s='. wp_create_nonce( 'thumb_file'.$this->file_id ) // TODO: signed thumbnail urls
             return home_url('?wpfilebase_thumbnail=1&fid=' . $this->file_id . '&name=' . $this->file_thumbnail); // name var only for correct caching!
         }
 
@@ -420,7 +477,7 @@ class WPFB_Item {
         $ext = substr($this->GetExtension(), 1);
 
         $img_path = ABSPATH . WPINC . '/images/';
-        $img_url = get_option('siteurl') . '/' . WPINC . '/images/';
+        $img_url = site_url('/' . WPINC . '/images/');
         $custom_folder = '/images/fileicons/';
 
         // check for custom icons
@@ -456,11 +513,12 @@ class WPFB_Item {
      * Get child files
      *
      * @access public
-     * 
+     *
      * @param $recursive Optional
      * @return WPFB_File[] Files
      */
-    function GetChildFiles($recursive = false, $sorting = null, $check_permissions = false, $local_only = false) {
+    function GetChildFiles($recursive = false, $sorting = null, $check_permissions = false, $local_only = false)
+    {
         if ($this->is_file)
             return array($this->GetId() => $this);
 
@@ -470,7 +528,7 @@ class WPFB_Item {
         // if recursive, include secondary category links with GetSqlCatWhereStr
         $where = $recursive ? WPFB_File::GetSqlCatWhereStr($this->cat_id) : '(file_category = ' . $this->cat_id . ')';
 
-        if($local_only) $where = "(file_remote_uri = '' AND $where)";
+        if ($local_only) $where = "(file_remote_uri = '' AND $where)";
 
         $files = WPFB_File::GetFiles2($where, $check_permissions, $sorting);
         if ($recursive) {
@@ -482,12 +540,13 @@ class WPFB_Item {
     }
 
     /**
-     * 
+     *
      * @staticvar function $parent_walker
      * @param boolean $recursive
      * @return WPFB_File[]
      */
-    function GetChildFilesFast($recursive = false) {
+    function GetChildFilesFast($recursive = false)
+    {
         static $parent_walker = false;
         if (!$parent_walker)
             $parent_walker = create_function('&$f,$fid,$pid', 'if($f->file_category != $pid) $f = null;');
@@ -515,39 +574,58 @@ class WPFB_Item {
         return $files;
     }
 
-    function GetReadPermissions() {
+    function GetReadPermissions()
+    {
         if (!is_null($this->_read_permissions))
             return $this->_read_permissions; //caching
         $rs = $this->is_file ? $this->file_user_roles : $this->cat_user_roles;
-        return ($this->_read_permissions = empty($rs) ? array() : array_filter((is_string($rs) ? explode('|', $rs) : (array) $rs)));
+        return ($this->_read_permissions = empty($rs) ? array() : array_filter((is_string($rs) ? explode('|', $rs) : (array)$rs)));
     }
 
-    function SetReadPermissions($roles) {
-        if (!is_array($roles))
+    /**
+     * @param array|string|WP_User $roles
+     * @throws Exception
+     */
+    function SetReadPermissions($roles)
+    {
+        if (is_object($roles))
+            $roles = array("_u_{$roles->user_login}");
+        elseif (!is_array($roles))
             $roles = explode('|', $roles);
+
         $this->_read_permissions = $roles = array_filter(array_filter(array_map('trim', $roles), 'strlen')); // remove empty
         $roles = implode('|', $roles);
+        if($roles) {
+            $roles = "|$roles|";
+        }
+
+
         if ($this->is_file)
             $this->file_user_roles = $roles;
         else
             $this->cat_user_roles = $roles;
+
         if (!$this->locked)
             $this->DBSave();
     }
 
-    function CurUserIsOwner($user = null) {
+
+
+    function CurUserIsOwner($user = null)
+    {
         global $current_user;
         $uid = empty($user) ? (empty($current_user->ID) ? 0 : $current_user->ID) : $user->ID;
         return ($uid > 0 && $this->GetOwnerId() == $uid);
     }
 
-    function ChangeCategoryOrName($new_cat_id, $new_name = null, $add_existing = false, $overwrite = false) {
+    function ChangeCategoryOrName($new_cat_id, $new_name = null, $add_existing = false, $overwrite = false)
+    {
         // 1. apply new values (inherit permissions if nothing (Everyone) set!)
         // 2. check for name collision and rename
         // 3. move stuff
         // 4. notify parents
         // 5. update child paths
-        if (empty($new_name))
+        if (empty($new_name) || $new_name == $this->GetName())
             $new_name = $this->GetName();
         elseif (!$add_existing)
             $new_name = sanitize_file_name($new_name); // also removes ()!
@@ -582,8 +660,8 @@ class WPFB_Item {
                 $new_name = remove_accents($new_name);
 
                 // sanitize, but make sure not to strip too much
-                $sani =  sanitize_file_name($new_name);
-                if(strlen($sani) >= 6)
+                $sani = sanitize_file_name($new_name);
+                if (strlen($sani) >= 6)
                     $new_name = $sani;
 
 
@@ -724,23 +802,24 @@ class WPFB_Item {
          */
     }
 
-    function DBReload() {
+    function DBReload()
+    {
         global $wpdb;
         if ($this->locked) $this->TriggerLockedError();
         $tbl = $this->is_file ? $wpdb->wpfilebase_files : $wpdb->wpfilebase_cats;
         $id_field = $this->is_file ? 'file_id' : 'cat_id';
-        $id = 0+$this->GetId();
+        $id = 0 + $this->GetId();
         $db_row = $wpdb->get_row("SELECT * FROM $tbl WHERE $id_field = $id");
 
-        if(!$db_row) // item has been deleted?
-           return null;
+        if (!$db_row) // item has been deleted?
+            return null;
 
         foreach ($db_row as $col => $val) {
             $this->$col = $val;
         }
 
-        if(!empty($this->cat_childs)) {
-            foreach($this->cat_childs as $i => $c) {
+        if (!empty($this->cat_childs)) {
+            foreach ($this->cat_childs as $i => $c) {
                 $c->DBReload();
             }
         }
@@ -749,7 +828,11 @@ class WPFB_Item {
 
         return $this;
     }
-    protected static function GetPermissionWhere($owner_field, $permissions_field, $user = null) {
+
+    protected static function GetPermissionWhere($owner_field, $permissions_field, $user = null)
+    {
+        static $fulltext = false; // use mysql MATCH () AGAINST ...
+
         //$user = is_null($user) ? wp_get_current_user() : (empty($user->roles) ? new WP_User($user) : $user);
         $user = is_null($user) ? wp_get_current_user() : $user;
         $user->get_role_caps();
@@ -759,32 +842,37 @@ class WPFB_Item {
             if (in_array('administrator', $user->roles))
                 $permission_sql = '1=1'; // administrator can access everything!
             elseif (WPFB_Core::$settings->private_files) {
-                $permission_sql = "$owner_field = 0 OR $owner_field = " . (int) $user->ID;
+                $permission_sql = $user->exists() ? ("$owner_field = " . (int)$user->ID) : "1=0";
             } else {
                 $permission_sql = "$permissions_field = ''";
                 $roles = $user->roles;
+
+                if ($user->exists()) {
+                    $permission_sql .= " OR ($owner_field = " . (int)$user->ID . ")";
+                }
+
                 foreach ($roles as $ur) {
                     $ur = esc_sql($ur);
                     // assuming mysql ft_min_word_len is 4:
-                    $permission_sql .= (strlen($ur) < 4) ? " OR $permissions_field LIKE '%$ur|%' OR $permissions_field LIKE '%|$ur|%' OR $permissions_field LIKE '%|$ur%'" : " OR MATCH($permissions_field) AGAINST ('{$ur}' IN BOOLEAN MODE)";
+                    $permission_sql .= (!$fulltext || strlen($ur) < 4 ) ? " OR $permissions_field LIKE '%$ur|%' OR $permissions_field LIKE '%|$ur|%' OR $permissions_field LIKE '%|$ur%'" : " OR MATCH($permissions_field) AGAINST ('{$ur}' IN BOOLEAN MODE)";
                 }
-                if ($user->ID > 0)
-                    $permission_sql .= " OR ($owner_field = " . (int) $user->ID . ")";
+
             }
         }
         return $permission_sql;
     }
 
     /**
-      Own database based locking (don't rely on flock() (requires disk writes) or sem_acquire() or mysql GET_LCOK)
-      Acquire locks with TryScanLock(), they will be unlocked on script end (no need of manual unlocks)
-      If a fatal exception prevents automatic unlocking locks will timeout after 10 mins
+     * Own database based locking (don't rely on flock() (requires disk writes) or sem_acquire() or mysql GET_LCOK)
+     * Acquire locks with TryScanLock(), they will be unlocked on script end (no need of manual unlocks)
+     * If a fatal exception prevents automatic unlocking locks will timeout after 10 mins
      */
     const SCAN_LOCK_TIMEOUT = 600;
 
     static $_file_scan_locks, $_cat_scan_locks, $_scan_lock_init;
 
-    static function _removeScanLocks() {
+    static function _removeScanLocks()
+    {
         global $wpdb;
 
         foreach (self::$_file_scan_locks as $id => $lock_time) {
@@ -797,12 +885,13 @@ class WPFB_Item {
     }
 
     /**
-     * 
+     *
      * @global wpdb $wpdb
      * @staticvar boolean $init
      * @return type
      */
-    function TryScanLock() {
+    function TryScanLock()
+    {
         global $wpdb;
 
         if (!self::$_scan_lock_init) {
@@ -828,7 +917,7 @@ class WPFB_Item {
         if (isset($sla[$id])) {
             //echo "TryLock $this @".__LINE__." isset";
             return ($lock_time > $sla[$id]) ?
-                    ($wpdb->update($table, array($slf => $lock_time), array("{$prefix}_id" => $id, $slf => $sla[$id])) && ($sla[$id] = $this->$slf = $lock_time )) : true;
+                ($wpdb->update($table, array($slf => $lock_time), array("{$prefix}_id" => $id, $slf => $sla[$id])) && ($sla[$id] = $this->$slf = $lock_time)) : true;
         }
 
         // actually try to set the lock and store it in $sla if success
@@ -841,14 +930,16 @@ class WPFB_Item {
 
     /**
      * If false, this does not mean that a lock cannot be acquired
-     * 
+     *
      * @return bool
      */
-    function IsScanLocked() {
+    function IsScanLocked()
+    {
         return ($this->is_file ? $this->file_scan_lock : $this->cat_scan_lock) >= time();
     }
 
-    function GetScanLockDebug() {
+    function GetScanLockDebug()
+    {
         $prefix = $this->is_file ? 'file' : 'cat';
         $slf = "{$prefix}_scan_lock";
         if ($this->is_file)
@@ -856,11 +947,11 @@ class WPFB_Item {
         else
             $sla = &self::$_cat_scan_locks;
         return '<pre>' . print_r(array(
-                    'id' => $this->GetId(),
-                    $slf => $this->$slf,
-                    'locks' => $sla,
-                    'flocks' => self::$_file_scan_locks
-                        ), true) . '</pre>';
+            'id' => $this->GetId(),
+            $slf => $this->$slf,
+            'locks' => $sla,
+            'flocks' => self::$_file_scan_locks
+        ), true) . '</pre>';
     }
 
 }
