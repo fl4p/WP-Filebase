@@ -735,7 +735,7 @@ class WPFB_Admin {
 		foreach ($options as $opt) {
 			$opt = trim($opt);
 			if (count($tmp = explode('|', $opt)) >= 2)
-				$list .= '<option value="' . esc_attr(trim($tmp[1])) . '"' . ( (($def_sel && $opt{0} == '*') || (!$def_sel && in_array($tmp[1], $selected)) ) ? ' selected="selected"' : '' ) . '>' . esc_html(trim($tmp[0], '*')) . '</option>';
+				$list .= '<option value="' . esc_attr(trim($tmp[1])) . '"' . ( (($def_sel && $opt[0] == '*') || (!$def_sel && in_array($tmp[1], $selected)) ) ? ' selected="selected"' : '' ) . '>' . esc_html(trim($tmp[0], '*')) . '</option>';
 		}
 
 		return $list;

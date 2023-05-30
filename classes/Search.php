@@ -66,7 +66,8 @@ class WPFB_Search
                 $search_terms = array($s);
             else {
                 preg_match_all('/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $s, $matches);
-                $search_terms = array_map(create_function('$a', 'return trim($a, "\\"\'\\n\\r ");'), $matches[0]);
+                //$search_terms = array_map(create_function('$a', 'return trim($a, "\\"\'\\n\\r ");'), $matches[0]);
+                $search_terms = array_map(function($a) { return trim($a, "\\'\'\\n\\r ");}, $matches[0] );
             }
         }
         return $search_terms;

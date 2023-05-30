@@ -76,7 +76,7 @@ class WPFB_Output
                 if ($id > 0 && ($file = wpfb_call('File', 'GetFile', $id)) != null) {
                     if (empty($args['linktext']))
                         return $file->GetUrl();
-                    if (($new_tab = ($args['linktext']{0} == '*')))
+                    if (($new_tab = ($args['linktext'][0] == '*')))
                         $args['linktext'] = substr($args['linktext'], 1);
                     return '<a href="' . $file->GetUrl() . '" ' . ($new_tab ? 'target="_blank"' : '') . '>' . $args['linktext'] . '</a>';
                 } else
@@ -113,10 +113,10 @@ class WPFB_Output
             $sort = substr($sort, 0, $p);
 
         $desc = $for_cat ? WPFB_Core::$settings->filelist_sorting_dir : false;
-        if ($sort && $sort{0} == '<') {
+        if ($sort && $sort[0] == '<') {
             $desc = false;
             $sort = substr($sort, 1);
-        } elseif ($sort && $sort{0} == '>') {
+        } elseif ($sort && $sort[0] == '>') {
             $desc = true;
             $sort = substr($sort, 1);
         }
@@ -607,7 +607,8 @@ class WPFB_Output
             add_filter('the_content', array(__CLASS__, 'GeneratePageContentFilter'), 10);
         } else {
             add_filter('the_posts', array(__CLASS__, 'GeneratePagePostFilter'), 9, 2);
-            add_filter('edit_post_link', create_function('', 'return "";')); // hide edit link
+            //add_filter('edit_post_link', create_function('', 'return "";')); // hide edit link
+            add_filter('edit_post_link', function(){ return "";}); // hide edit link
         }
     }
 
@@ -731,7 +732,8 @@ class WPFB_Output
         if (!empty($secret_key))
             $nonce_action .= $secret_key;
 
-        $hidden_vars = array_filter($hidden_vars, create_function('$v', 'return !(is_object($v) || is_array($v));'));
+        //$hidden_vars = array_filter($hidden_vars, create_function('$v', 'return !(is_object($v) || is_array($v));'));
+        $hidden_vars = array_filter($hidden_vars, function($v){return !(is_object($v) || is_array($v));});
 
         foreach ($hidden_vars as $n => $v) {
             echo '<input type="hidden" name="' . esc_attr($n) . '" value="' . esc_attr($v) . '" id="' . $prefix . esc_attr($n) . '" />';

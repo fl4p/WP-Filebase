@@ -446,7 +446,7 @@ Your browser does not support the video tag.  <a href='%file_url%'>Open Video di
 
         // dont use wpdb->query, because it prints errors
         foreach ($queries as $sql) {
-            if ($sql{0} == '@') {
+            if ($sql[0] == '@') {
                 $sql = substr($sql, 1);
                 $wpdb->suppress_errors();
                 $wpdb->query($sql);

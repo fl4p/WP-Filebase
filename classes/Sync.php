@@ -227,7 +227,7 @@ class WPFB_Sync
             $progress_reporter->SetProgress($i);
             $progress_reporter->SetField($fn_rel);
 
-            if (strlen($fn) < 2 || $fbn{0} == '.'
+            if (strlen($fn) < 2 || $fbn[0] == '.'
                 || strpos($fn, '/.tmp') !== false                 || $fbn == '_wp-filebase.css'
                 || strpos($fbn, '_caticon.') !== false
                 || strpos($fbn, '_wpfb_') === 0
@@ -1000,7 +1000,7 @@ class WPFB_Sync
             }
 
             $t = str_replace('_', ' ', $tag);
-            $t{0} = strtoupper($t{0});
+            $t[0] = strtoupper($t[0]);
 
             if ($tag == 'added') {
                 $num_added += count($group);

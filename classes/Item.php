@@ -157,7 +157,7 @@ class WPFB_Item
     static function Sort(&$items, $order_sql)
     {
         $order_sql = strtr($order_sql, array('&gt;' => '>', '&lt;' => '<'));
-        if (($desc = ($order_sql{0} == '>')) || $order_sql{0} == '<')
+        if (($desc = ($order_sql[0] == '>')) || $order_sql[0] == '<')
             $on = substr($order_sql, 1);
         else {
             $p = strpos($order_sql, ','); // strip multi order clauses
@@ -168,8 +168,12 @@ class WPFB_Item
             $desc = (trim($sort[1]) == "DESC");
         }
         $on = preg_replace('/[^0-9a-z_]/i', '', $on); //strip hacking
-        $comparer = $desc ? "return -strcmp(\$a->{$on},\$b->{$on});" : "return strcmp(\$a->{$on},\$b->{$on});";
-        usort($items, create_function('$a,$b', $comparer));
+        //$comparer = $desc ? "return -strcmp(\$a->{$on},\$b->{$on});" : "return strcmp(\$a->{$on},\$b->{$on});";
+        //usort($items, create_function('$a,$b', $comparer));
+        $func = function($a, $b) use ($desc, $on){ 
+            return $desc ? -strcmp($a->{$on},$b->{$on}) : strcmp($a->{$on},$b->{$on});
+        };
+        usort($items, $func);
     }
 
     function GetEditUrl()
@@ -381,7 +385,7 @@ class WPFB_Item
         }
         if ($rel) {
             $url = substr($url, strlen(home_url()));
-            if ($url{0} == '?')
+            if ($url[0] == '?')
                 $url = 'index.php' . $url;
             else
                 $url = substr($url, 0); // remove trailing slash! TODO?!

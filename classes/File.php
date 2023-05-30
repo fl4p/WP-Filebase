@@ -111,7 +111,7 @@ class WPFB_File extends WPFB_Item
             foreach ($where as $field => $value) {
                 if ($where_str != '')
                     $where_str .= "AND ";
-                $o = $field{strlen($field) - 1};
+                $o = $field[strlen($field) - 1];
                 $op = ($o == '>') ? '>' : ($o == '<' ? '<' : '=');
                 $field = rtrim($field, '<>');
                 if (is_numeric($value))
